@@ -353,11 +353,12 @@
         </div>
 
         <!-- 添加一個隱藏的表單，用於更可靠的頁面跳轉 -->
-        <form id="navigation-form" action="results.html" method="get" style="display: none;">
+        <form id="navigation-form" action="results.html" method="get" style="display: none;" onsubmit="console.log('表單提交');">
             <input type="hidden" name="health" value="">
             <input type="hidden" name="lifestyle" value="">
             <input type="hidden" name="budget" value="">
             <input type="hidden" name="time" value="">
+            <input type="submit" value="提交" id="form-submit-button">
         </form>
 
         <!-- 隱藏的調試工具 -->
@@ -737,9 +738,6 @@
                     
                     // 儲存完整數據到 sessionStorage
                     sessionStorage.setItem('recommendedProducts', testProductsJson);
-                    sessionStorage.setItem('userHealthNeed', window.userSelections.healthNeed);
-                    sessionStorage.setItem('userLifestyle', window.userSelections.lifestyle || '');
-                    sessionStorage.setItem('userBudget', window.userSelections.budget || 0);
                     
                     console.log('已將數據保存到sessionStorage');
                     console.log('驗證sessionStorage數據:');
@@ -748,8 +746,12 @@
                     console.log('- userBudget:', sessionStorage.getItem('userBudget'));
                     console.log('- recommendedProducts長度:', JSON.parse(sessionStorage.getItem('recommendedProducts')).length);
                     
-                    // 嘗試多種頁面跳轉方式
-                    redirectToResults();
+                    // 延時執行跳轉，確保數據已經保存完成
+                    setTimeout(function() {
+                        console.log('延時執行跳轉');
+                        // 嘗試多種頁面跳轉方式
+                        redirectToResults();
+                    }, 300);
                     
                 } catch (err) {
                     console.error('提交處理出錯:', err);
@@ -776,11 +778,6 @@
             manualRedirectBtn.addEventListener('click', function() {
                 console.log('點擊了手動跳轉按鈕');
                 
-                // 先確保所有數據都儲存到sessionStorage
-                sessionStorage.setItem('userHealthNeed', window.userSelections.healthNeed || '改善睡眠品質');
-                sessionStorage.setItem('userLifestyle', window.userSelections.lifestyle || '長時間工作');
-                sessionStorage.setItem('userBudget', window.userSelections.budget || 0);
-                
                 // 確保有測試數據
                 if (!sessionStorage.getItem('recommendedProducts')) {
                     const testProducts = [
@@ -803,6 +800,7 @@
                     sessionStorage.setItem('recommendedProducts', JSON.stringify(testProducts));
                 }
                 
+                // 直接調用統一的跳轉函數
                 redirectToResults();
             });
         }
@@ -810,6 +808,16 @@
         // 統一的頁面跳轉函數
         function redirectToResults() {
             console.log('嘗試跳轉到results.html頁面');
+            
+            // 確保所有數據已經保存到sessionStorage
+            sessionStorage.setItem('userHealthNeed', window.userSelections.healthNeed || '改善睡眠品質');
+            sessionStorage.setItem('userLifestyle', window.userSelections.lifestyle || '長時間工作');
+            sessionStorage.setItem('userBudget', window.userSelections.budget || 0);
+            
+            // 獲取當前域名，構建絕對URL (處理相對路徑問題)
+            const baseUrl = window.location.origin;
+            const resultsUrl = baseUrl + '/results.html';
+            console.log('跳轉目標URL:', resultsUrl);
             
             // 方法1: 使用Form提交 (最可靠)
             try {
@@ -822,18 +830,36 @@
                     form.querySelector('input[name="budget"]').value = window.userSelections.budget || 0;
                     form.querySelector('input[name="time"]').value = new Date().getTime(); // 防止緩存
                     
+                    // 確保表單目標是正確的
+                    form.action = resultsUrl;
+                    
                     // 提交表單
                     form.submit();
                     return;
+                } else {
+                    console.error('未找到導航表單，嘗試其他方法');
                 }
             } catch (e) {
                 console.error('表單提交失敗:', e);
             }
             
-            // 方法2: location.href
+            // 方法2: window.open (在新窗口打開，但對於跳出窗口攔截較敏感)
             try {
-                console.log('嘗試方法2: location.href');
-                window.location.href = 'results.html';
+                console.log('嘗試方法2: window.open');
+                const newWindow = window.open(resultsUrl, '_self');
+                if (newWindow) {
+                    return;
+                } else {
+                    console.error('window.open返回null，可能被瀏覽器阻止，嘗試其他方法');
+                }
+            } catch (e) {
+                console.error('window.open 失敗:', e);
+            }
+
+            // 方法3: location.href (最直接但可能被某些安全限制阻止)
+            try {
+                console.log('嘗試方法3: location.href');
+                window.location.href = resultsUrl;
                 
                 // 設置一個延時檢查
                 setTimeout(function() {
@@ -846,13 +872,20 @@
                 console.error('location.href 跳轉失敗:', e);
             }
             
-            // 方法3: 創建鏈接並點擊
+            // 方法4: 創建鏈接並點擊
             try {
-                console.log('嘗試方法3: 創建鏈接並點擊');
+                console.log('嘗試方法4: 創建鏈接並點擊');
                 const link = document.createElement('a');
-                link.href = 'results.html';
+                link.href = resultsUrl;
                 link.target = '_self';
+                link.style.display = 'none';
                 document.body.appendChild(link);
+                
+                // 使用onclick事件
+                link.onclick = function() {
+                    console.log('鏈接被點擊');
+                };
+                
                 link.click();
                 
                 // 設置一個延時檢查
@@ -866,25 +899,33 @@
                 console.error('鏈接點擊跳轉失敗:', e);
             }
             
-            // 方法4: window.open
+            // 方法5: 使用location.replace
             try {
-                console.log('嘗試方法4: window.open');
-                window.open('results.html', '_self');
+                console.log('嘗試方法5: location.replace');
+                window.location.replace(resultsUrl);
                 return;
             } catch (e) {
-                console.error('window.open 跳轉失敗:', e);
-                
-                // 如果所有方法都失敗，顯示手動按鈕
-                const loadingIndicator = document.getElementById('loading-indicator');
-                if (loadingIndicator) {
-                    loadingIndicator.style.display = 'none';
+                console.error('location.replace 跳轉失敗:', e);
+            }
+            
+            // 如果所有方法都失敗，顯示手動按鈕
+            console.error('所有自動跳轉方法都失敗');
+            const loadingIndicator = document.getElementById('loading-indicator');
+            if (loadingIndicator) {
+                loadingIndicator.style.display = 'none';
+            }
+            
+            const manualRedirect = document.getElementById('manual-redirect');
+            if (manualRedirect) {
+                manualRedirect.style.display = 'block';
+                // 修改手動按鈕，使用絕對URL
+                const manualRedirectBtn = document.getElementById('manual-redirect-btn');
+                if (manualRedirectBtn) {
+                    manualRedirectBtn.onclick = function() {
+                        window.open(resultsUrl, '_blank');
+                    };
                 }
-                
-                const manualRedirect = document.getElementById('manual-redirect');
-                if (manualRedirect) {
-                    manualRedirect.style.display = 'block';
-                    alert('自動跳轉失敗，請點擊"手動查看結果"按鈕');
-                }
+                alert('自動跳轉失敗，請點擊"手動查看結果"按鈕');
             }
         }
     });
