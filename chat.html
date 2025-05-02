@@ -427,6 +427,172 @@
         console.error('恢復用戶選擇時出錯:', e);
     }
 
+    // 健康需求處理函數
+    window.processHealthNeedSelection = function(healthNeed) {
+        console.log(`處理健康需求選擇: ${healthNeed}`);
+        
+        // 直接更新全局對象
+        window.userSelections.healthNeed = healthNeed;
+        // 同時保存到sessionStorage作為備份
+        sessionStorage.setItem('userHealthNeed', healthNeed);
+        
+        console.log('更新後的選擇:', window.userSelections);
+        
+        // 更新顯示
+        const selectedNeedSpan = document.querySelector('.selected-health-need');
+        if (selectedNeedSpan) {
+            selectedNeedSpan.textContent = healthNeed;
+        }
+        
+        // 更新反饋文本
+        const feedbackSpan = document.querySelector('.health-need-feedback');
+        if (feedbackSpan) {
+            // 依據不同的健康需求給出不同反饋
+            const feedbacks = {
+                '改善睡眠品質': '良好的睡眠對健康很重要呢。',
+                '增強免疫力': '保持良好的免疫系統對健康很重要。',
+                '提升腦力與專注': '腦力和專注力對日常生活和工作都很重要。',
+                '心臟健康': '心臟健康是整體健康的關鍵。',
+                '骨骼與關節健康': '保持骨骼和關節健康能讓活動更輕鬆。',
+                '視力保健': '保護視力在現代數位生活中尤為重要。',
+                '肝臟保健': '肝臟是身體重要的解毒器官。',
+                '女性保健': '女性健康需要特別的照顧和關注。',
+                '消化系統保健': '健康的消化系統是整體健康的基礎。',
+                '體重管理': '健康的體重管理對整體健康很重要。'
+            };
+            
+            const feedbackText = feedbacks[healthNeed] || '了解您的健康需求了。';
+            feedbackSpan.textContent = feedbackText;
+        }
+        
+        // 顯示健康需求回應
+        const healthNeedResponse = document.getElementById('health-need-response');
+        if (healthNeedResponse) {
+            healthNeedResponse.style.display = 'block';
+            healthNeedResponse.classList.add('fade-in');
+        }
+        
+        // 延遲顯示生活型態選項
+        setTimeout(() => {
+            const lifestyleOptions = document.getElementById('lifestyle-options');
+            if (lifestyleOptions) {
+                lifestyleOptions.style.display = 'block';
+                lifestyleOptions.classList.add('fade-in');
+                
+                // 確保滾動到可見區域
+                try {
+                    lifestyleOptions.scrollIntoView({ behavior: 'smooth' });
+                } catch (scrollError) {
+                    // 使用備用滾動方法
+                    window.scrollBy(0, 200);
+                }
+            }
+        }, 800);
+    };
+
+    // 生活型態選擇處理函數
+    window.processLifestyleSelection = function(lifestyle) {
+        console.log(`處理生活型態選擇: ${lifestyle}`);
+        
+        // 直接更新全局對象
+        window.userSelections.lifestyle = lifestyle;
+        // 同時保存到sessionStorage作為備份
+        sessionStorage.setItem('userLifestyle', lifestyle);
+        
+        console.log('更新後的選擇:', window.userSelections);
+        
+        // 更新顯示
+        const selectedLifestyleSpan = document.querySelector('.selected-lifestyle');
+        if (selectedLifestyleSpan) {
+            selectedLifestyleSpan.textContent = lifestyle;
+        }
+        
+        // 顯示生活型態回應
+        const lifestyleResponse = document.getElementById('lifestyle-response');
+        if (lifestyleResponse) {
+            lifestyleResponse.style.display = 'block';
+            lifestyleResponse.classList.add('fade-in');
+        }
+        
+        // 延遲顯示預算選項
+        setTimeout(() => {
+            const budgetOptions = document.getElementById('budget-options');
+            if (budgetOptions) {
+                budgetOptions.style.display = 'block';
+                budgetOptions.classList.add('fade-in');
+                
+                // 確保滾動到可見區域
+                try {
+                    budgetOptions.scrollIntoView({ behavior: 'smooth' });
+                } catch (scrollError) {
+                    // 使用備用滾動方法
+                    window.scrollBy(0, 200);
+                }
+            }
+        }, 800);
+    };
+
+    // 預算選擇處理函數
+    window.processBudgetSelection = function(budget) {
+        console.log(`處理預算選擇: ${budget}`);
+        
+        const budgetValue = parseInt(budget, 10) || 0;
+        
+        // 直接更新全局對象
+        window.userSelections.budget = budgetValue;
+        // 同時保存到sessionStorage作為備份
+        sessionStorage.setItem('userBudget', budgetValue);
+        
+        console.log('更新後的選擇:', window.userSelections);
+        
+        // 更新顯示
+        const selectedBudgetSpan = document.querySelector('.selected-budget');
+        if (selectedBudgetSpan) {
+            // 依據預算值顯示不同的文本
+            let budgetText = '';
+            switch (budget) {
+                case '500':
+                    budgetText = '經濟實惠型（500元以下）';
+                    break;
+                case '1000':
+                    budgetText = '中等預算（500-1000元）';
+                    break;
+                case '2000':
+                    budgetText = '高品質型（1000元以上）';
+                    break;
+                case '0':
+                default:
+                    budgetText = '無預算限制';
+                    break;
+            }
+            selectedBudgetSpan.textContent = budgetText;
+        }
+        
+        // 顯示預算回應
+        const budgetResponse = document.getElementById('budget-response');
+        if (budgetResponse) {
+            budgetResponse.style.display = 'block';
+            budgetResponse.classList.add('fade-in');
+        }
+        
+        // 延遲顯示提交按鈕
+        setTimeout(() => {
+            const submitContainer = document.getElementById('submit-container');
+            if (submitContainer) {
+                submitContainer.style.display = 'block';
+                submitContainer.classList.add('fade-in');
+                
+                // 確保滾動到可見區域
+                try {
+                    submitContainer.scrollIntoView({ behavior: 'smooth' });
+                } catch (scrollError) {
+                    // 使用備用滾動方法
+                    window.scrollBy(0, 200);
+                }
+            }
+        }, 800);
+    };
+
     document.addEventListener('DOMContentLoaded', function() {
         console.log('頁面加載完成，初始化自定義事件處理');
         
