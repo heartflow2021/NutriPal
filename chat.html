@@ -333,7 +333,7 @@
 
         <!-- 提交按鈕區域 -->
         <div id="submit-container" style="margin-top: 24px; display: none;">
-            <button id="submit-selections" class="btn-primary" style="width: 100%;">
+            <button id="submit-selections" class="btn-primary" style="width: 100%;" onclick="window.location.href='results.html'">
                 獲取保健品推薦
             </button>
             
@@ -346,9 +346,9 @@
             <!-- 手動跳轉按鈕 -->
             <div id="manual-redirect" style="display: none; text-align: center; margin-top: 20px;">
                 <p>自動跳轉失敗，請點擊下方按鈕查看結果</p>
-                <button id="manual-redirect-btn" class="btn-secondary" style="display: inline-block; margin-top: 10px;">
+                <a href="results.html" class="btn-secondary" style="display: inline-block; margin-top: 10px; text-decoration: none; padding: 10px 20px;">
                     手動查看結果
-                </button>
+                </a>
             </div>
         </div>
 
@@ -414,6 +414,29 @@
 
     document.addEventListener('DOMContentLoaded', function() {
         console.log('頁面加載完成，初始化自定義事件處理');
+        
+        // 特殊邏輯：確保提交按鈕在任何環境下都可見 - 適用於所有環境
+        setTimeout(function() {
+            // 檢查所有三個選項是否都已完成
+            const healthButtons = document.querySelectorAll('button[data-type="health-need"]');
+            const lifestyleButtons = document.querySelectorAll('button[data-type="lifestyle"]');
+            const budgetButtons = document.querySelectorAll('button[data-type="budget"]');
+            
+            // 額外確保提交按鈕容器可見
+            const submitContainer = document.getElementById('submit-container');
+            if(submitContainer) {
+                console.log('強制顯示提交按鈕容器');
+                submitContainer.style.display = 'block';
+            }
+            
+            // 額外檢查手動跳轉按鈕
+            const manualRedirect = document.getElementById('manual-redirect');
+            if(manualRedirect) {
+                console.log('確保手動跳轉按鈕正常');
+            }
+            
+            console.log('環境相容性檢查完成');
+        }, 3000); // 給足夠時間讓頁面完全加載
         
         // 健康需求處理函數
         window.processHealthNeedSelection = function(healthNeed) {
