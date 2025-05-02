@@ -63,7 +63,7 @@
 
         <!-- 選擇按鈕 -->
         <div style="margin-bottom: 24px;">
-            <button class="option-button" data-type="health-need" data-value="改善睡眠品質">
+            <button class="option-button" data-type="health-need" data-value="改善睡眠品質" onclick="showLifestyleOptions('改善睡眠品質')">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-moon" style="margin-right: 12px; color: var(--primary);"></i>
                     <div>
@@ -73,7 +73,7 @@
                 </div>
             </button>
 
-            <button class="option-button" data-type="health-need" data-value="增強免疫力">
+            <button class="option-button" data-type="health-need" data-value="增強免疫力" onclick="showLifestyleOptions('增強免疫力')">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-shield-virus" style="margin-right: 12px; color: var(--primary);"></i>
                     <div>
@@ -83,7 +83,7 @@
                 </div>
             </button>
 
-            <button class="option-button" data-type="health-need" data-value="提升腦力與專注">
+            <button class="option-button" data-type="health-need" data-value="提升腦力與專注" onclick="showLifestyleOptions('提升腦力與專注')">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-brain" style="margin-right: 12px; color: var(--primary);"></i>
                     <div>
@@ -93,7 +93,7 @@
                 </div>
             </button>
 
-            <button class="option-button" data-type="health-need" data-value="心臟健康">
+            <button class="option-button" data-type="health-need" data-value="心臟健康" onclick="showLifestyleOptions('心臟健康')">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-heartbeat" style="margin-right: 12px; color: var(--primary);"></i>
                     <div>
@@ -193,7 +193,7 @@
 
         <!-- 生活型態選項 -->
         <div id="lifestyle-options" style="margin-bottom: 24px; display: none;">
-            <button class="option-button" data-type="lifestyle" data-value="長時間工作">
+            <button class="option-button" data-type="lifestyle" data-value="長時間工作" onclick="showBudgetOptions('長時間工作')">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-briefcase" style="margin-right: 12px; color: var(--primary);"></i>
                     <div>
@@ -203,7 +203,7 @@
                 </div>
             </button>
 
-            <button class="option-button" data-type="lifestyle" data-value="經常運動">
+            <button class="option-button" data-type="lifestyle" data-value="經常運動" onclick="showBudgetOptions('經常運動')">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-running" style="margin-right: 12px; color: var(--primary);"></i>
                     <div>
@@ -213,7 +213,7 @@
                 </div>
             </button>
 
-            <button class="option-button" data-type="lifestyle" data-value="飲食不規律">
+            <button class="option-button" data-type="lifestyle" data-value="飲食不規律" onclick="showBudgetOptions('飲食不規律')">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-hamburger" style="margin-right: 12px; color: var(--primary);"></i>
                     <div>
@@ -223,7 +223,7 @@
                 </div>
             </button>
 
-            <button class="option-button" data-type="lifestyle" data-value="長時間使用電子產品">
+            <button class="option-button" data-type="lifestyle" data-value="長時間使用電子產品" onclick="showBudgetOptions('長時間使用電子產品')">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-laptop" style="margin-right: 12px; color: var(--primary);"></i>
                     <div>
@@ -233,7 +233,7 @@
                 </div>
             </button>
 
-            <button class="option-button" data-type="lifestyle" data-value="經常熬夜">
+            <button class="option-button" data-type="lifestyle" data-value="經常熬夜" onclick="showBudgetOptions('經常熬夜')">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-hourglass-half" style="margin-right: 12px; color: var(--primary);"></i>
                     <div>
@@ -243,7 +243,7 @@
                 </div>
             </button>
 
-            <button class="option-button" data-type="lifestyle" data-value="經常外食">
+            <button class="option-button" data-type="lifestyle" data-value="經常外食" onclick="showBudgetOptions('經常外食')">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-utensils" style="margin-right: 12px; color: var(--primary);"></i>
                     <div>
@@ -273,7 +273,7 @@
 
         <!-- 預算選項 -->
         <div id="budget-options" style="margin-bottom: 24px; display: none;">
-            <button class="option-button" data-type="budget" data-value="500">
+            <a href="results.html" onclick="saveSelectionAndRedirect('500', event)" class="option-button" data-type="budget" data-value="500" style="text-decoration: none; color: inherit;">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-dollar-sign" style="margin-right: 12px; color: var(--primary);"></i>
                     <div>
@@ -281,9 +281,9 @@
                         <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">基本需求，平價選擇</p>
                     </div>
                 </div>
-            </button>
+            </a>
 
-            <button class="option-button" data-type="budget" data-value="1000">
+            <a href="results.html" onclick="saveSelectionAndRedirect('1000', event)" class="option-button" data-type="budget" data-value="1000" style="text-decoration: none; color: inherit;">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-dollar-sign" style="margin-right: 12px; color: var(--primary);"></i>
                     <div>
@@ -291,9 +291,9 @@
                         <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">性價比高，品質保證</p>
                     </div>
                 </div>
-            </button>
+            </a>
 
-            <button class="option-button" data-type="budget" data-value="2000">
+            <a href="results.html" onclick="saveSelectionAndRedirect('2000', event)" class="option-button" data-type="budget" data-value="2000" style="text-decoration: none; color: inherit;">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-dollar-sign" style="margin-right: 12px; color: var(--primary);"></i>
                     <div>
@@ -301,9 +301,9 @@
                         <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">高檔品牌，專業配方</p>
                     </div>
                 </div>
-            </button>
+            </a>
 
-            <button class="option-button" data-type="budget" data-value="0">
+            <a href="results.html" onclick="saveSelectionAndRedirect('0', event)" class="option-button" data-type="budget" data-value="0" style="text-decoration: none; color: inherit;">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-infinity" style="margin-right: 12px; color: var(--primary);"></i>
                     <div>
@@ -311,7 +311,7 @@
                         <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">優先考慮效果與品質</p>
                     </div>
                 </div>
-            </button>
+            </a>
         </div>
 
         <div id="budget-response" style="display: none;">
@@ -404,38 +404,35 @@
         budget: 0
     };
 
-    // 保存選擇並跳轉的函數
-    function saveSelectionsBeforeRedirect(event) {
+    // 直接通過預算按鈕跳轉的函數
+    function saveSelectionAndRedirect(budget, event) {
         // 阻止默認行為，我們將在保存數據後手動跳轉
         event.preventDefault();
         
-        console.log('正在準備保存選擇並跳轉...');
+        console.log('點擊了預算按鈕，準備保存數據並跳轉');
         
-        // 檢查是否有選擇的健康需求
+        // 獲取選擇的健康需求
         const selectedHealthButton = document.querySelector('button[data-type="health-need"].selected');
         if (selectedHealthButton) {
             window.userSelections.healthNeed = selectedHealthButton.getAttribute('data-value');
         } else {
-            // 如果沒有選擇，設置一個默認值
-            window.userSelections.healthNeed = '改善睡眠品質';
+            // 如果沒有選擇，設置默認值
+            window.userSelections.healthNeed = '增強免疫力';
         }
         
-        // 檢查是否有選擇的生活型態
+        // 獲取選擇的生活型態
         const selectedLifestyleButton = document.querySelector('button[data-type="lifestyle"].selected');
         if (selectedLifestyleButton) {
             window.userSelections.lifestyle = selectedLifestyleButton.getAttribute('data-value');
         } else {
-            // 如果沒有選擇，設置一個默認值
+            // 如果沒有選擇，設置默認值
             window.userSelections.lifestyle = '長時間工作';
         }
         
-        // 檢查是否有選擇的預算
-        const selectedBudgetButton = document.querySelector('button[data-type="budget"].selected');
-        if (selectedBudgetButton) {
-            window.userSelections.budget = parseInt(selectedBudgetButton.getAttribute('data-value'), 10) || 0;
-        }
+        // 設置預算
+        window.userSelections.budget = parseInt(budget, 10) || 0;
         
-        console.log('已獲取用戶選擇:', window.userSelections);
+        console.log('用戶選擇已更新:', window.userSelections);
         
         // 保存到sessionStorage
         sessionStorage.setItem('userHealthNeed', window.userSelections.healthNeed);
@@ -446,44 +443,73 @@
         const testProducts = [
             {
                 id: "test1",
-                name: "褪黑激素3mg",
-                brand: "睡眠專家",
-                description: "促進自然睡眠的褪黑激素補充劑，改善入睡時間和睡眠品質。",
+                name: "測試產品1",
+                brand: "測試品牌",
+                description: "這是一個示例產品描述",
                 price: 350,
                 rating: 4.6,
                 image_url: "https://via.placeholder.com/150",
-                benefits: ["改善睡眠質量", "縮短入睡時間", "調節生理時鐘"],
-                usage: "睡前30分鐘服用1粒",
-                caution: "白天避免服用，可能導致嗜睡",
-                ingredients: "褪黑激素、植物性膠囊",
-                health_needs: ["改善睡眠品質"],
-                lifestyle_match: ["經常熬夜", "長時間工作"]
+                benefits: ["測試功效1", "測試功效2"],
+                usage: "每日一次",
+                caution: "測試注意事項",
+                ingredients: "測試成分",
+                health_needs: [window.userSelections.healthNeed],
+                lifestyle_match: [window.userSelections.lifestyle]
             },
             {
                 id: "test2",
-                name: "複合鎂補充劑",
-                brand: "營養均衡",
-                description: "含多種形式鎂的複合配方，幫助放鬆肌肉，改善睡眠，緩解壓力。",
+                name: "測試產品2",
+                brand: "測試品牌2",
+                description: "這是第二個示例產品描述",
                 price: 420,
                 rating: 4.5,
                 image_url: "https://via.placeholder.com/150",
-                benefits: ["肌肉放鬆", "改善睡眠", "減輕壓力"],
-                usage: "每日1-2粒，晚餐時服用",
-                caution: "某些形式的鎂可能有輕微腹瀉作用",
-                ingredients: "甘氨酸鎂、檸檬酸鎂、氧化鎂",
-                health_needs: ["改善睡眠品質", "骨骼與關節健康"],
-                lifestyle_match: ["長時間工作", "經常熬夜"]
+                benefits: ["測試功效3", "測試功效4"],
+                usage: "每日兩次",
+                caution: "測試注意事項2",
+                ingredients: "測試成分2",
+                health_needs: [window.userSelections.healthNeed],
+                lifestyle_match: [window.userSelections.lifestyle]
             }
         ];
         
-        // 保存測試產品數據
+        // 保存產品數據
         sessionStorage.setItem('recommendedProducts', JSON.stringify(testProducts));
         
-        console.log('已保存選擇和測試產品數據到sessionStorage');
+        console.log('數據已保存，正在跳轉到results.html');
         
-        // 現在安全地跳轉到結果頁面
-        console.log('正在跳轉到results.html...');
-        window.location.href = 'results.html';
+        // 顯示預算選擇的用戶回應
+        const budgetResponse = document.getElementById('budget-response');
+        if (budgetResponse) {
+            budgetResponse.style.display = 'block';
+            
+            // 更新顯示的預算文本
+            const selectedBudgetSpan = document.querySelector('.selected-budget');
+            if (selectedBudgetSpan) {
+                let budgetText = '';
+                switch (budget) {
+                    case '500':
+                        budgetText = '經濟實惠型（500元以下）';
+                        break;
+                    case '1000':
+                        budgetText = '中等預算（500-1000元）';
+                        break;
+                    case '2000':
+                        budgetText = '高品質型（1000元以上）';
+                        break;
+                    case '0':
+                    default:
+                        budgetText = '無預算限制';
+                        break;
+                }
+                selectedBudgetSpan.textContent = budgetText;
+            }
+        }
+        
+        // 延遲跳轉，讓用戶看到預算選擇的回應
+        setTimeout(function() {
+            window.location.href = 'results.html';
+        }, 1500);
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -1081,6 +1107,90 @@
             output.style.display = 'block';
             output.textContent = '所有數據已清除';
         });
+    }
+
+    // 直接顯示生活型態選項的函數
+    function showLifestyleOptions(healthNeed) {
+        console.log(`選擇了健康需求: ${healthNeed}`);
+        
+        // 設置選中狀態
+        const buttons = document.querySelectorAll('button[data-type="health-need"]');
+        buttons.forEach(btn => btn.classList.remove('selected'));
+        const currentButton = document.querySelector(`button[data-type="health-need"][data-value="${healthNeed}"]`);
+        if (currentButton) {
+            currentButton.classList.add('selected');
+        }
+        
+        // 保存選擇
+        window.userSelections.healthNeed = healthNeed;
+        sessionStorage.setItem('userHealthNeed', healthNeed);
+        
+        // 更新顯示
+        const selectedNeedSpan = document.querySelector('.selected-health-need');
+        if (selectedNeedSpan) {
+            selectedNeedSpan.textContent = healthNeed;
+        }
+        
+        // 顯示健康需求回應
+        const healthNeedResponse = document.getElementById('health-need-response');
+        if (healthNeedResponse) {
+            healthNeedResponse.style.display = 'block';
+        }
+        
+        // 立即顯示生活型態選項
+        const lifestyleOptions = document.getElementById('lifestyle-options');
+        if (lifestyleOptions) {
+            lifestyleOptions.style.display = 'block';
+            
+            // 確保滾動到可見區域
+            try {
+                lifestyleOptions.scrollIntoView({ behavior: 'smooth' });
+            } catch (scrollError) {
+                window.scrollBy(0, 200);
+            }
+        }
+    }
+    
+    // 直接顯示預算選項的函數
+    function showBudgetOptions(lifestyle) {
+        console.log(`選擇了生活型態: ${lifestyle}`);
+        
+        // 設置選中狀態
+        const buttons = document.querySelectorAll('button[data-type="lifestyle"]');
+        buttons.forEach(btn => btn.classList.remove('selected'));
+        const currentButton = document.querySelector(`button[data-type="lifestyle"][data-value="${lifestyle}"]`);
+        if (currentButton) {
+            currentButton.classList.add('selected');
+        }
+        
+        // 保存選擇
+        window.userSelections.lifestyle = lifestyle;
+        sessionStorage.setItem('userLifestyle', lifestyle);
+        
+        // 更新顯示
+        const selectedLifestyleSpan = document.querySelector('.selected-lifestyle');
+        if (selectedLifestyleSpan) {
+            selectedLifestyleSpan.textContent = lifestyle;
+        }
+        
+        // 顯示生活型態回應
+        const lifestyleResponse = document.getElementById('lifestyle-response');
+        if (lifestyleResponse) {
+            lifestyleResponse.style.display = 'block';
+        }
+        
+        // 立即顯示預算選項
+        const budgetOptions = document.getElementById('budget-options');
+        if (budgetOptions) {
+            budgetOptions.style.display = 'block';
+            
+            // 確保滾動到可見區域
+            try {
+                budgetOptions.scrollIntoView({ behavior: 'smooth' });
+            } catch (scrollError) {
+                window.scrollBy(0, 200);
+            }
+        }
     }
     </script>
 </body>
