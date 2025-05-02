@@ -208,6 +208,8 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     async function processUserSelections() {
         try {
+            console.log('開始處理用戶選擇:', userSelections);
+            
             // 檢查是否做出了必要的選擇
             if (!userSelections.healthNeed) {
                 alert('請選擇您的健康需求');
@@ -217,17 +219,36 @@ document.addEventListener('DOMContentLoaded', function() {
             // 顯示加載狀態
             showLoadingState();
             
+            // 確保NutriPalRecommender已加載
+            if (!window.NutriPalRecommender) {
+                console.error('推薦引擎未加載，嘗試重新載入');
+                await loadRecommendationEngine();
+            }
+            
+            // 再次檢查推薦引擎是否可用
+            if (!window.NutriPalRecommender) {
+                throw new Error('推薦引擎無法加載');
+            }
+            
+            console.log('使用參數獲取推薦:', {
+                healthNeed: userSelections.healthNeed, 
+                lifestyle: userSelections.lifestyle, 
+                budget: userSelections.budget
+            });
+            
             // 獲取推薦
-            let recommendedProducts;
+            let recommendedProducts = [];
             
             // 如果有預算限制，使用預算相關推薦
             if (userSelections.budget > 0) {
+                console.log(`使用預算限制推薦: ${userSelections.budget}`);
                 recommendedProducts = await window.NutriPalRecommender.recommendWithinBudget(
                     userSelections.healthNeed,
                     userSelections.lifestyle,
                     userSelections.budget
                 );
             } else {
+                console.log('使用默認推薦方法');
                 // 默認推薦
                 recommendedProducts = await window.NutriPalRecommender.recommendProducts(
                     userSelections.healthNeed,
@@ -235,34 +256,75 @@ document.addEventListener('DOMContentLoaded', function() {
                 );
             }
             
+            console.log('獲取到的推薦產品:', recommendedProducts);
+            
             // 處理推薦結果
-            if (recommendedProducts.length > 0) {
+            if (recommendedProducts && recommendedProducts.length > 0) {
                 // 存儲推薦結果到 sessionStorage
                 sessionStorage.setItem('recommendedProducts', JSON.stringify(recommendedProducts));
+                console.log('已將推薦產品保存到sessionStorage');
                 
                 // 獲取相關產品
                 if (recommendedProducts[0]) {
-                    const relatedProducts = await window.NutriPalRecommender.getRelatedProducts(
-                        recommendedProducts[0],
-                        2
-                    );
-                    
-                    if (relatedProducts.length > 0) {
-                        sessionStorage.setItem('relatedProducts', JSON.stringify(relatedProducts));
+                    console.log('嘗試獲取相關產品');
+                    try {
+                        const relatedProducts = await window.NutriPalRecommender.getRelatedProducts(
+                            recommendedProducts[0],
+                            2
+                        );
+                        
+                        if (relatedProducts && relatedProducts.length > 0) {
+                            sessionStorage.setItem('relatedProducts', JSON.stringify(relatedProducts));
+                            console.log('已將相關產品保存到sessionStorage');
+                        }
+                    } catch (relatedError) {
+                        console.error('獲取相關產品時出錯:', relatedError);
+                        // 繼續流程，不因相關產品出錯而中斷
                     }
                 }
                 
+                // 儲存用戶選擇到sessionStorage以供結果頁面使用
+                sessionStorage.setItem('userHealthNeed', userSelections.healthNeed);
+                sessionStorage.setItem('userLifestyle', userSelections.lifestyle);
+                
+                console.log('準備導航到結果頁面');
                 // 導航到結果頁面
                 window.location.href = 'results.html';
             } else {
+                console.warn('沒有找到符合條件的產品');
                 alert('抱歉，沒有找到符合您需求的保健品。請嘗試調整您的選擇。');
                 hideLoadingState();
             }
         } catch (error) {
             console.error('處理用戶選擇時出錯:', error);
-            alert('發生錯誤，請重試。');
+            alert('發生錯誤，請重試。錯誤詳情：' + error.message);
             hideLoadingState();
         }
+    }
+    
+    /**
+     * 確保推薦引擎已加載
+     */
+    async function loadRecommendationEngine() {
+        return new Promise((resolve) => {
+            if (window.NutriPalRecommender) {
+                console.log('推薦引擎已加載');
+                return resolve(true);
+            }
+            
+            console.log('嘗試重新加載推薦引擎');
+            const script = document.createElement('script');
+            script.src = 'js/recommendationEngine.js';
+            script.onload = () => {
+                console.log('推薦引擎加載成功');
+                resolve(true);
+            };
+            script.onerror = () => {
+                console.error('無法加載推薦引擎');
+                resolve(false);
+            };
+            document.body.appendChild(script);
+        });
     }
     
     /**
@@ -305,10 +367,31 @@ document.addEventListener('DOMContentLoaded', function() {
 // 結果頁面處理
 if (window.location.pathname.includes('results.html')) {
     document.addEventListener('DOMContentLoaded', function() {
-        displayRecommendedProducts();
-        displayRelatedProducts();
-        generateUsageTimeline();
-        generateCautionsList();
+        console.log('結果頁面已加載');
+        try {
+            // 檢查推薦產品是否存在
+            const recommendedProductsJson = sessionStorage.getItem('recommendedProducts');
+            if (!recommendedProductsJson) {
+                console.error('找不到推薦產品數據，可能是未完成選擇流程');
+                displayError('找不到推薦產品數據。請返回對話頁面完成選擇流程。', true);
+                return;
+            }
+            
+            // 顯示推薦產品
+            displayRecommendedProducts();
+            
+            // 顯示相關產品
+            displayRelatedProducts();
+            
+            // 生成使用時間表和注意事項
+            generateUsageTimeline();
+            generateCautionsList();
+            
+            console.log('結果頁面渲染完成');
+        } catch (error) {
+            console.error('結果頁面處理錯誤:', error);
+            displayError('處理結果頁面時發生錯誤: ' + error.message);
+        }
     });
 }
 
@@ -627,58 +710,77 @@ function generateCautionsList() {
  * 更新選擇顯示
  */
 function updateSelectionDisplay() {
-    // 尋找顯示健康需求的元素
-    const healthNeedElement = document.querySelector('.health-need-display');
-    const lifestyleElement = document.querySelector('.lifestyle-display');
-    
-    if (healthNeedElement) {
-        // 從 sessionStorage 獲取健康需求
-        const healthNeed = sessionStorage.getItem('healthNeed') || '改善健康';
+    try {
+        console.log('更新選擇顯示');
         
-        // 更新顯示
-        healthNeedElement.textContent = healthNeed;
+        // 尋找顯示健康需求的元素
+        const healthNeedElement = document.querySelector('.health-need-display');
+        const lifestyleElement = document.querySelector('.lifestyle-display');
         
-        // 更新結果分類標籤
-        const categoryBadge = document.querySelector('.badge.result-category');
-        if (categoryBadge) {
-            // 基於健康需求設置適當的類別
-            const categories = {
-                '改善睡眠品質': '睡眠相關',
-                '增強免疫力': '免疫相關',
-                '提升腦力與專注': '腦力相關',
-                '心臟健康': '心臟相關',
-                '骨骼與關節健康': '骨關節相關',
-                '視力保健': '視力相關',
-                '肝臟保健': '肝臟相關',
-                '女性保健': '女性保健',
-                '消化系統保健': '消化相關',
-                '體重管理': '體重管理'
-            };
+        if (healthNeedElement) {
+            // 從 sessionStorage 獲取健康需求
+            const healthNeed = sessionStorage.getItem('userHealthNeed') || 
+                              sessionStorage.getItem('healthNeed') || 
+                              '改善健康';
             
-            categoryBadge.textContent = categories[healthNeed] || '保健相關';
+            console.log('顯示健康需求:', healthNeed);
+            
+            // 更新顯示
+            healthNeedElement.textContent = healthNeed;
+            
+            // 更新結果分類標籤
+            const categoryBadge = document.querySelector('.badge.result-category');
+            if (categoryBadge) {
+                // 基於健康需求設置適當的類別
+                const categories = {
+                    '改善睡眠品質': '睡眠相關',
+                    '增強免疫力': '免疫相關',
+                    '提升腦力與專注': '腦力相關',
+                    '心臟健康': '心臟相關',
+                    '骨骼與關節健康': '骨關節相關',
+                    '視力保健': '視力相關',
+                    '肝臟保健': '肝臟相關',
+                    '女性保健': '女性保健',
+                    '消化系統保健': '消化相關',
+                    '體重管理': '體重管理'
+                };
+                
+                categoryBadge.textContent = categories[healthNeed] || '保健相關';
+            }
+        } else {
+            console.warn('找不到健康需求顯示元素');
         }
-    }
-    
-    if (lifestyleElement) {
-        // 從 sessionStorage 獲取生活型態
-        const lifestyle = sessionStorage.getItem('lifestyle') || '一般生活型態';
         
-        // 更新顯示
-        lifestyleElement.textContent = lifestyle;
+        if (lifestyleElement) {
+            // 從 sessionStorage 獲取生活型態
+            const lifestyle = sessionStorage.getItem('userLifestyle') || 
+                             sessionStorage.getItem('lifestyle') || 
+                             '一般生活型態';
+            
+            console.log('顯示生活型態:', lifestyle);
+            
+            // 更新顯示
+            lifestyleElement.textContent = lifestyle;
+        } else {
+            console.warn('找不到生活型態顯示元素');
+        }
+    } catch (error) {
+        console.error('更新選擇顯示時出錯:', error);
     }
 }
 
 /**
  * 顯示錯誤訊息
  * @param {string} message 錯誤訊息
+ * @param {boolean} showReturnButton 是否顯示返回按鈕
  */
-function displayError(message) {
+function displayError(message, showReturnButton = true) {
     const errorContainer = document.createElement('div');
     errorContainer.className = 'error-message';
     errorContainer.innerHTML = `
         <i class="fas fa-exclamation-circle"></i>
         <p>${message}</p>
-        <a href="chat.html" class="btn-primary">返回選擇</a>
+        ${showReturnButton ? '<a href="chat.html" class="btn-primary">返回選擇</a>' : ''}
     `;
     
     // 找一個合適的容器來顯示錯誤
@@ -687,4 +789,7 @@ function displayError(message) {
     // 清空容器並顯示錯誤
     container.innerHTML = '';
     container.appendChild(errorContainer);
+    
+    // 如果頁面滾動到頂部
+    window.scrollTo(0, 0);
 } 

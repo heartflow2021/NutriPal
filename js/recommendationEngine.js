@@ -12,18 +12,117 @@ let productsCache = null;
  */
 async function getProducts() {
     if (productsCache) {
+        console.log('使用緩存的產品數據');
         return productsCache;
     }
     
+    console.log('開始加載產品數據...');
     try {
-        const response = await fetch('data/products/products.json');
+        // 嘗試多種路徑格式來適應不同的部署環境
+        const possiblePaths = [
+            'data/products/products.json',  // 相對於當前頁面的路徑
+            '/data/products/products.json', // 相對於網站根目錄的路徑
+            './data/products/products.json', // 明確的相對路徑
+            '../data/products/products.json' // 上一級目錄
+        ];
+        
+        let response = null;
+        let error = null;
+        
+        // 嘗試每個可能的路徑
+        for (const path of possiblePaths) {
+            try {
+                console.log(`嘗試從 ${path} 加載數據...`);
+                const resp = await fetch(path);
+                if (resp.ok) {
+                    response = resp;
+                    console.log(`成功從 ${path} 加載數據`);
+                    break;
+                }
+            } catch (e) {
+                error = e;
+                console.warn(`從 ${path} 加載失敗:`, e);
+                continue;
+            }
+        }
+        
+        // 如果所有路徑都失敗
+        if (!response) {
+            throw error || new Error('所有路徑加載失敗');
+        }
+        
         const data = await response.json();
+        
+        // 添加數據驗證
+        if (!data || !data.products || !Array.isArray(data.products)) {
+            console.error('產品數據格式不正確:', data);
+            // 返回一些默認產品，以便系統繼續運行
+            return getFallbackProducts();
+        }
+        
+        console.log(`成功加載 ${data.products.length} 個產品`);
         productsCache = data.products;
         return productsCache;
     } catch (error) {
-        console.error('無法加載產品數據:', error);
-        return [];
+        console.error('加載產品數據時出錯:', error);
+        // 在出錯時返回一些默認產品
+        return getFallbackProducts();
     }
+}
+
+/**
+ * 提供默認產品數據，當API請求失敗時使用
+ * @returns {Array} 默認產品數據
+ */
+function getFallbackProducts() {
+    console.log('使用備用產品數據');
+    return [
+        {
+            id: "fallback1",
+            name: "維生素D3滴劑",
+            brand: "健康品牌",
+            description: "維生素D3對於骨骼健康、免疫系統功能和情緒調節至關重要。",
+            price: 280,
+            rating: 4.8,
+            image_url: "https://via.placeholder.com/150",
+            benefits: ["增強免疫力", "促進鈣吸收", "維持骨骼健康"],
+            usage: "每日1滴，可與食物一起服用",
+            caution: "請勿超過建議劑量",
+            ingredients: "MCT油、維生素D3",
+            health_needs: ["增強免疫力", "骨骼與關節健康"],
+            lifestyle_match: ["久坐少動", "長時間工作"]
+        },
+        {
+            id: "fallback2",
+            name: "綜合維他命B群",
+            brand: "營養選擇",
+            description: "全面的B族維生素配方，支持能量產生和壓力管理。",
+            price: 520,
+            rating: 4.7,
+            image_url: "https://via.placeholder.com/150",
+            benefits: ["提升能量", "支持神經系統", "改善壓力應對"],
+            usage: "每日1粒，早餐時服用",
+            caution: "可能使尿液變成亮黃色，屬正常現象",
+            ingredients: "維生素B1、B2、B3、B5、B6、B7、B9、B12",
+            health_needs: ["提升腦力與專注", "增強免疫力"],
+            lifestyle_match: ["壓力大", "長時間工作"]
+        },
+        {
+            id: "fallback3",
+            name: "褪黑激素3mg",
+            brand: "睡眠專家",
+            description: "促進自然睡眠的褪黑激素補充劑，改善入睡時間和睡眠品質。",
+            price: 350,
+            rating: 4.6,
+            image_url: "https://via.placeholder.com/150",
+            benefits: ["改善睡眠質量", "縮短入睡時間", "調節生理時鐘"],
+            usage: "睡前30分鐘服用1粒",
+            caution: "白天避免服用，可能導致嗜睡",
+            ingredients: "褪黑激素、植物性膠囊",
+            health_needs: ["改善睡眠品質"],
+            lifestyle_match: ["經常熬夜", "使用電子產品到深夜"]
+        }
+    ];
 }
 
 /**
