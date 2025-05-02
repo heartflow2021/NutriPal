@@ -853,4 +853,69 @@ input:focus, select:focus, textarea:focus {
   .container {
     max-width: 1400px;
   }
+}
+
+/* 加載動畫 */
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(77, 104, 73, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid var(--primary);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 資訊整理算法相關樣式 */
+.product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.error-message {
+  text-align: center;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  margin: 20px 0;
+}
+
+.error-message i {
+  font-size: 48px;
+  color: #f44336;
+  margin-bottom: 12px;
+}
+
+.error-message p {
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+}
+
+/* 淡入淡出動畫 */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 選項按鈕選中狀態加強 */
+.option-button.selected {
+  background-color: rgba(77, 104, 73, 0.1);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* 預設隱藏的元素 */
+[data-hidden="true"] {
+  display: none !important;
 } 
