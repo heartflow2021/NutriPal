@@ -7,14 +7,6 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- 確保提交按鈕顯示的額外樣式 -->
-    <style>
-        #submit-container {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-        }
-    </style>
 </head>
 <body>
     <!-- iOS 狀態欄 -->
@@ -48,7 +40,7 @@
     </div>
 
     <!-- 主要內容區 -->
-    <div class="app-content" style="background-color: var(--background); padding: 16px; padding-bottom: 80px;">
+    <div class="app-content" style="background-color: var(--background); padding: 16px;">
         <!-- 對話流程 -->
         <div class="chat-message">
             <div class="avatar" style="background-color: var(--primary);">
@@ -339,6 +331,19 @@
             </div>
         </div>
 
+        <!-- 提交按鈕區域 - 恢復到對話流程中，但使用更可靠的方式 -->
+        <div id="submit-container" style="margin-top: 24px; display: none;">
+            <a href="results.html" id="submit-selections" class="btn-primary" style="display: block; width: 100%; text-align: center; text-decoration: none; padding: 12px; border-radius: 8px;" onclick="saveSelectionsBeforeRedirect(event)">
+                獲取保健品推薦
+            </a>
+            
+            <!-- 加載指示器 -->
+            <div id="loading-indicator" style="display: none; text-align: center; margin-top: 20px;">
+                <div class="loading-spinner"></div>
+                <p>正在整理保健品資訊，請稍候...</p>
+            </div>
+        </div>
+
         <!-- 添加一個隱藏的表單，用於更可靠的頁面跳轉 -->
         <form id="navigation-form" action="results.html" method="get" style="display: none;">
             <input type="hidden" name="health" value="">
@@ -363,13 +368,6 @@
             </div>
             <div id="debug-output" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px; font-family: monospace; font-size: 12px; white-space: pre-wrap; max-height: 200px; overflow: auto; display: none;"></div>
         </div>
-    </div>
-
-    <!-- 固定在底部的按鈕 - 保證始終顯示 -->
-    <div style="position: fixed; bottom: 60px; left: 0; right: 0; padding: 10px 16px; background-color: white; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 1000;">
-        <a href="results.html" class="btn-primary" style="display: block; width: 100%; text-align: center; text-decoration: none;" onclick="saveSelectionsBeforeRedirect(event)">
-            獲取保健品推薦
-        </a>
     </div>
 
     <!-- 底部導航欄 -->
@@ -491,38 +489,33 @@
     document.addEventListener('DOMContentLoaded', function() {
         console.log('頁面加載完成，初始化自定義事件處理');
         
-        // 立即顯示提交按鈕 - 最高優先級
+        // 確保提交按鈕初始狀態為隱藏
         const submitContainer = document.getElementById('submit-container');
         if(submitContainer) {
-            console.log('初始化時立即顯示提交按鈕');
-            submitContainer.style.display = 'block';
-            
-            // 添加!important樣式確保顯示
-            submitContainer.setAttribute('style', 'margin-top: 24px; display: block !important');
+            console.log('確保提交按鈕初始隱藏');
+            submitContainer.style.display = 'none';
         }
         
         // 特殊邏輯：確保提交按鈕在任何環境下都可見 - 適用於所有環境
         setTimeout(function() {
-            // 檢查所有三個選項是否都已完成
-            const healthButtons = document.querySelectorAll('button[data-type="health-need"]');
-            const lifestyleButtons = document.querySelectorAll('button[data-type="lifestyle"]');
-            const budgetButtons = document.querySelectorAll('button[data-type="budget"]');
-            
-            // 額外確保提交按鈕容器可見
-            const submitContainer = document.getElementById('submit-container');
-            if(submitContainer) {
-                console.log('強制顯示提交按鈕容器');
-                submitContainer.style.display = 'block';
+            // 檢查是否已經完成所有選擇
+            // 如果用戶已經選擇了預算，那麼顯示提交按鈕
+            const selectedBudgetButton = document.querySelector('button[data-type="budget"].selected');
+            if (selectedBudgetButton) {
+                const submitContainer = document.getElementById('submit-container');
+                if (submitContainer && window.getComputedStyle(submitContainer).display === 'none') {
+                    console.log('檢測到預算已選擇但按鈕未顯示，現在顯示按鈕');
+                    submitContainer.style.display = 'block';
+                    
+                    // 確保滾動到可見區域
+                    try {
+                        submitContainer.scrollIntoView({ behavior: 'smooth' });
+                    } catch (scrollError) {
+                        window.scrollBy(0, 200);
+                    }
+                }
             }
-            
-            // 額外檢查手動跳轉按鈕
-            const manualRedirect = document.getElementById('manual-redirect');
-            if(manualRedirect) {
-                console.log('確保手動跳轉按鈕正常');
-            }
-            
-            console.log('環境相容性檢查完成');
-        }, 3000); // 給足夠時間讓頁面完全加載
+        }, 2000); // 2秒後檢查
         
         // 健康需求處理函數
         window.processHealthNeedSelection = function(healthNeed) {
@@ -672,21 +665,32 @@
                 budgetResponse.classList.add('fade-in');
             }
             
-            // 確保提交按鈕仍然可見
-            const submitContainer = document.getElementById('submit-container');
-            if (submitContainer) {
-                submitContainer.style.display = 'block';
-                // 強制應用樣式
-                submitContainer.setAttribute('style', 'margin-top: 24px; display: block !important');
-                
-                // 確保滾動到可見區域
-                try {
-                    submitContainer.scrollIntoView({ behavior: 'smooth' });
-                } catch (scrollError) {
-                    // 使用備用滾動方法
-                    window.scrollBy(0, 200);
+            // 延遲顯示提交按鈕 - 使用可靠的顯示方法
+            setTimeout(() => {
+                const submitContainer = document.getElementById('submit-container');
+                if (submitContainer) {
+                    console.log('顯示提交按鈕...');
+                    submitContainer.style.display = 'block';
+                    
+                    // 確保滾動到可見區域
+                    try {
+                        submitContainer.scrollIntoView({ behavior: 'smooth' });
+                    } catch (scrollError) {
+                        // 使用備用滾動方法
+                        window.scrollBy(0, 200);
+                    }
+                    
+                    // 設置一個備用計時器，檢查5秒後按鈕仍然顯示
+                    setTimeout(() => {
+                        if (submitContainer && window.getComputedStyle(submitContainer).display === 'none') {
+                            console.log('檢測到按鈕未顯示，強制顯示');
+                            submitContainer.style.display = 'block';
+                        }
+                    }, 5000);
+                } else {
+                    console.error('找不到提交按鈕容器!');
                 }
-            }
+            }, 800);
         };
         
         // 直接綁定健康需求按鈕
