@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>營養好朋友 - 保健品資訊</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-time">9:45</div>
+        <div class="status-bar-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+
+    <!-- 頂部導航 -->
+    <div style="display: flex; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border-color); background-color: white;">
+        <a href="chat.html" style="color: var(--text-primary); margin-right: 12px;">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div style="flex: 1; text-align: center; font-weight: 600;">熱門保健品資訊</div>
+        <a href="#" style="color: var(--primary);">
+            <i class="fas fa-share-alt"></i>
+        </a>
+    </div>
+
+    <!-- 主要內容區 -->
+    <div class="app-content" style="padding: 16px;">
+        <!-- 結果摘要 -->
+        <div class="card" style="margin-bottom: 24px;">
+            <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                <div class="avatar" style="background-color: var(--primary);">
+                    <i class="fas fa-archive"></i>
+                </div>
+                <div>
+                    <p style="margin: 0 0 2px; font-weight: 600;">小帕 Pal 的資料整理</p>
+                    <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">根據熱門選擇整理</p>
+                </div>
+            </div>
+            <p style="margin: 0 0 12px;">根據你選擇的「<span style="color: var(--primary); font-weight: 600;">改善睡眠品質</span>」需求，以及「<span style="color: var(--primary); font-weight: 600;">長時間工作</span>」的生活型態，以下是我整理的熱門保健品資訊。</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <span class="badge">相關熱門選擇</span>
+                <span class="badge">睡眠相關</span>
+                <span class="badge">壓力緩解</span>
+            </div>
+        </div>
+
+        <!-- 推薦產品列表 -->
+        <h2 style="font-size: 18px; margin-bottom: 16px;">基礎熱門組合</h2>
+        
+        <!-- 產品1 -->
+        <div class="product-card">
+            <img src="https://s3.images-iherb.com/now/now00483/y/9.jpg" alt="褪黑激素產品圖片">
+            <div class="product-info">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <div style="flex: 1;">
+                        <p class="product-title">NOW Foods 褪黑激素 3mg</p>
+                        <p class="product-desc">有助於調節生理時鐘，改善入睡困難</p>
+                    </div>
+                    <div class="price">$149</div>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; margin-bottom: 12px;">
+                    <span class="badge">睡前服用</span>
+                    <span class="badge">熱門選擇</span>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center;">
+                        <i class="fas fa-clock" style="color: var(--primary); margin-right: 4px;"></i>
+                        <span style="font-size: 12px;">睡前 30 分鐘服用</span>
+                    </div>
+                    <a href="https://hk.iherb.com/pr/now-foods-melatonin-3-mg-180-veg-capsules/274" class="btn-primary" style="font-size: 14px; padding: 8px 12px;">
+                        <i class="fas fa-shopping-cart"></i> 購買
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 產品2 -->
+        <div class="product-card">
+            <img src="https://s3.images-iherb.com/cgn/cgn01092/y/6.jpg" alt="鎂產品圖片">
+            <div class="product-info">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <div style="flex: 1;">
+                        <p class="product-title">California Gold Nutrition 檸檬酸鎂</p>
+                        <p class="product-desc">幫助肌肉放鬆，改善睡眠質量</p>
+                    </div>
+                    <div class="price">$169</div>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; margin-bottom: 12px;">
+                    <span class="badge">肌肉放鬆</span>
+                    <span class="badge">睡眠相關</span>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center;">
+                        <i class="fas fa-clock" style="color: var(--primary); margin-right: 4px;"></i>
+                        <span style="font-size: 12px;">晚餐後服用</span>
+                    </div>
+                    <a href="https://hk.iherb.com/pr/california-gold-nutrition-magnesium-citrate-120-veggie-capsules/91078" class="btn-primary" style="font-size: 14px; padding: 8px 12px;">
+                        <i class="fas fa-shopping-cart"></i> 購買
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 進階推薦 -->
+        <h2 style="font-size: 18px; margin: 24px 0 16px;">延伸相關選擇</h2>
+        
+        <!-- 產品3 -->
+        <div class="product-card">
+            <img src="https://s3.images-iherb.com/jro/jro01668/y/119.jpg" alt="甘氨酸產品圖片">
+            <div class="product-info">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <div style="flex: 1;">
+                        <p class="product-title">Jarrow Formulas 甘氨酸 1000mg</p>
+                        <p class="product-desc">幫助大腦放鬆，改善睡眠深度</p>
+                    </div>
+                    <div class="price">$129</div>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; margin-bottom: 12px;">
+                    <span class="badge">神經放鬆</span>
+                    <span class="badge">深層睡眠</span>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center;">
+                        <i class="fas fa-clock" style="color: var(--primary); margin-right: 4px;"></i>
+                        <span style="font-size: 12px;">睡前 1 小時服用</span>
+                    </div>
+                    <a href="https://hk.iherb.com/pr/jarrow-formulas-glycine-1-000-mg-100-veggie-caps/69459" class="btn-primary" style="font-size: 14px; padding: 8px 12px;">
+                        <i class="fas fa-shopping-cart"></i> 購買
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 每日服用時間表 -->
+        <div class="card" style="margin-top: 24px;">
+            <h2 style="font-size: 18px; margin: 0 0 16px;">常見使用時間參考</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-time">晚餐後</div>
+                    <div class="timeline-content">
+                        <div style="font-weight: 600; margin-bottom: 4px;">鎂</div>
+                        <div style="font-size: 14px; color: var(--text-secondary);">1 粒檸檬酸鎂膠囊，水服</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-time">睡前 1 小時</div>
+                    <div class="timeline-content">
+                        <div style="font-weight: 600; margin-bottom: 4px;">甘氨酸</div>
+                        <div style="font-size: 14px; color: var(--text-secondary);">1 粒甘氨酸膠囊，水服</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-time">睡前 30 分鐘</div>
+                    <div class="timeline-content">
+                        <div style="font-weight: 600; margin-bottom: 4px;">褪黑激素</div>
+                        <div style="font-size: 14px; color: var(--text-secondary);">1 粒 3mg 褪黑激素，水服</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 注意事項 -->
+        <div class="card" style="margin-top: 16px;">
+            <h3 style="font-size: 16px; margin: 0 0 12px;">常見注意事項參考</h3>
+            <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: var(--text-secondary);">
+                <li style="margin-bottom: 8px;">服用褪黑激素後應避免開車或操作重型機械</li>
+                <li style="margin-bottom: 8px;">若正在服用處方藥物，請先諮詢醫生</li>
+                <li style="margin-bottom: 8px;">保持規律作息，睡前減少藍光接觸</li>
+                <li>若有任何健康問題，建議尋求專業醫療諮詢</li>
+            </ul>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-top: 12px; text-align: center;">小帕不提供任何醫療建議，所有資訊僅供參考，請諮詢專業醫師進行健康決策～</p>
+        </div>
+
+        <!-- 操作按鈕 -->
+        <div style="display: flex; gap: 12px; margin-top: 24px; margin-bottom: 40px;">
+            <button class="btn-secondary" style="flex: 1;">
+                <i class="fas fa-download"></i> 下載資訊
+            </button>
+            <button class="btn-primary" style="flex: 1;">
+                <i class="fas fa-envelope"></i> 發送至 Email
+            </button>
+        </div>
+    </div>
+
+    <!-- 底部導航欄 -->
+    <div class="tab-bar">
+        <div class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首頁</span>
+        </div>
+        <div class="tab-item active">
+            <i class="fas fa-comment-medical"></i>
+            <span>諮詢</span>
+        </div>
+        <div class="tab-item">
+            <i class="fas fa-book-medical"></i>
+            <span>知識庫</span>
+        </div>
+        <div class="tab-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </div>
+    </div>
+</body>
+</html> 
