@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 確保提交按鈕顯示的額外樣式 -->
+    <style>
+        #submit-container {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+    </style>
 </head>
 <body>
     <!-- iOS 狀態欄 -->
@@ -332,7 +340,7 @@
         </div>
 
         <!-- 提交按鈕區域 -->
-        <div id="submit-container" style="margin-top: 24px; display: none;">
+        <div id="submit-container" style="margin-top: 24px; display: block;">
             <button id="submit-selections" class="btn-primary" style="width: 100%;" onclick="window.location.href='results.html'">
                 獲取保健品推薦
             </button>
@@ -414,6 +422,16 @@
 
     document.addEventListener('DOMContentLoaded', function() {
         console.log('頁面加載完成，初始化自定義事件處理');
+        
+        // 立即顯示提交按鈕 - 最高優先級
+        const submitContainer = document.getElementById('submit-container');
+        if(submitContainer) {
+            console.log('初始化時立即顯示提交按鈕');
+            submitContainer.style.display = 'block';
+            
+            // 添加!important樣式確保顯示
+            submitContainer.setAttribute('style', 'margin-top: 24px; display: block !important');
+        }
         
         // 特殊邏輯：確保提交按鈕在任何環境下都可見 - 適用於所有環境
         setTimeout(function() {
@@ -586,22 +604,21 @@
                 budgetResponse.classList.add('fade-in');
             }
             
-            // 延遲顯示提交按鈕
-            setTimeout(() => {
-                const submitContainer = document.getElementById('submit-container');
-                if (submitContainer) {
-                    submitContainer.style.display = 'block';
-                    submitContainer.classList.add('fade-in');
-                    
-                    // 確保滾動到可見區域
-                    try {
-                        submitContainer.scrollIntoView({ behavior: 'smooth' });
-                    } catch (scrollError) {
-                        // 使用備用滾動方法
-                        window.scrollBy(0, 200);
-                    }
+            // 確保提交按鈕仍然可見
+            const submitContainer = document.getElementById('submit-container');
+            if (submitContainer) {
+                submitContainer.style.display = 'block';
+                // 強制應用樣式
+                submitContainer.setAttribute('style', 'margin-top: 24px; display: block !important');
+                
+                // 確保滾動到可見區域
+                try {
+                    submitContainer.scrollIntoView({ behavior: 'smooth' });
+                } catch (scrollError) {
+                    // 使用備用滾動方法
+                    window.scrollBy(0, 200);
                 }
-            }, 800);
+            }
         };
         
         // 直接綁定健康需求按鈕
