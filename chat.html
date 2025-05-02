@@ -407,7 +407,7 @@
             window.userSelections.healthNeed = selectedHealthButton.getAttribute('data-value');
         } else {
             // 如果沒有選擇，設置默認值
-            window.userSelections.healthNeed = '增強免疫力';
+            window.userSelections.healthNeed = '改善睡眠品質';
         }
         
         // 獲取選擇的生活型態
@@ -424,46 +424,147 @@
         
         console.log('用戶選擇已更新:', window.userSelections);
         
-        // 保存到sessionStorage
+        // 保存到localStorage（確保跨頁面可用）和sessionStorage（兼容原有代碼）
+        localStorage.setItem('userHealthNeed', window.userSelections.healthNeed);
+        localStorage.setItem('userLifestyle', window.userSelections.lifestyle);
+        localStorage.setItem('userBudget', window.userSelections.budget);
+        
         sessionStorage.setItem('userHealthNeed', window.userSelections.healthNeed);
         sessionStorage.setItem('userLifestyle', window.userSelections.lifestyle);
         sessionStorage.setItem('userBudget', window.userSelections.budget);
         
-        // 創建測試產品數據
-        const testProducts = [
-            {
-                id: "test1",
-                name: "測試產品1",
-                brand: "測試品牌",
-                description: "這是一個示例產品描述",
-                price: 350,
-                rating: 4.6,
-                image_url: "https://via.placeholder.com/150",
-                benefits: ["測試功效1", "測試功效2"],
-                usage: "每日一次",
-                caution: "測試注意事項",
-                ingredients: "測試成分",
-                health_needs: [window.userSelections.healthNeed],
-                lifestyle_match: [window.userSelections.lifestyle]
-            },
-            {
-                id: "test2",
-                name: "測試產品2",
-                brand: "測試品牌2",
-                description: "這是第二個示例產品描述",
-                price: 420,
-                rating: 4.5,
-                image_url: "https://via.placeholder.com/150",
-                benefits: ["測試功效3", "測試功效4"],
-                usage: "每日兩次",
-                caution: "測試注意事項2",
-                ingredients: "測試成分2",
-                health_needs: [window.userSelections.healthNeed],
-                lifestyle_match: [window.userSelections.lifestyle]
-            }
-        ];
+        // 創建測試產品數據，根據用戶選擇調整產品內容
+        let testProducts = [];
         
-        // 保存產品數據
+        // 根據不同的健康需求生成相關的產品
+        if (window.userSelections.healthNeed === '改善睡眠品質') {
+            testProducts = [
+                {
+                    id: "sleep1",
+                    name: "褪黑激素 3mg",
+                    brand: "睡眠專家",
+                    description: "促進自然睡眠的褪黑激素補充劑，改善入睡時間和睡眠品質。",
+                    price: 350,
+                    rating: 4.6,
+                    image_url: "https://via.placeholder.com/150",
+                    benefits: ["改善睡眠質量", "縮短入睡時間", "調節生理時鐘"],
+                    usage: "睡前30分鐘服用1粒",
+                    caution: "白天避免服用，可能導致嗜睡",
+                    ingredients: "褪黑激素、植物性膠囊",
+                    health_needs: ["改善睡眠品質"],
+                    lifestyle_match: [window.userSelections.lifestyle]
+                },
+                {
+                    id: "sleep2",
+                    name: "複合鎂補充劑",
+                    brand: "營養均衡",
+                    description: "含多種形式鎂的複合配方，幫助放鬆肌肉，改善睡眠，緩解壓力。",
+                    price: 420,
+                    rating: 4.5,
+                    image_url: "https://via.placeholder.com/150",
+                    benefits: ["肌肉放鬆", "改善睡眠", "減輕壓力"],
+                    usage: "每日1-2粒，晚餐時服用",
+                    caution: "某些形式的鎂可能有輕微腹瀉作用",
+                    ingredients: "甘氨酸鎂、檸檬酸鎂、氧化鎂",
+                    health_needs: ["改善睡眠品質", "骨骼與關節健康"],
+                    lifestyle_match: [window.userSelections.lifestyle]
+                }
+            ];
+        } else if (window.userSelections.healthNeed === '增強免疫力') {
+            testProducts = [
+                {
+                    id: "immune1",
+                    name: "維生素C+鋅",
+                    brand: "免疫防護",
+                    description: "強效抗氧化配方，每片含1000mg維生素C和15mg鋅，幫助增強免疫系統。",
+                    price: 380,
+                    rating: 4.7,
+                    image_url: "https://via.placeholder.com/150",
+                    benefits: ["增強免疫力", "抗氧化保護", "促進膠原蛋白形成"],
+                    usage: "每日1片，飯後服用",
+                    caution: "空腹服用可能導致胃部不適",
+                    ingredients: "維生素C、檸檬素、鋅",
+                    health_needs: ["增強免疫力"],
+                    lifestyle_match: [window.userSelections.lifestyle]
+                },
+                {
+                    id: "immune2",
+                    name: "蜂膠膠囊",
+                    brand: "自然防禦",
+                    description: "天然抗菌配方，含高濃度黃酮類和多酚類抗氧化物，強化免疫系統。",
+                    price: 450,
+                    rating: 4.4,
+                    image_url: "https://via.placeholder.com/150",
+                    benefits: ["提升抵抗力", "抗菌抗病毒", "減少發炎反應"],
+                    usage: "每日2次，每次1-2粒",
+                    caution: "對蜜蜂產品過敏者慎用",
+                    ingredients: "蜂膠萃取物、蜂蠟、植物纖維素",
+                    health_needs: ["增強免疫力"],
+                    lifestyle_match: [window.userSelections.lifestyle]
+                }
+            ];
+        } else {
+            // 其他健康需求的預設產品
+            testProducts = [
+                {
+                    id: "default1",
+                    name: `${window.userSelections.healthNeed}專用配方`,
+                    brand: "健康專家",
+                    description: `針對${window.userSelections.healthNeed}需求特別設計的營養補充配方。`,
+                    price: 350,
+                    rating: 4.6,
+                    image_url: "https://via.placeholder.com/150",
+                    benefits: ["提升整體健康", "針對性營養補充", "全面保健"],
+                    usage: "每日1次，飯後服用",
+                    caution: "請遵循包裝說明使用",
+                    ingredients: "複合維生素、礦物質、植物萃取物",
+                    health_needs: [window.userSelections.healthNeed],
+                    lifestyle_match: [window.userSelections.lifestyle]
+                },
+                {
+                    id: "default2",
+                    name: `生活平衡配方-${window.userSelections.lifestyle}適用`,
+                    brand: "日常保健",
+                    description: `特別針對${window.userSelections.lifestyle}生活型態設計的營養支持。`,
+                    price: 420,
+                    rating: 4.5,
+                    image_url: "https://via.placeholder.com/150",
+                    benefits: ["提升活力", "平衡營養", "日常保健"],
+                    usage: "每日1-2粒，隨餐服用",
+                    caution: "兒童、孕婦使用前請諮詢醫師",
+                    ingredients: "天然萃取物、維生素複合物",
+                    health_needs: [window.userSelections.healthNeed],
+                    lifestyle_match: [window.userSelections.lifestyle]
+                }
+            ];
+        }
+        
+        // 根據預算篩選產品
+        if (window.userSelections.budget > 0) {
+            testProducts = testProducts.filter(product => product.price <= window.userSelections.budget);
+            
+            // 如果篩選後沒有產品，添加一個符合預算的基本產品
+            if (testProducts.length === 0) {
+                testProducts.push({
+                    id: "budget1",
+                    name: `經濟型${window.userSelections.healthNeed}配方`,
+                    brand: "實惠之選",
+                    description: `符合您預算的${window.userSelections.healthNeed}基礎保健配方。`,
+                    price: Math.min(window.userSelections.budget, 500),
+                    rating: 4.2,
+                    image_url: "https://via.placeholder.com/150",
+                    benefits: ["基礎保健", "經濟實惠", "日常補充"],
+                    usage: "每日1次，餐後服用",
+                    caution: "請遵循包裝說明使用",
+                    ingredients: "基礎維生素、植物萃取物",
+                    health_needs: [window.userSelections.healthNeed],
+                    lifestyle_match: [window.userSelections.lifestyle]
+                });
+            }
+        }
+        
+        // 保存產品數據到localStorage和sessionStorage
+        localStorage.setItem('recommendedProducts', JSON.stringify(testProducts));
         sessionStorage.setItem('recommendedProducts', JSON.stringify(testProducts));
         
         console.log('數據已保存，正在跳轉到results.html');
@@ -498,7 +599,14 @@
         
         // 延遲跳轉，讓用戶看到預算選擇的回應
         setTimeout(function() {
-            window.location.href = 'results.html';
+            // 添加URL參數，作為備用傳遞機制
+            const params = new URLSearchParams();
+            params.append('health', window.userSelections.healthNeed);
+            params.append('lifestyle', window.userSelections.lifestyle);
+            params.append('budget', window.userSelections.budget);
+            
+            // 跳轉到結果頁面
+            window.location.href = 'results.html?' + params.toString();
         }, 1500);
     }
 
@@ -807,7 +915,7 @@
                         caution: "白天避免服用，可能導致嗜睡",
                         ingredients: "褪黑激素、植物性膠囊",
                         health_needs: ["改善睡眠品質"],
-                        lifestyle_match: ["經常熬夜", "長時間工作"]
+                        lifestyle_match: [window.userSelections.lifestyle]
                     },
                     {
                         id: "test2",
@@ -822,7 +930,7 @@
                         caution: "某些形式的鎂可能有輕微腹瀉作用",
                         ingredients: "甘氨酸鎂、檸檬酸鎂、氧化鎂",
                         health_needs: ["改善睡眠品質", "骨骼與關節健康"],
-                        lifestyle_match: ["長時間工作", "經常熬夜"]
+                        lifestyle_match: [window.userSelections.lifestyle]
                     }
                 ];
 

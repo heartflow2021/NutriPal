@@ -123,33 +123,83 @@
             const lifestyleParam = urlParams.get('lifestyle');
             const budgetParam = urlParams.get('budget');
             
-            // 如果URL有參數但sessionStorage沒有數據，則使用URL參數
-            if (healthParam && !sessionStorage.getItem('userHealthNeed')) {
+            console.log('URL參數檢查:', { healthParam, lifestyleParam, budgetParam });
+            
+            // 首先嘗試從 localStorage 讀取數據（優先級最高）
+            let healthNeed = localStorage.getItem('userHealthNeed');
+            let lifestyle = localStorage.getItem('userLifestyle');
+            let budget = localStorage.getItem('userBudget');
+            let productsJson = localStorage.getItem('recommendedProducts');
+            
+            console.log('從localStorage讀取:', { healthNeed, lifestyle, budget, productsFound: !!productsJson });
+            
+            // 如果localStorage沒有，嘗試從sessionStorage讀取
+            if (!healthNeed) healthNeed = sessionStorage.getItem('userHealthNeed');
+            if (!lifestyle) lifestyle = sessionStorage.getItem('userLifestyle');
+            if (!budget) budget = sessionStorage.getItem('userBudget');
+            if (!productsJson) productsJson = sessionStorage.getItem('recommendedProducts');
+            
+            console.log('從sessionStorage讀取:', { healthNeed, lifestyle, budget, productsFound: !!productsJson });
+            
+            // 如果還是沒有，則使用URL參數
+            if (!healthNeed && healthParam) {
+                healthNeed = healthParam;
                 sessionStorage.setItem('userHealthNeed', healthParam);
-                console.log('從URL參數加載健康需求:', healthParam);
+                localStorage.setItem('userHealthNeed', healthParam);
+                console.log('從URL參數設置健康需求:', healthParam);
             }
             
-            if (lifestyleParam && !sessionStorage.getItem('userLifestyle')) {
+            if (!lifestyle && lifestyleParam) {
+                lifestyle = lifestyleParam;
                 sessionStorage.setItem('userLifestyle', lifestyleParam);
-                console.log('從URL參數加載生活型態:', lifestyleParam);
+                localStorage.setItem('userLifestyle', lifestyleParam);
+                console.log('從URL參數設置生活型態:', lifestyleParam);
             }
             
-            if (budgetParam && !sessionStorage.getItem('userBudget')) {
+            if (!budget && budgetParam) {
+                budget = budgetParam;
                 sessionStorage.setItem('userBudget', budgetParam);
-                console.log('從URL參數加載預算:', budgetParam);
+                localStorage.setItem('userBudget', budgetParam);
+                console.log('從URL參數設置預算:', budgetParam);
             }
+            
+            // 設置默認值，確保一定有數據可用
+            if (!healthNeed) healthNeed = '改善睡眠品質';
+            if (!lifestyle) lifestyle = '長時間工作';
+            if (!budget) budget = '0';
             
             // 直接更新頁面上的顯示
-            updateResultsDisplay();
+            updateResultsDisplay(healthNeed, lifestyle, budget);
             
             // 如果沒有產品數據，創建備用數據
-            if (!sessionStorage.getItem('recommendedProducts')) {
+            if (!productsJson) {
                 console.log('沒有找到產品數據，創建備用數據');
                 
-                const defaultProducts = [
+                // 根據健康需求和生活型態生成相關產品
+                generateProductsBasedOnSelections(healthNeed, lifestyle, parseInt(budget));
+            } else {
+                // 使用已有的產品數據
+                console.log('使用現有產品數據');
+                displayProducts(JSON.parse(productsJson));
+                
+                // 同時也更新timeline和cautions
+                updateTimeline();
+                updateCautions();
+            }
+        });
+        
+        // 根據用戶選擇生成相關產品
+        function generateProductsBasedOnSelections(healthNeed, lifestyle, budget) {
+            console.log('根據選擇生成產品:', { healthNeed, lifestyle, budget });
+            
+            let products = [];
+            
+            // 根據不同的健康需求生成相關的產品
+            if (healthNeed === '改善睡眠品質') {
+                products = [
                     {
-                        id: "default1",
-                        name: "褪黑激素3mg",
+                        id: "sleep1",
+                        name: "褪黑激素 3mg",
                         brand: "睡眠專家",
                         description: "促進自然睡眠的褪黑激素補充劑，改善入睡時間和睡眠品質。",
                         price: 350,
@@ -160,10 +210,10 @@
                         caution: "白天避免服用，可能導致嗜睡",
                         ingredients: "褪黑激素、植物性膠囊",
                         health_needs: ["改善睡眠品質"],
-                        lifestyle_match: ["經常熬夜", "長時間工作"]
+                        lifestyle_match: [lifestyle]
                     },
                     {
-                        id: "default2",
+                        id: "sleep2",
                         name: "複合鎂補充劑",
                         brand: "營養均衡",
                         description: "含多種形式鎂的複合配方，幫助放鬆肌肉，改善睡眠，緩解壓力。",
@@ -175,44 +225,231 @@
                         caution: "某些形式的鎂可能有輕微腹瀉作用",
                         ingredients: "甘氨酸鎂、檸檬酸鎂、氧化鎂",
                         health_needs: ["改善睡眠品質", "骨骼與關節健康"],
-                        lifestyle_match: ["長時間工作", "經常熬夜"]
+                        lifestyle_match: [lifestyle]
                     }
                 ];
-                
-                sessionStorage.setItem('recommendedProducts', JSON.stringify(defaultProducts));
+            } else if (healthNeed === '增強免疫力') {
+                products = [
+                    {
+                        id: "immune1",
+                        name: "維生素C+鋅",
+                        brand: "免疫防護",
+                        description: "強效抗氧化配方，每片含1000mg維生素C和15mg鋅，幫助增強免疫系統。",
+                        price: 380,
+                        rating: 4.7,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["增強免疫力", "抗氧化保護", "促進膠原蛋白形成"],
+                        usage: "每日1片，飯後服用",
+                        caution: "空腹服用可能導致胃部不適",
+                        ingredients: "維生素C、檸檬素、鋅",
+                        health_needs: ["增強免疫力"],
+                        lifestyle_match: [lifestyle]
+                    },
+                    {
+                        id: "immune2",
+                        name: "蜂膠膠囊",
+                        brand: "自然防禦",
+                        description: "天然抗菌配方，含高濃度黃酮類和多酚類抗氧化物，強化免疫系統。",
+                        price: 450,
+                        rating: 4.4,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["提升抵抗力", "抗菌抗病毒", "減少發炎反應"],
+                        usage: "每日2次，每次1-2粒",
+                        caution: "對蜜蜂產品過敏者慎用",
+                        ingredients: "蜂膠萃取物、蜂蠟、植物纖維素",
+                        health_needs: ["增強免疫力"],
+                        lifestyle_match: [lifestyle]
+                    }
+                ];
+            } else {
+                // 其他健康需求的預設產品
+                products = [
+                    {
+                        id: "default1",
+                        name: `${healthNeed}專用配方`,
+                        brand: "健康專家",
+                        description: `針對${healthNeed}需求特別設計的營養補充配方。`,
+                        price: 350,
+                        rating: 4.6,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["提升整體健康", "針對性營養補充", "全面保健"],
+                        usage: "每日1次，飯後服用",
+                        caution: "請遵循包裝說明使用",
+                        ingredients: "複合維生素、礦物質、植物萃取物",
+                        health_needs: [healthNeed],
+                        lifestyle_match: [lifestyle]
+                    },
+                    {
+                        id: "default2",
+                        name: `生活平衡配方-${lifestyle}適用`,
+                        brand: "日常保健",
+                        description: `特別針對${lifestyle}生活型態設計的營養支持。`,
+                        price: 420,
+                        rating: 4.5,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["提升活力", "平衡營養", "日常保健"],
+                        usage: "每日1-2粒，隨餐服用",
+                        caution: "兒童、孕婦使用前請諮詢醫師",
+                        ingredients: "天然萃取物、維生素複合物",
+                        health_needs: [healthNeed],
+                        lifestyle_match: [lifestyle]
+                    }
+                ];
             }
             
-            // 立即顯示產品
-            displayFallbackProducts(); 
+            // 根據預算篩選產品
+            if (budget > 0) {
+                let filteredProducts = products.filter(product => product.price <= budget);
+                
+                // 如果篩選後沒有產品，添加一個符合預算的基本產品
+                if (filteredProducts.length === 0) {
+                    filteredProducts.push({
+                        id: "budget1",
+                        name: `經濟型${healthNeed}配方`,
+                        brand: "實惠之選",
+                        description: `符合您預算的${healthNeed}基礎保健配方。`,
+                        price: Math.min(budget, 500),
+                        rating: 4.2,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["基礎保健", "經濟實惠", "日常補充"],
+                        usage: "每日1次，餐後服用",
+                        caution: "請遵循包裝說明使用",
+                        ingredients: "基礎維生素、植物萃取物",
+                        health_needs: [healthNeed],
+                        lifestyle_match: [lifestyle]
+                    });
+                }
+                
+                products = filteredProducts;
+            }
             
-            // 顯示相關產品
-            displayRelatedProducts();
-        });
+            // 保存產品數據
+            localStorage.setItem('recommendedProducts', JSON.stringify(products));
+            sessionStorage.setItem('recommendedProducts', JSON.stringify(products));
+            
+            // 顯示產品
+            displayProducts(products);
+            
+            // 更新時間表和注意事項
+            updateTimeline();
+            updateCautions();
+        }
         
         // 更新結果顯示
-        function updateResultsDisplay() {
+        function updateResultsDisplay(healthNeed, lifestyle, budget) {
+            console.log('更新頁面顯示:', { healthNeed, lifestyle, budget });
+            
             // 更新健康需求和生活型態顯示
             const healthDisplay = document.querySelector('.health-need-display');
             const lifestyleDisplay = document.querySelector('.lifestyle-display');
             
             if (healthDisplay) {
-                const healthNeed = sessionStorage.getItem('userHealthNeed') || '改善睡眠品質';
-                healthDisplay.textContent = healthNeed;
+                healthDisplay.textContent = healthNeed || '改善睡眠品質';
             }
             
             if (lifestyleDisplay) {
-                const lifestyle = sessionStorage.getItem('userLifestyle') || '長時間工作';
-                lifestyleDisplay.textContent = lifestyle;
+                lifestyleDisplay.textContent = lifestyle || '長時間工作';
             }
             
             // 更新摘要文本
             const summaryElem = document.querySelector('.selection-summary');
             if (summaryElem) {
-                const healthNeed = sessionStorage.getItem('userHealthNeed') || '改善睡眠品質';
-                const lifestyle = sessionStorage.getItem('userLifestyle') || '長時間工作';
+                const healthNeedText = healthNeed || '改善睡眠品質';
+                const lifestyleText = lifestyle || '長時間工作';
                 
-                summaryElem.textContent = `根據你選擇的「${healthNeed}」需求，以及「${lifestyle}」的生活型態，以下是我整理的熱門保健品資訊。`;
+                summaryElem.innerHTML = `根據你選擇的「<span class="health-need-display" style="color: var(--primary); font-weight: 600;">${healthNeedText}</span>」需求，以及「<span class="lifestyle-display" style="color: var(--primary); font-weight: 600;">${lifestyleText}</span>」的生活型態，以下是我整理的熱門保健品資訊。`;
             }
+            
+            // 更新分類標籤
+            const categoryBadge = document.querySelector('.result-category');
+            if (categoryBadge && healthNeed) {
+                if (healthNeed === '改善睡眠品質') {
+                    categoryBadge.textContent = '睡眠相關';
+                } else if (healthNeed === '增強免疫力') {
+                    categoryBadge.textContent = '免疫力相關';
+                } else {
+                    categoryBadge.textContent = healthNeed;
+                }
+            }
+        }
+        
+        // 顯示產品
+        function displayProducts(products) {
+            const container = document.getElementById('recommended-products');
+            if (!container) return;
+            
+            // 清空容器
+            container.innerHTML = '';
+            
+            try {
+                if (!products || products.length === 0) {
+                    container.innerHTML = '<p class="text-center">暫無推薦產品</p>';
+                    return;
+                }
+                
+                // 顯示產品
+                products.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    
+                    // 生成星級評分HTML
+                    const ratingStars = generateRatingStars(product.rating || 4.0);
+                    
+                    // 生成標籤HTML
+                    const benefitBadges = (product.benefits || []).map(benefit => 
+                        `<span class="badge" style="background-color: var(--primary); margin-right: 4px;">${benefit}</span>`
+                    ).join('');
+                    
+                    card.innerHTML = `
+                        <img src="${product.image_url || 'https://via.placeholder.com/150'}" alt="${product.name}" style="width: 100%; height: 180px; object-fit: cover;">
+                        <div style="padding: 16px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <div>
+                                    <h3 style="margin: 0; font-size: 18px;">${product.name}</h3>
+                                    <p style="margin: 4px 0 0; font-size: 14px; color: var(--text-secondary);">${product.brand || ''}</p>
+                                </div>
+                                <div style="text-align: right;">
+                                    <p style="margin: 0; font-weight: 700; color: var(--primary);">NT$ ${product.price || 0}</p>
+                                    <div style="color: #FFB800; font-size: 14px;">${ratingStars}</div>
+                                </div>
+                            </div>
+                            <p style="margin: 8px 0; font-size: 14px; color: var(--text-secondary); line-height: 1.4;">
+                                ${product.description || '無產品描述'}
+                            </p>
+                            <div style="margin: 12px 0 16px;">
+                                ${benefitBadges}
+                            </div>
+                            <button class="btn-secondary" onclick="showProductDetail('${product.id}')">查看詳情</button>
+                        </div>
+                    `;
+                    
+                    container.appendChild(card);
+                });
+                
+            } catch (e) {
+                console.error('顯示產品時出錯:', e);
+                container.innerHTML = '<p class="text-center">加載產品時出錯</p>';
+            }
+        }
+        
+        // 生成星級評分
+        function generateRatingStars(rating) {
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 >= 0.5;
+            const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+            
+            let starsHtml = '';
+            for (let i = 0; i < fullStars; i++) {
+                starsHtml += '<i class="fas fa-star"></i>';
+            }
+            if (halfStar) {
+                starsHtml += '<i class="fas fa-star-half-alt"></i>';
+            }
+            for (let i = 0; i < emptyStars; i++) {
+                starsHtml += '<i class="far fa-star"></i>';
+            }
+            
+            return starsHtml;
         }
         
         // 顯示相關產品
@@ -220,33 +457,82 @@
             const container = document.getElementById('related-products');
             if (!container) return;
             
-            // 創建測試相關產品
-            const relatedProducts = [
-                {
-                    id: "related1",
-                    name: "維他命B群",
-                    brand: "營養平衡",
-                    description: "支持神經系統和能量代謝的關鍵維生素",
-                    price: 380,
-                    rating: 4.7,
-                    image_url: "https://via.placeholder.com/150",
-                    benefits: ["提高能量", "減緩疲勞", "支持神經系統"],
-                    usage: "每日餐後一粒",
-                    health_needs: ["提升腦力與專注", "增強免疫力"]
-                },
-                {
-                    id: "related2",
-                    name: "L-茶氨酸",
-                    brand: "放鬆精神",
-                    description: "天然放鬆成分，幫助舒緩壓力和提升睡眠品質",
-                    price: 350,
-                    rating: 4.4,
-                    image_url: "https://via.placeholder.com/150",
-                    benefits: ["促進放鬆", "改善睡眠質量", "不會造成嗜睡"],
-                    usage: "睡前1小時服用1-2粒",
-                    health_needs: ["改善睡眠品質", "情緒支持"]
-                }
-            ];
+            // 獲取用戶選擇
+            const healthNeed = localStorage.getItem('userHealthNeed') || sessionStorage.getItem('userHealthNeed') || '改善睡眠品質';
+            
+            // 創建相關產品
+            let relatedProducts = [];
+            
+            if (healthNeed === '改善睡眠品質') {
+                relatedProducts = [
+                    {
+                        id: "related1",
+                        name: "舒眠香薰精油",
+                        brand: "芳香療法",
+                        description: "含薰衣草和洋甘菊的天然精油，幫助放鬆和改善睡眠",
+                        price: 380,
+                        rating: 4.7,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["舒緩放鬆", "改善睡眠環境", "自然芳香"]
+                    },
+                    {
+                        id: "related2",
+                        name: "L-茶氨酸",
+                        brand: "放鬆精神",
+                        description: "天然放鬆成分，幫助舒緩壓力和提升睡眠品質",
+                        price: 350,
+                        rating: 4.4,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["促進放鬆", "改善睡眠質量", "不會造成嗜睡"]
+                    }
+                ];
+            } else if (healthNeed === '增強免疫力') {
+                relatedProducts = [
+                    {
+                        id: "related1",
+                        name: "蜂王漿膠囊",
+                        brand: "蜜蜂精華",
+                        description: "富含蛋白質、維生素和礦物質，提供全面營養支持",
+                        price: 480,
+                        rating: 4.6,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["增強免疫系統", "提供能量", "營養豐富"]
+                    },
+                    {
+                        id: "related2",
+                        name: "有機靈芝萃取液",
+                        brand: "天然草本",
+                        description: "濃縮靈芝精華，傳統用於調節免疫系統",
+                        price: 520,
+                        rating: 4.5,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["調節免疫", "提高抵抗力", "草本精華"]
+                    }
+                ];
+            } else {
+                relatedProducts = [
+                    {
+                        id: "related1",
+                        name: "維他命B群",
+                        brand: "營養平衡",
+                        description: "支持神經系統和能量代謝的關鍵維生素",
+                        price: 380,
+                        rating: 4.7,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["提高能量", "減緩疲勞", "支持神經系統"]
+                    },
+                    {
+                        id: "related2",
+                        name: "魚油Omega-3",
+                        brand: "海洋精華",
+                        description: "富含EPA和DHA的高純度魚油，支持心臟和大腦健康",
+                        price: 420,
+                        rating: 4.8,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["心臟健康", "大腦功能", "關節保養"]
+                    }
+                ];
+            }
             
             // 清空容器
             container.innerHTML = '';
@@ -256,70 +542,39 @@
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 
+                // 生成星級評分HTML
+                const ratingStars = generateRatingStars(product.rating || 4.0);
+                
+                // 生成標籤HTML
+                const benefitBadges = (product.benefits || []).map(benefit => 
+                    `<span class="badge" style="background-color: var(--secondary); color: var(--text-primary); margin-right: 4px;">${benefit}</span>`
+                ).join('');
+                
                 card.innerHTML = `
-                    <div class="product-image">
-                        <img src="${product.image_url || 'https://via.placeholder.com/150'}" alt="${product.name}">
-                    </div>
-                    <div class="product-details">
-                        <h3>${product.name}</h3>
-                        <p>${product.brand || '未知品牌'}</p>
-                        <p>NT$ ${product.price || '---'}</p>
-                        <p>${product.description || '無產品描述'}</p>
-                        <button class="btn-secondary">查看詳情</button>
+                    <img src="${product.image_url || 'https://via.placeholder.com/150'}" alt="${product.name}" style="width: 100%; height: 180px; object-fit: cover;">
+                    <div style="padding: 16px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <div>
+                                <h3 style="margin: 0; font-size: 18px;">${product.name}</h3>
+                                <p style="margin: 4px 0 0; font-size: 14px; color: var(--text-secondary);">${product.brand || ''}</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="margin: 0; font-weight: 700; color: var(--primary);">NT$ ${product.price || 0}</p>
+                                <div style="color: #FFB800; font-size: 14px;">${ratingStars}</div>
+                            </div>
+                        </div>
+                        <p style="margin: 8px 0; font-size: 14px; color: var(--text-secondary); line-height: 1.4;">
+                            ${product.description || '無產品描述'}
+                        </p>
+                        <div style="margin: 12px 0 16px;">
+                            ${benefitBadges}
+                        </div>
+                        <button class="btn-secondary" onclick="alert('相關產品詳情將在未來版本推出')">查看詳情</button>
                     </div>
                 `;
                 
                 container.appendChild(card);
             });
-        }
-        
-        // 備用的產品顯示函數
-        function displayFallbackProducts() {
-            const container = document.getElementById('recommended-products');
-            if (!container) return;
-            
-            // 清空容器
-            container.innerHTML = '';
-            
-            try {
-                // 從sessionStorage獲取產品
-                const productsJson = sessionStorage.getItem('recommendedProducts');
-                const products = productsJson ? JSON.parse(productsJson) : [];
-                
-                if (products.length === 0) {
-                    container.innerHTML = '<p>暫無推薦產品</p>';
-                    return;
-                }
-                
-                // 簡單顯示產品
-                products.forEach(product => {
-                    const card = document.createElement('div');
-                    card.className = 'product-card';
-                    
-                    card.innerHTML = `
-                        <div class="product-image">
-                            <img src="${product.image_url || 'https://via.placeholder.com/150'}" alt="${product.name}">
-                        </div>
-                        <div class="product-details">
-                            <h3>${product.name}</h3>
-                            <p>${product.brand || '未知品牌'}</p>
-                            <p>NT$ ${product.price || '---'}</p>
-                            <p>${product.description || '無產品描述'}</p>
-                            <button class="btn-secondary">查看詳情</button>
-                        </div>
-                    `;
-                    
-                    container.appendChild(card);
-                });
-                
-                // 同時也更新timeline和cautions
-                updateTimeline();
-                updateCautions();
-                
-            } catch (e) {
-                console.error('顯示備用產品時出錯:', e);
-                container.innerHTML = '<p>加載產品時出錯</p>';
-            }
         }
         
         // 更新時間表
