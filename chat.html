@@ -48,7 +48,7 @@
     </div>
 
     <!-- 主要內容區 -->
-    <div class="app-content" style="background-color: var(--background); padding: 16px;">
+    <div class="app-content" style="background-color: var(--background); padding: 16px; padding-bottom: 80px;">
         <!-- 對話流程 -->
         <div class="chat-message">
             <div class="avatar" style="background-color: var(--primary);">
@@ -339,27 +339,6 @@
             </div>
         </div>
 
-        <!-- 提交按鈕區域 -->
-        <div id="submit-container" style="margin-top: 24px; display: block;">
-            <button id="submit-selections" class="btn-primary" style="width: 100%;" onclick="window.location.href='results.html'">
-                獲取保健品推薦
-            </button>
-            
-            <!-- 加載指示器 -->
-            <div id="loading-indicator" style="display: none; text-align: center; margin-top: 20px;">
-                <div class="loading-spinner"></div>
-                <p>正在整理保健品資訊，請稍候...</p>
-            </div>
-            
-            <!-- 手動跳轉按鈕 -->
-            <div id="manual-redirect" style="display: none; text-align: center; margin-top: 20px;">
-                <p>自動跳轉失敗，請點擊下方按鈕查看結果</p>
-                <a href="results.html" class="btn-secondary" style="display: inline-block; margin-top: 10px; text-decoration: none; padding: 10px 20px;">
-                    手動查看結果
-                </a>
-            </div>
-        </div>
-
         <!-- 添加一個隱藏的表單，用於更可靠的頁面跳轉 -->
         <form id="navigation-form" action="results.html" method="get" style="display: none;">
             <input type="hidden" name="health" value="">
@@ -384,6 +363,13 @@
             </div>
             <div id="debug-output" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px; font-family: monospace; font-size: 12px; white-space: pre-wrap; max-height: 200px; overflow: auto; display: none;"></div>
         </div>
+    </div>
+
+    <!-- 固定在底部的按鈕 - 保證始終顯示 -->
+    <div style="position: fixed; bottom: 60px; left: 0; right: 0; padding: 10px 16px; background-color: white; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 1000;">
+        <a href="results.html" class="btn-primary" style="display: block; width: 100%; text-align: center; text-decoration: none;" onclick="saveSelectionsBeforeRedirect(event)">
+            獲取保健品推薦
+        </a>
     </div>
 
     <!-- 底部導航欄 -->
@@ -419,6 +405,88 @@
         lifestyle: '',
         budget: 0
     };
+
+    // 保存選擇並跳轉的函數
+    function saveSelectionsBeforeRedirect(event) {
+        // 阻止默認行為，我們將在保存數據後手動跳轉
+        event.preventDefault();
+        
+        console.log('正在準備保存選擇並跳轉...');
+        
+        // 檢查是否有選擇的健康需求
+        const selectedHealthButton = document.querySelector('button[data-type="health-need"].selected');
+        if (selectedHealthButton) {
+            window.userSelections.healthNeed = selectedHealthButton.getAttribute('data-value');
+        } else {
+            // 如果沒有選擇，設置一個默認值
+            window.userSelections.healthNeed = '改善睡眠品質';
+        }
+        
+        // 檢查是否有選擇的生活型態
+        const selectedLifestyleButton = document.querySelector('button[data-type="lifestyle"].selected');
+        if (selectedLifestyleButton) {
+            window.userSelections.lifestyle = selectedLifestyleButton.getAttribute('data-value');
+        } else {
+            // 如果沒有選擇，設置一個默認值
+            window.userSelections.lifestyle = '長時間工作';
+        }
+        
+        // 檢查是否有選擇的預算
+        const selectedBudgetButton = document.querySelector('button[data-type="budget"].selected');
+        if (selectedBudgetButton) {
+            window.userSelections.budget = parseInt(selectedBudgetButton.getAttribute('data-value'), 10) || 0;
+        }
+        
+        console.log('已獲取用戶選擇:', window.userSelections);
+        
+        // 保存到sessionStorage
+        sessionStorage.setItem('userHealthNeed', window.userSelections.healthNeed);
+        sessionStorage.setItem('userLifestyle', window.userSelections.lifestyle);
+        sessionStorage.setItem('userBudget', window.userSelections.budget);
+        
+        // 創建測試產品數據
+        const testProducts = [
+            {
+                id: "test1",
+                name: "褪黑激素3mg",
+                brand: "睡眠專家",
+                description: "促進自然睡眠的褪黑激素補充劑，改善入睡時間和睡眠品質。",
+                price: 350,
+                rating: 4.6,
+                image_url: "https://via.placeholder.com/150",
+                benefits: ["改善睡眠質量", "縮短入睡時間", "調節生理時鐘"],
+                usage: "睡前30分鐘服用1粒",
+                caution: "白天避免服用，可能導致嗜睡",
+                ingredients: "褪黑激素、植物性膠囊",
+                health_needs: ["改善睡眠品質"],
+                lifestyle_match: ["經常熬夜", "長時間工作"]
+            },
+            {
+                id: "test2",
+                name: "複合鎂補充劑",
+                brand: "營養均衡",
+                description: "含多種形式鎂的複合配方，幫助放鬆肌肉，改善睡眠，緩解壓力。",
+                price: 420,
+                rating: 4.5,
+                image_url: "https://via.placeholder.com/150",
+                benefits: ["肌肉放鬆", "改善睡眠", "減輕壓力"],
+                usage: "每日1-2粒，晚餐時服用",
+                caution: "某些形式的鎂可能有輕微腹瀉作用",
+                ingredients: "甘氨酸鎂、檸檬酸鎂、氧化鎂",
+                health_needs: ["改善睡眠品質", "骨骼與關節健康"],
+                lifestyle_match: ["長時間工作", "經常熬夜"]
+            }
+        ];
+        
+        // 保存測試產品數據
+        sessionStorage.setItem('recommendedProducts', JSON.stringify(testProducts));
+        
+        console.log('已保存選擇和測試產品數據到sessionStorage');
+        
+        // 現在安全地跳轉到結果頁面
+        console.log('正在跳轉到results.html...');
+        window.location.href = 'results.html';
+    }
 
     document.addEventListener('DOMContentLoaded', function() {
         console.log('頁面加載完成，初始化自定義事件處理');
