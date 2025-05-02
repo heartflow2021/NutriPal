@@ -1,1 +1,202 @@
- 
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>營養好朋友 - 對話推薦</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-time">9:43</div>
+        <div class="status-bar-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+
+    <!-- 頂部導航 -->
+    <div class="nav-header">
+        <a href="home.html" style="color: var(--text-primary); margin-right: 12px;">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div style="flex: 1; text-align: center; font-weight: 600;">健康需求整理</div>
+        <div style="width: 24px;"></div> <!-- 為了保持兩邊對稱 -->
+    </div>
+
+    <!-- 進度條 -->
+    <div class="progress-container">
+        <div class="d-flex justify-content-between" style="font-size: 12px; margin-bottom: 4px;">
+            <span>開始</span>
+            <span>步驟 2/5</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-bar-fill" style="width: 40%;"></div>
+        </div>
+    </div>
+
+    <!-- 主要內容區 -->
+    <div class="app-content" style="background-color: var(--background); padding: 16px;">
+        <!-- 對話流程 -->
+        <div class="chat-message">
+            <div class="avatar" style="background-color: var(--primary);">
+                <i class="fas fa-archive"></i>
+            </div>
+            <div class="chat-bubble">
+                <p style="margin: 0 0 8px; font-weight: 600;">小帕 Pal</p>
+                <p style="margin: 0;">Hi！我是你的資料整理小幫手小帕！想了解你的需求，幫你找到適合的保健品選項～</p>
+            </div>
+        </div>
+
+        <div class="chat-message">
+            <div class="avatar" style="background-color: var(--primary);">
+                <i class="fas fa-archive"></i>
+            </div>
+            <div class="chat-bubble">
+                <p style="margin: 0;">首先，請告訴我你目前最想改善的健康狀況是什麼呢？我來幫你找找大家常選的補品組合～</p>
+            </div>
+        </div>
+
+        <!-- 選擇按鈕 -->
+        <div style="margin-bottom: 24px;">
+            <button class="option-button selected">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-moon" style="margin-right: 12px; color: var(--primary);"></i>
+                    <div>
+                        <p style="margin: 0 0 2px; font-weight: 600;">改善睡眠品質</p>
+                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">入睡困難、易醒、睡眠淺</p>
+                    </div>
+                </div>
+            </button>
+
+            <button class="option-button">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-shield-virus" style="margin-right: 12px; color: var(--primary);"></i>
+                    <div>
+                        <p style="margin: 0 0 2px; font-weight: 600;">增強免疫力</p>
+                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">容易感冒、抵抗力弱</p>
+                    </div>
+                </div>
+            </button>
+
+            <button class="option-button">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-brain" style="margin-right: 12px; color: var(--primary);"></i>
+                    <div>
+                        <p style="margin: 0 0 2px; font-weight: 600;">提升腦力與專注</p>
+                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">注意力不集中、記憶力減退</p>
+                    </div>
+                </div>
+            </button>
+
+            <button class="option-button">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-heartbeat" style="margin-right: 12px; color: var(--primary);"></i>
+                    <div>
+                        <p style="margin: 0 0 2px; font-weight: 600;">心臟健康</p>
+                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">血壓、膽固醇控制</p>
+                    </div>
+                </div>
+            </button>
+
+            <button class="option-button">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-plus" style="margin-right: 12px; color: var(--primary);"></i>
+                    <div>
+                        <p style="margin: 0 0 2px; font-weight: 600;">其他健康需求</p>
+                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">輸入您的特定需求</p>
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <div class="chat-message right">
+            <div class="chat-bubble user">
+                <p style="margin: 0;">我選擇改善睡眠品質</p>
+            </div>
+        </div>
+
+        <div class="chat-message">
+            <div class="avatar" style="background-color: var(--primary);">
+                <i class="fas fa-archive"></i>
+            </div>
+            <div class="chat-bubble">
+                <p style="margin: 0;">了解！良好的睡眠對健康很重要呢。接下來，請告訴我你目前的生活型態，這樣我能整理更多適合你情況的熱門選項喔～</p>
+            </div>
+        </div>
+
+        <!-- 生活型態選項 -->
+        <div style="margin-bottom: 24px;">
+            <button class="option-button">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-briefcase" style="margin-right: 12px; color: var(--primary);"></i>
+                    <div>
+                        <p style="margin: 0 0 2px; font-weight: 600;">長時間工作</p>
+                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">工作壓力大、久坐</p>
+                    </div>
+                </div>
+            </button>
+
+            <button class="option-button">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-utensils" style="margin-right: 12px; color: var(--primary);"></i>
+                    <div>
+                        <p style="margin: 0 0 2px; font-weight: 600;">飲食不規律</p>
+                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">外食多、營養不均衡</p>
+                    </div>
+                </div>
+            </button>
+
+            <button class="option-button">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-running" style="margin-right: 12px; color: var(--primary);"></i>
+                    <div>
+                        <p style="margin: 0 0 2px; font-weight: 600;">運動量不足</p>
+                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">缺乏規律運動習慣</p>
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <!-- 底部免責聲明 -->
+        <div class="text-center mt-3 mb-2">
+            <p style="font-size: 10px; color: var(--text-secondary);">小帕不提供任何醫療建議，所有資訊僅供參考，請諮詢專業醫師進行健康決策～</p>
+        </div>
+
+        <!-- 底部輸入框 -->
+        <div class="input-box">
+            <button style="background-color: white; border: none; padding: 0; margin-right: 12px;">
+                <i class="fas fa-plus-circle" style="font-size: 24px; color: var(--primary);"></i>
+            </button>
+            <input type="text" placeholder="輸入您的回覆..." style="flex: 1; border: 1px solid var(--border-color); border-radius: 24px; padding: 8px 16px; font-size: 14px; outline: none;">
+            <button style="background-color: var(--primary); border: none; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; margin-left: 12px;">
+                <i class="fas fa-arrow-right" style="color: white;"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 底部導航欄 -->
+    <div class="tab-bar">
+        <div class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首頁</span>
+        </div>
+        <div class="tab-item active">
+            <i class="fas fa-comment-medical"></i>
+            <span>諮詢</span>
+        </div>
+        <div class="tab-item">
+            <i class="fas fa-book-medical"></i>
+            <span>知識庫</span>
+        </div>
+        <div class="tab-item">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </div>
+    </div>
+</body>
+</html> 
