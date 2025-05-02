@@ -23,48 +23,86 @@ async function getProducts() {
             'data/products/products.json',  // 相對於當前頁面的路徑
             '/data/products/products.json', // 相對於網站根目錄的路徑
             './data/products/products.json', // 明確的相對路徑
-            '../data/products/products.json' // 上一級目錄
+            '../data/products/products.json', // 上一級目錄
+            window.location.origin + '/data/products/products.json', // 絕對路徑
+            window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/data/products/products.json', // 相對於當前頁面的完整路徑
+            window.location.origin + '/NutriPal/data/products/products.json', // 專案名稱路徑
+            window.location.origin + '/data/products.json' // 替代路徑
         ];
+        
+        console.log('嘗試以下路徑:', possiblePaths);
         
         let response = null;
         let error = null;
+        let successPath = '';
         
         // 嘗試每個可能的路徑
         for (const path of possiblePaths) {
             try {
                 console.log(`嘗試從 ${path} 加載數據...`);
-                const resp = await fetch(path);
+                const resp = await fetch(path, {
+                    cache: 'no-store',
+                    headers: { 'Cache-Control': 'no-cache' }
+                });
+                console.log(`從 ${path} 加載的回應狀態:`, resp.status);
+                
                 if (resp.ok) {
                     response = resp;
+                    successPath = path;
                     console.log(`成功從 ${path} 加載數據`);
                     break;
+                } else {
+                    console.warn(`從 ${path} 加載失敗: 狀態碼 ${resp.status}`);
                 }
             } catch (e) {
                 error = e;
-                console.warn(`從 ${path} 加載失敗:`, e);
+                console.warn(`從 ${path} 加載失敗:`, e.message);
                 continue;
             }
         }
         
         // 如果所有路徑都失敗
         if (!response) {
-            throw error || new Error('所有路徑加載失敗');
-        }
-        
-        const data = await response.json();
-        
-        // 添加數據驗證
-        if (!data || !data.products || !Array.isArray(data.products)) {
-            console.error('產品數據格式不正確:', data);
-            // 返回一些默認產品，以便系統繼續運行
+            console.error('所有數據加載路徑都失敗，使用備用數據');
+            // 記錄更詳細的錯誤信息
+            console.error('最後一個錯誤:', error);
+            console.error('當前頁面URL:', window.location.href);
+            console.error('當前頁面路徑:', window.location.pathname);
+            console.error('當前頁面來源:', window.location.origin);
+            console.error('嘗試的路徑:', possiblePaths);
+            
+            // 顯示一個用戶友好的錯誤消息
+            if (typeof displayError === 'function') {
+                displayError('無法加載產品數據，使用備用數據進行演示');
+            }
+            
             return getFallbackProducts();
         }
         
-        console.log(`成功加載 ${data.products.length} 個產品`);
-        productsCache = data.products;
-        return productsCache;
+        try {
+            console.log('嘗試解析JSON數據...');
+            const data = await response.json();
+            console.log('數據解析結果:', typeof data, '包含產品數據:', !!data.products);
+            
+            // 添加數據驗證
+            if (!data || !data.products || !Array.isArray(data.products)) {
+                console.error('產品數據格式不正確:', data);
+                console.error('加載路徑:', successPath);
+                // 返回一些默認產品，以便系統繼續運行
+                return getFallbackProducts();
+            }
+            
+            console.log(`成功加載 ${data.products.length} 個產品`);
+            productsCache = data.products;
+            return productsCache;
+        } catch (parseError) {
+            console.error('解析JSON數據時出錯:', parseError);
+            console.error('加載路徑:', successPath);
+            return getFallbackProducts();
+        }
     } catch (error) {
         console.error('加載產品數據時出錯:', error);
+        console.error('當前頁面URL:', window.location.href);
         // 在出錯時返回一些默認產品
         return getFallbackProducts();
     }
@@ -121,6 +159,36 @@ function getFallbackProducts() {
             ingredients: "褪黑激素、植物性膠囊",
             health_needs: ["改善睡眠品質"],
             lifestyle_match: ["經常熬夜", "使用電子產品到深夜"]
+        },
+        {
+            id: "fallback4",
+            name: "眼睛保健配方",
+            brand: "視力守護",
+            description: "特別設計的配方，保護眼睛健康，減輕用眼疲勞。",
+            price: 420,
+            rating: 4.5,
+            image_url: "https://via.placeholder.com/150",
+            benefits: ["保護視力", "減輕眼睛疲勞", "維持眼睛健康"],
+            usage: "每日1-2粒，飯後服用",
+            caution: "如有眼部不適，請諮詢眼科醫生",
+            ingredients: "葉黃素、玉米黃素、藍莓萃取物、魚油",
+            health_needs: ["視力保健"],
+            lifestyle_match: ["長時間使用電子產品", "長時間工作"]
+        },
+        {
+            id: "fallback5",
+            name: "肝臟保健膠囊",
+            brand: "身體守護者",
+            description: "幫助肝臟排毒和修復的天然配方。",
+            price: 620,
+            rating: 4.7,
+            image_url: "https://via.placeholder.com/150",
+            benefits: ["肝臟保健", "幫助排毒", "支持肝臟修復"],
+            usage: "每日2粒，晚餐後服用",
+            caution: "孕婦和哺乳期婦女應在使用前諮詢醫生",
+            ingredients: "薊、蒲公英根、姜黃素、牛奶薊素",
+            health_needs: ["肝臟保健"],
+            lifestyle_match: ["經常外食", "飲食不規律"]
         }
     ];
 }

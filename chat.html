@@ -333,7 +333,7 @@
 
         <!-- 提交按鈕區域 -->
         <div id="submit-container" style="margin-top: 24px; display: none;">
-            <button id="submit-selections" class="btn-primary" style="width: 100%;">
+            <button id="submit-selections" class="btn-primary" style="width: 100%;" onclick="redirectToResults()">
                 獲取保健品推薦
             </button>
             
@@ -346,14 +346,14 @@
             <!-- 手動跳轉按鈕 -->
             <div id="manual-redirect" style="display: none; text-align: center; margin-top: 20px;">
                 <p>自動跳轉失敗，請點擊下方按鈕查看結果</p>
-                <button id="manual-redirect-btn" class="btn-secondary" style="display: inline-block; margin-top: 10px;">
+                <a href="results.html" class="btn-secondary" style="display: inline-block; margin-top: 10px; text-decoration: none; padding: 10px 20px;">
                     手動查看結果
-                </button>
+                </a>
             </div>
         </div>
 
         <!-- 添加一個隱藏的表單，用於更可靠的頁面跳轉 -->
-        <form id="navigation-form" action="results.html" method="get" style="display: none;" onsubmit="console.log('表單提交');">
+        <form id="navigation-form" action="results.html" method="get" style="display: none;" onsubmit="console.log('表單提交');" target="_self">
             <input type="hidden" name="health" value="">
             <input type="hidden" name="lifestyle" value="">
             <input type="hidden" name="budget" value="">
@@ -603,29 +603,23 @@
         
         if (healthButtons.length > 0) {
             healthButtons.forEach(button => {
-                // 先移除可能已存在的事件監聽器
-                button.removeEventListener('click', healthButtonClickHandler);
-                // 添加新的事件監聽器
-                button.addEventListener('click', healthButtonClickHandler);
+                button.addEventListener('click', function() {
+                    const value = this.getAttribute('data-value');
+                    console.log(`點擊了健康需求按鈕: ${value}`);
+                    
+                    // 移除其他按鈕的選中狀態
+                    healthButtons.forEach(btn => btn.classList.remove('selected'));
+                    
+                    // 添加當前按鈕的選中狀態
+                    this.classList.add('selected');
+                    
+                    // 調用處理函數
+                    window.processHealthNeedSelection(value);
+                });
                 console.log(`成功綁定健康需求按鈕: ${button.getAttribute('data-value')}`);
             });
         } else {
             console.error('警告: 沒有找到健康需求按鈕!');
-        }
-        
-        // 健康需求按鈕點擊處理函數
-        function healthButtonClickHandler() {
-            const value = this.getAttribute('data-value');
-            console.log(`點擊了健康需求按鈕: ${value}`);
-            
-            // 移除其他按鈕的選中狀態
-            healthButtons.forEach(btn => btn.classList.remove('selected'));
-            
-            // 添加當前按鈕的選中狀態
-            this.classList.add('selected');
-            
-            // 調用自定義處理函數
-            window.processHealthNeedSelection(value);
         }
         
         // 綁定生活型態按鈕
@@ -643,7 +637,7 @@
                 // 添加當前按鈕的選中狀態
                 this.classList.add('selected');
                 
-                // 調用自定義處理函數
+                // 調用處理函數
                 window.processLifestyleSelection(value);
             });
         });
@@ -663,7 +657,7 @@
                 // 添加當前按鈕的選中狀態
                 this.classList.add('selected');
                 
-                // 調用自定義處理函數
+                // 調用處理函數
                 window.processBudgetSelection(value);
             });
         });
@@ -696,55 +690,8 @@
 
                 console.log('當前用戶選擇:', JSON.stringify(window.userSelections));
                 
-                // 創建備用的測試產品數據
-                const testProducts = [
-                    {
-                        id: "test1",
-                        name: "褪黑激素3mg",
-                        brand: "睡眠專家",
-                        description: "促進自然睡眠的褪黑激素補充劑，改善入睡時間和睡眠品質。",
-                        price: 350,
-                        rating: 4.6,
-                        image_url: "https://via.placeholder.com/150",
-                        benefits: ["改善睡眠質量", "縮短入睡時間", "調節生理時鐘"],
-                        usage: "睡前30分鐘服用1粒",
-                        caution: "白天避免服用，可能導致嗜睡",
-                        ingredients: "褪黑激素、植物性膠囊",
-                        health_needs: ["改善睡眠品質"],
-                        lifestyle_match: ["經常熬夜", "長時間工作"]
-                    },
-                    {
-                        id: "test2",
-                        name: "複合鎂補充劑",
-                        brand: "營養均衡",
-                        description: "含多種形式鎂的複合配方，幫助放鬆肌肉，改善睡眠，緩解壓力。",
-                        price: 420,
-                        rating: 4.5,
-                        image_url: "https://via.placeholder.com/150",
-                        benefits: ["肌肉放鬆", "改善睡眠", "減輕壓力"],
-                        usage: "每日1-2粒，晚餐時服用",
-                        caution: "某些形式的鎂可能有輕微腹瀉作用",
-                        ingredients: "甘氨酸鎂、檸檬酸鎂、氧化鎂",
-                        health_needs: ["改善睡眠品質", "骨骼與關節健康"],
-                        lifestyle_match: ["長時間工作", "經常熬夜"]
-                    }
-                ];
-
                 try {
                     console.log('準備提交選擇，跳轉到結果頁面');
-                    
-                    // 創建測試產品數據字符串
-                    const testProductsJson = JSON.stringify(testProducts);
-                    
-                    // 儲存完整數據到 sessionStorage
-                    sessionStorage.setItem('recommendedProducts', testProductsJson);
-                    
-                    console.log('已將數據保存到sessionStorage');
-                    console.log('驗證sessionStorage數據:');
-                    console.log('- userHealthNeed:', sessionStorage.getItem('userHealthNeed'));
-                    console.log('- userLifestyle:', sessionStorage.getItem('userLifestyle'));
-                    console.log('- userBudget:', sessionStorage.getItem('userBudget'));
-                    console.log('- recommendedProducts長度:', JSON.parse(sessionStorage.getItem('recommendedProducts')).length);
                     
                     // 延時執行跳轉，確保數據已經保存完成
                     setTimeout(function() {
@@ -814,103 +761,78 @@
             sessionStorage.setItem('userLifestyle', window.userSelections.lifestyle || '長時間工作');
             sessionStorage.setItem('userBudget', window.userSelections.budget || 0);
             
-            // 獲取當前域名，構建絕對URL (處理相對路徑問題)
-            const baseUrl = window.location.origin;
-            const resultsUrl = baseUrl + '/results.html';
-            console.log('跳轉目標URL:', resultsUrl);
+            // 顯示加載指示器
+            const loadingIndicator = document.getElementById('loading-indicator');
+            if (loadingIndicator) {
+                loadingIndicator.style.display = 'block';
+            }
             
-            // 方法1: 使用Form提交 (最可靠)
-            try {
-                console.log('嘗試方法1: 表單提交');
-                const form = document.getElementById('navigation-form');
-                if (form) {
-                    // 更新表單字段
-                    form.querySelector('input[name="health"]').value = window.userSelections.healthNeed || '';
-                    form.querySelector('input[name="lifestyle"]').value = window.userSelections.lifestyle || '';
-                    form.querySelector('input[name="budget"]').value = window.userSelections.budget || 0;
-                    form.querySelector('input[name="time"]').value = new Date().getTime(); // 防止緩存
-                    
-                    // 確保表單目標是正確的
-                    form.action = resultsUrl;
-                    
-                    // 提交表單
+            // 創建測試產品數據
+            const testProducts = [
+                {
+                    id: "test1",
+                    name: "褪黑激素3mg",
+                    brand: "睡眠專家",
+                    description: "促進自然睡眠的褪黑激素補充劑，改善入睡時間和睡眠品質。",
+                    price: 350,
+                    rating: 4.6,
+                    image_url: "https://via.placeholder.com/150",
+                    benefits: ["改善睡眠質量", "縮短入睡時間", "調節生理時鐘"],
+                    usage: "睡前30分鐘服用1粒",
+                    caution: "白天避免服用，可能導致嗜睡",
+                    ingredients: "褪黑激素、植物性膠囊",
+                    health_needs: ["改善睡眠品質"],
+                    lifestyle_match: ["經常熬夜", "長時間工作"]
+                },
+                {
+                    id: "test2",
+                    name: "複合鎂補充劑",
+                    brand: "營養均衡",
+                    description: "含多種形式鎂的複合配方，幫助放鬆肌肉，改善睡眠，緩解壓力。",
+                    price: 420,
+                    rating: 4.5,
+                    image_url: "https://via.placeholder.com/150",
+                    benefits: ["肌肉放鬆", "改善睡眠", "減輕壓力"],
+                    usage: "每日1-2粒，晚餐時服用",
+                    caution: "某些形式的鎂可能有輕微腹瀉作用",
+                    ingredients: "甘氨酸鎂、檸檬酸鎂、氧化鎂",
+                    health_needs: ["改善睡眠品質", "骨骼與關節健康"],
+                    lifestyle_match: ["長時間工作", "經常熬夜"]
+                }
+            ];
+            
+            // 保存產品數據到sessionStorage
+            sessionStorage.setItem('recommendedProducts', JSON.stringify(testProducts));
+            
+            // 更新表單字段
+            const form = document.getElementById('navigation-form');
+            if (form) {
+                form.querySelector('input[name="health"]').value = window.userSelections.healthNeed || '';
+                form.querySelector('input[name="lifestyle"]').value = window.userSelections.lifestyle || '';
+                form.querySelector('input[name="budget"]').value = window.userSelections.budget || 0;
+                form.querySelector('input[name="time"]').value = new Date().getTime();
+                
+                // 確保使用正確的URL
+                form.action = 'results.html';
+                
+                // 提交表單
+                try {
                     form.submit();
                     return;
-                } else {
-                    console.error('未找到導航表單，嘗試其他方法');
+                } catch (e) {
+                    console.error('表單提交失敗:', e);
                 }
-            } catch (e) {
-                console.error('表單提交失敗:', e);
             }
             
-            // 方法2: window.open (在新窗口打開，但對於跳出窗口攔截較敏感)
+            // 如果表單提交失敗，嘗試直接跳轉
             try {
-                console.log('嘗試方法2: window.open');
-                const newWindow = window.open(resultsUrl, '_self');
-                if (newWindow) {
-                    return;
-                } else {
-                    console.error('window.open返回null，可能被瀏覽器阻止，嘗試其他方法');
-                }
-            } catch (e) {
-                console.error('window.open 失敗:', e);
-            }
-
-            // 方法3: location.href (最直接但可能被某些安全限制阻止)
-            try {
-                console.log('嘗試方法3: location.href');
-                window.location.href = resultsUrl;
-                
-                // 設置一個延時檢查
-                setTimeout(function() {
-                    if (window.location.href.indexOf('results.html') === -1) {
-                        throw new Error('location.href 跳轉失敗');
-                    }
-                }, 1000);
+                window.location.href = 'results.html';
                 return;
             } catch (e) {
-                console.error('location.href 跳轉失敗:', e);
-            }
-            
-            // 方法4: 創建鏈接並點擊
-            try {
-                console.log('嘗試方法4: 創建鏈接並點擊');
-                const link = document.createElement('a');
-                link.href = resultsUrl;
-                link.target = '_self';
-                link.style.display = 'none';
-                document.body.appendChild(link);
-                
-                // 使用onclick事件
-                link.onclick = function() {
-                    console.log('鏈接被點擊');
-                };
-                
-                link.click();
-                
-                // 設置一個延時檢查
-                setTimeout(function() {
-                    if (window.location.href.indexOf('results.html') === -1) {
-                        throw new Error('鏈接點擊跳轉失敗');
-                    }
-                }, 1000);
-                return;
-            } catch (e) {
-                console.error('鏈接點擊跳轉失敗:', e);
-            }
-            
-            // 方法5: 使用location.replace
-            try {
-                console.log('嘗試方法5: location.replace');
-                window.location.replace(resultsUrl);
-                return;
-            } catch (e) {
-                console.error('location.replace 跳轉失敗:', e);
+                console.error('直接跳轉失敗:', e);
             }
             
             // 如果所有方法都失敗，顯示手動按鈕
-            console.error('所有自動跳轉方法都失敗');
-            const loadingIndicator = document.getElementById('loading-indicator');
             if (loadingIndicator) {
                 loadingIndicator.style.display = 'none';
             }
@@ -918,14 +840,6 @@
             const manualRedirect = document.getElementById('manual-redirect');
             if (manualRedirect) {
                 manualRedirect.style.display = 'block';
-                // 修改手動按鈕，使用絕對URL
-                const manualRedirectBtn = document.getElementById('manual-redirect-btn');
-                if (manualRedirectBtn) {
-                    manualRedirectBtn.onclick = function() {
-                        window.open(resultsUrl, '_blank');
-                    };
-                }
-                alert('自動跳轉失敗，請點擊"手動查看結果"按鈕');
             }
         }
     });

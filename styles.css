@@ -918,4 +918,148 @@ input:focus, select:focus, textarea:focus {
 /* 預設隱藏的元素 */
 [data-hidden="true"] {
   display: none !important;
+}
+
+/* 產品詳情模態框樣式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    animation: fadeIn 0.3s;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s;
+}
+
+.close-modal {
+    color: var(--text-secondary);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: var(--primary);
+}
+
+.modal-body {
+    margin-top: 10px;
+}
+
+.product-detail-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.product-detail-image {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.product-detail-info {
+    flex: 1;
+    min-width: 200px;
+}
+
+.product-detail-info h2 {
+    margin: 0 0 8px 0;
+    font-size: 22px;
+}
+
+.detail-brand {
+    margin: 0 0 8px 0;
+    color: var(--text-secondary);
+}
+
+.detail-rating {
+    margin-bottom: 8px;
+}
+
+.detail-price {
+    margin: 8px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.detail-buy-btn {
+    margin-top: 10px;
+}
+
+.product-detail-description {
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.detail-section {
+    margin-bottom: 20px;
+}
+
+.detail-section h4 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    color: var(--text-primary);
+}
+
+.detail-section ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.detail-section li {
+    margin-bottom: 4px;
+}
+
+.detail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 576px) {
+    .modal-content {
+        margin: 5% auto;
+        width: 95%;
+    }
+    
+    .product-detail-header {
+        flex-direction: column;
+    }
+    
+    .product-detail-image {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+    }
 } 

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>頁面跳轉測試</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div style="text-align: center; padding: 50px;">
+        <h1>頁面跳轉測試</h1>
+        <p>測試從當前頁面跳轉到結果頁面</p>
+        <p>點擊下面的按鈕測試跳轉功能</p>
+        
+        <button id="redirect-button" style="padding: 15px 30px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin: 20px 0;">
+            跳轉到結果頁面
+        </button>
+        
+        <button id="store-data-button" style="padding: 15px 30px; background-color: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin: 20px 0;">
+            先儲存測試資料再跳轉
+        </button>
+        
+        <div id="status" style="margin-top: 20px; font-size: 14px; color: #666;"></div>
+    </div>
+    
+    <script>
+        document.getElementById('redirect-button').addEventListener('click', function() {
+            document.getElementById('status').textContent = '嘗試直接跳轉...';
+            
+            // 簡單直接跳轉
+            window.location.href = 'results.html';
+        });
+        
+        document.getElementById('store-data-button').addEventListener('click', function() {
+            document.getElementById('status').textContent = '儲存測試資料並嘗試跳轉...';
+            
+            // 先儲存一些測試資料到 sessionStorage
+            try {
+                // 創建測試推薦產品
+                const testProducts = [
+                    {
+                        id: "test1",
+                        name: "測試產品1",
+                        brand: "測試品牌",
+                        description: "這是一個測試產品說明。",
+                        price: 350,
+                        rating: 4.6,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["測試功效1", "測試功效2"],
+                        usage: "每日1粒，飯後服用",
+                        caution: "測試注意事項",
+                        ingredients: "測試成分",
+                        health_needs: ["改善睡眠品質"],
+                        lifestyle_match: ["長時間工作"]
+                    },
+                    {
+                        id: "test2",
+                        name: "測試產品2",
+                        brand: "測試品牌",
+                        description: "這是另一個測試產品說明。",
+                        price: 450,
+                        rating: 4.8,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["測試功效A", "測試功效B"],
+                        usage: "每日1粒，早餐時服用",
+                        caution: "測試注意事項B",
+                        ingredients: "測試成分B",
+                        health_needs: ["增強免疫力"],
+                        lifestyle_match: ["經常運動"]
+                    }
+                ];
+                
+                // 清除之前的結果
+                sessionStorage.removeItem('recommendedProducts');
+                sessionStorage.removeItem('relatedProducts');
+                
+                // 存儲測試數據
+                sessionStorage.setItem('recommendedProducts', JSON.stringify(testProducts));
+                sessionStorage.setItem('userHealthNeed', '改善睡眠品質');
+                sessionStorage.setItem('userLifestyle', '長時間工作');
+                sessionStorage.setItem('userBudget', '500');
+                
+                document.getElementById('status').textContent = '已儲存測試資料，準備跳轉...';
+                
+                // 延遲500ms再跳轉
+                setTimeout(() => {
+                    document.getElementById('status').textContent = '執行頁面跳轉...';
+                    window.location.href = 'results.html';
+                    
+                    // 5秒後檢查是否成功跳轉
+                    setTimeout(() => {
+                        if (window.location.href.indexOf('results.html') === -1) {
+                            document.getElementById('status').textContent = '自動跳轉失敗，請手動點擊此處';
+                            document.getElementById('status').style.color = 'red';
+                            document.getElementById('status').style.cursor = 'pointer';
+                            document.getElementById('status').onclick = function() {
+                                window.open('results.html', '_blank');
+                            };
+                        }
+                    }, 5000);
+                }, 500);
+                
+            } catch (error) {
+                document.getElementById('status').textContent = '錯誤: ' + error.message;
+                document.getElementById('status').style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html> 
