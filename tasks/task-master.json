@@ -1,0 +1,76 @@
+{
+  "name": "NutriPal",
+  "description": "NutriPal 是一個專為華人設計的保健品資訊整理平台",
+  "version": "0.1.0",
+  "tasks": [
+    {
+      "id": 1,
+      "title": "完善對話流程",
+      "description": "優化健康需求調查的問題順序和選項，增加更多健康需求選項，並添加使用者輸入驗證。",
+      "priority": "high",
+      "status": "pending",
+      "estimated_time": "3d",
+      "dependencies": [],
+      "created_at": "2025-05-02T14:45:00Z",
+      "updated_at": "2025-05-02T14:45:00Z",
+      "file": "tasks/1.md"
+    },
+    {
+      "id": 2,
+      "title": "建立保健品數據庫",
+      "description": "建立基礎保健品資料庫，包含保健品名稱、描述、價格、功效等資訊，並建立保健品與健康需求的映射關係。",
+      "priority": "high",
+      "status": "pending",
+      "estimated_time": "5d",
+      "dependencies": [],
+      "created_at": "2025-05-02T14:45:00Z",
+      "updated_at": "2025-05-02T14:45:00Z",
+      "file": "tasks/2.md"
+    },
+    {
+      "id": 3,
+      "title": "開發資訊整理算法",
+      "description": "開發基於使用者輸入進行保健品推薦的算法，實現基於多標準的排序功能（熱門度、價格、評分等）。",
+      "priority": "medium",
+      "status": "pending",
+      "estimated_time": "4d",
+      "dependencies": [2],
+      "created_at": "2025-05-02T14:45:00Z",
+      "updated_at": "2025-05-02T14:45:00Z",
+      "file": "tasks/3.md"
+    },
+    {
+      "id": 4,
+      "title": "用戶體驗優化",
+      "description": "優化整體用戶體驗，包括實現平滑的頁面轉換動畫，優化移動端響應式設計，以及添加加載狀態指示器。",
+      "priority": "medium",
+      "status": "pending",
+      "estimated_time": "3d",
+      "dependencies": [1],
+      "created_at": "2025-05-02T14:45:00Z",
+      "updated_at": "2025-05-02T14:45:00Z",
+      "file": "tasks/4.md"
+    },
+    {
+      "id": 5,
+      "title": "實現資料儲存與會員系統",
+      "description": "實現用戶查詢歷史記錄儲存功能，開發簡單的會員系統，允許保存偏好設定和查詢結果，並實現基本的數據分析功能。",
+      "priority": "low",
+      "status": "pending",
+      "estimated_time": "6d",
+      "dependencies": [3, 4],
+      "created_at": "2025-05-02T14:45:00Z",
+      "updated_at": "2025-05-02T14:45:00Z",
+      "file": "tasks/5.md"
+    }
+  ],
+  "metadata": {
+    "last_task_id": 5,
+    "created_at": "2025-05-02T14:45:00Z",
+    "updated_at": "2025-05-02T14:45:00Z"
+  },
+  "settings": {
+    "default_priority": "medium",
+    "default_subtasks": 5
+  }
+} 
