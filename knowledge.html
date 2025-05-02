@@ -9,27 +9,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- iOS 狀態欄 -->
-    <div class="status-bar">
-        <div class="status-bar-time">9:50</div>
-        <div class="status-bar-icons">
-            <i class="fas fa-signal"></i>
-            <i class="fas fa-wifi"></i>
-            <i class="fas fa-battery-full"></i>
-        </div>
-    </div>
-
     <!-- 頂部導航 -->
-    <div style="display: flex; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border-color); background-color: white;">
-        <div style="flex: 1; text-align: center; font-weight: 600;">保健品知識庫</div>
-    </div>
-
-    <!-- 搜尋框 -->
-    <div style="padding: 16px; background-color: white; border-bottom: 1px solid var(--border-color);">
-        <div style="display: flex; align-items: center; background-color: var(--background); border-radius: 24px; padding: 0 16px;">
-            <i class="fas fa-search" style="color: var(--text-secondary); margin-right: 8px;"></i>
-            <input type="text" placeholder="搜尋保健品資訊..." style="background: transparent; border: none; padding: 12px 0; width: 100%; outline: none;">
-        </div>
+    <div class="nav-header">
+        <div style="width: 24px;"></div> <!-- 為了保持兩邊對稱 -->
+        <div style="flex: 1; text-align: center; font-weight: 600;">保健知識庫</div>
+        <a href="#" style="margin-left: 12px; color: var(--text-primary);">
+            <i class="fas fa-search"></i>
+        </a>
     </div>
 
     <!-- 分類標籤 -->
