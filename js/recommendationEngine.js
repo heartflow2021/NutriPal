@@ -334,10 +334,317 @@ async function getPopularByCategory(category, count = 5) {
     }
 }
 
-// 導出模組功能
+/**
+ * 根據複合健康需求篩選產品
+ * @param {Array} products 產品數據陣列
+ * @param {Array} healthNeeds 健康需求陣列
+ * @param {Object} options 篩選選項
+ * @param {boolean} options.matchAll 是否需要滿足所有健康需求，默認false
+ * @param {boolean} options.includePartial 是否包含部分匹配，默認true
+ * @param {number} options.minMatchScore 最低匹配分數，默認0
+ * @returns {Array} 符合健康需求的產品，帶有匹配分數
+ */
+function filterByMultipleHealthNeeds(products, healthNeeds, options = {}) {
+    // 設置默認選項
+    const {
+        matchAll = false,
+        includePartial = true,
+        minMatchScore = 0
+    } = options;
+    
+    // 如果沒有提供健康需求或提供的是空陣列，則返回原始產品列表
+    if (!healthNeeds || !Array.isArray(healthNeeds) || healthNeeds.length === 0) {
+        return products.map(product => ({ ...product, matchScore: 0 }));
+    }
+    
+    // 為每個產品計算匹配分數
+    const scoredProducts = products.map(product => {
+        if (!product.health_needs || !Array.isArray(product.health_needs)) {
+            return { ...product, matchScore: 0 };
+        }
+        
+        // 計算匹配的健康需求數量
+        const matchedNeeds = healthNeeds.filter(need => 
+            product.health_needs.includes(need)
+        );
+        
+        // 計算匹配分數：匹配需求數 / 總需求數
+        const matchScore = matchedNeeds.length / healthNeeds.length;
+        
+        return { ...product, matchScore, matchedNeeds };
+    });
+    
+    // 根據選項篩選產品
+    let filteredProducts;
+    
+    if (matchAll) {
+        // 只保留滿足所有健康需求的產品
+        filteredProducts = scoredProducts.filter(product => 
+            product.matchScore === 1
+        );
+    } else if (includePartial) {
+        // 保留部分匹配的產品，但必須達到最低匹配分數
+        filteredProducts = scoredProducts.filter(product => 
+            product.matchScore >= minMatchScore
+        );
+    } else {
+        // 只保留至少匹配一個健康需求的產品
+        filteredProducts = scoredProducts.filter(product => 
+            product.matchScore > 0
+        );
+    }
+    
+    // 按匹配分數降序排序
+    return filteredProducts.sort((a, b) => b.matchScore - a.matchScore);
+}
+
+/**
+ * 根據禁忌成分過濾產品
+ * @param {Array} products 產品數據陣列
+ * @param {Array} forbiddenIngredients 禁忌成分陣列
+ * @returns {Array} 不含禁忌成分的產品
+ */
+function filterByForbiddenIngredients(products, forbiddenIngredients) {
+    if (!forbiddenIngredients || !Array.isArray(forbiddenIngredients) || forbiddenIngredients.length === 0) {
+        return products;
+    }
+    
+    return products.filter(product => {
+        if (!product.ingredients) return true;
+        
+        // 將產品成分轉換為小寫，便於比較
+        const lowercaseIngredients = product.ingredients.toLowerCase();
+        
+        // 檢查是否包含任何禁忌成分
+        return !forbiddenIngredients.some(ingredient => 
+            lowercaseIngredients.includes(ingredient.toLowerCase())
+        );
+    });
+}
+
+/**
+ * 根據季節調整產品推薦權重
+ * @param {Array} products 產品數據陣列
+ * @param {string} season 當前季節 ('spring', 'summer', 'autumn', 'winter')
+ * @returns {Array} 帶有季節調整權重的產品
+ */
+function adjustBySeasonality(products, season) {
+    const seasonalWeights = {
+        spring: {
+            '增強免疫力': 1.2,
+            '消化系統保健': 1.3,
+            '過敏緩解': 1.5,
+            '肝臟保健': 1.4,
+            '女性保健': 1.2
+        },
+        summer: {
+            '消化系統保健': 1.3,
+            '電解質平衡': 1.4,
+            '皮膚保健': 1.5,
+            '視力保健': 1.2,
+            '體重管理': 1.3
+        },
+        autumn: {
+            '增強免疫力': 1.4,
+            '骨骼與關節健康': 1.2,
+            '呼吸系統保健': 1.3,
+            '情緒平衡': 1.2,
+            '睡眠品質': 1.1
+        },
+        winter: {
+            '增強免疫力': 1.5,
+            '心臟健康': 1.2,
+            '關節保健': 1.3,
+            '改善睡眠品質': 1.3,
+            '情緒支持': 1.4
+        }
+    };
+    
+    // 如果沒有提供有效季節或沒有該季節的權重配置，直接返回原始產品
+    if (!season || !seasonalWeights[season]) {
+        return products;
+    }
+    
+    const currentSeasonWeights = seasonalWeights[season];
+    
+    return products.map(product => {
+        // 默認季節權重為1.0
+        let seasonalWeight = 1.0;
+        
+        // 如果產品有健康需求標籤，計算季節相關性
+        if (product.health_needs && Array.isArray(product.health_needs)) {
+            for (const need of product.health_needs) {
+                if (currentSeasonWeights[need]) {
+                    // 使用最高的季節權重
+                    seasonalWeight = Math.max(seasonalWeight, currentSeasonWeights[need]);
+                }
+            }
+        }
+        
+        return { ...product, seasonalWeight };
+    });
+}
+
+/**
+ * 增強型推薦主函數 - 支持多種高級篩選和排序功能
+ * @param {Object} params 推薦參數對象
+ * @param {string|Array} params.healthNeeds 健康需求或健康需求陣列
+ * @param {string} params.lifestyle 生活型態
+ * @param {number} params.budget 預算上限
+ * @param {Array} params.forbiddenIngredients 禁忌成分陣列
+ * @param {string} params.season 當前季節
+ * @param {string} params.ageGroup 年齡組別 ('child', 'adult', 'senior')
+ * @param {Object} params.sortCriteria 排序標準和權重
+ * @param {number} params.resultCount 結果數量
+ * @returns {Promise<Array>} 推薦的產品
+ */
+async function advancedRecommendProducts(params) {
+    try {
+        const {
+            healthNeeds,
+            lifestyle,
+            budget = 0,
+            forbiddenIngredients = [],
+            season = null,
+            ageGroup = 'adult',
+            sortCriteria = {},
+            resultCount = 3
+        } = params;
+        
+        console.log('開始進階推薦，參數:', params);
+        
+        // 1. 獲取所有產品
+        const allProducts = await getProducts();
+        
+        // 2. 按健康需求篩選
+        let filteredProducts;
+        
+        // 處理單一健康需求或多個健康需求
+        if (typeof healthNeeds === 'string') {
+            // 單一健康需求
+            filteredProducts = filterByHealthNeed(allProducts, healthNeeds);
+        } else if (Array.isArray(healthNeeds)) {
+            // 多個健康需求
+            filteredProducts = filterByMultipleHealthNeeds(allProducts, healthNeeds, {
+                matchAll: false,
+                includePartial: true,
+                minMatchScore: 0.5 // 至少需要匹配一半的健康需求
+            });
+        } else {
+            // 沒有指定健康需求
+            filteredProducts = allProducts;
+        }
+        
+        // 3. 排除禁忌成分
+        if (forbiddenIngredients.length > 0) {
+            filteredProducts = filterByForbiddenIngredients(filteredProducts, forbiddenIngredients);
+        }
+        
+        // 4. 按生活型態篩選
+        if (lifestyle) {
+            filteredProducts = filterByLifestyle(filteredProducts, lifestyle);
+        }
+        
+        // 5. 季節性調整
+        if (season) {
+            filteredProducts = adjustBySeasonality(filteredProducts, season);
+            
+            // 更新排序標準，考慮季節權重
+            sortCriteria.seasonalWeight = sortCriteria.seasonalWeight || 0.2;
+        }
+        
+        // 6. 根據預算篩選
+        let budgetFilteredProducts = filteredProducts;
+        if (budget > 0) {
+            budgetFilteredProducts = filteredProducts.filter(product => product.price <= budget);
+            
+            // 如果按預算篩選後沒有產品，放寬條件，允許略微超出預算
+            if (budgetFilteredProducts.length === 0) {
+                const flexibleBudget = budget * 1.2; // 允許超出20%
+                budgetFilteredProducts = filteredProducts.filter(product => product.price <= flexibleBudget);
+            }
+        }
+        
+        // 如果沒有符合預算的產品，使用原始篩選結果
+        if (budgetFilteredProducts.length === 0) {
+            budgetFilteredProducts = filteredProducts;
+        }
+        
+        // 7. 排序產品 - 使用增強的排序標準
+        const sortedProducts = enhancedSortProducts(budgetFilteredProducts, sortCriteria);
+        
+        // 8. 獲取最佳組合
+        const recommendations = getBestCombination(sortedProducts, resultCount);
+        
+        console.log(`推薦完成，找到 ${recommendations.length} 個產品`);
+        return recommendations;
+    } catch (error) {
+        console.error('高級推薦過程出錯:', error);
+        return [];
+    }
+}
+
+/**
+ * 增強型產品排序 - 支持更多排序標準和權重
+ * @param {Array} products 產品陣列
+ * @param {Object} criteria 排序標準和權重
+ * @returns {Array} 排序後的產品
+ */
+function enhancedSortProducts(products, criteria = {}) {
+    const {
+        ratingWeight = 0.3,       // 評分權重
+        priceWeight = 0.2,        // 價格權重
+        relevanceWeight = 0.4,    // 相關性權重（如果產品帶有matchScore）
+        seasonalWeight = 0.0,     // 季節性權重（如果產品帶有seasonalWeight）
+        popularityWeight = 0.1    // 熱門度權重（未來可以添加）
+    } = criteria;
+    
+    return [...products].sort((a, b) => {
+        // 計算多維度的總分
+        let scoreA = 0;
+        let scoreB = 0;
+        
+        // 評分維度（0-5分轉換為0-1的比例）
+        const ratingA = a.rating !== undefined ? a.rating / 5 : 0.5;
+        const ratingB = b.rating !== undefined ? b.rating / 5 : 0.5;
+        scoreA += ratingA * ratingWeight;
+        scoreB += ratingB * ratingWeight;
+        
+        // 價格維度（越便宜越好，使用倒數）
+        if (a.price && b.price) {
+            const maxPrice = Math.max(a.price, b.price);
+            const priceScoreA = 1 - (a.price / maxPrice);
+            const priceScoreB = 1 - (b.price / maxPrice);
+            scoreA += priceScoreA * priceWeight;
+            scoreB += priceScoreB * priceWeight;
+        }
+        
+        // 相關性維度（如果有matchScore）
+        if (a.matchScore !== undefined && b.matchScore !== undefined) {
+            scoreA += a.matchScore * relevanceWeight;
+            scoreB += b.matchScore * relevanceWeight;
+        }
+        
+        // 季節性維度（如果有seasonalWeight）
+        if (a.seasonalWeight !== undefined && b.seasonalWeight !== undefined) {
+            scoreA += a.seasonalWeight * seasonalWeight;
+            scoreB += b.seasonalWeight * seasonalWeight;
+        }
+        
+        // 返回總分差，得分高的排前面
+        return scoreB - scoreA;
+    });
+}
+
+// 更新導出模組功能，添加新函數
 window.NutriPalRecommender = {
     recommendProducts,
     getRelatedProducts,
     recommendWithinBudget,
-    getPopularByCategory
+    getPopularByCategory,
+    advancedRecommendProducts,
+    filterByMultipleHealthNeeds,
+    filterByForbiddenIngredients,
+    adjustBySeasonality,
+    enhancedSortProducts
 }; 
