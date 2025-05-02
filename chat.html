@@ -333,7 +333,7 @@
 
         <!-- 提交按鈕區域 -->
         <div id="submit-container" style="margin-top: 24px; display: none;">
-            <button id="submit-selections" class="btn-primary" style="width: 100%;" onclick="redirectToResults()">
+            <button id="submit-selections" class="btn-primary" style="width: 100%;">
                 獲取保健品推薦
             </button>
             
@@ -346,19 +346,18 @@
             <!-- 手動跳轉按鈕 -->
             <div id="manual-redirect" style="display: none; text-align: center; margin-top: 20px;">
                 <p>自動跳轉失敗，請點擊下方按鈕查看結果</p>
-                <a href="results.html" class="btn-secondary" style="display: inline-block; margin-top: 10px; text-decoration: none; padding: 10px 20px;">
+                <button id="manual-redirect-btn" class="btn-secondary" style="display: inline-block; margin-top: 10px;">
                     手動查看結果
-                </a>
+                </button>
             </div>
         </div>
 
         <!-- 添加一個隱藏的表單，用於更可靠的頁面跳轉 -->
-        <form id="navigation-form" action="results.html" method="get" style="display: none;" onsubmit="console.log('表單提交');" target="_self">
+        <form id="navigation-form" action="results.html" method="get" style="display: none;">
             <input type="hidden" name="health" value="">
             <input type="hidden" name="lifestyle" value="">
             <input type="hidden" name="budget" value="">
             <input type="hidden" name="time" value="">
-            <input type="submit" value="提交" id="form-submit-button">
         </form>
 
         <!-- 隱藏的調試工具 -->
@@ -413,214 +412,195 @@
         budget: 0
     };
 
-    // 初始化頁面時嘗試從sessionStorage恢復數據
-    try {
-        const savedHealthNeed = sessionStorage.getItem('userHealthNeed');
-        const savedLifestyle = sessionStorage.getItem('userLifestyle');
-        const savedBudget = sessionStorage.getItem('userBudget');
-        
-        if (savedHealthNeed) window.userSelections.healthNeed = savedHealthNeed;
-        if (savedLifestyle) window.userSelections.lifestyle = savedLifestyle;
-        if (savedBudget) window.userSelections.budget = parseInt(savedBudget, 10) || 0;
-        
-        console.log('從sessionStorage恢復用戶選擇:', window.userSelections);
-    } catch (e) {
-        console.error('恢復用戶選擇時出錯:', e);
-    }
-
-    // 健康需求處理函數
-    window.processHealthNeedSelection = function(healthNeed) {
-        console.log(`處理健康需求選擇: ${healthNeed}`);
-        
-        // 直接更新全局對象
-        window.userSelections.healthNeed = healthNeed;
-        // 同時保存到sessionStorage作為備份
-        sessionStorage.setItem('userHealthNeed', healthNeed);
-        
-        console.log('更新後的選擇:', window.userSelections);
-        
-        // 更新顯示
-        const selectedNeedSpan = document.querySelector('.selected-health-need');
-        if (selectedNeedSpan) {
-            selectedNeedSpan.textContent = healthNeed;
-        }
-        
-        // 更新反饋文本
-        const feedbackSpan = document.querySelector('.health-need-feedback');
-        if (feedbackSpan) {
-            // 依據不同的健康需求給出不同反饋
-            const feedbacks = {
-                '改善睡眠品質': '良好的睡眠對健康很重要呢。',
-                '增強免疫力': '保持良好的免疫系統對健康很重要。',
-                '提升腦力與專注': '腦力和專注力對日常生活和工作都很重要。',
-                '心臟健康': '心臟健康是整體健康的關鍵。',
-                '骨骼與關節健康': '保持骨骼和關節健康能讓活動更輕鬆。',
-                '視力保健': '保護視力在現代數位生活中尤為重要。',
-                '肝臟保健': '肝臟是身體重要的解毒器官。',
-                '女性保健': '女性健康需要特別的照顧和關注。',
-                '消化系統保健': '健康的消化系統是整體健康的基礎。',
-                '體重管理': '健康的體重管理對整體健康很重要。'
-            };
-            
-            const feedbackText = feedbacks[healthNeed] || '了解您的健康需求了。';
-            feedbackSpan.textContent = feedbackText;
-        }
-        
-        // 顯示健康需求回應
-        const healthNeedResponse = document.getElementById('health-need-response');
-        if (healthNeedResponse) {
-            healthNeedResponse.style.display = 'block';
-            healthNeedResponse.classList.add('fade-in');
-        }
-        
-        // 延遲顯示生活型態選項
-        setTimeout(() => {
-            const lifestyleOptions = document.getElementById('lifestyle-options');
-            if (lifestyleOptions) {
-                lifestyleOptions.style.display = 'block';
-                lifestyleOptions.classList.add('fade-in');
-                
-                // 確保滾動到可見區域
-                try {
-                    lifestyleOptions.scrollIntoView({ behavior: 'smooth' });
-                } catch (scrollError) {
-                    // 使用備用滾動方法
-                    window.scrollBy(0, 200);
-                }
-            }
-        }, 800);
-    };
-
-    // 生活型態選擇處理函數
-    window.processLifestyleSelection = function(lifestyle) {
-        console.log(`處理生活型態選擇: ${lifestyle}`);
-        
-        // 直接更新全局對象
-        window.userSelections.lifestyle = lifestyle;
-        // 同時保存到sessionStorage作為備份
-        sessionStorage.setItem('userLifestyle', lifestyle);
-        
-        console.log('更新後的選擇:', window.userSelections);
-        
-        // 更新顯示
-        const selectedLifestyleSpan = document.querySelector('.selected-lifestyle');
-        if (selectedLifestyleSpan) {
-            selectedLifestyleSpan.textContent = lifestyle;
-        }
-        
-        // 顯示生活型態回應
-        const lifestyleResponse = document.getElementById('lifestyle-response');
-        if (lifestyleResponse) {
-            lifestyleResponse.style.display = 'block';
-            lifestyleResponse.classList.add('fade-in');
-        }
-        
-        // 延遲顯示預算選項
-        setTimeout(() => {
-            const budgetOptions = document.getElementById('budget-options');
-            if (budgetOptions) {
-                budgetOptions.style.display = 'block';
-                budgetOptions.classList.add('fade-in');
-                
-                // 確保滾動到可見區域
-                try {
-                    budgetOptions.scrollIntoView({ behavior: 'smooth' });
-                } catch (scrollError) {
-                    // 使用備用滾動方法
-                    window.scrollBy(0, 200);
-                }
-            }
-        }, 800);
-    };
-
-    // 預算選擇處理函數
-    window.processBudgetSelection = function(budget) {
-        console.log(`處理預算選擇: ${budget}`);
-        
-        const budgetValue = parseInt(budget, 10) || 0;
-        
-        // 直接更新全局對象
-        window.userSelections.budget = budgetValue;
-        // 同時保存到sessionStorage作為備份
-        sessionStorage.setItem('userBudget', budgetValue);
-        
-        console.log('更新後的選擇:', window.userSelections);
-        
-        // 更新顯示
-        const selectedBudgetSpan = document.querySelector('.selected-budget');
-        if (selectedBudgetSpan) {
-            // 依據預算值顯示不同的文本
-            let budgetText = '';
-            switch (budget) {
-                case '500':
-                    budgetText = '經濟實惠型（500元以下）';
-                    break;
-                case '1000':
-                    budgetText = '中等預算（500-1000元）';
-                    break;
-                case '2000':
-                    budgetText = '高品質型（1000元以上）';
-                    break;
-                case '0':
-                default:
-                    budgetText = '無預算限制';
-                    break;
-            }
-            selectedBudgetSpan.textContent = budgetText;
-        }
-        
-        // 顯示預算回應
-        const budgetResponse = document.getElementById('budget-response');
-        if (budgetResponse) {
-            budgetResponse.style.display = 'block';
-            budgetResponse.classList.add('fade-in');
-        }
-        
-        // 延遲顯示提交按鈕
-        setTimeout(() => {
-            const submitContainer = document.getElementById('submit-container');
-            if (submitContainer) {
-                submitContainer.style.display = 'block';
-                submitContainer.classList.add('fade-in');
-                
-                // 確保滾動到可見區域
-                try {
-                    submitContainer.scrollIntoView({ behavior: 'smooth' });
-                } catch (scrollError) {
-                    // 使用備用滾動方法
-                    window.scrollBy(0, 200);
-                }
-            }
-        }, 800);
-    };
-
     document.addEventListener('DOMContentLoaded', function() {
         console.log('頁面加載完成，初始化自定義事件處理');
+        
+        // 健康需求處理函數
+        window.processHealthNeedSelection = function(healthNeed) {
+            console.log(`處理健康需求選擇: ${healthNeed}`);
+            
+            // 直接更新全局對象
+            window.userSelections.healthNeed = healthNeed;
+            // 同時保存到sessionStorage作為備份
+            sessionStorage.setItem('userHealthNeed', healthNeed);
+            
+            console.log('更新後的選擇:', window.userSelections);
+            
+            // 更新顯示
+            const selectedNeedSpan = document.querySelector('.selected-health-need');
+            if (selectedNeedSpan) {
+                selectedNeedSpan.textContent = healthNeed;
+            }
+            
+            // 更新反饋文本
+            const feedbackSpan = document.querySelector('.health-need-feedback');
+            if (feedbackSpan) {
+                // 依據不同的健康需求給出不同反饋
+                const feedbacks = {
+                    '改善睡眠品質': '良好的睡眠對健康很重要呢。',
+                    '增強免疫力': '保持良好的免疫系統對健康很重要。',
+                    '提升腦力與專注': '腦力和專注力對日常生活和工作都很重要。',
+                    '心臟健康': '心臟健康是整體健康的關鍵。',
+                    '骨骼與關節健康': '保持骨骼和關節健康能讓活動更輕鬆。',
+                    '視力保健': '保護視力在現代數位生活中尤為重要。',
+                    '肝臟保健': '肝臟是身體重要的解毒器官。',
+                    '女性保健': '女性健康需要特別的照顧和關注。',
+                    '消化系統保健': '健康的消化系統是整體健康的基礎。',
+                    '體重管理': '健康的體重管理對整體健康很重要。'
+                };
+                
+                const feedbackText = feedbacks[healthNeed] || '了解您的健康需求了。';
+                feedbackSpan.textContent = feedbackText;
+            }
+            
+            // 顯示健康需求回應
+            const healthNeedResponse = document.getElementById('health-need-response');
+            if (healthNeedResponse) {
+                healthNeedResponse.style.display = 'block';
+                healthNeedResponse.classList.add('fade-in');
+            }
+            
+            // 延遲顯示生活型態選項
+            setTimeout(() => {
+                const lifestyleOptions = document.getElementById('lifestyle-options');
+                if (lifestyleOptions) {
+                    lifestyleOptions.style.display = 'block';
+                    lifestyleOptions.classList.add('fade-in');
+                    
+                    // 確保滾動到可見區域
+                    try {
+                        lifestyleOptions.scrollIntoView({ behavior: 'smooth' });
+                    } catch (scrollError) {
+                        // 使用備用滾動方法
+                        window.scrollBy(0, 200);
+                    }
+                }
+            }, 800);
+        };
+        
+        // 生活型態選擇處理函數
+        window.processLifestyleSelection = function(lifestyle) {
+            console.log(`處理生活型態選擇: ${lifestyle}`);
+            
+            // 直接更新全局對象
+            window.userSelections.lifestyle = lifestyle;
+            // 同時保存到sessionStorage作為備份
+            sessionStorage.setItem('userLifestyle', lifestyle);
+            
+            console.log('更新後的選擇:', window.userSelections);
+            
+            // 更新顯示
+            const selectedLifestyleSpan = document.querySelector('.selected-lifestyle');
+            if (selectedLifestyleSpan) {
+                selectedLifestyleSpan.textContent = lifestyle;
+            }
+            
+            // 顯示生活型態回應
+            const lifestyleResponse = document.getElementById('lifestyle-response');
+            if (lifestyleResponse) {
+                lifestyleResponse.style.display = 'block';
+                lifestyleResponse.classList.add('fade-in');
+            }
+            
+            // 延遲顯示預算選項
+            setTimeout(() => {
+                const budgetOptions = document.getElementById('budget-options');
+                if (budgetOptions) {
+                    budgetOptions.style.display = 'block';
+                    budgetOptions.classList.add('fade-in');
+                    
+                    // 確保滾動到可見區域
+                    try {
+                        budgetOptions.scrollIntoView({ behavior: 'smooth' });
+                    } catch (scrollError) {
+                        // 使用備用滾動方法
+                        window.scrollBy(0, 200);
+                    }
+                }
+            }, 800);
+        };
+        
+        // 預算選擇處理函數
+        window.processBudgetSelection = function(budget) {
+            console.log(`處理預算選擇: ${budget}`);
+            
+            const budgetValue = parseInt(budget, 10) || 0;
+            
+            // 直接更新全局對象
+            window.userSelections.budget = budgetValue;
+            // 同時保存到sessionStorage作為備份
+            sessionStorage.setItem('userBudget', budgetValue);
+            
+            console.log('更新後的選擇:', window.userSelections);
+            
+            // 更新顯示
+            const selectedBudgetSpan = document.querySelector('.selected-budget');
+            if (selectedBudgetSpan) {
+                // 依據預算值顯示不同的文本
+                let budgetText = '';
+                switch (budget) {
+                    case '500':
+                        budgetText = '經濟實惠型（500元以下）';
+                        break;
+                    case '1000':
+                        budgetText = '中等預算（500-1000元）';
+                        break;
+                    case '2000':
+                        budgetText = '高品質型（1000元以上）';
+                        break;
+                    case '0':
+                    default:
+                        budgetText = '無預算限制';
+                        break;
+                }
+                selectedBudgetSpan.textContent = budgetText;
+            }
+            
+            // 顯示預算回應
+            const budgetResponse = document.getElementById('budget-response');
+            if (budgetResponse) {
+                budgetResponse.style.display = 'block';
+                budgetResponse.classList.add('fade-in');
+            }
+            
+            // 延遲顯示提交按鈕
+            setTimeout(() => {
+                const submitContainer = document.getElementById('submit-container');
+                if (submitContainer) {
+                    submitContainer.style.display = 'block';
+                    submitContainer.classList.add('fade-in');
+                    
+                    // 確保滾動到可見區域
+                    try {
+                        submitContainer.scrollIntoView({ behavior: 'smooth' });
+                    } catch (scrollError) {
+                        // 使用備用滾動方法
+                        window.scrollBy(0, 200);
+                    }
+                }
+            }, 800);
+        };
         
         // 直接綁定健康需求按鈕
         const healthButtons = document.querySelectorAll('button[data-type="health-need"]');
         console.log(`找到 ${healthButtons.length} 個健康需求按鈕`);
         
-        if (healthButtons.length > 0) {
-            healthButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const value = this.getAttribute('data-value');
-                    console.log(`點擊了健康需求按鈕: ${value}`);
-                    
-                    // 移除其他按鈕的選中狀態
-                    healthButtons.forEach(btn => btn.classList.remove('selected'));
-                    
-                    // 添加當前按鈕的選中狀態
-                    this.classList.add('selected');
-                    
-                    // 調用處理函數
-                    window.processHealthNeedSelection(value);
-                });
-                console.log(`成功綁定健康需求按鈕: ${button.getAttribute('data-value')}`);
+        healthButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                console.log(`點擊了健康需求按鈕: ${value}`);
+                
+                // 移除其他按鈕的選中狀態
+                healthButtons.forEach(btn => btn.classList.remove('selected'));
+                
+                // 添加當前按鈕的選中狀態
+                this.classList.add('selected');
+                
+                // 調用自定義處理函數
+                window.processHealthNeedSelection(value);
             });
-        } else {
-            console.error('警告: 沒有找到健康需求按鈕!');
-        }
+            console.log(`成功綁定健康需求按鈕: ${button.getAttribute('data-value')}`);
+        });
         
         // 綁定生活型態按鈕
         const lifestyleButtons = document.querySelectorAll('button[data-type="lifestyle"]');
@@ -637,7 +617,7 @@
                 // 添加當前按鈕的選中狀態
                 this.classList.add('selected');
                 
-                // 調用處理函數
+                // 調用自定義處理函數
                 window.processLifestyleSelection(value);
             });
         });
@@ -657,7 +637,7 @@
                 // 添加當前按鈕的選中狀態
                 this.classList.add('selected');
                 
-                // 調用處理函數
+                // 調用自定義處理函數
                 window.processBudgetSelection(value);
             });
         });
@@ -666,13 +646,7 @@
         const submitButton = document.getElementById('submit-selections');
         if (submitButton) {
             console.log('找到提交按鈕');
-            
-            // 移除可能已存在的事件監聽器
-            submitButton.removeEventListener('click', submitButtonClickHandler);
-            // 添加新的事件監聽器
-            submitButton.addEventListener('click', submitButtonClickHandler);
-            
-            function submitButtonClickHandler(e) {
+            submitButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 console.log('點擊了提交按鈕');
                 
@@ -690,15 +664,99 @@
 
                 console.log('當前用戶選擇:', JSON.stringify(window.userSelections));
                 
+                // 創建備用的測試產品數據
+                const testProducts = [
+                    {
+                        id: "test1",
+                        name: "褪黑激素3mg",
+                        brand: "睡眠專家",
+                        description: "促進自然睡眠的褪黑激素補充劑，改善入睡時間和睡眠品質。",
+                        price: 350,
+                        rating: 4.6,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["改善睡眠質量", "縮短入睡時間", "調節生理時鐘"],
+                        usage: "睡前30分鐘服用1粒",
+                        caution: "白天避免服用，可能導致嗜睡",
+                        ingredients: "褪黑激素、植物性膠囊",
+                        health_needs: ["改善睡眠品質"],
+                        lifestyle_match: ["經常熬夜", "長時間工作"]
+                    },
+                    {
+                        id: "test2",
+                        name: "複合鎂補充劑",
+                        brand: "營養均衡",
+                        description: "含多種形式鎂的複合配方，幫助放鬆肌肉，改善睡眠，緩解壓力。",
+                        price: 420,
+                        rating: 4.5,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["肌肉放鬆", "改善睡眠", "減輕壓力"],
+                        usage: "每日1-2粒，晚餐時服用",
+                        caution: "某些形式的鎂可能有輕微腹瀉作用",
+                        ingredients: "甘氨酸鎂、檸檬酸鎂、氧化鎂",
+                        health_needs: ["改善睡眠品質", "骨骼與關節健康"],
+                        lifestyle_match: ["長時間工作", "經常熬夜"]
+                    }
+                ];
+
                 try {
                     console.log('準備提交選擇，跳轉到結果頁面');
                     
-                    // 延時執行跳轉，確保數據已經保存完成
+                    // 創建測試產品數據字符串
+                    const testProductsJson = JSON.stringify(testProducts);
+                    
+                    // 儲存完整數據到 sessionStorage
+                    sessionStorage.setItem('recommendedProducts', testProductsJson);
+                    sessionStorage.setItem('userHealthNeed', window.userSelections.healthNeed);
+                    sessionStorage.setItem('userLifestyle', window.userSelections.lifestyle || '');
+                    sessionStorage.setItem('userBudget', window.userSelections.budget || 0);
+                    
+                    console.log('已將數據保存到sessionStorage');
+                    console.log('驗證sessionStorage數據:');
+                    console.log('- userHealthNeed:', sessionStorage.getItem('userHealthNeed'));
+                    console.log('- userLifestyle:', sessionStorage.getItem('userLifestyle'));
+                    console.log('- userBudget:', sessionStorage.getItem('userBudget'));
+                    console.log('- recommendedProducts長度:', JSON.parse(sessionStorage.getItem('recommendedProducts')).length);
+                    
+                    // 使用超連結元素進行跳轉
+                    console.log('使用新方法進行頁面跳轉');
+                    
+                    // 創建一個超連結並點擊
+                    const link = document.createElement('a');
+                    link.href = 'results.html';
+                    link.style.display = 'none';
+                    document.body.appendChild(link);
+                    
+                    console.log('跳轉連結已創建，即將點擊');
+                    
+                    // 確保超連結已經添加到DOM中
                     setTimeout(function() {
-                        console.log('延時執行跳轉');
-                        // 嘗試多種頁面跳轉方式
-                        redirectToResults();
-                    }, 300);
+                        console.log('觸發連結點擊');
+                        link.click();
+                        
+                        // 備用方案：如果點擊無效，直接設置location
+                        setTimeout(function() {
+                            console.log('檢查是否成功跳轉');
+                            if (window.location.href.indexOf('results.html') === -1) {
+                                console.log('連結點擊無效，嘗試直接設置location');
+                                window.location.href = 'results.html';
+                                
+                                // 最後備用：如果還是不行，嘗試顯示手動按鈕
+                                setTimeout(function() {
+                                    if (window.location.href.indexOf('results.html') === -1) {
+                                        console.log('所有跳轉方式失敗，顯示手動按鈕');
+                                        if (loadingIndicator) {
+                                            loadingIndicator.style.display = 'none';
+                                        }
+                                        const manualRedirect = document.getElementById('manual-redirect');
+                                        if (manualRedirect) {
+                                            manualRedirect.style.display = 'block';
+                                            alert('自動跳轉失敗，請點擊"手動查看結果"按鈕');
+                                        }
+                                    }
+                                }, 2000);
+                            }
+                        }, 1000);
+                    }, 100);
                     
                 } catch (err) {
                     console.error('提交處理出錯:', err);
@@ -714,9 +772,7 @@
                         manualRedirect.style.display = 'block';
                     }
                 }
-            }
-        } else {
-            console.error('警告: 找不到提交按鈕!');
+            });
         }
         
         // 綁定手動跳轉按鈕
@@ -724,6 +780,11 @@
         if (manualRedirectBtn) {
             manualRedirectBtn.addEventListener('click', function() {
                 console.log('點擊了手動跳轉按鈕');
+                
+                // 先確保所有數據都儲存到sessionStorage
+                sessionStorage.setItem('userHealthNeed', window.userSelections.healthNeed || '改善睡眠品質');
+                sessionStorage.setItem('userLifestyle', window.userSelections.lifestyle || '長時間工作');
+                sessionStorage.setItem('userBudget', window.userSelections.budget || 0);
                 
                 // 確保有測試數據
                 if (!sessionStorage.getItem('recommendedProducts')) {
@@ -747,100 +808,23 @@
                     sessionStorage.setItem('recommendedProducts', JSON.stringify(testProducts));
                 }
                 
-                // 直接調用統一的跳轉函數
-                redirectToResults();
-            });
-        }
-        
-        // 統一的頁面跳轉函數
-        function redirectToResults() {
-            console.log('嘗試跳轉到results.html頁面');
-            
-            // 確保所有數據已經保存到sessionStorage
-            sessionStorage.setItem('userHealthNeed', window.userSelections.healthNeed || '改善睡眠品質');
-            sessionStorage.setItem('userLifestyle', window.userSelections.lifestyle || '長時間工作');
-            sessionStorage.setItem('userBudget', window.userSelections.budget || 0);
-            
-            // 顯示加載指示器
-            const loadingIndicator = document.getElementById('loading-indicator');
-            if (loadingIndicator) {
-                loadingIndicator.style.display = 'block';
-            }
-            
-            // 創建測試產品數據
-            const testProducts = [
-                {
-                    id: "test1",
-                    name: "褪黑激素3mg",
-                    brand: "睡眠專家",
-                    description: "促進自然睡眠的褪黑激素補充劑，改善入睡時間和睡眠品質。",
-                    price: 350,
-                    rating: 4.6,
-                    image_url: "https://via.placeholder.com/150",
-                    benefits: ["改善睡眠質量", "縮短入睡時間", "調節生理時鐘"],
-                    usage: "睡前30分鐘服用1粒",
-                    caution: "白天避免服用，可能導致嗜睡",
-                    ingredients: "褪黑激素、植物性膠囊",
-                    health_needs: ["改善睡眠品質"],
-                    lifestyle_match: ["經常熬夜", "長時間工作"]
-                },
-                {
-                    id: "test2",
-                    name: "複合鎂補充劑",
-                    brand: "營養均衡",
-                    description: "含多種形式鎂的複合配方，幫助放鬆肌肉，改善睡眠，緩解壓力。",
-                    price: 420,
-                    rating: 4.5,
-                    image_url: "https://via.placeholder.com/150",
-                    benefits: ["肌肉放鬆", "改善睡眠", "減輕壓力"],
-                    usage: "每日1-2粒，晚餐時服用",
-                    caution: "某些形式的鎂可能有輕微腹瀉作用",
-                    ingredients: "甘氨酸鎂、檸檬酸鎂、氧化鎂",
-                    health_needs: ["改善睡眠品質", "骨骼與關節健康"],
-                    lifestyle_match: ["長時間工作", "經常熬夜"]
-                }
-            ];
-            
-            // 保存產品數據到sessionStorage
-            sessionStorage.setItem('recommendedProducts', JSON.stringify(testProducts));
-            
-            // 更新表單字段
-            const form = document.getElementById('navigation-form');
-            if (form) {
-                form.querySelector('input[name="health"]').value = window.userSelections.healthNeed || '';
-                form.querySelector('input[name="lifestyle"]').value = window.userSelections.lifestyle || '';
-                form.querySelector('input[name="budget"]').value = window.userSelections.budget || 0;
-                form.querySelector('input[name="time"]').value = new Date().getTime();
-                
-                // 確保使用正確的URL
-                form.action = 'results.html';
-                
-                // 提交表單
+                // 直接使用location.replace進行跳轉，這樣不會添加到歷史記錄中
                 try {
-                    form.submit();
-                    return;
-                } catch (e) {
-                    console.error('表單提交失敗:', e);
+                    console.log('手動跳轉 - 嘗試使用location.replace');
+                    window.location.replace('results.html');
+                } catch (err) {
+                    console.error('手動跳轉 - location.replace失敗:', err);
+                    
+                    // 如果replace失敗，嘗試使用href
+                    try {
+                        console.log('手動跳轉 - 嘗試使用location.href');
+                        window.location.href = 'results.html';
+                    } catch (err2) {
+                        console.error('手動跳轉 - location.href也失敗:', err2);
+                        alert('跳轉失敗，請嘗試直接在瀏覽器地址欄輸入 /results.html');
+                    }
                 }
-            }
-            
-            // 如果表單提交失敗，嘗試直接跳轉
-            try {
-                window.location.href = 'results.html';
-                return;
-            } catch (e) {
-                console.error('直接跳轉失敗:', e);
-            }
-            
-            // 如果所有方法都失敗，顯示手動按鈕
-            if (loadingIndicator) {
-                loadingIndicator.style.display = 'none';
-            }
-            
-            const manualRedirect = document.getElementById('manual-redirect');
-            if (manualRedirect) {
-                manualRedirect.style.display = 'block';
-            }
+            });
         }
     });
 
