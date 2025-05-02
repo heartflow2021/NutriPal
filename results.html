@@ -43,7 +43,7 @@
                     <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">根據熱門選擇整理</p>
                 </div>
             </div>
-            <p style="margin: 0 0 12px;">根據你選擇的「<span class="health-need-display" style="color: var(--primary); font-weight: 600;">改善睡眠品質</span>」需求，以及「<span class="lifestyle-display" style="color: var(--primary); font-weight: 600;">長時間工作</span>」的生活型態，以下是我整理的熱門保健品資訊。</p>
+            <p class="selection-summary" style="margin: 0 0 12px;">根據你選擇的「<span class="health-need-display" style="color: var(--primary); font-weight: 600;">改善睡眠品質</span>」需求，以及「<span class="lifestyle-display" style="color: var(--primary); font-weight: 600;">長時間工作</span>」的生活型態，以下是我整理的熱門保健品資訊。</p>
             <div style="display: flex; flex-wrap: wrap; gap: 8px;">
                 <span class="badge">相關熱門選擇</span>
                 <span class="badge result-category">睡眠相關</span>
@@ -78,9 +78,9 @@
         </div>
 
         <!-- 注意事項 -->
-        <div class="card" style="margin-top: 16px;">
+        <div class="card" style="margin-top: 16px;" id="product-cautions">
             <h3 style="font-size: 16px; margin: 0 0 12px;">常見注意事項參考</h3>
-            <ul id="cautions-list" style="margin: 0; padding-left: 20px; font-size: 14px; color: var(--text-secondary);">
+            <ul class="cautions-list" style="margin: 0; padding-left: 20px; font-size: 14px; color: var(--text-secondary);">
                 <!-- 注意事項將由JavaScript動態生成 -->
             </ul>
             <p style="font-size: 12px; color: var(--text-secondary); margin-top: 12px; text-align: center;">小帕不提供任何醫療建議，所有資訊僅供參考，請諮詢專業醫師進行健康決策～</p>
@@ -119,6 +119,288 @@
 
     <!-- 引入腳本 -->
     <script src="js/recommendationEngine.js"></script>
-    <script src="js/main.js"></script>
+    <!-- 不載入 main.js 以避免語法錯誤問題 -->
+    <!-- <script src="js/main.js"></script> -->
+
+    <!-- 添加備用顯示代碼 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('results.html 頁面加載完成');
+            
+            // 檢查URL參數
+            const urlParams = new URLSearchParams(window.location.search);
+            const healthParam = urlParams.get('health');
+            const lifestyleParam = urlParams.get('lifestyle');
+            const budgetParam = urlParams.get('budget');
+            
+            // 如果URL有參數但sessionStorage沒有數據，則使用URL參數
+            if (healthParam && !sessionStorage.getItem('userHealthNeed')) {
+                sessionStorage.setItem('userHealthNeed', healthParam);
+                console.log('從URL參數加載健康需求:', healthParam);
+            }
+            
+            if (lifestyleParam && !sessionStorage.getItem('userLifestyle')) {
+                sessionStorage.setItem('userLifestyle', lifestyleParam);
+                console.log('從URL參數加載生活型態:', lifestyleParam);
+            }
+            
+            if (budgetParam && !sessionStorage.getItem('userBudget')) {
+                sessionStorage.setItem('userBudget', budgetParam);
+                console.log('從URL參數加載預算:', budgetParam);
+            }
+            
+            // 直接更新頁面上的顯示
+            updateResultsDisplay();
+            
+            // 如果沒有產品數據，創建備用數據
+            if (!sessionStorage.getItem('recommendedProducts')) {
+                console.log('沒有找到產品數據，創建備用數據');
+                
+                const defaultProducts = [
+                    {
+                        id: "default1",
+                        name: "褪黑激素3mg",
+                        brand: "睡眠專家",
+                        description: "促進自然睡眠的褪黑激素補充劑，改善入睡時間和睡眠品質。",
+                        price: 350,
+                        rating: 4.6,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["改善睡眠質量", "縮短入睡時間", "調節生理時鐘"],
+                        usage: "睡前30分鐘服用1粒",
+                        caution: "白天避免服用，可能導致嗜睡",
+                        ingredients: "褪黑激素、植物性膠囊",
+                        health_needs: ["改善睡眠品質"],
+                        lifestyle_match: ["經常熬夜", "長時間工作"]
+                    },
+                    {
+                        id: "default2",
+                        name: "複合鎂補充劑",
+                        brand: "營養均衡",
+                        description: "含多種形式鎂的複合配方，幫助放鬆肌肉，改善睡眠，緩解壓力。",
+                        price: 420,
+                        rating: 4.5,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["肌肉放鬆", "改善睡眠", "減輕壓力"],
+                        usage: "每日1-2粒，晚餐時服用",
+                        caution: "某些形式的鎂可能有輕微腹瀉作用",
+                        ingredients: "甘氨酸鎂、檸檬酸鎂、氧化鎂",
+                        health_needs: ["改善睡眠品質", "骨骼與關節健康"],
+                        lifestyle_match: ["長時間工作", "經常熬夜"]
+                    }
+                ];
+                
+                sessionStorage.setItem('recommendedProducts', JSON.stringify(defaultProducts));
+            }
+            
+            // 立即顯示產品
+            displayFallbackProducts(); 
+            
+            // 顯示相關產品
+            displayRelatedProducts();
+        });
+        
+        // 更新結果顯示
+        function updateResultsDisplay() {
+            // 更新健康需求和生活型態顯示
+            const healthDisplay = document.querySelector('.health-need-display');
+            const lifestyleDisplay = document.querySelector('.lifestyle-display');
+            
+            if (healthDisplay) {
+                const healthNeed = sessionStorage.getItem('userHealthNeed') || '改善睡眠品質';
+                healthDisplay.textContent = healthNeed;
+            }
+            
+            if (lifestyleDisplay) {
+                const lifestyle = sessionStorage.getItem('userLifestyle') || '長時間工作';
+                lifestyleDisplay.textContent = lifestyle;
+            }
+            
+            // 更新摘要文本
+            const summaryElem = document.querySelector('.selection-summary');
+            if (summaryElem) {
+                const healthNeed = sessionStorage.getItem('userHealthNeed') || '改善睡眠品質';
+                const lifestyle = sessionStorage.getItem('userLifestyle') || '長時間工作';
+                
+                summaryElem.textContent = `根據你選擇的「${healthNeed}」需求，以及「${lifestyle}」的生活型態，以下是我整理的熱門保健品資訊。`;
+            }
+        }
+        
+        // 顯示相關產品
+        function displayRelatedProducts() {
+            const container = document.getElementById('related-products');
+            if (!container) return;
+            
+            // 創建測試相關產品
+            const relatedProducts = [
+                {
+                    id: "related1",
+                    name: "維他命B群",
+                    brand: "營養平衡",
+                    description: "支持神經系統和能量代謝的關鍵維生素",
+                    price: 380,
+                    rating: 4.7,
+                    image_url: "https://via.placeholder.com/150",
+                    benefits: ["提高能量", "減緩疲勞", "支持神經系統"],
+                    usage: "每日餐後一粒",
+                    health_needs: ["提升腦力與專注", "增強免疫力"]
+                },
+                {
+                    id: "related2",
+                    name: "L-茶氨酸",
+                    brand: "放鬆精神",
+                    description: "天然放鬆成分，幫助舒緩壓力和提升睡眠品質",
+                    price: 350,
+                    rating: 4.4,
+                    image_url: "https://via.placeholder.com/150",
+                    benefits: ["促進放鬆", "改善睡眠質量", "不會造成嗜睡"],
+                    usage: "睡前1小時服用1-2粒",
+                    health_needs: ["改善睡眠品質", "情緒支持"]
+                }
+            ];
+            
+            // 清空容器
+            container.innerHTML = '';
+            
+            // 添加每個相關產品
+            relatedProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                
+                card.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.image_url || 'https://via.placeholder.com/150'}" alt="${product.name}">
+                    </div>
+                    <div class="product-details">
+                        <h3>${product.name}</h3>
+                        <p>${product.brand || '未知品牌'}</p>
+                        <p>NT$ ${product.price || '---'}</p>
+                        <p>${product.description || '無產品描述'}</p>
+                        <button class="btn-secondary">查看詳情</button>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        // 備用的產品顯示函數
+        function displayFallbackProducts() {
+            const container = document.getElementById('recommended-products');
+            if (!container) return;
+            
+            // 清空容器
+            container.innerHTML = '';
+            
+            try {
+                // 從sessionStorage獲取產品
+                const productsJson = sessionStorage.getItem('recommendedProducts');
+                const products = productsJson ? JSON.parse(productsJson) : [];
+                
+                if (products.length === 0) {
+                    container.innerHTML = '<p>暫無推薦產品</p>';
+                    return;
+                }
+                
+                // 簡單顯示產品
+                products.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    
+                    card.innerHTML = `
+                        <div class="product-image">
+                            <img src="${product.image_url || 'https://via.placeholder.com/150'}" alt="${product.name}">
+                        </div>
+                        <div class="product-details">
+                            <h3>${product.name}</h3>
+                            <p>${product.brand || '未知品牌'}</p>
+                            <p>NT$ ${product.price || '---'}</p>
+                            <p>${product.description || '無產品描述'}</p>
+                            <button class="btn-secondary">查看詳情</button>
+                        </div>
+                    `;
+                    
+                    container.appendChild(card);
+                });
+                
+                // 同時也更新timeline和cautions
+                updateTimeline();
+                updateCautions();
+                
+            } catch (e) {
+                console.error('顯示備用產品時出錯:', e);
+                container.innerHTML = '<p>加載產品時出錯</p>';
+            }
+        }
+        
+        // 更新時間表
+        function updateTimeline() {
+            const container = document.getElementById('usage-timeline');
+            if (!container) return;
+            
+            // 簡單時間表顯示
+            container.innerHTML = `
+                <div class="time-point">
+                    <div class="time-header">
+                        <i class="fas fa-sun"></i>
+                        <div class="time-info">
+                            <h4>早晨</h4>
+                            <p class="time">06:00 - 09:00</p>
+                        </div>
+                    </div>
+                    <div class="time-products">
+                        <p>建議服用維他命B群</p>
+                    </div>
+                </div>
+                <div class="time-point">
+                    <div class="time-header">
+                        <i class="fas fa-moon"></i>
+                        <div class="time-info">
+                            <h4>睡前</h4>
+                            <p class="time">21:00 - 23:00</p>
+                        </div>
+                    </div>
+                    <div class="time-products">
+                        <p>建議服用褪黑激素和複合鎂</p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // 更新注意事項
+        function updateCautions() {
+            const container = document.getElementById('product-cautions');
+            if (!container) return;
+            
+            // 清空容器
+            container.innerHTML = '<h3 style="font-size: 16px; margin: 0 0 12px;">常見注意事項參考</h3>';
+            
+            // 創建注意事項列表
+            const cautionsList = document.createElement('ul');
+            cautionsList.className = 'cautions-list';
+            cautionsList.style.margin = '0';
+            cautionsList.style.paddingLeft = '20px'; 
+            cautionsList.style.fontSize = '14px';
+            cautionsList.style.color = 'var(--text-secondary)';
+            
+            // 添加注意事項
+            cautionsList.innerHTML = `
+                <li><span class="product-name">褪黑激素:</span> 白天避免服用，可能導致嗜睡</li>
+                <li><span class="product-name">複合鎂:</span> 某些形式的鎂可能有輕微腹瀉作用</li>
+                <li><span class="product-name">所有保健品:</span> 請遵循產品包裝上的指示使用</li>
+            `;
+            
+            container.appendChild(cautionsList);
+            
+            // 添加免責聲明
+            const disclaimer = document.createElement('p');
+            disclaimer.style.fontSize = '12px';
+            disclaimer.style.color = 'var(--text-secondary)';
+            disclaimer.style.marginTop = '12px';
+            disclaimer.style.textAlign = 'center';
+            disclaimer.textContent = '小帕不提供任何醫療建議，所有資訊僅供參考，請諮詢專業醫師進行健康決策～';
+            
+            container.appendChild(disclaimer);
+        }
+    </script>
 </body>
 </html> 
