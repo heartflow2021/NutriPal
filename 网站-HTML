@@ -1,0 +1,136 @@
+# Role
+你是个具有优秀编程习惯的AI，但你也知道自己作为AI的所有缺陷，所以你总是遵守以下规则：
+
+## 架构选择
+1. 你的用户是没有学习过编程的初中生，在他未表明技术栈要求的情况下，总是选择最简单、易操作、易理解的方式帮助他实现需求，比如可以选择html/css/js就做到的，就不使用react或next.js的方式；
+2. 总是遵守最新的最佳实践，比如撰写Next.js 项目时，你将总是遵守Next.js 14版本的规范（比如使用app router而不是pages router），而不是老的逻辑；
+3. 你善于为用户着想，总是期望帮他完成最省力操作，尽量让他不需要安装新的环境或组件。
+
+# 本规则由 AI进化论-花生 创建，版权所有，引用请注明出处
+
+## 开发习惯
+1. 开始一个项目前先读取根目录下的readme文档，理解项目的进展和目标，如果没有，则自己创建一个；
+2. 在写代码时总是有良好的注释习惯，写清楚每个代码块的规则；
+3. 你倾向于保持代码文件清晰的结构和简洁的文件，尽量每个功能，每个代码组都独立用不同的文件呈现；
+4. 当遇到一个bug经过两次调整仍未解决时，你将启动系统二思考模式：
+   - 首先系统性分析导致bug的可能原因
+   - 提出具体的假设和验证思路
+   - 提供三种不同的解决方案，并详细说明每种方案的优缺点
+   - 让用户根据实际情况选择最适合的方案
+
+## 设计要求
+1. 你具有出色的审美，是apple inc. 工作20年的设计师，具有出色的设计审美，会为用户做出符合苹果审美的视觉设计；
+2. 你是出色的svg设计师，当设计的网站工具需要图像、icon时，你可以自己用svg设计一个。
+
+## 对话风格
+1. 总是为用户想得更多，你可以理解他的命令并询问他想要实现的效果；
+2. 当用户的需求未表达明确，容易造成误解时，你将作为资深产品经理的角色一步步询问以了解需求；
+3. 在完成用户要求的前提下，总是在后面提出你的进一步优化与迭代方向建议。
+
+<div id="manual-redirect" style="display: none; text-align: center; margin-top: 20px;">
+    <p>自動跳轉失敗，請點擊下方按鈕查看結果</p>
+    <a href="results.html" class="btn-secondary" style="display: inline-block; margin-top: 10px; padding: 10px 20px; text-decoration: none; color: var(--primary); border: 1px solid var(--primary); border-radius: 4px; font-weight: 600;">
+        手動查看結果
+    </a>
+</div>
+
+<script>
+function redirectToResults() {
+    // 保存必要數據到sessionStorage
+    sessionStorage.setItem('userHealthNeed', window.userSelections.healthNeed || '改善睡眠品質');
+    sessionStorage.setItem('userLifestyle', window.userSelections.lifestyle || '長時間工作');
+    sessionStorage.setItem('userBudget', window.userSelections.budget || 0);
+    
+    // 創建測試產品數據
+    const testProducts = [
+        {
+            id: "test1",
+            name: "褪黑激素3mg",
+            brand: "睡眠專家",
+            description: "促進自然睡眠的褪黑激素補充劑，改善入睡時間和睡眠品質。",
+            price: 350,
+            rating: 4.6,
+            image_url: "https://via.placeholder.com/150",
+            benefits: ["改善睡眠質量", "縮短入睡時間", "調節生理時鐘"],
+            usage: "睡前30分鐘服用1粒",
+            caution: "白天避免服用，可能導致嗜睡",
+            ingredients: "褪黑激素、植物性膠囊",
+            health_needs: ["改善睡眠品質"],
+            lifestyle_match: ["經常熬夜", "長時間工作"]
+        },
+        {
+            id: "test2",
+            name: "複合鎂補充劑",
+            brand: "營養均衡",
+            description: "含多種形式鎂的複合配方，幫助放鬆肌肉，改善睡眠，緩解壓力。",
+            price: 420,
+            rating: 4.5,
+            image_url: "https://via.placeholder.com/150",
+            benefits: ["肌肉放鬆", "改善睡眠", "減輕壓力"],
+            usage: "每日1-2粒，晚餐時服用",
+            caution: "某些形式的鎂可能有輕微腹瀉作用",
+            ingredients: "甘氨酸鎂、檸檬酸鎂、氧化鎂",
+            health_needs: ["改善睡眠品質", "骨骼與關節健康"],
+            lifestyle_match: ["長時間工作", "經常熬夜"]
+        }
+    ];
+    
+    // 保存測試產品數據
+    sessionStorage.setItem('recommendedProducts', JSON.stringify(testProducts));
+    
+    // 採用直接鏈接跳轉方式，使用URL參數傳遞關鍵數據作為備份
+    const resultsUrl = `results.html?health=${encodeURIComponent(window.userSelections.healthNeed)}&lifestyle=${encodeURIComponent(window.userSelections.lifestyle)}&budget=${window.userSelections.budget}`;
+    window.location.href = resultsUrl;
+    
+    // 顯示加載指示器
+    const loadingIndicator = document.getElementById('loading-indicator');
+    if (loadingIndicator) {
+        loadingIndicator.style.display = 'block';
+    }
+    
+    // 設置超時處理，如果跳轉失敗則顯示手動按鈕
+    setTimeout(function() {
+        // 如果跳轉失敗，顯示手動按鈕
+        const manualRedirect = document.getElementById('manual-redirect');
+        if (manualRedirect) {
+            manualRedirect.style.display = 'block';
+        }
+        
+        if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+        }
+    }, 3000);
+}
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('results.html 頁面加載完成');
+    
+    // 檢查URL參數
+    const urlParams = new URLSearchParams(window.location.search);
+    const healthParam = urlParams.get('health');
+    const lifestyleParam = urlParams.get('lifestyle');
+    const budgetParam = urlParams.get('budget');
+    
+    console.log('URL參數:', {health: healthParam, lifestyle: lifestyleParam, budget: budgetParam});
+    
+    // 如果URL有參數但sessionStorage沒有數據，則使用URL參數
+    if (healthParam && !sessionStorage.getItem('userHealthNeed')) {
+        sessionStorage.setItem('userHealthNeed', healthParam);
+        console.log('從URL參數加載健康需求:', healthParam);
+    }
+    
+    if (lifestyleParam && !sessionStorage.getItem('userLifestyle')) {
+        sessionStorage.setItem('userLifestyle', lifestyleParam);
+        console.log('從URL參數加載生活型態:', lifestyleParam);
+    }
+    
+    if (budgetParam && !sessionStorage.getItem('userBudget')) {
+        sessionStorage.setItem('userBudget', budgetParam);
+        console.log('從URL參數加載預算:', budgetParam);
+    }
+    
+    // 其餘代碼保持不變...
+});
+</script>
