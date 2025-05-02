@@ -150,7 +150,7 @@ body {
 .app-content {
   height: calc(100% - 44px);
   overflow-y: auto;
-  padding-bottom: 104px; /* 為底部導航欄留出空間 */
+  padding-bottom: 120px; /* 為底部導航欄留出足夠空間 */
   -webkit-overflow-scrolling: touch; /* 增加 iOS 滑動流暢性 */
 }
 
@@ -780,14 +780,15 @@ input:focus, select:focus, textarea:focus {
 
 .input-box {
   position: sticky;
-  bottom: 0;
+  bottom: 84px; /* 與底部選單保持距離 */
   background-color: white;
   padding: 12px 16px;
   border-top: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   margin: 0 -16px;
-  z-index: 10;
+  z-index: 15; /* 保持在適當的層級 */
+  margin-bottom: 0; /* 移除額外的margin */
 }
 
 .gap-1 {
