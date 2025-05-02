@@ -133,6 +133,8 @@
             const lifestyleParam = urlParams.get('lifestyle');
             const budgetParam = urlParams.get('budget');
             
+            console.log('URL參數:', {health: healthParam, lifestyle: lifestyleParam, budget: budgetParam});
+            
             // 如果URL有參數但sessionStorage沒有數據，則使用URL參數
             if (healthParam && !sessionStorage.getItem('userHealthNeed')) {
                 sessionStorage.setItem('userHealthNeed', healthParam);
@@ -148,6 +150,17 @@
                 sessionStorage.setItem('userBudget', budgetParam);
                 console.log('從URL參數加載預算:', budgetParam);
             }
+            
+            // 檢查sessionStorage中的數據
+            const storedHealthNeed = sessionStorage.getItem('userHealthNeed');
+            const storedLifestyle = sessionStorage.getItem('userLifestyle');
+            const storedBudget = sessionStorage.getItem('userBudget');
+            
+            console.log('SessionStorage數據:', {
+                userHealthNeed: storedHealthNeed,
+                userLifestyle: storedLifestyle,
+                userBudget: storedBudget
+            });
             
             // 直接更新頁面上的顯示
             updateResultsDisplay();
@@ -199,15 +212,14 @@
             displayRelatedProducts();
         });
         
-        // 更新結果顯示
+        // 更新結果頁面顯示
         function updateResultsDisplay() {
-            // 更新健康需求和生活型態顯示
-            const healthDisplay = document.querySelector('.health-need-display');
+            const healthNeedDisplay = document.querySelector('.health-need-display');
             const lifestyleDisplay = document.querySelector('.lifestyle-display');
             
-            if (healthDisplay) {
+            if (healthNeedDisplay) {
                 const healthNeed = sessionStorage.getItem('userHealthNeed') || '改善睡眠品質';
-                healthDisplay.textContent = healthNeed;
+                healthNeedDisplay.textContent = healthNeed;
             }
             
             if (lifestyleDisplay) {
@@ -215,192 +227,299 @@
                 lifestyleDisplay.textContent = lifestyle;
             }
             
-            // 更新摘要文本
-            const summaryElem = document.querySelector('.selection-summary');
-            if (summaryElem) {
+            // 更新結果類別
+            const resultCategory = document.querySelector('.result-category');
+            if (resultCategory) {
                 const healthNeed = sessionStorage.getItem('userHealthNeed') || '改善睡眠品質';
-                const lifestyle = sessionStorage.getItem('userLifestyle') || '長時間工作';
+                let categoryText = '一般保健';
                 
-                summaryElem.textContent = `根據你選擇的「${healthNeed}」需求，以及「${lifestyle}」的生活型態，以下是我整理的熱門保健品資訊。`;
+                // 根據健康需求設置類別
+                if (healthNeed.includes('睡眠')) {
+                    categoryText = '睡眠相關';
+                } else if (healthNeed.includes('免疫')) {
+                    categoryText = '免疫相關';
+                } else if (healthNeed.includes('腦力')) {
+                    categoryText = '認知相關';
+                } else if (healthNeed.includes('心臟')) {
+                    categoryText = '心臟相關';
+                } else if (healthNeed.includes('骨骼')) {
+                    categoryText = '關節相關';
+                } else if (healthNeed.includes('視力')) {
+                    categoryText = '視力相關';
+                } else if (healthNeed.includes('肝臟')) {
+                    categoryText = '肝臟相關';
+                } else if (healthNeed.includes('女性')) {
+                    categoryText = '女性相關';
+                } else if (healthNeed.includes('消化')) {
+                    categoryText = '消化相關';
+                } else if (healthNeed.includes('體重')) {
+                    categoryText = '體重相關';
+                }
+                
+                resultCategory.textContent = categoryText;
             }
+        }
+        
+        // 顯示備用產品
+        function displayFallbackProducts() {
+            const productsContainer = document.getElementById('recommended-products');
+            if (!productsContainer) return;
+            
+            // 清除載入動畫
+            productsContainer.innerHTML = '';
+            
+            try {
+                // 從 sessionStorage 獲取產品數據
+                const productsData = JSON.parse(sessionStorage.getItem('recommendedProducts') || '[]');
+                
+                if (productsData.length === 0) {
+                    productsContainer.innerHTML = '<p class="text-center" style="padding: 20px;">沒有找到符合條件的產品。</p>';
+                    return;
+                }
+                
+                // 遍歷產品數據並創建產品卡片
+                productsData.forEach(product => {
+                    const productCard = createProductCard(product);
+                    productsContainer.appendChild(productCard);
+                });
+            } catch (error) {
+                console.error('顯示產品時出錯:', error);
+                productsContainer.innerHTML = '<p class="text-center" style="padding: 20px;">加載產品數據時出錯。</p>';
+            }
+        }
+        
+        // 創建產品卡片元素
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            
+            // 計算評分星星
+            const fullStars = Math.floor(product.rating);
+            const hasHalfStar = product.rating % 1 >= 0.5;
+            let starsHtml = '';
+            
+            for (let i = 0; i < 5; i++) {
+                if (i < fullStars) {
+                    starsHtml += '<i class="fas fa-star"></i>';
+                } else if (i === fullStars && hasHalfStar) {
+                    starsHtml += '<i class="fas fa-star-half-alt"></i>';
+                } else {
+                    starsHtml += '<i class="far fa-star"></i>';
+                }
+            }
+            
+            // 設置卡片內容
+            card.innerHTML = `
+                <div class="product-image" style="background-image: url('${product.image_url}');"></div>
+                <div class="product-details">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h3 style="margin: 0 0 4px; font-size: 16px;">${product.name}</h3>
+                            <p style="margin: 0 0 4px; font-size: 12px; color: var(--text-secondary);">${product.brand}</p>
+                        </div>
+                        <div style="color: var(--primary); font-weight: 600; font-size: 16px;">$${product.price}</div>
+                    </div>
+                    <div style="display: flex; align-items: center; margin: 6px 0; font-size: 12px; color: var(--warning);">
+                        ${starsHtml}
+                        <span style="margin-left: 4px; color: var(--text-secondary);">${product.rating}</span>
+                    </div>
+                    <p style="margin: 0 0 8px; font-size: 13px; color: var(--text-secondary); line-height: 1.4;">${product.description}</p>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        ${product.benefits.map(benefit => `<span class="badge">${benefit}</span>`).join('')}
+                    </div>
+                    <button class="btn-outline" style="width: 100%; margin-top: 12px;">
+                        <i class="fas fa-external-link-alt"></i> 查看 iHerb
+                    </button>
+                </div>
+            `;
+            
+            return card;
         }
         
         // 顯示相關產品
         function displayRelatedProducts() {
-            const container = document.getElementById('related-products');
-            if (!container) return;
-            
-            // 創建測試相關產品
-            const relatedProducts = [
-                {
-                    id: "related1",
-                    name: "維他命B群",
-                    brand: "營養平衡",
-                    description: "支持神經系統和能量代謝的關鍵維生素",
-                    price: 380,
-                    rating: 4.7,
-                    image_url: "https://via.placeholder.com/150",
-                    benefits: ["提高能量", "減緩疲勞", "支持神經系統"],
-                    usage: "每日餐後一粒",
-                    health_needs: ["提升腦力與專注", "增強免疫力"]
-                },
-                {
-                    id: "related2",
-                    name: "L-茶氨酸",
-                    brand: "放鬆精神",
-                    description: "天然放鬆成分，幫助舒緩壓力和提升睡眠品質",
-                    price: 350,
-                    rating: 4.4,
-                    image_url: "https://via.placeholder.com/150",
-                    benefits: ["促進放鬆", "改善睡眠質量", "不會造成嗜睡"],
-                    usage: "睡前1小時服用1-2粒",
-                    health_needs: ["改善睡眠品質", "情緒支持"]
-                }
-            ];
-            
-            // 清空容器
-            container.innerHTML = '';
-            
-            // 添加每個相關產品
-            relatedProducts.forEach(product => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                
-                card.innerHTML = `
-                    <div class="product-image">
-                        <img src="${product.image_url || 'https://via.placeholder.com/150'}" alt="${product.name}">
-                    </div>
-                    <div class="product-details">
-                        <h3>${product.name}</h3>
-                        <p>${product.brand || '未知品牌'}</p>
-                        <p>NT$ ${product.price || '---'}</p>
-                        <p>${product.description || '無產品描述'}</p>
-                        <button class="btn-secondary">查看詳情</button>
-                    </div>
-                `;
-                
-                container.appendChild(card);
-            });
-        }
-        
-        // 備用的產品顯示函數
-        function displayFallbackProducts() {
-            const container = document.getElementById('recommended-products');
-            if (!container) return;
-            
-            // 清空容器
-            container.innerHTML = '';
+            const relatedContainer = document.getElementById('related-products');
+            if (!relatedContainer) return;
             
             try {
-                // 從sessionStorage獲取產品
-                const productsJson = sessionStorage.getItem('recommendedProducts');
-                const products = productsJson ? JSON.parse(productsJson) : [];
+                // 創建兩個相關產品
+                const relatedProducts = [
+                    {
+                        id: "related1",
+                        name: "魚油 1000mg",
+                        brand: "健康海洋",
+                        description: "高純度魚油，富含EPA和DHA，支持心臟和大腦健康。",
+                        price: 450,
+                        rating: 4.7,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["心臟健康", "腦部健康", "抗發炎"],
+                        usage: "每日1-2粒，餐後服用",
+                        caution: "可能有輕微魚腥味",
+                        ingredients: "魚油、明膠膠囊、天然維生素E",
+                        health_needs: ["心臟健康", "提升腦力與專注"],
+                        lifestyle_match: ["長時間工作", "壓力大"]
+                    },
+                    {
+                        id: "related2",
+                        name: "維生素B群+葉酸",
+                        brand: "營養科學",
+                        description: "完整的B族維生素組合，支持能量產生和神經系統健康。",
+                        price: 380,
+                        rating: 4.6,
+                        image_url: "https://via.placeholder.com/150",
+                        benefits: ["提升能量", "降低壓力", "支持神經系統"],
+                        usage: "每日1粒，餐後服用",
+                        caution: "可能使尿液變黃，屬正常現象",
+                        ingredients: "全套B族維生素、葉酸、生物素",
+                        health_needs: ["提升腦力與專注", "增強免疫力"],
+                        lifestyle_match: ["壓力大", "長時間工作"]
+                    }
+                ];
                 
-                if (products.length === 0) {
-                    container.innerHTML = '<p>暫無推薦產品</p>';
-                    return;
-                }
-                
-                // 簡單顯示產品
-                products.forEach(product => {
-                    const card = document.createElement('div');
-                    card.className = 'product-card';
-                    
-                    card.innerHTML = `
-                        <div class="product-image">
-                            <img src="${product.image_url || 'https://via.placeholder.com/150'}" alt="${product.name}">
-                        </div>
-                        <div class="product-details">
-                            <h3>${product.name}</h3>
-                            <p>${product.brand || '未知品牌'}</p>
-                            <p>NT$ ${product.price || '---'}</p>
-                            <p>${product.description || '無產品描述'}</p>
-                            <button class="btn-secondary">查看詳情</button>
-                        </div>
-                    `;
-                    
-                    container.appendChild(card);
+                // 遍歷相關產品數據並創建產品卡片
+                relatedProducts.forEach(product => {
+                    const productCard = createProductCard(product);
+                    relatedContainer.appendChild(productCard);
                 });
                 
-                // 同時也更新timeline和cautions
-                updateTimeline();
-                updateCautions();
+                // 創建並顯示使用時間表
+                createUsageTimeline();
                 
-            } catch (e) {
-                console.error('顯示備用產品時出錯:', e);
-                container.innerHTML = '<p>加載產品時出錯</p>';
+                // 創建並顯示注意事項
+                createCautions();
+                
+            } catch (error) {
+                console.error('顯示相關產品時出錯:', error);
+                relatedContainer.innerHTML = '<p class="text-center" style="padding: 20px;">加載相關產品時出錯。</p>';
             }
         }
         
-        // 更新時間表
-        function updateTimeline() {
-            const container = document.getElementById('usage-timeline');
-            if (!container) return;
+        // 創建使用時間表
+        function createUsageTimeline() {
+            const timelineContainer = document.getElementById('usage-timeline');
+            if (!timelineContainer) return;
             
-            // 簡單時間表顯示
-            container.innerHTML = `
-                <div class="time-point">
-                    <div class="time-header">
-                        <i class="fas fa-sun"></i>
-                        <div class="time-info">
-                            <h4>早晨</h4>
-                            <p class="time">06:00 - 09:00</p>
-                        </div>
+            const timepoints = [
+                { time: '早晨空腹', products: ['維生素D3', '綜合維他命'] },
+                { time: '早餐時', products: ['維生素B群', '魚油'] },
+                { time: '午餐時', products: ['鈣片', '消化酵素'] },
+                { time: '晚餐時', products: ['鎂補充劑', '益生菌'] },
+                { time: '睡前30分鐘', products: ['褪黑激素', '纈草根萃取物'] }
+            ];
+            
+            timelineContainer.innerHTML = '';
+            
+            timepoints.forEach(point => {
+                const timeItem = document.createElement('div');
+                timeItem.className = 'timeline-item';
+                timeItem.innerHTML = `
+                    <div class="timeline-time">${point.time}</div>
+                    <div class="timeline-content">
+                        ${point.products.map(product => `<span class="badge">${product}</span>`).join('')}
                     </div>
-                    <div class="time-products">
-                        <p>建議服用維他命B群</p>
-                    </div>
-                </div>
-                <div class="time-point">
-                    <div class="time-header">
-                        <i class="fas fa-moon"></i>
-                        <div class="time-info">
-                            <h4>睡前</h4>
-                            <p class="time">21:00 - 23:00</p>
-                        </div>
-                    </div>
-                    <div class="time-products">
-                        <p>建議服用褪黑激素和複合鎂</p>
-                    </div>
-                </div>
-            `;
+                `;
+                timelineContainer.appendChild(timeItem);
+            });
         }
         
-        // 更新注意事項
-        function updateCautions() {
-            const container = document.getElementById('product-cautions');
-            if (!container) return;
+        // 創建注意事項
+        function createCautions() {
+            const cautionsContainer = document.getElementById('product-cautions');
+            if (!cautionsContainer) return;
             
-            // 清空容器
-            container.innerHTML = '<h3 style="font-size: 16px; margin: 0 0 12px;">常見注意事項參考</h3>';
+            const cautionsList = cautionsContainer.querySelector('.cautions-list');
+            if (!cautionsList) return;
             
-            // 創建注意事項列表
-            const cautionsList = document.createElement('ul');
-            cautionsList.className = 'cautions-list';
-            cautionsList.style.margin = '0';
-            cautionsList.style.paddingLeft = '20px'; 
-            cautionsList.style.fontSize = '14px';
-            cautionsList.style.color = 'var(--text-secondary)';
+            const cautions = [
+                '保健品不能替代均衡飲食，應搭配健康的生活方式使用',
+                '如正在服用藥物或有特殊健康狀況，請在使用前諮詢醫師',
+                '孕婦和哺乳期婦女應特別注意保健品成分是否適合',
+                '兒童不宜使用成人劑量，應使用專為兒童設計的產品',
+                '請務必遵循產品標示的使用劑量，不建議過量使用'
+            ];
             
-            // 添加注意事項
-            cautionsList.innerHTML = `
-                <li><span class="product-name">褪黑激素:</span> 白天避免服用，可能導致嗜睡</li>
-                <li><span class="product-name">複合鎂:</span> 某些形式的鎂可能有輕微腹瀉作用</li>
-                <li><span class="product-name">所有保健品:</span> 請遵循產品包裝上的指示使用</li>
-            `;
+            cautionsList.innerHTML = '';
             
-            container.appendChild(cautionsList);
-            
-            // 添加免責聲明
-            const disclaimer = document.createElement('p');
-            disclaimer.style.fontSize = '12px';
-            disclaimer.style.color = 'var(--text-secondary)';
-            disclaimer.style.marginTop = '12px';
-            disclaimer.style.textAlign = 'center';
-            disclaimer.textContent = '小帕不提供任何醫療建議，所有資訊僅供參考，請諮詢專業醫師進行健康決策～';
-            
-            container.appendChild(disclaimer);
+            cautions.forEach(caution => {
+                const item = document.createElement('li');
+                item.innerHTML = caution;
+                cautionsList.appendChild(item);
+            });
         }
+    </script>
+    
+    <!-- 調試按鈕 (只在開發模式顯示) -->
+    <div id="debug-tools" style="display: none; position: fixed; bottom: 70px; right: 10px; z-index: 1000;">
+        <button id="debug-button" style="background: rgba(0,0,0,0.7); color: white; border: none; padding: 8px 12px; border-radius: 4px; font-size: 12px;">
+            顯示調試信息
+        </button>
+        <div id="debug-panel" style="display: none; background: rgba(0,0,0,0.8); color: white; padding: 10px; border-radius: 4px; margin-top: 5px; max-height: 300px; overflow: auto; width: 300px; font-size: 12px;">
+        </div>
+    </div>
+    
+    <script>
+        // 添加調試按鈕功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 只在開發環境顯示調試工具
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                document.getElementById('debug-tools').style.display = 'block';
+                
+                document.getElementById('debug-button').addEventListener('click', function() {
+                    const panel = document.getElementById('debug-panel');
+                    panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+                    
+                    if (panel.style.display === 'block') {
+                        // 顯示調試信息
+                        let debugInfo = '<h4>SessionStorage數據:</h4>';
+                        
+                        for (let i = 0; i < sessionStorage.length; i++) {
+                            const key = sessionStorage.key(i);
+                            let value = sessionStorage.getItem(key);
+                            
+                            // 如果是JSON，嘗試格式化顯示
+                            try {
+                                const parsedValue = JSON.parse(value);
+                                if (typeof parsedValue === 'object') {
+                                    value = `(Object with ${Object.keys(parsedValue).length} properties)`;
+                                }
+                            } catch (e) {
+                                // 不是JSON，保持原樣
+                            }
+                            
+                            debugInfo += `<div><strong>${key}:</strong> ${value}</div>`;
+                        }
+                        
+                        // 添加頁面跳轉工具
+                        debugInfo += '<h4>頁面操作:</h4>';
+                        debugInfo += '<button id="debug-go-home" style="margin: 5px; padding: 5px;">返回首頁</button>';
+                        debugInfo += '<button id="debug-go-chat" style="margin: 5px; padding: 5px;">返回諮詢頁</button>';
+                        debugInfo += '<button id="debug-reload" style="margin: 5px; padding: 5px;">重新載入</button>';
+                        debugInfo += '<button id="debug-clear-storage" style="margin: 5px; padding: 5px;">清除數據</button>';
+                        
+                        panel.innerHTML = debugInfo;
+                        
+                        // 綁定按鈕事件
+                        document.getElementById('debug-go-home').addEventListener('click', function() {
+                            window.location.href = 'index.html';
+                        });
+                        
+                        document.getElementById('debug-go-chat').addEventListener('click', function() {
+                            window.location.href = 'chat.html';
+                        });
+                        
+                        document.getElementById('debug-reload').addEventListener('click', function() {
+                            window.location.reload();
+                        });
+                        
+                        document.getElementById('debug-clear-storage').addEventListener('click', function() {
+                            sessionStorage.clear();
+                            alert('已清除所有sessionStorage數據');
+                            window.location.reload();
+                        });
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html> 
