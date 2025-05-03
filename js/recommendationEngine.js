@@ -6,6 +6,9 @@
 // 產品數據緩存
 let productsCache = null;
 
+// 為了測試導入功能，在檔案頂部添加導入語句
+import { healthNeedsMapping, getTagsForHealthNeed } from './models/HealthNeedsMapping.js';
+
 /**
  * 獲取產品數據
  * @returns {Promise<Array>} 產品數據陣列
@@ -194,15 +197,116 @@ function getFallbackProducts() {
 }
 
 /**
- * 根據健康需求篩選產品
- * @param {Array} products 產品數據陣列
- * @param {string} healthNeed 健康需求
- * @returns {Array} 符合健康需求的產品
+ * 根據健康需求篩選產品，並計算相關性分數
+ * @param {Array} products - 產品數據陣列
+ * @param {string|Array} healthNeeds - 健康需求或健康需求陣列
+ * @param {Object} options - 可選參數 {maxResults: 20, scoreThreshold: 0.2}
+ * @returns {Array} 符合健康需求的產品，按相關度排序
  */
-function filterByHealthNeed(products, healthNeed) {
-    return products.filter(product => 
-        product.health_needs && product.health_needs.includes(healthNeed)
+function filterByHealthNeed(products, healthNeeds, options = {}) {
+    // 設定默認參數
+    const { maxResults = 20, scoreThreshold = 0.2 } = options;
+    
+    // 參數檢查
+    if (!products || !products.length) {
+        console.log('產品列表為空');
+        return [];
+    }
+    
+    if (!healthNeeds) {
+        console.log('未指定健康需求');
+        return products;
+    }
+    
+    // 將單一健康需求轉為陣列以統一處理
+    const needsArray = Array.isArray(healthNeeds) ? healthNeeds : [healthNeeds];
+    
+    // 如果沒有有效的健康需求
+    if (needsArray.length === 0) {
+        console.log('沒有有效的健康需求');
+        return products;
+    }
+    
+    // 收集所有相關標籤
+    const allRelevantTags = new Set();
+    needsArray.forEach(need => {
+        const tagsForNeed = getTagsForHealthNeed(need);
+        tagsForNeed.forEach(tag => allRelevantTags.add(tag));
+    });
+    
+    // 為每個產品計算相關性分數
+    const scoredProducts = products.map(product => {
+        let relevanceScore = 0;
+        let matchDetails = [];
+        
+        // 檢查產品是否直接匹配健康需求
+        if (product.health_needs) {
+            const directMatches = needsArray.filter(need => 
+                product.health_needs.includes(need)
+            );
+            
+            if (directMatches.length > 0) {
+                // 直接匹配的健康需求，給予較高分數
+                relevanceScore += directMatches.length * 0.6;
+                matchDetails.push(`直接匹配需求: ${directMatches.join(', ')}`);
+            }
+        }
+        
+        // 檢查產品標籤與相關標籤的匹配程度
+        if (product.tags && product.tags.length && allRelevantTags.size > 0) {
+            const tagMatches = product.tags.filter(tag => 
+                allRelevantTags.has(tag)
+            );
+            
+            if (tagMatches.length > 0) {
+                // 標籤匹配，根據匹配度給分
+                const tagMatchScore = tagMatches.length / Math.sqrt(allRelevantTags.size);
+                relevanceScore += tagMatchScore * 0.4;
+                matchDetails.push(`標籤匹配: ${tagMatches.join(', ')}`);
+            }
+        }
+        
+        // 檢查產品描述和益處是否含有相關關鍵詞
+        if (product.description || product.benefits) {
+            const description = product.description || '';
+            const benefits = Array.isArray(product.benefits) ? product.benefits.join(' ') : '';
+            const combinedText = (description + ' ' + benefits).toLowerCase();
+            
+            const textMatches = Array.from(allRelevantTags).filter(tag => 
+                combinedText.includes(tag.toLowerCase())
+            );
+            
+            if (textMatches.length > 0) {
+                // 描述和益處匹配，給予較低分數
+                relevanceScore += textMatches.length * 0.2 / allRelevantTags.size;
+                matchDetails.push(`描述匹配: ${textMatches.length}個關鍵詞`);
+            }
+        }
+        
+        // 應用評分加權（如產品評分和熱門度）
+        if (product.rating) {
+            relevanceScore *= (1 + (product.rating - 3) * 0.1); // 評分3以上加分，以下減分
+        }
+        
+        return {
+            ...product,
+            relevanceScore,
+            matchDetails
+        };
+    });
+    
+    // 過濾出相關性分數超過閾值的產品
+    const filteredProducts = scoredProducts.filter(product => 
+        product.relevanceScore >= scoreThreshold
     );
+    
+    // 根據相關性分數排序
+    const sortedProducts = filteredProducts.sort((a, b) => 
+        b.relevanceScore - a.relevanceScore
+    );
+    
+    // 限制結果數量
+    return sortedProducts.slice(0, maxResults);
 }
 
 /**
