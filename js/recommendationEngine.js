@@ -6,11 +6,83 @@
 // 產品數據緩存
 let productsCache = null;
 
-// 為了測試導入功能，在檔案頂部添加導入語句
-import { healthNeedsMapping, getTagsForHealthNeed } from './models/HealthNeedsMapping.js';
+// 導入健康需求映射 (如果需要)
+import { getTagsForHealthNeed } from './models/HealthNeedsMapping.js'; 
 
 /**
- * 獲取產品數據
+ * 生成星級評分 HTML
+ * @param {number} rating - 評分 (0-5)
+ * @returns {string} 星級評分的 HTML 字符串
+ */
+function generateRatingStarsHTML(rating) {
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+    
+    let starsHtml = '';
+    for (let i = 0; i < fullStars; i++) {
+        starsHtml += '<i class="fas fa-star"></i>';
+    }
+    if (halfStar) {
+        starsHtml += '<i class="fas fa-star-half-alt"></i>';
+    }
+    for (let i = 0; i < emptyStars; i++) {
+        starsHtml += '<i class="far fa-star"></i>';
+    }
+    
+    return starsHtml;
+}
+
+/**
+ * 創建單個產品卡片的 HTML
+ * @param {Object} product - 產品對象
+ * @returns {string} 產品卡片的 HTML 字符串
+ */
+function createProductCardHTML(product) {
+    const ratingStars = generateRatingStarsHTML(product.rating || 4.0);
+    const benefitBadges = (product.benefits || []).map(benefit => 
+        `<span class="badge" style="background-color: var(--primary); margin-right: 4px;">${benefit}</span>`
+    ).join('');
+    
+    // 備用圖片 URL
+    const fallbackImgUrl = "https://images.pexels.com/photos/4046316/pexels-photo-4046316.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
+    
+    // 確保價格是數字且格式化
+    const price = typeof product.price === 'number' ? product.price : 0;
+
+    // 添加 console.log 來調試圖片 URL
+    console.log(`[createProductCardHTML] Product: ${product.name}, Image URL: ${product.image_url}`);
+
+    return `
+        <div class="product-card">
+            <img src="${product.image_url || fallbackImgUrl}" alt="${product.name || '產品圖片'}" 
+                 style="width: 100%; height: 180px; object-fit: contain; background-color: #f9f9f9;"
+                 onerror="console.error('Image load error for:', this.src); this.onerror=null; this.src='${fallbackImgUrl}';">
+            <div style="padding: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <div>
+                        <h3 style="margin: 0; font-size: 18px;">${product.name || '未知產品'}</h3>
+                        <p style="margin: 4px 0 0; font-size: 14px; color: var(--text-secondary);">${product.brand || ''}</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <p style="margin: 0; font-weight: 700; color: var(--primary);">NT$ ${price}</p>
+                        <div style="color: #FFB800; font-size: 14px;">${ratingStars}</div>
+                    </div>
+                </div>
+                <p style="margin: 8px 0; font-size: 14px; color: var(--text-secondary); line-height: 1.4;">
+                    ${product.description || '無產品描述'}
+                </p>
+                <div style="margin: 12px 0 16px;">
+                    ${benefitBadges}
+                </div>
+                <a href="${product.iherb_link || 'https://tw.iherb.com'}" target="_blank" class="btn-secondary" style="display: inline-block; text-decoration: none; text-align: center;">查看詳情</a>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * 獲取產品數據 (修改後：失敗時拋出錯誤)
  * @returns {Promise<Array>} 產品數據陣列
  */
 async function getProducts() {
@@ -20,180 +92,71 @@ async function getProducts() {
     }
     
     console.log('開始加載產品數據...');
-    try {
-        // 嘗試多種路徑格式來適應不同的部署環境
-        const possiblePaths = [
-            'data/products/products.json',  // 相對於當前頁面的路徑
-            '/data/products/products.json', // 相對於網站根目錄的路徑
-            './data/products/products.json', // 明確的相對路徑
-            '../data/products/products.json', // 上一級目錄
-            window.location.origin + '/data/products/products.json', // 絕對路徑
-            window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/data/products/products.json', // 相對於當前頁面的完整路徑
-            window.location.origin + '/NutriPal/data/products/products.json', // 專案名稱路徑
-            window.location.origin + '/data/products.json' // 替代路徑
-        ];
-        
-        console.log('嘗試以下路徑:', possiblePaths);
-        
-        let response = null;
-        let error = null;
-        let successPath = '';
-        
-        // 嘗試每個可能的路徑
-        for (const path of possiblePaths) {
-            try {
-                console.log(`嘗試從 ${path} 加載數據...`);
-                const resp = await fetch(path, {
-                    cache: 'no-store',
-                    headers: { 'Cache-Control': 'no-cache' }
-                });
-                console.log(`從 ${path} 加載的回應狀態:`, resp.status);
-                
-                if (resp.ok) {
-                    response = resp;
-                    successPath = path;
-                    console.log(`成功從 ${path} 加載數據`);
-                    break;
-                } else {
-                    console.warn(`從 ${path} 加載失敗: 狀態碼 ${resp.status}`);
-                }
-            } catch (e) {
-                error = e;
-                console.warn(`從 ${path} 加載失敗:`, e.message);
-                continue;
-            }
-        }
-        
-        // 如果所有路徑都失敗
-        if (!response) {
-            console.error('所有數據加載路徑都失敗，使用備用數據');
-            // 記錄更詳細的錯誤信息
-            console.error('最後一個錯誤:', error);
-            console.error('當前頁面URL:', window.location.href);
-            console.error('當前頁面路徑:', window.location.pathname);
-            console.error('當前頁面來源:', window.location.origin);
-            console.error('嘗試的路徑:', possiblePaths);
-            
-            // 顯示一個用戶友好的錯誤消息
-            if (typeof displayError === 'function') {
-                displayError('無法加載產品數據，使用備用數據進行演示');
-            }
-            
-            return getFallbackProducts();
-        }
-        
-        try {
-            console.log('嘗試解析JSON數據...');
-            const data = await response.json();
-            console.log('數據解析結果:', typeof data, '包含產品數據:', !!data.products);
-            
-            // 添加數據驗證
-            if (!data || !data.products || !Array.isArray(data.products)) {
-                console.error('產品數據格式不正確:', data);
-                console.error('加載路徑:', successPath);
-                // 返回一些默認產品，以便系統繼續運行
-                return getFallbackProducts();
-            }
-            
-            console.log(`成功加載 ${data.products.length} 個產品`);
-            productsCache = data.products;
-            return productsCache;
-        } catch (parseError) {
-            console.error('解析JSON數據時出錯:', parseError);
-            console.error('加載路徑:', successPath);
-            return getFallbackProducts();
-        }
-    } catch (error) {
-        console.error('加載產品數據時出錯:', error);
-        console.error('當前頁面URL:', window.location.href);
-        // 在出錯時返回一些默認產品
-        return getFallbackProducts();
-    }
-}
-
-/**
- * 提供默認產品數據，當API請求失敗時使用
- * @returns {Array} 默認產品數據
- */
-function getFallbackProducts() {
-    console.log('使用備用產品數據');
-    return [
-        {
-            id: "fallback1",
-            name: "維生素D3滴劑",
-            brand: "健康品牌",
-            description: "維生素D3對於骨骼健康、免疫系統功能和情緒調節至關重要。",
-            price: 280,
-            rating: 4.8,
-            image_url: "https://via.placeholder.com/150",
-            benefits: ["增強免疫力", "促進鈣吸收", "維持骨骼健康"],
-            usage: "每日1滴，可與食物一起服用",
-            caution: "請勿超過建議劑量",
-            ingredients: "MCT油、維生素D3",
-            health_needs: ["增強免疫力", "骨骼與關節健康"],
-            lifestyle_match: ["久坐少動", "長時間工作"]
-        },
-        {
-            id: "fallback2",
-            name: "綜合維他命B群",
-            brand: "營養選擇",
-            description: "全面的B族維生素配方，支持能量產生和壓力管理。",
-            price: 520,
-            rating: 4.7,
-            image_url: "https://via.placeholder.com/150",
-            benefits: ["提升能量", "支持神經系統", "改善壓力應對"],
-            usage: "每日1粒，早餐時服用",
-            caution: "可能使尿液變成亮黃色，屬正常現象",
-            ingredients: "維生素B1、B2、B3、B5、B6、B7、B9、B12",
-            health_needs: ["提升腦力與專注", "增強免疫力"],
-            lifestyle_match: ["壓力大", "長時間工作"]
-        },
-        {
-            id: "fallback3",
-            name: "褪黑激素3mg",
-            brand: "睡眠專家",
-            description: "促進自然睡眠的褪黑激素補充劑，改善入睡時間和睡眠品質。",
-            price: 350,
-            rating: 4.6,
-            image_url: "https://via.placeholder.com/150",
-            benefits: ["改善睡眠質量", "縮短入睡時間", "調節生理時鐘"],
-            usage: "睡前30分鐘服用1粒",
-            caution: "白天避免服用，可能導致嗜睡",
-            ingredients: "褪黑激素、植物性膠囊",
-            health_needs: ["改善睡眠品質"],
-            lifestyle_match: ["經常熬夜", "使用電子產品到深夜"]
-        },
-        {
-            id: "fallback4",
-            name: "眼睛保健配方",
-            brand: "視力守護",
-            description: "特別設計的配方，保護眼睛健康，減輕用眼疲勞。",
-            price: 420,
-            rating: 4.5,
-            image_url: "https://via.placeholder.com/150",
-            benefits: ["保護視力", "減輕眼睛疲勞", "維持眼睛健康"],
-            usage: "每日1-2粒，飯後服用",
-            caution: "如有眼部不適，請諮詢眼科醫生",
-            ingredients: "葉黃素、玉米黃素、藍莓萃取物、魚油",
-            health_needs: ["視力保健"],
-            lifestyle_match: ["長時間使用電子產品", "長時間工作"]
-        },
-        {
-            id: "fallback5",
-            name: "肝臟保健膠囊",
-            brand: "身體守護者",
-            description: "幫助肝臟排毒和修復的天然配方。",
-            price: 620,
-            rating: 4.7,
-            image_url: "https://via.placeholder.com/150",
-            benefits: ["肝臟保健", "幫助排毒", "支持肝臟修復"],
-            usage: "每日2粒，晚餐後服用",
-            caution: "孕婦和哺乳期婦女應在使用前諮詢醫生",
-            ingredients: "薊、蒲公英根、姜黃素、牛奶薊素",
-            health_needs: ["肝臟保健"],
-            lifestyle_match: ["經常外食", "飲食不規律"]
-        }
+    const possiblePaths = [
+        'data/products/products.json',
+        '/data/products/products.json',
+        './data/products/products.json',
+        '../data/products/products.json' 
+        // 移除依賴 window 的路徑，因為引擎可能在非瀏覽器環境使用
     ];
+    
+    console.log('嘗試以下路徑:', possiblePaths);
+    
+    let response = null;
+    let successPath = '';
+    let lastError = null;
+
+    for (const path of possiblePaths) {
+        try {
+            console.log(`嘗試從 ${path} 加載數據...`);
+            // 使用 fetch API，因為這是瀏覽器環境
+            const resp = await fetch(path, {
+                cache: 'no-store', // 禁用快取以獲取最新數據
+                headers: { 'Cache-Control': 'no-cache' }
+            });
+            console.log(`從 ${path} 加載的回應狀態:`, resp.status);
+            
+            if (resp.ok) {
+                response = resp;
+                successPath = path;
+                console.log(`成功從 ${path} 加載數據`);
+                break; 
+            } else {
+                console.warn(`從 ${path} 加載失敗: 狀態碼 ${resp.status}`);
+                lastError = new Error(`Failed to fetch ${path}: Status ${resp.status}`);
+            }
+        } catch (e) {
+            lastError = e;
+            console.warn(`從 ${path} 加載時發生錯誤:`, e.message);
+        }
+    }
+    
+    if (!response) {
+        console.error('所有數據加載路徑都失敗。');
+        console.error('最後一個錯誤:', lastError);
+        // 拋出錯誤而不是返回備用數據
+        throw new Error('無法加載產品數據，請檢查網絡連接或文件路徑。'); 
+    }
+    
+    try {
+        console.log('嘗試解析JSON數據...');
+        const data = await response.json();
+        console.log('數據解析結果:', typeof data);
+        
+        if (!data || !data.products || !Array.isArray(data.products)) {
+            console.error('產品數據格式不正確:', data);
+            console.error('加載路徑:', successPath);
+            throw new Error('產品數據格式不正確。');
+        }
+        
+        console.log(`成功加載 ${data.products.length} 個產品從 ${successPath}`);
+        productsCache = data.products; // 緩存數據
+        return productsCache;
+    } catch (parseError) {
+        console.error('解析JSON數據時出錯:', parseError);
+        console.error('加載路徑:', successPath);
+        throw new Error(`解析產品數據時出錯: ${parseError.message}`);
+    }
 }
 
 /**
@@ -209,30 +172,33 @@ function filterByHealthNeed(products, healthNeeds, options = {}) {
     
     // 參數檢查
     if (!products || !products.length) {
-        console.log('產品列表為空');
+        console.log('[filterByHealthNeed] 產品列表為空');
         return [];
     }
     
     if (!healthNeeds) {
-        console.log('未指定健康需求');
-        return products;
+        console.log('[filterByHealthNeed] 未指定健康需求');
+        return products; // 或者返回空陣列，取決於期望行為
     }
     
     // 將單一健康需求轉為陣列以統一處理
-    const needsArray = Array.isArray(healthNeeds) ? healthNeeds : [healthNeeds];
+    const needsArray = Array.isArray(healthNeeds) ? healthNeeds.filter(n => n) : [healthNeeds];
     
     // 如果沒有有效的健康需求
     if (needsArray.length === 0) {
-        console.log('沒有有效的健康需求');
-        return products;
+        console.log('[filterByHealthNeed] 沒有有效的健康需求');
+        return products; // 或者返回空陣列
     }
+    
+    console.log(`[filterByHealthNeed] 篩選需求: ${needsArray.join(', ')}`);
     
     // 收集所有相關標籤
     const allRelevantTags = new Set();
     needsArray.forEach(need => {
-        const tagsForNeed = getTagsForHealthNeed(need);
+        const tagsForNeed = getTagsForHealthNeed(need); // 依賴 import
         tagsForNeed.forEach(tag => allRelevantTags.add(tag));
     });
+     console.log(`[filterByHealthNeed] 相關標籤:`, allRelevantTags);
     
     // 為每個產品計算相關性分數
     const scoredProducts = products.map(product => {
@@ -240,58 +206,62 @@ function filterByHealthNeed(products, healthNeeds, options = {}) {
         let matchDetails = [];
         
         // 檢查產品是否直接匹配健康需求
-        if (product.health_needs) {
+        if (product.health_needs && Array.isArray(product.health_needs)) {
             const directMatches = needsArray.filter(need => 
                 product.health_needs.includes(need)
             );
             
             if (directMatches.length > 0) {
-                // 直接匹配的健康需求，給予較高分數
-                relevanceScore += directMatches.length * 0.6;
+                relevanceScore += directMatches.length * 0.6; // 直接匹配權重高
                 matchDetails.push(`直接匹配需求: ${directMatches.join(', ')}`);
             }
         }
         
         // 檢查產品標籤與相關標籤的匹配程度
-        if (product.tags && product.tags.length && allRelevantTags.size > 0) {
+        if (product.tags && Array.isArray(product.tags) && allRelevantTags.size > 0) {
             const tagMatches = product.tags.filter(tag => 
                 allRelevantTags.has(tag)
             );
             
             if (tagMatches.length > 0) {
-                // 標籤匹配，根據匹配度給分
-                const tagMatchScore = tagMatches.length / Math.sqrt(allRelevantTags.size);
-                relevanceScore += tagMatchScore * 0.4;
+                const tagMatchScore = tagMatches.length / Math.sqrt(allRelevantTags.size); // 使用平方根緩和標籤數量的影響
+                relevanceScore += tagMatchScore * 0.3; // 標籤匹配權重中等
                 matchDetails.push(`標籤匹配: ${tagMatches.join(', ')}`);
             }
         }
         
-        // 檢查產品描述和益處是否含有相關關鍵詞
-        if (product.description || product.benefits) {
-            const description = product.description || '';
-            const benefits = Array.isArray(product.benefits) ? product.benefits.join(' ') : '';
-            const combinedText = (description + ' ' + benefits).toLowerCase();
+        // 檢查產品描述和益處是否含有相關關鍵詞 (健康需求本身或相關標籤)
+        if (product.description || (product.benefits && Array.isArray(product.benefits))) {
+            const description = (product.description || '').toLowerCase();
+            const benefitsText = Array.isArray(product.benefits) ? product.benefits.join(' ').toLowerCase() : '';
+            const combinedText = description + ' ' + benefitsText;
             
-            const textMatches = Array.from(allRelevantTags).filter(tag => 
-                combinedText.includes(tag.toLowerCase())
-            );
+            const textMatchNeeds = needsArray.filter(need => combinedText.includes(need.toLowerCase()));
+            const textMatchTags = Array.from(allRelevantTags).filter(tag => combinedText.includes(tag.toLowerCase()));
             
-            if (textMatches.length > 0) {
-                // 描述和益處匹配，給予較低分數
-                relevanceScore += textMatches.length * 0.2 / allRelevantTags.size;
-                matchDetails.push(`描述匹配: ${textMatches.length}個關鍵詞`);
+            const uniqueTextMatches = new Set([...textMatchNeeds, ...textMatchTags]);
+
+            if (uniqueTextMatches.size > 0) {
+                 // 文本匹配權重較低
+                relevanceScore += uniqueTextMatches.size * 0.1 / (needsArray.length + allRelevantTags.size || 1) ;
+                matchDetails.push(`描述/益處匹配: ${uniqueTextMatches.size}個關鍵詞`);
             }
         }
         
-        // 應用評分加權（如產品評分和熱門度）
-        if (product.rating) {
-            relevanceScore *= (1 + (product.rating - 3) * 0.1); // 評分3以上加分，以下減分
+        // 根據產品評分調整分數 (可選)
+        if (product.rating && typeof product.rating === 'number' && product.rating > 0) {
+            relevanceScore *= (1 + (product.rating - 4.0) * 0.05); // 以4.0為基準調整
+        }
+
+        // 根據評論數調整分數 (可選，使用對數避免影響過大)
+        if (product.review_count && typeof product.review_count === 'number' && product.review_count > 0) {
+             relevanceScore *= (1 + Math.log10(product.review_count + 1) * 0.01);
         }
         
         return {
             ...product,
             relevanceScore,
-            matchDetails
+            matchDetails // 用於調試
         };
     });
     
@@ -299,6 +269,10 @@ function filterByHealthNeed(products, healthNeeds, options = {}) {
     const filteredProducts = scoredProducts.filter(product => 
         product.relevanceScore >= scoreThreshold
     );
+     console.log(`[filterByHealthNeed] 篩選後 ${filteredProducts.length} 個產品 (閾值: ${scoreThreshold})`);
+
+     // 調試：打印每個產品的分數
+     // scoredProducts.forEach(p => console.log(`[Score] ${p.name}: ${p.relevanceScore.toFixed(3)}`, p.matchDetails));
     
     // 根據相關性分數排序
     const sortedProducts = filteredProducts.sort((a, b) => 
@@ -307,6 +281,214 @@ function filterByHealthNeed(products, healthNeeds, options = {}) {
     
     // 限制結果數量
     return sortedProducts.slice(0, maxResults);
+}
+
+/**
+ * 根據生活型態篩選產品 (簡單實現，待擴充)
+ * @param {Array} products 產品數據陣列
+ * @param {string} lifestyle 生活型態
+ * @returns {Array} 符合生活型態的產品
+ */
+function filterByLifestyle(products, lifestyle) {
+    console.log(`[filterByLifestyle] 篩選生活型態: ${lifestyle}`);
+    if (!lifestyle) return products; // 如果沒有指定，返回所有
+
+    // 這裡需要更複雜的邏輯來判斷匹配度，目前僅作示例
+    // 可以檢查產品的 tags 或 description 是否包含 lifestyle 關鍵字
+    // 或者建立一個生活型態到產品特性的映射
+    return products.filter(product => {
+        // 簡單示例：如果產品標籤包含生活型態關鍵字
+        if (product.tags && product.tags.some(tag => tag.includes(lifestyle))) {
+            return true;
+        }
+        // 簡單示例：如果產品描述包含生活型態關鍵字
+        if (product.description && product.description.includes(lifestyle)) {
+             return true;
+        }
+        // 默認不篩選掉，除非有明確的不匹配規則
+        return true; 
+    });
+}
+
+/**
+ * 根據預算篩選產品 (簡單實現)
+ * @param {Array} products 產品列表
+ * @param {number} budget 預算上限
+ * @returns {Array} 符合預算的產品列表
+ */
+function filterByBudget(products, budget) {
+    console.log(`[filterByBudget] 篩選預算: <= ${budget}`);
+    if (typeof budget !== 'number' || budget <= 0) {
+        return products; // 無有效預算，返回所有
+    }
+    return products.filter(product => typeof product.price === 'number' && product.price <= budget);
+}
+
+/**
+ * 初始化推薦頁面：獲取數據、篩選、渲染結果
+ * @param {string} healthNeed - 用戶選擇的健康需求
+ * @param {string} lifestyle - 用戶選擇的生活型態
+ * @param {number} budget - 用戶設定的預算
+ */
+export async function initializeRecommendations(healthNeed, lifestyle, budget) {
+    const recommendedContainer = document.getElementById('recommended-products');
+    const relatedContainer = document.getElementById('related-products');
+    const timelineContainer = document.getElementById('usage-timeline');
+    const cautionsContainer = document.getElementById('product-cautions');
+
+    try {
+        // 1. 獲取所有產品數據
+        const allProducts = await getProducts();
+        console.log(`[initializeRecommendations] 獲取到 ${allProducts.length} 個產品`);
+
+        // 2. 根據健康需求篩選主要推薦產品
+        let recommendedProducts = filterByHealthNeed(allProducts, healthNeed, { maxResults: 10, scoreThreshold: 0.1 });
+        console.log(`[initializeRecommendations] 健康需求篩選後: ${recommendedProducts.length} 個`);
+
+        // 3. (可選) 根據生活型態進一步篩選或調整排序
+        // recommendedProducts = filterByLifestyle(recommendedProducts, lifestyle);
+        // console.log(`[initializeRecommendations] 生活型態篩選後: ${recommendedProducts.length} 個`);
+        
+        // 4. 根據預算篩選 (應用在主要推薦上)
+        recommendedProducts = filterByBudget(recommendedProducts, budget);
+        console.log(`[initializeRecommendations] 預算篩選後: ${recommendedProducts.length} 個`);
+
+
+        // 5. 渲染主要推薦產品列表
+        if (recommendedContainer) {
+            if (recommendedProducts.length > 0) {
+                recommendedContainer.innerHTML = recommendedProducts.map(createProductCardHTML).join('');
+            } else {
+                recommendedContainer.innerHTML = '<p class="text-center">抱歉，根據您的選擇，目前沒有找到合適的產品推薦。</p>';
+            }
+        } else {
+             console.error('找不到 ID 為 "recommended-products" 的容器');
+        }
+
+        // 6. (可選) 生成並渲染相關產品 (簡單示例：隨機選幾個)
+        if (relatedContainer) {
+            const relatedProducts = allProducts
+                .filter(p => !recommendedProducts.some(rec => rec.id === p.id)) // 過濾掉已推薦的
+                .sort(() => 0.5 - Math.random()) // 隨機排序
+                .slice(0, 2); // 取前2個
+             if (relatedProducts.length > 0) {
+                 relatedContainer.innerHTML = relatedProducts.map(createProductCardHTML).join('');
+             } else {
+                 relatedContainer.innerHTML = ''; // 或顯示提示
+             }
+        } else {
+             console.error('找不到 ID 為 "related-products" 的容器');
+        }
+
+        // 7. (可選) 更新時間線 (使用固定內容作為示例)
+        if (timelineContainer) {
+            updateTimelineHTML(timelineContainer, recommendedProducts); // 傳入產品以供未來擴展
+        } else {
+             console.error('找不到 ID 為 "usage-timeline" 的容器');
+        }
+
+        // 8. (可選) 更新注意事項 (使用固定內容作為示例)
+        if (cautionsContainer) {
+             updateCautionsHTML(cautionsContainer, recommendedProducts); // 傳入產品以供未來擴展
+        } else {
+             console.error('找不到 ID 為 "product-cautions" 的容器');
+        }
+
+    } catch (error) {
+        console.error('[initializeRecommendations] 處理推薦時發生錯誤:', error);
+        if (recommendedContainer) {
+            recommendedContainer.innerHTML = `<p class="text-center" style="color: red;">加載推薦失敗：${error.message}</p>`;
+        }
+        // 可以考慮也清空或顯示錯誤訊息給其他部分
+        if (relatedContainer) relatedContainer.innerHTML = '';
+        if (timelineContainer) timelineContainer.innerHTML = '';
+        if (cautionsContainer) cautionsContainer.innerHTML = '<h3 style="font-size: 16px; margin: 0 0 12px;">無法加載注意事項</h3>';
+    }
+}
+
+/**
+ * 更新時間線顯示 (示例)
+ * @param {HTMLElement} container - 時間線容器元素
+ * @param {Array} products - 推薦的產品列表 (未來可能用於生成動態時間線)
+ */
+function updateTimelineHTML(container, products) {
+    // 目前使用固定內容，未來可以根據 products 動態生成
+     container.innerHTML = `
+        <div class="time-point">
+            <div class="time-header">
+                <i class="fas fa-sun"></i>
+                <div class="time-info">
+                    <h4>早晨</h4>
+                    <p class="time">06:00 - 09:00</p>
+                </div>
+            </div>
+            <div class="time-products">
+                <p>（建議服用維生素或能量相關補充品）</p>
+            </div>
+        </div>
+         <div class="time-point">
+            <div class="time-header">
+                 <i class="fas fa-utensils"></i>
+                 <div class="time-info">
+                    <h4>隨餐</h4>
+                    <p class="time">用餐時</p>
+                 </div>
+            </div>
+            <div class="time-products">
+                <p>（多數補充品可隨餐服用以提高吸收）</p>
+            </div>
+        </div>
+        <div class="time-point">
+            <div class="time-header">
+                <i class="fas fa-moon"></i>
+                <div class="time-info">
+                    <h4>睡前</h4>
+                    <p class="time">21:00 - 23:00</p>
+                </div>
+            </div>
+            <div class="time-products">
+                <p>（建議服用幫助睡眠或放鬆的補充品，如鎂、褪黑激素）</p>
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * 更新注意事項顯示 (示例)
+ * @param {HTMLElement} container - 注意事項容器元素
+ * @param {Array} products - 推薦的產品列表 (未來可提取產品特定注意事項)
+ */
+function updateCautionsHTML(container, products) {
+    container.innerHTML = '<h3 style="font-size: 16px; margin: 0 0 12px;">常見注意事項參考</h3>';
+    const cautionsList = document.createElement('ul');
+    cautionsList.className = 'cautions-list';
+    cautionsList.style.cssText = 'margin: 0; padding-left: 20px; font-size: 14px; color: var(--text-secondary);';
+
+    // 從推薦產品中提取注意事項 (未來擴展)
+    let specificCautions = [];
+    if (products && products.length > 0) {
+        products.forEach(p => {
+            if (p.caution) {
+                specificCautions.push(`<li><span class="product-name">${p.name.substring(0,15)}...:</span> ${p.caution.substring(0, 50)}...</li>`);
+            }
+        });
+    }
+    
+    // 添加通用注意事項
+    cautionsList.innerHTML = `
+        <li>在開始任何新的補充劑方案之前，請務必諮詢您的醫生或醫療保健提供者。</li>
+        <li>如果您正在懷孕、哺乳或有任何既往健康狀況，請告知您的醫生。</li>
+        <li>請遵循產品標籤上的建議劑量，不要超過推薦用量。</li>
+        <li>將所有補充劑放在兒童接觸不到的地方。</li>
+        ${specificCautions.slice(0, 3).join('')} 
+    `;
+    
+    container.appendChild(cautionsList);
+    
+    const disclaimer = document.createElement('p');
+    disclaimer.style.cssText = 'font-size: 12px; color: var(--text-secondary); margin-top: 12px; text-align: center;';
+    disclaimer.textContent = '小帕不提供任何醫療建議，所有資訊僅供參考，請諮詢專業醫師進行健康決策～';
+    container.appendChild(disclaimer);
 }
 
 /**
@@ -807,16 +989,3 @@ function enhancedSortProducts(products, criteria = {}) {
         return scoreB - scoreA;
     });
 }
-
-// 更新導出模組功能，添加新函數
-window.NutriPalRecommender = {
-    recommendProducts,
-    getRelatedProducts,
-    recommendWithinBudget,
-    getPopularByCategory,
-    advancedRecommendProducts,
-    filterByMultipleHealthNeeds,
-    filterByForbiddenIngredients,
-    adjustBySeasonality,
-    enhancedSortProducts
-}; 
