@@ -380,8 +380,13 @@
         </a>
     </div>
 
-    <!-- 引入腳本 -->
-    <script src="js/recommendationEngine.js"></script>
+    <!-- 引入腳本 - 修改順序確保依賴關係正確 -->
+    <script src="js/models/HealthNeedsMapping-fixed.js"></script>
+    <!-- 添加修復後的非模組版產品類 -->
+    <script src="js/models/Product-fixed.js"></script>
+    <script src="js/models/ProductExample-fixed.js"></script>
+    <!-- 使用修復版本的 JS 文件 -->
+    <script src="js/recommendationEngine-fixed.js"></script>
     <!-- 不載入 main.js 以避免語法錯誤問題 -->
     <!-- <script src="js/main.js"></script> -->
 

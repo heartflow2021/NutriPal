@@ -1,9 +1,11 @@
 /**
- * Product.js 
+ * Product-fixed.js 
  * 標準化產品資料模型，用於 NutriPal 應用程式
+ * 非模組版本 - 全域變數方式實現
  */
 
-class Product {
+// 將類別定義為全域變數
+window.Product = class Product {
   /**
    * 建立新的 Product 實例
    * @param {Object} productData - 原始產品資料
@@ -157,7 +159,7 @@ class Product {
    * @return {Product} 產品實例
    */
   static fromJSON(json) {
-    return new Product(json);
+    return new window.Product(json);
   }
 
   /**
@@ -166,9 +168,6 @@ class Product {
    * @return {Array<Product>} Product 實例數組
    */
   static fromArray(productsArray) {
-    return productsArray.map(productData => new Product(productData));
+    return productsArray.map(productData => new window.Product(productData));
   }
-}
-
-// 導出 Product 類以供其他模組使用
-export default Product; 
+}; 

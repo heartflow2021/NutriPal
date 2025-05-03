@@ -20,70 +20,65 @@
         </a>
     </div>
 
-    <!-- 主要內容區 -->
-    <div class="app-content" style="padding: 16px;">
-        <!-- 結果摘要 -->
-        <div class="card" style="margin-bottom: 24px;">
-            <div style="display: flex; align-items: center; margin-bottom: 12px;">
-                <div class="avatar" style="background-color: var(--primary);">
-                    <i class="fas fa-archive"></i>
+    <!-- 結果容器 -->
+    <div class="results-container">
+        <div class="results-title">
+            <h1>專為您定制的保健品方案</h1>
+            <p>根據您的健康需求 <span id="user-health-need"></span> 與生活型態 <span id="user-lifestyle"></span>，我們推薦以下保健品：</p>
+        </div>
+
+        <div class="product-section">
+            <h2>核心推薦</h2>
+            <p class="section-description">最適合您需求的保健品</p>
+            <div id="recommended-products" class="products-grid">
+                <!-- 推薦產品將在這裡動態生成 -->
+                <div class="loading-indicator">
+                    <i class="fas fa-spinner fa-pulse"></i>
+                    <p>正在生成推薦...</p>
                 </div>
-                <div>
-                    <p style="margin: 0 0 2px; font-weight: 600;">小帕 Pal 的資料整理</p>
-                    <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">根據熱門選擇整理</p>
+            </div>
+        </div>
+
+        <div class="product-section">
+            <h2>輔助推薦</h2>
+            <p class="section-description">為增強效果的輔助保健品</p>
+            <div id="related-products" class="products-grid">
+                <!-- 相關產品將在這裡動態生成 -->
+                <div class="loading-indicator">
+                    <i class="fas fa-spinner fa-pulse"></i>
+                    <p>正在生成推薦...</p>
                 </div>
             </div>
-            <p class="selection-summary" style="margin: 0 0 12px;">根據你選擇的「<span class="health-need-display" style="color: var(--primary); font-weight: 600;">改善睡眠品質</span>」需求，以及「<span class="lifestyle-display" style="color: var(--primary); font-weight: 600;">長時間工作</span>」的生活型態，以下是我整理的熱門保健品資訊。</p>
-            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                <span class="badge">相關熱門選擇</span>
-                <span class="badge result-category">睡眠相關</span>
-                <span class="badge">壓力緩解</span>
+        </div>
+
+        <div class="product-section">
+            <h2>使用建議時間表</h2>
+            <div id="usage-timeline" class="timeline-container">
+                <!-- 時間表將在這裡動態生成 -->
+                <div class="loading-indicator">
+                    <i class="fas fa-spinner fa-pulse"></i>
+                    <p>正在生成時間表...</p>
+                </div>
             </div>
         </div>
 
-        <!-- 推薦產品列表 -->
-        <h2 style="font-size: 18px; margin-bottom: 16px;">基礎熱門組合</h2>
-        
-        <!-- 產品容器 -->
-        <div class="product-list" id="recommended-products">
-            <!-- 產品將由JavaScript動態生成 -->
-            <div class="loading-spinner" style="margin: 20px auto;"></div>
-        </div>
-
-        <!-- 進階推薦 -->
-        <h2 style="font-size: 18px; margin: 24px 0 16px;">延伸相關選擇</h2>
-        
-        <!-- 相關產品容器 -->
-        <div class="product-list" id="related-products">
-            <!-- 相關產品將由JavaScript動態生成 -->
-        </div>
-
-        <!-- 每日服用時間表 -->
-        <div class="card" style="margin-top: 24px;">
-            <h2 style="font-size: 18px; margin: 0 0 16px;">常見使用時間參考</h2>
-            
-            <div class="timeline" id="usage-timeline">
-                <!-- 時間表將由JavaScript動態生成 -->
+        <div class="product-section">
+            <h2>使用注意事項</h2>
+            <div id="product-cautions" class="cautions-container">
+                <!-- 注意事項將在這裡動態生成 -->
+                <div class="loading-indicator">
+                    <i class="fas fa-spinner fa-pulse"></i>
+                    <p>正在生成注意事項...</p>
+                </div>
             </div>
         </div>
+    </div>
 
-        <!-- 注意事項 -->
-        <div class="card" style="margin-top: 16px;" id="product-cautions">
-            <h3 style="font-size: 16px; margin: 0 0 12px;">常見注意事項參考</h3>
-            <ul class="cautions-list" style="margin: 0; padding-left: 20px; font-size: 14px; color: var(--text-secondary);">
-                <!-- 注意事項將由JavaScript動態生成 -->
-            </ul>
-            <p style="font-size: 12px; color: var(--text-secondary); margin-top: 12px; text-align: center;">小帕不提供任何醫療建議，所有資訊僅供參考，請諮詢專業醫師進行健康決策～</p>
-        </div>
-
-        <!-- 操作按鈕 -->
-        <div style="display: flex; gap: 12px; margin-top: 24px; margin-bottom: 100px;">
-            <button class="btn-secondary" style="flex: 1;">
-                <i class="fas fa-download"></i> 下載資訊
-            </button>
-            <button class="btn-primary" style="flex: 1;">
-                <i class="fas fa-envelope"></i> 發送至 Email
-            </button>
+    <!-- 備用顯示：如果推薦引擎未正確初始化 -->
+    <div id="fallback-content" class="fallback-content" style="display: none;">
+        <div class="warning-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>抱歉，無法初始化推薦引擎，請稍後再試。</p>
         </div>
     </div>
 
@@ -107,22 +102,35 @@
         </a>
     </div>
 
-    <!-- 引入腳本 -->
-    <script type="module" src="js/recommendationEngine.js"></script>
-    <!-- 不載入 main.js 以避免語法錯誤問題 -->
-    <!-- <script src="js/main.js"></script> -->
+    <!-- 修正：先載入依賴的資源，確保順序正確 -->
+    <script src="js/models/HealthNeedsMapping-fixed.js"></script>
+    <!-- 添加修復後的非模組版產品類 -->
+    <script src="js/models/Product-fixed.js"></script>
+    <script src="js/models/ProductExample-fixed.js"></script>
+    <script src="js/recommendationEngine-fixed.js"></script>
 
-    <!-- 修改備用顯示代碼為模塊，並始終獲取新推薦 -->
-    <script type="module">
-        // 導入將要實現的推薦引擎初始化函數
-        import { initializeRecommendations } from './js/recommendationEngine.js'; 
-        // 導入顯示產品、時間線、注意事項的函數 (假設它們也被導出或移到 recommendationEngine)
-        // 或者讓 initializeRecommendations 處理 DOM 更新
-
-        document.addEventListener('DOMContentLoaded', async function() {
-            console.log('results.html 頁面加載完成 - 使用模塊加載邏輯');
+    <!-- 然後採用非模組方式的主要邏輯 -->
+    <script>
+        // 確保在 DOM 載入完成後執行
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('results.html 頁面加載完成');
             
-            // 1. 獲取用戶輸入 (保留現有邏輯)
+            // 顯示備用內容的函數
+            function showFallbackContent() {
+                document.getElementById('fallback-content').style.display = 'block';
+                document.querySelectorAll('.loading-indicator').forEach(el => {
+                    el.style.display = 'none';
+                });
+            }
+            
+            // 檢查 initializeRecommendations 是否可用
+            if (typeof window.initializeRecommendations !== 'function') {
+                console.error('找不到推薦引擎函數!');
+                showFallbackContent();
+                return;
+            }
+            
+            // 1. 獲取用戶輸入
             const urlParams = new URLSearchParams(window.location.search);
             const healthParam = urlParams.get('health');
             const lifestyleParam = urlParams.get('lifestyle');
@@ -130,96 +138,41 @@
             
             console.log('URL參數檢查:', { healthParam, lifestyleParam, budgetParam });
             
-            let healthNeed = localStorage.getItem('userHealthNeed') || sessionStorage.getItem('userHealthNeed');
-            let lifestyle = localStorage.getItem('userLifestyle') || sessionStorage.getItem('userLifestyle');
-            let budget = localStorage.getItem('userBudget') || sessionStorage.getItem('userBudget');
+            // 1.1 從 localStorage 或 sessionStorage 中獲取，如果 URL 參數不可用
+            let healthNeed = healthParam || localStorage.getItem('userHealthNeed') || sessionStorage.getItem('userHealthNeed');
+            let lifestyle = lifestyleParam || localStorage.getItem('userLifestyle') || sessionStorage.getItem('userLifestyle');
+            let budget = budgetParam ? parseInt(budgetParam) : (localStorage.getItem('userBudget') ? parseInt(localStorage.getItem('userBudget')) : 1000);
             
-            // 如果儲存中沒有，則使用URL參數
-            if (!healthNeed && healthParam) healthNeed = healthParam;
-            if (!lifestyle && lifestyleParam) lifestyle = lifestyleParam;
-            if (!budget && budgetParam) budget = budgetParam;
-             
-            // 設置默認值，確保一定有數據可用
-            if (!healthNeed) healthNeed = '改善睡眠品質';
-            if (!lifestyle) lifestyle = '長時間工作';
-            if (!budget) budget = '1000'; // 設置一個默認預算
-
-            // 將獲取到的值存回 storage，以備不時之需或跨頁面使用
-            localStorage.setItem('userHealthNeed', healthNeed);
-            localStorage.setItem('userLifestyle', lifestyle);
-            localStorage.setItem('userBudget', budget);
-            sessionStorage.setItem('userHealthNeed', healthNeed);
-            sessionStorage.setItem('userLifestyle', lifestyle);
-            sessionStorage.setItem('userBudget', budget);
-
-            console.log('最終用戶輸入:', { healthNeed, lifestyle, budget });
-
-            // 2. 更新結果摘要顯示 (保留現有邏輯，因為它只更新文本)
-            updateResultsDisplay(healthNeed, lifestyle, budget);
+            // 1.2 如果仍然無法獲取，使用默認值
+            if (!healthNeed) healthNeed = '體重管理';
+            if (!lifestyle) lifestyle = '長時間使用電子產品';
+            if (isNaN(budget)) budget = 1000;
             
-            // 3. 調用推薦引擎獲取並顯示產品 (新邏輯)
+            console.log('最終使用的參數:', { healthNeed, lifestyle, budget });
+            
+            // 2. 更新用戶輸入顯示
+            document.getElementById('user-health-need').textContent = healthNeed;
+            document.getElementById('user-lifestyle').textContent = lifestyle;
+            
+            // 3. 使用推薦引擎生成結果
             try {
-                // 顯示加載指示器
-                const productContainer = document.getElementById('recommended-products');
-                if (productContainer) {
-                    productContainer.innerHTML = '<div class="loading-spinner" style="margin: 20px auto;"></div>';
-                }
-                
-                // 調用推薦引擎的主函數 (假設它處理數據獲取、篩選和DOM更新)
-                await initializeRecommendations(healthNeed, lifestyle, parseInt(budget));
-                console.log('推薦產品已加載並顯示');
-
-                // (可選) 更新相關產品、時間線、注意事項等，
-                // 最好也由 initializeRecommendations 或其調用的函數處理
-                // displayRelatedProducts(); // (如果需要，確保此函數也被處理)
-                // updateTimeline(); // (如果需要，確保此函數也被處理)
-                // updateCautions(); // (如果需要，確保此函數也被處理)
-
+                window.initializeRecommendations(healthNeed, lifestyle, budget)
+                    .then(() => {
+                        console.log('推薦引擎初始化成功');
+                    })
+                    .catch(error => {
+                        console.error('推薦引擎初始化失敗:', error);
+                        showFallbackContent();
+                    });
             } catch (error) {
-                console.error('獲取或顯示推薦時出錯:', error);
-                const productContainer = document.getElementById('recommended-products');
-                if (productContainer) {
-                    productContainer.innerHTML = '<p class="text-center">抱歉，載入推薦時發生錯誤，請稍後再試。</p>';
-                }
+                console.error('嘗試初始化推薦引擎時出錯:', error);
+                showFallbackContent();
             }
         });
         
-        // 更新結果顯示的函數 (保留)
-        function updateResultsDisplay(healthNeed, lifestyle, budget) {
-            console.log('更新頁面顯示:', { healthNeed, lifestyle, budget });
-            
-            // 更新健康需求和生活型態顯示
-            const healthDisplay = document.querySelector('.health-need-display');
-            const lifestyleDisplay = document.querySelector('.lifestyle-display');
-            
-            if (healthDisplay) {
-                healthDisplay.textContent = healthNeed || '改善睡眠品質';
-            }
-            
-            if (lifestyleDisplay) {
-                lifestyleDisplay.textContent = lifestyle || '長時間工作';
-            }
-            
-            // 更新摘要文本
-            const summaryElem = document.querySelector('.selection-summary');
-            if (summaryElem) {
-                const healthNeedText = healthNeed || '改善睡眠品質';
-                const lifestyleText = lifestyle || '長時間工作';
-                
-                summaryElem.innerHTML = `根據你選擇的「<span class="health-need-display" style="color: var(--primary); font-weight: 600;">${healthNeedText}</span>」需求，以及「<span class="lifestyle-display" style="color: var(--primary); font-weight: 600;">${lifestyleText}</span>」的生活型態，以下是我整理的熱門保健品資訊。`;
-            }
-            
-            // 更新分類標籤
-            const categoryBadge = document.querySelector('.result-category');
-            if (categoryBadge && healthNeed) {
-                if (healthNeed === '改善睡眠品質') {
-                    categoryBadge.textContent = '睡眠相關';
-                } else if (healthNeed === '增強免疫力') {
-                    categoryBadge.textContent = '免疫力相關';
-                } else {
-                    categoryBadge.textContent = healthNeed;
-                }
-            }
+        // 分享結果功能 (可擴展)
+        function shareResults() {
+            alert('分享功能即將推出！');
         }
     </script>
 </body>
