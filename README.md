@@ -78,9 +78,34 @@ iHerb 購買連結
   - 消化系統保健
   - 體重管理
 
+健康需求對應產品表：
+- 我們已建立詳細的健康需求與產品對應關係表
+- 這些映射存儲在 `/data/mappings/` 目錄中
+- 有兩種格式：中文鍵名 (`health_needs_mapping_zh.json`) 和英文鍵名 (`health_needs_mapping.json`)
+- 映射表示例 (英文鍵名)：
+```json
+{
+  "immune_support": [
+    "California Gold Nutrition, Gold C™，USP 級維生素 C，1000 毫克，60 粒素食膠囊",
+    "NOW Foods, 鋅片，50 毫克，250 片",
+    "California Gold Nutrition, LactoBif® 30 益生菌，300 億 CFU，60 粒素食膠囊"
+  ],
+  "sleep_relaxation": [
+    "NOW Foods, 甘氨酸鎂，200 毫克，180 片（每片 100 毫克）",
+    "Doctor's Best, 高吸收鎂，200 毫克，240 片（每片 100 毫克）"
+  ],
+  "bone_joint_health": [
+    "California Gold Nutrition, CollagenUP®，水解海洋膠原蛋白肽 + 透明質酸和維生素 C，原味，7.26 盎司（206 克）",
+    "NOW Foods, 維生素 D3 + K2 素食膠囊，120 粒裝",
+    "Futurebiotics, 含維生素 K2 的維生素 K2 + D3（MK-7），120 粒膠囊"
+  ]
+}
+```
+
 數據庫格式與存取：
 - 採用JSON格式存儲，便於前端讀取和處理
 - 保健品數據位於 `/data/products/products.json`
+- 健康需求映射位於 `/data/mappings/health_needs_mapping.json`
 - 產品圖片資源存放於 `/images/products/` 目錄
 
 🛠️ 技術架構
@@ -124,6 +149,7 @@ UI 組件特性：
 [x] 擴充保健品資料庫 (200+項)
 [x] 增加保健品知識內容
 [x] 改進資訊整理演算法
+[x] 開發健康需求與產品映射表
 [ ] 開發自動化數據更新系統，從iHerb獲取最新產品資訊
 第三階段
 [ ] GPT 聊天資訊助手整合
