@@ -265,7 +265,7 @@
         </div>
 
         <!-- 預算選項 -->
-        <div id="budget-options" style="margin-bottom: 24px; display: none;">
+        <div id="budget-options" style="margin-bottom: 60px; display: none;">
             <a href="results.html" onclick="saveSelectionAndRedirect('500', event)" class="option-button" data-type="budget" data-value="500" style="text-decoration: none; color: inherit;">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-dollar-sign" style="margin-right: 12px; color: var(--primary);"></i>
@@ -305,9 +305,12 @@
                     </div>
                 </div>
             </a>
+            
+            <!-- 底部額外間距，防止被導航欄遮擋 -->
+            <div style="height: 50px;"></div>
         </div>
 
-        <div id="budget-response" style="display: none;">
+        <div id="budget-response" style="display: none; margin-bottom: 40px;">
             <div class="chat-message right">
                 <div class="chat-bubble user">
                     <p style="margin: 0;">我選擇<span class="selected-budget"></span></p>
