@@ -410,6 +410,9 @@
                     // 處理可能的圖片載入錯誤
                     const fallbackImgUrl = "https://images.pexels.com/photos/4046316/pexels-photo-4046316.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260";
                     
+                    // 在創建 img 標籤前打印嘗試加載的 URL
+                    console.log('Attempting to load image:', product.image_url);
+
                     card.innerHTML = `
                         <img src="${product.image_url || fallbackImgUrl}" alt="${product.name}" 
                              style="width: 100%; height: 180px; object-fit: contain; background-color: #f9f9f9;"
