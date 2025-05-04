@@ -335,35 +335,18 @@
         font-size: 12px;
     }
 
-    .avatar-container {
-        position: relative;
-        width: 40px;
-        height: 40px;
-        margin-right: 12px;
-    }
-
-    .testimonial-avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
     .testimonial-icon {
-        width: 40px;
-        height: 40px;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         color: white;
-        font-size: 18px;
-        position: absolute;
-        top: 0;
-        left: 0;
+        font-size: 22px;
+        background-color: var(--primary);
+        margin-right: 16px;
+        flex-shrink: 0;
     }
 
     @media (min-width: 768px) {
@@ -371,19 +354,27 @@
             grid-template-columns: repeat(3, 1fr);
         }
         
-        .avatar-container {
-            width: 56px;
-            height: 56px;
-            margin: 0 auto 16px;
+        .testimonial-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 24px;
         }
         
-        .testimonial-avatar, .testimonial-icon {
-            width: 56px;
-            height: 56px;
+        .testimonial-header {
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 16px;
         }
         
         .testimonial-icon {
-            font-size: 24px;
+            margin-right: 0;
+            margin-bottom: 16px;
+        }
+        
+        .testimonial-info {
+            text-align: center;
         }
     }
 
@@ -395,15 +386,13 @@
     </style>
 
     <script>
-    // 修改用戶見證數據，添加圖標備用方案
+    // 修改用戶見證數據，統一使用相同風格的圖標
     const testimonials = [
         {
             name: "陳小姐",
             age: 40,
             occupation: "上班族",
-            photo: "images/testimonials/woman1.jpg",
-            icon: "fa-female",
-            iconColor: "#F5B17B",
+            icon: "fa-user",
             content: "長期工作壓力大導致失眠，透過小帕的資料整理功能，幫我找到許多人使用的褪黑激素和鎂補充品，參考後我的睡眠品質改善很多！",
             rating: 5
         },
@@ -411,9 +400,7 @@
             name: "林先生",
             age: 52,
             occupation: "企業主管",
-            photo: "images/testimonials/man1.jpg",
             icon: "fa-user-tie",
-            iconColor: "#4D6849",
             content: "年過五十後開始關注心血管健康，小帕推薦的魚油和輔酶Q10組合，是我現在持續使用的保健方案，讓我更有信心維持健康！",
             rating: 5
         },
@@ -421,9 +408,7 @@
             name: "王太太",
             age: 35,
             occupation: "專職媽媽",
-            photo: "images/testimonials/woman2.jpg",
-            icon: "fa-female",
-            iconColor: "#A8D5BA",
+            icon: "fa-user",
             content: "懷孕期間擔心寶寶營養，小帕整理的孕期保健資訊幫我找到適合的葉酸和鈣質補充品，醫生也認可這個組合，感謝貼心的建議！",
             rating: 5
         },
@@ -431,9 +416,7 @@
             name: "張先生",
             age: 28,
             occupation: "工程師",
-            photo: "images/testimonials/man2.jpg",
-            icon: "fa-laptop-code",
-            iconColor: "#4D6849",
+            icon: "fa-user",
             content: "常熬夜加班眼睛乾澀，在小帕推薦下嘗試了葉黃素和藍莓萃取物，持續使用三個月後，眼睛疲勞的情況確實改善了不少。",
             rating: 4
         },
@@ -441,9 +424,7 @@
             name: "李小姐",
             age: 32,
             occupation: "健身教練",
-            photo: "images/testimonials/woman3.jpg",
-            icon: "fa-dumbbell",
-            iconColor: "#F5B17B",
+            icon: "fa-user",
             content: "作為健身教練，我常推薦客戶參考小帕的營養建議。蛋白質和BCAA的選擇上，小帕整理的資訊非常專業，幫助我和客戶做出更好的選擇。",
             rating: 5
         },
@@ -451,9 +432,7 @@
             name: "吳先生",
             age: 45,
             occupation: "教師",
-            photo: "images/testimonials/man3.jpg",
-            icon: "fa-chalkboard-teacher",
-            iconColor: "#4D6849",
+            icon: "fa-user",
             content: "關節不適困擾我多年，透過小帕了解到葡萄糖胺和薑黃素的組合使用方式，三個月後關節靈活度明顯改善，現在能和學生一起打籃球了！",
             rating: 5
         },
@@ -461,9 +440,7 @@
             name: "黃女士",
             age: 58,
             occupation: "退休人士",
-            photo: "images/testimonials/woman4.jpg",
-            icon: "fa-peace",
-            iconColor: "#A8D5BA",
+            icon: "fa-user",
             content: "退休後更注重健康養生，小帕推薦的鈣片和維生素D組合，讓我的骨密度檢查結果比去年還要好，醫生都很驚訝！",
             rating: 5
         },
@@ -471,9 +448,7 @@
             name: "趙先生",
             age: 36,
             occupation: "銷售經理",
-            photo: "images/testimonials/man4.jpg",
-            icon: "fa-chart-line",
-            iconColor: "#4D6849",
+            icon: "fa-user",
             content: "工作需要經常出差，腸胃常常不適。小帕推薦的益生菌和消化酵素組合，讓我即使在旅途中也能維持良好的消化健康。",
             rating: 4
         }
@@ -512,23 +487,16 @@
             return stars;
         }
         
-        // 修改用戶見證的創建邏輯，添加圖標備用方案
+        // 修改用戶見證的創建邏輯，統一使用圓形圖標
         shuffledTestimonials.forEach(testimonial => {
             const testimonialElement = document.createElement('div');
             testimonialElement.className = 'testimonial-card';
             
-            const avatarContent = `
-                <div class="avatar-container">
-                    <img src="${testimonial.photo}" alt="${testimonial.name}照片" class="testimonial-avatar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="testimonial-icon" style="display: none; background-color: ${testimonial.iconColor};">
-                        <i class="fas ${testimonial.icon}"></i>
-                    </div>
-                </div>
-            `;
-            
             testimonialElement.innerHTML = `
                 <div class="testimonial-header">
-                    ${avatarContent}
+                    <div class="testimonial-icon">
+                        <i class="fas ${testimonial.icon}"></i>
+                    </div>
                     <div class="testimonial-info">
                         <p class="testimonial-name">${testimonial.name}</p>
                         <p class="testimonial-meta">${testimonial.age} 歲，${testimonial.occupation}</p>
