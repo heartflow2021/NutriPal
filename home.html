@@ -89,35 +89,35 @@
         <div class="feature-section" style="padding: 20px; margin-bottom: 20px; background-color: rgba(168, 213, 186, 0.1); border-radius: 12px;">
             <h2 style="font-size: 20px; margin-bottom: 20px; text-align: center; color: var(--primary);">小帕能為你做什麼</h2>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; max-width: 1200px; margin: 0 auto;">
                 <div class="feature-item" style="background-color: white; padding: 16px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                    <div class="feature-icon" style="background-color: rgba(168, 213, 186, 0.2);">
-                        <i class="fas fa-search"></i>
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <div class="feature-icon" style="background-color: rgba(168, 213, 186, 0.2); margin-right: 12px; flex-shrink: 0;">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3 style="margin: 0; font-size: 16px; color: var(--primary);">幫你整理熱門選擇</h3>
                     </div>
-                    <div>
-                        <h3 style="margin: 8px 0; font-size: 16px; color: var(--primary);">幫你整理熱門選擇</h3>
-                        <p style="margin: 0; color: var(--text-secondary); font-size: 14px;">我會依據你的需求，找出其他人常用的保健品組合</p>
-                    </div>
+                    <p style="margin: 0; color: var(--text-secondary); font-size: 14px;">我會依據你的需求，找出其他人常用的保健品組合</p>
                 </div>
                 
                 <div class="feature-item" style="background-color: white; padding: 16px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                    <div class="feature-icon" style="background-color: rgba(168, 213, 186, 0.2);">
-                        <i class="fas fa-comments"></i>
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <div class="feature-icon" style="background-color: rgba(168, 213, 186, 0.2); margin-right: 12px; flex-shrink: 0;">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3 style="margin: 0; font-size: 16px; color: var(--primary);">像朋友一樣陪你選擇</h3>
                     </div>
-                    <div>
-                        <h3 style="margin: 8px 0; font-size: 16px; color: var(--primary);">像朋友一樣陪你選擇</h3>
-                        <p style="margin: 0; color: var(--text-secondary); font-size: 14px;">用聊天的方式，輕鬆了解你的健康需求和生活習慣</p>
-                    </div>
+                    <p style="margin: 0; color: var(--text-secondary); font-size: 14px;">用聊天的方式，輕鬆了解你的健康需求和生活習慣</p>
                 </div>
                 
                 <div class="feature-item" style="background-color: white; padding: 16px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                    <div class="feature-icon" style="background-color: rgba(168, 213, 186, 0.2);">
-                        <i class="fas fa-calendar-check"></i>
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                        <div class="feature-icon" style="background-color: rgba(168, 213, 186, 0.2); margin-right: 12px; flex-shrink: 0;">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3 style="margin: 0; font-size: 16px; color: var(--primary);">提供友善使用指南</h3>
                     </div>
-                    <div>
-                        <h3 style="margin: 8px 0; font-size: 16px; color: var(--primary);">提供友善使用指南</h3>
-                        <p style="margin: 0; color: var(--text-secondary); font-size: 14px;">整理常見的使用時間和注意事項，方便你參考</p>
-                    </div>
+                    <p style="margin: 0; color: var(--text-secondary); font-size: 14px;">整理常見的使用時間和注意事項，方便你參考</p>
                 </div>
             </div>
         </div>
@@ -181,5 +181,29 @@
             <span>我的</span>
         </a>
     </div>
+
+    <style>
+    @media (min-width: 768px) {
+        .feature-section h2 {
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .feature-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+    }
+
+    @media (min-width: 992px) {
+        .feature-section {
+            padding: 30px;
+        }
+    }
+    </style>
 </body>
 </html> 
