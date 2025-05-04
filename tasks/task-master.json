@@ -1,18 +1,18 @@
 {
   "name": "NutriPal",
   "description": "NutriPal 是一個專為華人設計的保健品資訊整理平台",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "tasks": [
     {
       "id": 1,
       "title": "完善對話流程",
       "description": "優化健康需求調查的問題順序和選項，增加更多健康需求選項，並添加使用者輸入驗證。",
       "priority": "high",
-      "status": "pending",
+      "status": "completed",
       "estimated_time": "3d",
       "dependencies": [],
       "created_at": "2025-05-02T14:45:00Z",
-      "updated_at": "2025-05-02T14:45:00Z",
+      "updated_at": "2025-05-04T10:00:00Z",
       "file": "tasks/1.md"
     },
     {
@@ -20,11 +20,11 @@
       "title": "建立保健品數據庫",
       "description": "建立基礎保健品資料庫，包含保健品名稱、描述、價格、功效等資訊，並建立保健品與健康需求的映射關係。",
       "priority": "high",
-      "status": "pending",
+      "status": "completed",
       "estimated_time": "5d",
       "dependencies": [],
       "created_at": "2025-05-02T14:45:00Z",
-      "updated_at": "2025-05-02T14:45:00Z",
+      "updated_at": "2025-05-04T10:00:00Z",
       "file": "tasks/2.md"
     },
     {
@@ -32,11 +32,11 @@
       "title": "開發資訊整理算法",
       "description": "開發基於使用者輸入進行保健品推薦的算法，實現基於多標準的排序功能（熱門度、價格、評分等）。",
       "priority": "medium",
-      "status": "pending",
+      "status": "in_progress",
       "estimated_time": "4d",
       "dependencies": [2],
       "created_at": "2025-05-02T14:45:00Z",
-      "updated_at": "2025-05-02T14:45:00Z",
+      "updated_at": "2025-05-04T10:00:00Z",
       "file": "tasks/3.md"
     },
     {
@@ -44,11 +44,11 @@
       "title": "用戶體驗優化",
       "description": "優化整體用戶體驗，包括實現平滑的頁面轉換動畫，優化移動端響應式設計，以及添加加載狀態指示器。",
       "priority": "medium",
-      "status": "pending",
+      "status": "in_progress",
       "estimated_time": "3d",
       "dependencies": [1],
       "created_at": "2025-05-02T14:45:00Z",
-      "updated_at": "2025-05-02T14:45:00Z",
+      "updated_at": "2025-05-04T10:00:00Z",
       "file": "tasks/4.md"
     },
     {
@@ -62,12 +62,84 @@
       "created_at": "2025-05-02T14:45:00Z",
       "updated_at": "2025-05-02T14:45:00Z",
       "file": "tasks/5.md"
+    },
+    {
+      "id": 6,
+      "title": "開發自動化數據更新系統",
+      "description": "開發從iHerb獲取最新產品資訊的自動化數據更新系統，確保產品資料庫始終保持最新狀態。",
+      "priority": "medium",
+      "status": "pending",
+      "estimated_time": "4d",
+      "dependencies": [2],
+      "created_at": "2025-05-04T22:00:00Z",
+      "updated_at": "2025-05-04T22:00:00Z",
+      "file": "tasks/6.md"
+    },
+    {
+      "id": 7,
+      "title": "知識庫內容管理系統整合",
+      "description": "實現與Google Sheet的連接，建立自動化機制從Sheet導入文章標題和內容到知識庫，並保持同步更新。",
+      "priority": "high",
+      "status": "pending",
+      "estimated_time": "4d",
+      "dependencies": [],
+      "created_at": "2025-05-04T22:00:00Z",
+      "updated_at": "2025-05-04T22:00:00Z",
+      "file": "tasks/7.md"
+    },
+    {
+      "id": 8,
+      "title": "知識庫文章SEO優化與合規審核",
+      "description": "建立文章SEO優化流程，實施語意化HTML結構與Schema.org標記，並建立符合台灣衛福部規範的專業審核機制。",
+      "priority": "high",
+      "status": "pending",
+      "estimated_time": "5d",
+      "dependencies": [7],
+      "created_at": "2025-05-04T22:00:00Z",
+      "updated_at": "2025-05-04T22:00:00Z",
+      "file": "tasks/8.md"
+    },
+    {
+      "id": 9,
+      "title": "知識庫互動功能開發",
+      "description": "實現內容收藏、知識測驗和基於用戶興趣的文章推薦系統，提升用戶參與度和體驗。",
+      "priority": "medium",
+      "status": "pending",
+      "estimated_time": "6d",
+      "dependencies": [7, 8],
+      "created_at": "2025-05-04T22:00:00Z",
+      "updated_at": "2025-05-04T22:00:00Z",
+      "file": "tasks/9.md"
+    },
+    {
+      "id": 10,
+      "title": "知識庫合規用詞指南實施",
+      "description": "建立符合台灣衛福部規範的內容合規用詞指南，包括禁用詞彙清單和替代用詞建議，並對現有內容進行檢查修正。",
+      "priority": "high",
+      "status": "pending",
+      "estimated_time": "3d",
+      "dependencies": [8],
+      "created_at": "2025-05-06T10:00:00Z",
+      "updated_at": "2025-05-06T10:00:00Z",
+      "file": "tasks/10.md"
+    },
+    {
+      "id": 11,
+      "title": "內容評分與分享功能實現",
+      "description": "為知識庫文章添加用戶評分機制和社交媒體分享功能，增強用戶參與度和內容傳播。",
+      "priority": "medium",
+      "status": "pending",
+      "estimated_time": "4d",
+      "dependencies": [9],
+      "created_at": "2025-05-06T10:00:00Z",
+      "updated_at": "2025-05-06T10:00:00Z",
+      "file": "tasks/11.md"
     }
   ],
   "metadata": {
-    "last_task_id": 5,
+    "last_task_id": 11,
     "created_at": "2025-05-02T14:45:00Z",
-    "updated_at": "2025-05-02T14:45:00Z"
+    "updated_at": "2025-05-06T10:00:00Z"
   },
   "settings": {
     "default_priority": "medium",
