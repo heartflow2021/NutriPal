@@ -23,8 +23,95 @@
       }
     }
     </script>
+    <style>
+        /* 頂部簡化免責聲明 */
+        .top-disclaimer {
+            background-color: #fff9e6;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .top-disclaimer i {
+            color: #F5B17B;
+            margin-right: 6px;
+        }
+        
+        /* 專業背書與免責聲明樣式 */
+        .disclaimer-wrapper {
+            background-color: rgba(255, 192, 75, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0 30px;
+            text-align: center;
+        }
+        
+        .disclaimer-character {
+            width: 100px;
+            height: 100px;
+            margin: 10px auto;
+        }
+        
+        .disclaimer-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .disclaimer-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        
+        .disclaimer-counter {
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .disclaimer-counter strong {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .disclaimer-notices {
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: left;
+        }
+        
+        .disclaimer-notice {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+        
+        .disclaimer-notice:last-child {
+            margin-bottom: 0;
+        }
+    </style>
 </head>
 <body>
+    <!-- 頂部簡化免責聲明 -->
+    <div class="top-disclaimer">
+        <i class="fas fa-heart"></i> 小帕不提供任何醫療建議，所有資訊僅供參考，健康決策請諮詢專業醫師～
+    </div>
+
     <!-- 頂部導航 -->
     <header class="nav-header">
         <div style="width: 24px;"></div> <!-- 為了保持兩邊對稱 -->
@@ -210,12 +297,28 @@
                 </div>
             </div>
             
-            <!-- 關於聯盟行銷與免責聲明 -->
-            <div style="text-align: center; margin-top: 24px; margin-bottom: 12px;">
-                <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.5; padding: 12px; background-color: #f9f9f9; border-radius: 8px;">
-                    <strong>聯盟行銷關係揭露：</strong>本網站與iHerb等平台有聯盟行銷合作關係。當您透過本站連結購買產品時，我們會收到一定比例的佣金，這不會增加您的購買成本。我們承諾透明標示所有聯盟行銷連結，並保持內容的客觀性與公正性。<br><br>
-                    <strong>免責聲明：</strong>本網站提供的所有內容僅作為一般知識參考，不構成醫療建議。任何營養補充品都不能預防、診斷、治療或治癒任何疾病。使用者在考慮任何營養補充品前，應先諮詢專業醫療人員。NutriPal不對因網站內容而產生的任何損失或損害負責。所有健康決策應在專業醫療人員的指導下進行。
-                </p>
+            <!-- 專業背書與免責聲明 -->
+            <div style="margin-top: 24px; margin-bottom: 60px;">
+                <div class="disclaimer-wrapper">
+                    <!-- 使用小帕圖片 -->
+                    <img src="images/mascot/palpal.png" alt="小帕" class="disclaimer-character" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
+                    
+                    <p class="disclaimer-title">小帕是資訊整理小幫手，不是醫師</p>
+                    <p class="disclaimer-subtitle">我會整理營養知識和熱門資訊供你參考，但不提供醫療建議喔！</p>
+                    
+                    <div class="disclaimer-counter">
+                        已幫助 <strong>2,483</strong> 位朋友了解營養知識
+                    </div>
+                    
+                    <div class="disclaimer-notices">
+                        <p class="disclaimer-notice">
+                            <strong>聯盟行銷關係揭露：</strong>本網站與iHerb等平台有聯盟行銷合作關係。當您透過本站連結購買產品時，我們會收到一定比例的佣金，這不會增加您的購買成本。我們承諾透明標示所有聯盟行銷連結，並保持內容的客觀性與公正性。
+                        </p>
+                        <p class="disclaimer-notice">
+                            <strong>免責聲明：</strong>本網站提供的所有內容僅作為一般知識參考，不構成醫療建議。任何營養補充品都不能預防、診斷、治療或治癒任何疾病。使用者在考慮任何營養補充品前，應先諮詢專業醫療人員。NutriPal不對因網站內容而產生的任何損失或損害負責。所有健康決策應在專業醫療人員的指導下進行。
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
