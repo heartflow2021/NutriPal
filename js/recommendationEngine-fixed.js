@@ -481,45 +481,200 @@ window.initializeRecommendations = async function(healthNeed, lifestyle, budget)
  * @param {Array} products - 推薦的產品列表 (未來可能用於生成動態時間線)
  */
 function updateTimelineHTML(container, products) {
-    // 目前使用固定內容，未來可以根據 products 動態生成
-     container.innerHTML = `
-        <div class="time-point">
-            <div class="time-header">
-                <i class="fas fa-sun"></i>
-                <div class="time-info">
-                    <h4>早晨</h4>
-                    <p class="time">06:00 - 09:00</p>
+    // 新的現代化時間線設計
+    container.innerHTML = `
+        <div class="timeline-track">
+            <div class="timeline-line"></div>
+        </div>
+        
+        <div class="time-point-wrapper">
+            <div class="time-point">
+                <div class="time-icon" style="background-color: #FFD686;">
+                    <i class="fas fa-sun"></i>
+                </div>
+                <div class="time-content">
+                    <div class="time-header">
+                        <h4>早晨</h4>
+                        <span class="time-badge">06:00 - 09:00</span>
+                    </div>
+                    <div class="time-description">
+                        <p>早晨是補充維生素和能量相關營養素的理想時間，可幫助您開始一天的活動。</p>
+                        <div class="time-tips">
+                            <i class="fas fa-lightbulb" style="color: #F5B17B;"></i>
+                            <span>建議飯後服用，可提高部分營養素的吸收率</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="time-products">
-                <p>（建議服用維生素或能量相關補充品）</p>
-            </div>
-        </div>
-         <div class="time-point">
-            <div class="time-header">
-                 <i class="fas fa-utensils"></i>
-                 <div class="time-info">
-                    <h4>隨餐</h4>
-                    <p class="time">用餐時</p>
-                 </div>
-            </div>
-            <div class="time-products">
-                <p>（多數補充品可隨餐服用以提高吸收）</p>
-            </div>
-        </div>
-        <div class="time-point">
-            <div class="time-header">
-                <i class="fas fa-moon"></i>
-                <div class="time-info">
-                    <h4>睡前</h4>
-                    <p class="time">21:00 - 23:00</p>
+            
+            <div class="time-point">
+                <div class="time-icon" style="background-color: #A8D5BA;">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <div class="time-content">
+                    <div class="time-header">
+                        <h4>隨餐</h4>
+                        <span class="time-badge">用餐時</span>
+                    </div>
+                    <div class="time-description">
+                        <p>多數營養補充品隨餐服用可以減少對胃部的刺激，並提高某些脂溶性營養素的吸收效率。</p>
+                        <div class="time-tips">
+                            <i class="fas fa-lightbulb" style="color: #F5B17B;"></i>
+                            <span>礦物質和B族維生素類營養補充品特別適合在餐中或餐後服用</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="time-products">
-                <p>（建議服用幫助睡眠或放鬆的補充品，如鎂、褪黑激素）</p>
+            
+            <div class="time-point">
+                <div class="time-icon" style="background-color: #AEC6CF;">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <div class="time-content">
+                    <div class="time-header">
+                        <h4>睡前</h4>
+                        <span class="time-badge">21:00 - 23:00</span>
+                    </div>
+                    <div class="time-description">
+                        <p>睡前是服用某些特定營養補充品的理想時間，特別是與放鬆和睡眠品質相關的成分。</p>
+                        <div class="time-tips">
+                            <i class="fas fa-lightbulb" style="color: #F5B17B;"></i>
+                            <span>鎂、褪黑激素等成分在睡前30-60分鐘服用效果較佳</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     `;
+
+    // 添加CSS樣式到頁面
+    if (!document.getElementById('timeline-custom-styles')) {
+        const styleSheet = document.createElement('style');
+        styleSheet.id = 'timeline-custom-styles';
+        styleSheet.textContent = `
+            .timeline-track {
+                position: absolute;
+                left: 20px;
+                top: 25px;
+                bottom: 25px;
+                width: 2px;
+            }
+            
+            .timeline-line {
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 2px;
+                background: linear-gradient(to bottom, #FFD686, #A8D5BA, #AEC6CF);
+            }
+            
+            .time-point-wrapper {
+                position: relative;
+                padding-left: 15px;
+            }
+            
+            .time-point {
+                position: relative;
+                display: flex;
+                margin-bottom: 28px;
+                padding-left: 30px;
+                z-index: 1;
+            }
+            
+            .time-icon {
+                position: absolute;
+                left: -15px;
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 16px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                z-index: 2;
+            }
+            
+            .time-content {
+                flex: 1;
+                background-color: white;
+                border-radius: 12px;
+                box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+                overflow: hidden;
+                transition: transform 0.3s ease;
+            }
+            
+            .time-content:hover {
+                transform: translateY(-2px);
+            }
+            
+            .time-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 12px 16px;
+                background-color: #f9f9f9;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .time-header h4 {
+                margin: 0;
+                font-size: 16px;
+                font-weight: 600;
+                color: var(--text-primary);
+            }
+            
+            .time-badge {
+                background-color: var(--primary-light, #A8D5BA);
+                color: var(--text-primary);
+                font-size: 12px;
+                padding: 2px 8px;
+                border-radius: 12px;
+                font-weight: 500;
+            }
+            
+            .time-description {
+                padding: 12px 16px;
+            }
+            
+            .time-description p {
+                margin: 0 0 12px;
+                font-size: 14px;
+                line-height: 1.5;
+                color: var(--text-secondary);
+            }
+            
+            .time-tips {
+                display: flex;
+                align-items: flex-start;
+                padding: 8px 12px;
+                background-color: #fff9f0;
+                border-radius: 6px;
+                border-left: 3px solid #F5B17B;
+            }
+            
+            .time-tips i {
+                margin-right: 8px;
+                margin-top: 3px;
+            }
+            
+            .time-tips span {
+                font-size: 12px;
+                line-height: 1.4;
+                color: var(--text-secondary);
+            }
+            
+            /* 確保容器有正確的定位和間距 */
+            .timeline-container {
+                position: relative;
+                padding: 10px 0;
+                margin-top: 10px;
+            }
+        `;
+        document.head.appendChild(styleSheet);
+    }
 }
 
 /**
@@ -590,6 +745,8 @@ function sortProducts(products, criteria = {}) {
     
     return [...products].sort((a, b) => {
         // 根據評分排序（評分越高越好）
+        const ratingA = a.rating !== undefined ? a.rating / 5 : 0.5;
+        const ratingB = b.rating !== undefined ? b.rating / 5 : 0.5;
         const ratingScore = (b.rating - a.rating) * ratingWeight;
         
         // 根據價格排序（價格越低越好，使用倒數）
