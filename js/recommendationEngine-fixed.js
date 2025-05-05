@@ -683,36 +683,256 @@ function updateTimelineHTML(container, products) {
  * @param {Array} products - 推薦的產品列表 (未來可提取產品特定注意事項)
  */
 function updateCautionsHTML(container, products) {
-    container.innerHTML = '<h3 style="font-size: 16px; margin: 0 0 12px;">常見注意事項參考</h3>';
-    const cautionsList = document.createElement('ul');
-    cautionsList.className = 'cautions-list';
-    cautionsList.style.cssText = 'margin: 0; padding-left: 20px; font-size: 14px; color: var(--text-secondary);';
-
     // 從推薦產品中提取注意事項 (未來擴展)
     let specificCautions = [];
     if (products && products.length > 0) {
         products.forEach(p => {
             if (p.caution) {
-                specificCautions.push(`<li><span class="product-name">${p.name.substring(0,15)}...:</span> ${p.caution.substring(0, 50)}...</li>`);
+                specificCautions.push({
+                    product: p.name,
+                    caution: p.caution
+                });
             }
         });
     }
     
-    // 添加通用注意事項
-    cautionsList.innerHTML = `
-        <li>在開始任何新的補充劑方案之前，請務必諮詢您的醫生或醫療保健提供者。</li>
-        <li>如果您正在懷孕、哺乳或有任何既往健康狀況，請告知您的醫生。</li>
-        <li>請遵循產品標籤上的建議劑量，不要超過推薦用量。</li>
-        <li>將所有補充劑放在兒童接觸不到的地方。</li>
-        ${specificCautions.slice(0, 3).join('')} 
+    // 重新設計的注意事項UI
+    container.innerHTML = `
+        <div class="cautions-header">
+            <div class="cautions-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3>使用須知與參考建議</h3>
+        </div>
+        
+        <div class="cautions-content">
+            <div class="cautions-card general-cautions">
+                <div class="cautions-card-header">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h4>一般使用須知</h4>
+                </div>
+                <ul class="cautions-list">
+                    <li>
+                        <div class="caution-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>在開始任何新的營養補充方案前，建議先諮詢您的醫療專業人員</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="caution-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>如正在懷孕、哺乳或有慢性健康問題，應特別諮詢醫師建議</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="caution-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>請嚴格遵循產品標籤上的建議使用量，避免過量使用</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="caution-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>將所有營養補充品存放在兒童無法觸及的地方</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            ${specificCautions.length > 0 ? `
+            <div class="cautions-card specific-cautions">
+                <div class="cautions-card-header">
+                    <i class="fas fa-flask"></i>
+                    <h4>產品特定注意事項</h4>
+                </div>
+                <ul class="cautions-list">
+                    ${specificCautions.slice(0, 3).map(item => `
+                        <li>
+                            <div class="caution-item">
+                                <span class="product-name">${item.product.substring(0, 15)}${item.product.length > 15 ? '...' : ''}</span>
+                                <span class="caution-text">${item.caution.substring(0, 80)}${item.caution.length > 80 ? '...' : ''}</span>
+                            </div>
+                        </li>
+                    `).join('')}
+                </ul>
+            </div>
+            ` : ''}
+            
+            <div class="cautions-card interactions-cautions">
+                <div class="cautions-card-header">
+                    <i class="fas fa-random"></i>
+                    <h4>注意可能的交互作用</h4>
+                </div>
+                <div class="caution-item special-note">
+                    <i class="fas fa-info-circle"></i>
+                    <span>某些營養補充品可能與處方藥物產生交互作用。如您正在服用任何藥物，請在使用營養補充品前諮詢醫療專業人員。</span>
+                </div>
+            </div>
+            
+            <div class="cautions-disclaimer">
+                <i class="fas fa-heart"></i>
+                <p>小帕不提供任何醫療建議，所有資訊僅供參考。健康決策請諮詢專業醫師～</p>
+            </div>
+        </div>
     `;
     
-    container.appendChild(cautionsList);
-    
-    const disclaimer = document.createElement('p');
-    disclaimer.style.cssText = 'font-size: 12px; color: var(--text-secondary); margin-top: 12px; text-align: center;';
-    disclaimer.textContent = '小帕不提供任何醫療建議，所有資訊僅供參考，請諮詢專業醫師進行健康決策～';
-    container.appendChild(disclaimer);
+    // 添加CSS樣式到頁面
+    if (!document.getElementById('cautions-custom-styles')) {
+        const styleSheet = document.createElement('style');
+        styleSheet.id = 'cautions-custom-styles';
+        styleSheet.textContent = `
+            .cautions-header {
+                display: flex;
+                align-items: center;
+                margin-bottom: 16px;
+            }
+            
+            .cautions-icon {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                background-color: #F5B17B;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 12px;
+                color: white;
+                font-size: 16px;
+                box-shadow: 0 2px 8px rgba(245, 177, 123, 0.3);
+            }
+            
+            .cautions-header h3 {
+                margin: 0;
+                font-size: 18px;
+                font-weight: 600;
+                color: var(--text-primary);
+            }
+            
+            .cautions-content {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .cautions-card {
+                background-color: white;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+                transition: transform 0.2s ease;
+            }
+            
+            .cautions-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            }
+            
+            .cautions-card-header {
+                display: flex;
+                align-items: center;
+                padding: 12px 16px;
+                background-color: #f9f9f9;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .cautions-card-header i {
+                margin-right: 8px;
+                color: var(--primary);
+                font-size: 16px;
+            }
+            
+            .cautions-card-header h4 {
+                margin: 0;
+                font-size: 16px;
+                font-weight: 600;
+                color: var(--text-primary);
+            }
+            
+            .cautions-list {
+                margin: 0;
+                padding: 12px 0;
+                list-style-type: none;
+            }
+            
+            .cautions-list li {
+                padding: 6px 16px;
+            }
+            
+            .caution-item {
+                display: flex;
+                align-items: flex-start;
+                font-size: 14px;
+                color: var(--text-secondary);
+                line-height: 1.5;
+            }
+            
+            .caution-item i {
+                margin-right: 8px;
+                color: var(--primary);
+                margin-top: 3px;
+                flex-shrink: 0;
+            }
+            
+            .general-cautions .caution-item i {
+                color: #A8D5BA;
+            }
+            
+            .product-name {
+                font-weight: 600;
+                margin-right: 6px;
+                color: var(--text-primary);
+                flex-shrink: 0;
+            }
+            
+            .caution-text {
+                flex: 1;
+            }
+            
+            .special-note {
+                padding: 12px 16px;
+                background-color: #f7f8fc;
+            }
+            
+            .special-note i {
+                color: #7B91D3;
+                margin-right: 8px;
+                margin-top: 3px;
+                flex-shrink: 0;
+            }
+            
+            .cautions-disclaimer {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 12px;
+                background-color: #fff9f0;
+                border-radius: 8px;
+                margin-top: 8px;
+            }
+            
+            .cautions-disclaimer i {
+                color: #F5B17B;
+                margin-right: 8px;
+                font-size: 14px;
+            }
+            
+            .cautions-disclaimer p {
+                margin: 0;
+                font-size: 12px;
+                color: var(--text-secondary);
+                text-align: center;
+            }
+            
+            .interactions-cautions .cautions-card-header i {
+                color: #7B91D3;
+            }
+            
+            .specific-cautions .cautions-card-header i {
+                color: #F5B17B;
+            }
+        `;
+        document.head.appendChild(styleSheet);
+    }
 }
 
 /**
