@@ -7,6 +7,64 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .disclaimer-wrapper {
+            background-color: #fff9e6;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .disclaimer-character {
+            max-width: 80px;
+            margin: 0 auto 16px;
+        }
+        
+        .disclaimer-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+        
+        .disclaimer-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+        
+        .disclaimer-counter {
+            background-color: white;
+            border-radius: 20px;
+            padding: 8px 16px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .disclaimer-notices {
+            text-align: left;
+            background-color: white;
+            border-radius: 8px;
+            padding: 14px;
+        }
+        
+        .disclaimer-notice {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        
+        .disclaimer-notice:last-child {
+            margin-bottom: 0;
+        }
+    </style>
 </head>
 <body>
     <!-- 頂部導航 -->
@@ -73,15 +131,30 @@
             </div>
         </div>
         
-        <!-- 聯盟行銷揭露與免責聲明 -->
+        <!-- 聯盟行銷揭露與免責聲明 - 新版設計 -->
         <div class="product-section">
-            <div style="padding: 15px; background-color: #f9f9f9; border-radius: 8px; margin-top: 20px; margin-bottom: 30px;">
-                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 10px;">
-                    <strong>聯盟行銷關係揭露：</strong>本網站與 iHerb 等平台有聯盟行銷合作關係。當您透過我們的連結購買產品時，我們會收到一定的佣金，這不會增加您的購買成本。我們整理的產品資訊是基於健康知識主題，而非療效宣傳。
-                </p>
-                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0;">
-                    <strong>免責聲明：</strong>本網站提供的所有資訊僅作為一般知識參考，不構成任何醫療建議、診斷或治療方案。所有產品資訊整理不代表宣稱或保證其治療效果。保健品不能預防、診斷、治療或治癒任何疾病。使用任何保健品前，請先諮詢專業醫療人員，特別是如果您有任何慢性疾病、正在服用藥物、懷孕或哺乳中。
-                </p>
+            <div class="disclaimer-wrapper">
+                <!-- 小帕兔子圖片 -->
+                <img src="images/xiaopa-character.png" alt="小帕" class="disclaimer-character" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
+                
+                <!-- 標題和說明 -->
+                <h3 class="disclaimer-title">小帕是資訊整理小幫手，不是醫師</h3>
+                <p class="disclaimer-subtitle">我會整理營養知識和熱門資訊供你參考，但不提供醫療建議喔！</p>
+                
+                <!-- 計數器 -->
+                <div class="disclaimer-counter">
+                    已幫助 <strong>2,483</strong> 位朋友了解營養知識
+                </div>
+                
+                <!-- 免責聲明和聯盟行銷揭露文字區塊 -->
+                <div class="disclaimer-notices">
+                    <p class="disclaimer-notice">
+                        <strong>聯盟行銷關係揭露：</strong>本網站與 iHerb 等平台有聯盟行銷合作關係。當您透過我們的連結購買產品時，我們會收到一定的佣金，這不會增加您的購買成本。我們整理的產品資訊是基於健康知識主題，而非療效宣傳。
+                    </p>
+                    <p class="disclaimer-notice">
+                        <strong>免責聲明：</strong>本網站提供的所有資訊僅作為一般知識參考，不構成任何醫療建議、診斷或治療方案。所有產品資訊整理不代表宣稱或保證其治療效果。保健品不能預防、診斷、治療或治癒任何疾病。使用任何保健品前，請先諮詢專業醫療人員，特別是如果您有任何慢性疾病、正在服用藥物、懷孕或哺乳中。
+                    </p>
+                </div>
             </div>
         </div>
     </div>
