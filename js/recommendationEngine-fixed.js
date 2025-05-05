@@ -73,7 +73,7 @@ function createProductCardHTML(product) {
     return `
         <div class="product-card">
             <img src="${product.image_url || fallbackImgUrl}" alt="${product.name || '產品圖片'}" 
-                 style="width: 100%; height: 180px; object-fit: contain; background-color: #f9f9f9;"
+                 style="width: 100%; height: 180px; object-fit: contain; background-color: #ffffff;"
                  onerror="console.error('Image load error for:', this.src); this.onerror=null; this.src='${fallbackImgUrl}';">
             <div style="padding: 16px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
