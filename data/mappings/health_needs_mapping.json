@@ -23,7 +23,7 @@
   "gut_microbiome_knowledge": [
     "California Gold Nutrition, LactoBif® 30 益生菌，300 億 CFU，60 粒素食膠囊"
   ],
-  "beauty_skincare_knowledge": [
+  "skin_beauty_knowledge": [
     "California Gold Nutrition, CollagenUP®，水解海洋膠原蛋白肽 + 透明質酸和維生素 C，原味，7.26 盎司（206 克）",
     "California Gold Nutrition, Gold C™，USP 級維生素 C，1000 毫克，60 粒素食膠囊",
     "California Gold Nutrition, Gold C™，USP 級維生素 C，1000 毫克，240 粒素食膠囊",
@@ -115,7 +115,7 @@
     "KAL, 高吸收甘氨酸鎂 350，160 粒素食膠囊",
     "Solaray, 高吸收甘氨酸鎂，350 毫克，120 粒素食膠囊"
   ],
-  "muscle_support_knowledge": [
+  "muscle_nutrition_knowledge": [
     "Doctor's Best, 高吸收鎂，200 毫克，240 片（每片 100 毫克）",
     "NOW Foods, 甘氨酸鎂，200 毫克，180 片（每片 100 毫克）",
     "Solaray, 高吸收甘氨酸鎂，350 毫克，120 粒素食膠囊",
@@ -129,7 +129,7 @@
     "Swanson, Albion®，甘氨酸鎂，133 毫克，90 粒全素膠囊",
     "Life Extension, Neuro-Mag，L-蘇氨酸鎂，144 毫克，90 粒素食膠囊（每粒膠囊 48 毫克）"
   ],
-  "hair_skin_nails_knowledge": [
+  "hair_skin_knowledge": [
     "21st Century, 檸檬酸鋅，50 毫克，60 片",
     "MaryRuth's, 晨間液體多維生素 + 頭髮生長配方，桃子芒果味，30 液量盎司（887 毫升）",
     "California Gold Nutrition, 含維生素 B6 和 B12、葉酸和生物維生素的複合維生素 B 軟糖，草莓味，45 粒素食軟糖",
@@ -142,55 +142,55 @@
     "MaryRuth's, 晨間液體多維生素 + 頭髮生長配方，桃子芒果味，30 液量盎司（887 毫升）",
     "Life Extension, 每日兩粒多維生素，120 粒膠囊"
   ],
-  "energy_metabolism_knowledge": [
+  "metabolism_knowledge": [
     "MaryRuth's, 晨間液體多維生素 + 頭髮生長配方，桃子芒果味，30 液量盎司（887 毫升）",
     "Life-flo, 液態碘+，含碘化鉀和碘，原味，150 微克，2 液量盎司（59 毫升）"
   ],
   "daily_wellness_knowledge": [
     "Life Extension, 每日兩粒多維生素，120 粒膠囊"
   ],
-  "energy_supplement_knowledge": [
+  "energy_nutrition_knowledge": [
     "Life Extension, 每日兩粒多維生素，120 粒膠囊",
     "Life Extension, 鎂膠囊，500 毫克，100 粒素食膠囊"
   ],
-  "antioxidant_nutrient_knowledge": [
+  "antioxidant_nutrition_knowledge": [
     "Life Extension, 每日兩粒多維生素，120 粒膠囊"
   ],
-  "cardiovascular_health_knowledge": [
+  "heart_health_knowledge": [
     "California Gold Nutrition, Omega 800 超濃縮 Omega-3 魚油，KD-Pur 甘油三酯形式，1,000 毫克，30 粒魚明膠軟凝膠",
     "Life Extension, 鎂膠囊，500 毫克，100 粒素食膠囊"
   ],
-  "eye_health_knowledge": [
+  "vision_health_knowledge": [
     "California Gold Nutrition, Omega 800 超濃縮 Omega-3 魚油，KD-Pur 甘油三酯形式，1,000 毫克，30 粒魚明膠軟凝膠"
   ],
-  "anti_inflammatory_nutrient_knowledge": [
+  "anti_inflammatory_nutrition_knowledge": [
     "Doctor's Best, 含 OptiMSM 的 MSM，1500 毫克，120 片",
     "California Gold Nutrition, Omega 800 超濃縮 Omega-3 魚油，KD-Pur 甘油三酯形式，1,000 毫克，30 粒魚明膠軟凝膠"
   ],
-  "nervous_system_stress_knowledge": [
+  "nervous_system_knowledge": [
     "Life Extension, 鎂膠囊，500 毫克，100 粒素食膠囊"
   ],
-  "gut_special_needs_knowledge": [
+  "gut_nutrition_knowledge": [
     "California Gold Nutrition, LactoBif® 100 益生菌，1000 億 CFU，30 粒素食膠囊"
   ],
   "mens_health_knowledge": [
     "NOW Foods, 鋅片，50 毫克，250 片",
     "NOW Foods, Zinc Picolinate，50毫克，120粒素食膠囊"
   ],
-  "skin_health_knowledge": [
+  "skin_nutrition_knowledge": [
     "NOW Foods, 鋅片，50 毫克，250 片",
     "NOW Foods, Zinc Picolinate，50毫克，120粒素食膠囊"
   ],
-  "electrolyte_balance_knowledge": [
+  "electrolyte_nutrition_knowledge": [
     "21st Century, 葡萄糖酸鉀，595 毫克，110 片"
   ],
-  "thyroid_health_knowledge": [
+  "thyroid_nutrition_knowledge": [
     "Life-flo, 液態碘+，含碘化鉀和碘，原味，150 微克，2 液量盎司（59 毫升）"
   ],
   "healthy_aging_knowledge": [
     "California Gold Nutrition, NMN，175 毫克，60 粒素食膠囊"
   ],
-  "energy_metabolism_science": [
+  "energy_metabolism_knowledge": [
     "California Gold Nutrition, NMN，175 毫克，60 粒素食膠囊",
     "NOW Foods, 鐵，Double Strength，36 毫克，90 粒素食膠囊"
   ],
@@ -198,16 +198,16 @@
     "21st Century, 蔓越莓益生菌片，60片",
     "NOW Foods, 肌醇膠囊，500 毫克，100 粒素食膠囊"
   ],
-  "skin_beauty_knowledge": [
+  "skin_nutrition_info": [
     "California Gold Nutrition, CollagenUP®，水解海洋膠原蛋白肽 + 透明質酸和維生素 C，原味，1.02 磅（464 克）"
   ],
-  "anti_aging_nutrient_knowledge": [
+  "aging_nutrition_knowledge": [
     "California Gold Nutrition, CollagenUP®，水解海洋膠原蛋白肽 + 透明質酸和維生素 C，原味，1.02 磅（464 克）"
   ],
-  "hair_nail_knowledge": [
+  "hair_nail_nutrition": [
     "California Gold Nutrition, CollagenUP®，水解海洋膠原蛋白肽 + 透明質酸和維生素 C，原味，1.02 磅（464 克）"
   ],
-  "nervous_system_knowledge": [
+  "nerve_system_nutrition_knowledge": [
     "Source Naturals, 超鎂片劑，120片",
     "California Gold Nutrition, 含維生素 B6 和 B12、葉酸和生物維生素的複合維生素 B 軟糖，草莓味，45 粒素食軟糖",
     "Life Extension, 鋰，1,000 微克，100 粒素食膠囊",
@@ -216,7 +216,7 @@
   "eye_vision_knowledge": [
     "California Gold Nutrition, 蝦青素，AstaLif 全冰島，12 毫克，30 粒素食軟凝膠"
   ],
-  "antioxidant_support_knowledge": [
+  "antioxidant_nutrition_info": [
     "California Gold Nutrition, 維生素 C 軟糖，250 毫克，含來自全 β-胡蘿卜素的維生素 A，90 粒素食軟糖",
     "NOW Foods, Zinc Picolinate，50毫克，120粒素食膠囊",
     "California Gold Nutrition, 蝦青素，AstaLif 全冰島，12 毫克，30 粒素食軟凝膠"
@@ -231,7 +231,7 @@
     "NOW Foods, 肌醇膠囊，500 毫克，100 粒素食膠囊",
     "Life Extension, 鋰，1,000 微克，100 粒素食膠囊"
   ],
-  "joint_health_knowledge": [
+  "joint_nutrition_knowledge": [
     "NOW Foods, Ultra Omega-3 魚油，180 粒軟凝膠",
     "NeoCell, 超級膠原蛋白 + 維生素 C 和生物維生素，270 片"
   ],
@@ -241,10 +241,10 @@
   "bone_development_knowledge": [
     "California Gold Nutrition, 嬰兒維生素 D3 滴劑，10 微克（400 國際單位），0.34 液量盎司（10 毫升）"
   ],
-  "skin_hair_health_knowledge": [
+  "skin_hair_nutrition": [
     "Doctor's Best, 含 OptiMSM 的 MSM，1500 毫克，120 片"
   ],
-  "exercise_recovery_knowledge": [
+  "exercise_nutrition_knowledge": [
     "Vital Proteins, 膠原蛋白多肽，原味，1.25 磅（567 克）"
   ]
 }
