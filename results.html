@@ -205,6 +205,106 @@
                 width: calc(100% - 200px);
             }
         }
+        
+        /* 確保interactions-cautions和專業背書與免責聲明之間有足夠間距 */
+        .cautions-card.interactions-cautions {
+            margin-bottom: 20px;
+        }
+        
+        /* 確保cautions相關樣式 */
+        .cautions-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+            
+        .cautions-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #F5B17B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: white;
+            font-size: 16px;
+            box-shadow: 0 2px 8px rgba(245, 177, 123, 0.3);
+        }
+            
+        .cautions-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+            
+        .cautions-content {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+            
+        .cautions-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease;
+        }
+            
+        .cautions-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+            
+        .cautions-card-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #eee;
+        }
+            
+        .cautions-card-header i {
+            margin-right: 8px;
+            color: var(--primary);
+            font-size: 16px;
+        }
+            
+        .cautions-card-header h4 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .caution-item {
+            display: flex;
+            align-items: flex-start;
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        .caution-item i {
+            margin-right: 8px;
+            color: var(--primary);
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+        
+        .special-note {
+            padding: 12px 16px;
+            background-color: #f7f8fc;
+        }
+        
+        .special-note i {
+            color: #7B91D3;
+            margin-right: 8px;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
     </style>
 </head>
 <body>
@@ -273,6 +373,18 @@
                 <div class="loading-indicator">
                     <i class="fas fa-spinner fa-pulse"></i>
                     <p>正在整理注意事項...</p>
+                </div>
+            </div>
+            
+            <!-- 將交互作用卡片移到product-cautions容器內 -->
+            <div class="cautions-card interactions-cautions" style="margin-top: 16px; margin-bottom: 30px; border: 1px solid #e0e0e0; box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+                <div class="cautions-card-header" style="background-color: #f0f5ff;">
+                    <i class="fas fa-random" style="color: #7B91D3;"></i>
+                    <h4>注意可能的交互作用</h4>
+                </div>
+                <div class="caution-item special-note" style="background-color: #f7f9ff; border-left: 3px solid #7B91D3;">
+                    <i class="fas fa-info-circle"></i>
+                    <span>某些營養補充品可能與處方藥物產生交互作用。如您正在服用任何藥物，請在使用營養補充品前諮詢醫療專業人員。</span>
                 </div>
             </div>
         </div>

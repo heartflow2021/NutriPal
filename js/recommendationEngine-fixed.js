@@ -767,11 +767,6 @@ function updateCautionsHTML(container, products) {
                     <span>某些營養補充品可能與處方藥物產生交互作用。如您正在服用任何藥物，請在使用營養補充品前諮詢醫療專業人員。</span>
                 </div>
             </div>
-            
-            <div class="cautions-disclaimer">
-                <i class="fas fa-heart"></i>
-                <p>小帕不提供任何醫療建議，所有資訊僅供參考。健康決策請諮詢專業醫師～</p>
-            </div>
         </div>
     `;
     
@@ -898,37 +893,6 @@ function updateCautionsHTML(container, products) {
                 margin-top: 3px;
                 flex-shrink: 0;
             }
-            
-            .cautions-disclaimer {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 12px;
-                background-color: #fff9f0;
-                border-radius: 8px;
-                margin-top: 8px;
-            }
-            
-            .cautions-disclaimer i {
-                color: #F5B17B;
-                margin-right: 8px;
-                font-size: 14px;
-            }
-            
-            .cautions-disclaimer p {
-                margin: 0;
-                font-size: 12px;
-                color: var(--text-secondary);
-                text-align: center;
-            }
-            
-            .interactions-cautions .cautions-card-header i {
-                color: #7B91D3;
-            }
-            
-            .specific-cautions .cautions-card-header i {
-                color: #F5B17B;
-            }
         `;
         document.head.appendChild(styleSheet);
     }
@@ -969,8 +933,9 @@ function sortProducts(products, criteria = {}) {
         const ratingScore = (b.rating - a.rating) * ratingWeight;
         
         // 根據價格排序（價格越低越好，使用倒數）
-        const priceScore = (a.price === b.price) ? 0 : 
-            ((a.price > b.price) ? -1 : 1) * priceWeight;
+        const priceScoreA = 1 - (a.price / Math.max(a.price, b.price));
+        const priceScoreB = 1 - (b.price / Math.max(a.price, b.price));
+        const priceScore = (priceScoreB - priceScoreA) * priceWeight;
         
         // 總分（可以加入更多維度）
         return ratingScore + priceScore;
