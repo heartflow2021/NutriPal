@@ -203,6 +203,45 @@
             font-size: 12px;
             color: var(--text-secondary);
         }
+        
+        /* 小帕說對話框樣式 */
+        .palpal-message-box {
+            display: flex;
+            align-items: flex-start;
+            margin: 25px 0;
+            max-width: 100%;
+        }
+        
+        .palpal-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+            flex-shrink: 0;
+            border: 2px solid #f5f5f5;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .palpal-bubble {
+            flex: 1;
+            background-color: #e8e0d0;
+            border-radius: 18px;
+            padding: 16px 20px;
+            position: relative;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #5c5c5c;
+        }
+        
+        .palpal-bubble:before {
+            content: "";
+            position: absolute;
+            left: -12px;
+            top: 15px;
+            border-width: 8px 12px 8px 0;
+            border-style: solid;
+            border-color: transparent #e8e0d0 transparent transparent;
+        }
     </style>
 </head>
 <body>
@@ -299,6 +338,14 @@
                     <li>確保睡眠環境足夠黑暗</li>
                     <li>白天接觸充足陽光，幫助建立晝夜節律</li>
                 </ul>
+                
+                <!-- 小帕說對話框 -->
+                <div class="palpal-message-box">
+                    <img src="images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
+                    <div class="palpal-bubble">
+                        你知道嗎？研究顯示，除了褪黑激素之外，鎂元素也可能有助於提升睡眠品質喔！若你對睡眠相關營養素有興趣，可以參考我們的「自然好眠的秘密：解析五大助眠營養素」文章～
+                    </div>
+                </div>
             </div>
         </article>
         

@@ -204,6 +204,45 @@
             font-size: 12px;
             color: var(--text-secondary);
         }
+        
+        /* 小帕說對話框樣式 */
+        .palpal-message-box {
+            display: flex;
+            align-items: flex-start;
+            margin: 25px 0;
+            max-width: 100%;
+        }
+        
+        .palpal-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+            flex-shrink: 0;
+            border: 2px solid #f5f5f5;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .palpal-bubble {
+            flex: 1;
+            background-color: #e8e0d0;
+            border-radius: 18px;
+            padding: 16px 20px;
+            position: relative;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #5c5c5c;
+        }
+        
+        .palpal-bubble:before {
+            content: "";
+            position: absolute;
+            left: -12px;
+            top: 15px;
+            border-width: 8px 12px 8px 0;
+            border-style: solid;
+            border-color: transparent #e8e0d0 transparent transparent;
+        }
     </style>
 </head>
 <body>
@@ -285,8 +324,12 @@
                 
                 <p>透過均衡的飲食來攝取這些助眠營養素，或許能夠對你的睡眠品質有所幫助。但別忘了，良好的睡眠習慣、定期運動和心理健康才是長期改善睡眠的關鍵因素。如果有嚴重的睡眠問題，建議尋求專業醫療協助。</p>
                 
-                <div style="background-color: #f0f7ff; padding: 15px; border-radius: 10px; margin-top: 20px;">
-                    <p style="font-style: italic; margin-bottom: 0;">小帕說：希望這篇文章可以提供你一些有用的資訊，讓你在了解這些營養素的同時，也能享受更好的睡眠品質。</p>
+                <!-- 小帕說對話框 -->
+                <div class="palpal-message-box">
+                    <img src="images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
+                    <div class="palpal-bubble">
+                        希望這篇文章可以提供你一些有用的資訊，讓你在了解這些營養素的同時，也能享受更好的睡眠品質。先告訴我你最近對哪方面的健康知識特別感興趣呢？我會幫你整理相關的營養資訊喔～
+                    </div>
                 </div>
             </div>
         </article>
