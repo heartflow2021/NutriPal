@@ -58,7 +58,7 @@ function generateRatingStarsHTML(rating) {
 function createProductCardHTML(product) {
     const ratingStars = generateRatingStarsHTML(product.rating || 4.0);
     const benefitBadges = (product.benefits || []).map(benefit => 
-        `<span class="badge" style="background-color: var(--primary); margin-right: 4px;">${benefit}</span>`
+        `<span class="badge">${benefit}</span>`
     ).join('');
     
     // 備用圖片 URL
@@ -73,26 +73,25 @@ function createProductCardHTML(product) {
     return `
         <div class="product-card">
             <img src="${product.image_url || fallbackImgUrl}" alt="${product.name || '產品圖片'}" 
-                 style="width: 100%; height: 180px; object-fit: contain; background-color: #ffffff;"
                  onerror="console.error('Image load error for:', this.src); this.onerror=null; this.src='${fallbackImgUrl}';">
-            <div style="padding: 16px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                    <div>
-                        <h3 style="margin: 0; font-size: 18px;">${product.name || '未知產品'}</h3>
-                        <p style="margin: 4px 0 0; font-size: 14px; color: var(--text-secondary);">${product.brand || ''}</p>
+            <div class="product-info">
+                <div class="product-header">
+                    <div class="product-title-section">
+                        <h3 class="product-title">${product.name || '未知產品'}</h3>
+                        <p class="product-brand">${product.brand || ''}</p>
                     </div>
-                    <div style="text-align: right;">
-                        <p style="margin: 0; font-weight: 700; color: var(--primary);">NT$ ${price}</p>
-                        <div style="color: #FFB800; font-size: 14px;">${ratingStars}</div>
+                    <div class="product-price-section">
+                        <p class="product-price">NT$ ${price}</p>
+                        <div class="product-rating">${ratingStars}</div>
                     </div>
                 </div>
-                <p style="margin: 8px 0; font-size: 14px; color: var(--text-secondary); line-height: 1.4;">
-                    ${product.description || '無產品描述'}
-                </p>
-                <div style="margin: 12px 0 16px;">
+                <p class="product-description">${product.description || '無產品描述'}</p>
+                <div class="product-tags">
                     ${benefitBadges}
                 </div>
-                <a href="${product.iherb_link || 'https://tw.iherb.com'}" target="_blank" class="btn-secondary" style="display: inline-block; text-decoration: none; text-align: center;">查看詳情</a>
+                <div class="product-action">
+                    <a href="${product.iherb_link || 'https://tw.iherb.com'}" target="_blank" class="btn-secondary" style="display: inline-block; text-decoration: none; text-align: center;">查看詳情</a>
+                </div>
             </div>
         </div>
     `;
