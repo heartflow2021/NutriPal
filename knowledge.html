@@ -116,20 +116,32 @@
     <header class="nav-header">
         <div style="width: 24px;"></div> <!-- 為了保持兩邊對稱 -->
         <h1 style="flex: 1; text-align: center; font-weight: 600; font-size: 18px; margin: 0;">健康知識庫</h1>
-        <a href="#" style="margin-left: 12px; color: var(--text-primary);" aria-label="搜尋">
+        <a href="#" onclick="toggleSearch()" style="margin-left: 12px; color: var(--text-primary);" aria-label="搜尋">
             <i class="fas fa-search"></i>
         </a>
     </header>
+    
+    <!-- 搜索欄 (預設隱藏) -->
+    <div id="search-bar" style="display: none; padding: 12px 16px; background-color: white; border-bottom: 1px solid var(--border-color);">
+        <div style="display: flex; position: relative;">
+            <input type="text" placeholder="搜尋健康知識..." style="width: 100%; padding: 8px 12px 8px 36px; border-radius: 20px; border: 1px solid var(--border-color); font-size: 14px; outline: none;">
+            <i class="fas fa-search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-secondary);"></i>
+            <i class="fas fa-times" id="clear-search" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); display: none; cursor: pointer;"></i>
+        </div>
+        <div id="search-status" style="font-size: 12px; color: var(--text-secondary); margin-top: 6px; display: none;">
+            搜尋結果：<span id="search-count">0</span> 個項目
+        </div>
+    </div>
 
     <!-- 分類標籤 -->
     <nav style="padding: 16px; background-color: white; overflow-x: auto; white-space: nowrap; border-bottom: 1px solid var(--border-color);">
         <div style="display: inline-flex; gap: 8px;">
-            <span class="badge" style="background-color: var(--primary); padding: 8px 16px;">所有</span>
-            <span class="badge" style="background-color: white; color: var(--text-primary); border: 1px solid var(--border-color); padding: 8px 16px;">睡眠知識</span>
-            <span class="badge" style="background-color: white; color: var(--text-primary); border: 1px solid var(--border-color); padding: 8px 16px;">免疫系統</span>
-            <span class="badge" style="background-color: white; color: var(--text-primary); border: 1px solid var(--border-color); padding: 8px 16px;">腸胃健康</span>
-            <span class="badge" style="background-color: white; color: var(--text-primary); border: 1px solid var(--border-color); padding: 8px 16px;">心臟健康</span>
-            <span class="badge" style="background-color: white; color: var(--text-primary); border: 1px solid var(--border-color); padding: 8px 16px;">視力知識</span>
+            <span class="badge category-filter active" data-category="all" style="background-color: var(--primary); padding: 8px 16px;">所有</span>
+            <span class="badge category-filter" data-category="sleep" style="background-color: white; color: var(--text-primary); border: 1px solid var(--border-color); padding: 8px 16px;">睡眠知識</span>
+            <span class="badge category-filter" data-category="immune" style="background-color: white; color: var(--text-primary); border: 1px solid var(--border-color); padding: 8px 16px;">免疫系統</span>
+            <span class="badge category-filter" data-category="digestion" style="background-color: white; color: var(--text-primary); border: 1px solid var(--border-color); padding: 8px 16px;">腸胃健康</span>
+            <span class="badge category-filter" data-category="heart" style="background-color: white; color: var(--text-primary); border: 1px solid var(--border-color); padding: 8px 16px;">心臟健康</span>
+            <span class="badge category-filter" data-category="eye" style="background-color: white; color: var(--text-primary); border: 1px solid var(--border-color); padding: 8px 16px;">視力知識</span>
         </div>
     </nav>
 
@@ -145,11 +157,11 @@
         </nav>
         
         <!-- 熱門話題 -->
-        <section style="margin-bottom: 24px;">
+        <section style="margin-bottom: 24px;" id="hotArticles">
             <h2 style="font-size: 18px; margin-bottom: 16px;">熱門文章</h2>
             
             <!-- 文章卡片 1 -->
-            <article class="card" style="margin-bottom: 16px;">
+            <article class="card article-item" data-category="sleep" data-article-id="melatonin" style="margin-bottom: 16px; cursor: pointer;">
                 <div style="display: flex;">
                     <div style="flex: 3; padding-right: 12px;">
                         <div style="display: flex; align-items: center; margin-bottom: 8px;">
@@ -170,7 +182,7 @@
             </article>
             
             <!-- 文章卡片 2 -->
-            <article class="card" style="margin-bottom: 16px;">
+            <article class="card article-item" data-category="immune" data-article-id="vitamin-d" style="margin-bottom: 16px; cursor: pointer;">
                 <div style="display: flex;">
                     <div style="flex: 3; padding-right: 12px;">
                         <div style="display: flex; align-items: center; margin-bottom: 8px;">
@@ -191,7 +203,7 @@
             </article>
             
             <!-- 文章卡片 3 -->
-            <article class="card">
+            <article class="card article-item" data-category="heart" data-article-id="coq10" style="cursor: pointer;">
                 <div style="display: flex;">
                     <div style="flex: 3; padding-right: 12px;">
                         <div style="display: flex; align-items: center; margin-bottom: 8px;">
@@ -213,12 +225,12 @@
         </section>
 
         <!-- 成分解析 -->
-        <section style="margin-bottom: 24px;">
+        <section style="margin-bottom: 24px;" id="ingredients">
             <h2 style="font-size: 18px; margin-bottom: 16px;">熱門營養成分</h2>
             
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
                 <!-- 成分卡片 1 -->
-                <article class="card" style="padding: 12px;">
+                <article class="card ingredient-item" data-category="sleep" data-article-id="melatonin" style="padding: 12px; cursor: pointer;">
                     <div style="display: flex; align-items: center; margin-bottom: 8px;">
                         <i class="fas fa-capsules" style="font-size: 24px; color: var(--primary); margin-right: 12px;"></i>
                         <h3 style="margin: 0; font-size: 16px;">褪黑激素</h3>
@@ -227,7 +239,7 @@
                 </article>
                 
                 <!-- 成分卡片 2 -->
-                <article class="card" style="padding: 12px;">
+                <article class="card ingredient-item" data-category="heart" data-article-id="fish-oil" style="padding: 12px; cursor: pointer;">
                     <div style="display: flex; align-items: center; margin-bottom: 8px;">
                         <i class="fas fa-seedling" style="font-size: 24px; color: var(--primary); margin-right: 12px;"></i>
                         <h3 style="margin: 0; font-size: 16px;">魚油</h3>
@@ -236,7 +248,7 @@
                 </article>
                 
                 <!-- 成分卡片 3 -->
-                <article class="card" style="padding: 12px;">
+                <article class="card ingredient-item" data-category="immune" data-article-id="turmeric" style="padding: 12px; cursor: pointer;">
                     <div style="display: flex; align-items: center; margin-bottom: 8px;">
                         <i class="fas fa-leaf" style="font-size: 24px; color: var(--primary); margin-right: 12px;"></i>
                         <h3 style="margin: 0; font-size: 16px;">薑黃素</h3>
@@ -245,7 +257,7 @@
                 </article>
                 
                 <!-- 成分卡片 4 -->
-                <article class="card" style="padding: 12px;">
+                <article class="card ingredient-item" data-category="digestion" data-article-id="probiotics" style="padding: 12px; cursor: pointer;">
                     <div style="display: flex; align-items: center; margin-bottom: 8px;">
                         <i class="fas fa-bacteria" style="font-size: 24px; color: var(--primary); margin-right: 12px;"></i>
                         <h3 style="margin: 0; font-size: 16px;">益生菌</h3>
@@ -255,7 +267,7 @@
             </div>
             
             <div style="text-align: center; margin-top: 16px;">
-                <a href="#" style="color: var(--primary); font-weight: 600; font-size: 14px;">
+                <a href="#" onclick="showMoreIngredients()" style="color: var(--primary); font-weight: 600; font-size: 14px;">
                     查看更多成分 <i class="fas fa-chevron-right" style="font-size: 12px;"></i>
                 </a>
             </div>
@@ -266,34 +278,77 @@
             <h2 style="font-size: 18px; margin-bottom: 16px;">常見問答</h2>
             
             <!-- 問答項目 1 -->
-            <div class="card" style="margin-bottom: 12px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+            <div class="card faq-item" style="margin-bottom: 12px;">
+                <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 12px 16px;">
                     <h3 style="margin: 0; font-size: 16px;">營養素攝取的常見時機？</h3>
-                    <i class="fas fa-chevron-down" style="color: var(--text-secondary);"></i>
+                    <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                </div>
+                <div class="faq-answer" style="display: none; padding: 0 16px 16px; font-size: 14px; color: var(--text-secondary); line-height: 1.5;">
+                    <p>不同的營養素有各自理想的攝取時機，以下是一些常見的參考：</p>
+                    <ul style="padding-left: 20px; margin-top: 8px;">
+                        <li><strong>脂溶性維生素（A、D、E、K）</strong>：最好隨餐服用，因為脂肪可以幫助吸收</li>
+                        <li><strong>B族維生素</strong>：最好在早上或午餐時服用，有助於維持一天的能量水平</li>
+                        <li><strong>鐵質</strong>：空腹服用可以提高吸收率，但可能對胃不適，可以在兩餐之間服用</li>
+                        <li><strong>鈣質</strong>：分次服用效果較好，通常晚上服用有助於骨骼修復</li>
+                        <li><strong>鎂</strong>：晚上服用有助於肌肉放鬆和改善睡眠</li>
+                    </ul>
+                    <p style="margin-top: 12px;">不論何種營養素，保持規律的服用時間有助於形成習慣，確保持續攝取。</p>
                 </div>
             </div>
             
             <!-- 問答項目 2 -->
-            <div class="card" style="margin-bottom: 12px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+            <div class="card faq-item" style="margin-bottom: 12px;">
+                <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 12px 16px;">
                     <h3 style="margin: 0; font-size: 16px;">營養補充品的使用注意事項有哪些？</h3>
-                    <i class="fas fa-chevron-down" style="color: var(--text-secondary);"></i>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer" style="display: none; padding: 0 16px 16px; font-size: 14px; color: var(--text-secondary); line-height: 1.5;">
+                    <p>使用營養補充品時，以下是一些值得注意的事項：</p>
+                    <ul style="padding-left: 20px; margin-top: 8px;">
+                        <li>遵循建議劑量，過量服用某些補充品可能有害</li>
+                        <li>查看產品的有效期限和適當儲存方式</li>
+                        <li>注意產品成分，特別是對某些物質過敏的人</li>
+                        <li>了解可能的藥物交互作用，如正在服用處方藥，應先諮詢醫師</li>
+                        <li>選擇有良好信譽的品牌和符合標準的產品</li>
+                        <li>懷孕、哺乳或有慢性疾病的人應特別謹慎，先諮詢專業意見</li>
+                    </ul>
+                    <p style="margin-top: 12px;">記住，營養補充品是用來補充均衡飲食，而非替代它。</p>
                 </div>
             </div>
             
             <!-- 問答項目 3 -->
-            <div class="card" style="margin-bottom: 12px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+            <div class="card faq-item" style="margin-bottom: 12px;">
+                <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 12px 16px;">
                     <h3 style="margin: 0; font-size: 16px;">營養補充品與健康食品的差異是什麼？</h3>
-                    <i class="fas fa-chevron-down" style="color: var(--text-secondary);"></i>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer" style="display: none; padding: 0 16px 16px; font-size: 14px; color: var(--text-secondary); line-height: 1.5;">
+                    <p>營養補充品和健康食品雖然常被混用，但在定義上有一些差異：</p>
+                    <ul style="padding-left: 20px; margin-top: 8px;">
+                        <li><strong>營養補充品</strong>：主要指含有維生素、礦物質、草本或氨基酸等營養素的濃縮形式，通常以膠囊、錠劑、粉末或液體形式出現。</li>
+                        <li><strong>健康食品</strong>：在台灣，「健康食品」是一個特定法規定義的詞彙，指經過衛福部審核，具有特定保健功效的食品。需取得「健康食品」認證標章。</li>
+                    </ul>
+                    <p style="margin-top: 12px;">另外，一般保健食品則泛指具有保健概念的食品，但未必有「健康食品」的官方認證。選擇時應注意區分這些不同類別。</p>
                 </div>
             </div>
             
             <!-- 問答項目 4 -->
-            <div class="card" style="margin-bottom: 12px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+            <div class="card faq-item" style="margin-bottom: 12px;">
+                <div class="faq-question" style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 12px 16px;">
                     <h3 style="margin: 0; font-size: 16px;">如何參考營養補充品評價？</h3>
-                    <i class="fas fa-chevron-down" style="color: var(--text-secondary);"></i>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer" style="display: none; padding: 0 16px 16px; font-size: 14px; color: var(--text-secondary); line-height: 1.5;">
+                    <p>在參考營養補充品評價時，可以考慮以下幾點：</p>
+                    <ul style="padding-left: 20px; margin-top: 8px;">
+                        <li>查看多個來源的評價，不僅僅是銷售網站</li>
+                        <li>注意評價是否提到實際使用經驗和具體效果</li>
+                        <li>查看專業醫療或營養網站的評論和分析</li>
+                        <li>警惕過於誇張或宣稱神奇效果的評價</li>
+                        <li>了解評論者的使用背景，因為每個人的體質不同</li>
+                        <li>注意產品成分是否經過第三方測試和認證</li>
+                    </ul>
+                    <p style="margin-top: 12px;">記住，個人評價僅供參考，最好的決策應該基於科學研究和專業建議。</p>
                 </div>
             </div>
             
@@ -338,5 +393,270 @@
             <span>知識庫</span>
         </a>
     </footer>
+    
+    <script>
+        // 頁面載入時執行
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('知識庫頁面已載入');
+            
+            // FAQ展開/收起功能
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    // 獲取相鄰的答案元素
+                    const answer = this.nextElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    // 切換答案的顯示狀態
+                    if (answer.style.display === 'none' || answer.style.display === '') {
+                        answer.style.display = 'block';
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-up');
+                        
+                        // 添加平滑過渡動畫
+                        answer.style.maxHeight = '0';
+                        answer.style.transition = 'max-height 0.3s ease-in-out';
+                        setTimeout(() => {
+                            answer.style.maxHeight = answer.scrollHeight + 'px';
+                        }, 10);
+                    } else {
+                        answer.style.maxHeight = '0';
+                        icon.classList.remove('fa-chevron-up');
+                        icon.classList.add('fa-chevron-down');
+                        
+                        // 收起後清除樣式
+                        setTimeout(() => {
+                            answer.style.display = 'none';
+                            answer.style.transition = '';
+                            answer.style.maxHeight = '';
+                        }, 300);
+                    }
+                });
+            });
+            
+            // 分類篩選功能
+            const categoryFilters = document.querySelectorAll('.category-filter');
+            const articles = document.querySelectorAll('.article-item');
+            const ingredients = document.querySelectorAll('.ingredient-item');
+            
+            categoryFilters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    // 移除所有過濾器的活動狀態
+                    categoryFilters.forEach(f => {
+                        f.classList.remove('active');
+                        f.style.backgroundColor = 'white';
+                        f.style.color = 'var(--text-primary)';
+                    });
+                    
+                    // 設置當前選中的過濾器為活動狀態
+                    this.classList.add('active');
+                    this.style.backgroundColor = 'var(--primary)';
+                    this.style.color = 'white';
+                    
+                    const category = this.getAttribute('data-category');
+                    
+                    // 過濾文章和成分
+                    filterItems(articles, category);
+                    filterItems(ingredients, category);
+                    
+                    // 檢查過濾後是否有可顯示的文章
+                    checkEmptyState(articles, 'hotArticles', '文章');
+                    checkEmptyState(ingredients, 'ingredients', '營養成分');
+                });
+            });
+            
+            // 搜索功能
+            const searchInput = document.querySelector('#search-bar input');
+            const clearSearchBtn = document.getElementById('clear-search');
+            const searchStatus = document.getElementById('search-status');
+            const searchCount = document.getElementById('search-count');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                
+                // 顯示/隱藏清除按鈕
+                if (searchTerm.length > 0) {
+                    clearSearchBtn.style.display = 'block';
+                } else {
+                    clearSearchBtn.style.display = 'none';
+                }
+                
+                if (searchTerm.length >= 2) {
+                    // 搜索文章標題和描述
+                    searchItems(articles, searchTerm);
+                    searchItems(ingredients, searchTerm);
+                    
+                    // 重置分類過濾器狀態
+                    categoryFilters.forEach(f => {
+                        f.classList.remove('active');
+                        f.style.backgroundColor = 'white';
+                        f.style.color = 'var(--text-primary)';
+                    });
+                    categoryFilters[0].classList.add('active');
+                    categoryFilters[0].style.backgroundColor = 'var(--primary)';
+                    categoryFilters[0].style.color = 'white';
+                    
+                    // 檢查搜索結果是否為空
+                    checkEmptyState(articles, 'hotArticles', '文章');
+                    checkEmptyState(ingredients, 'ingredients', '營養成分');
+                    
+                    // 顯示搜索結果計數
+                    const totalVisibleItems = [...articles, ...ingredients].filter(item => 
+                        item.style.display !== 'none'
+                    ).length;
+                    
+                    searchCount.textContent = totalVisibleItems;
+                    searchStatus.style.display = 'block';
+                } else if (searchTerm.length === 0) {
+                    // 如果搜索框清空，顯示所有內容
+                    resetFilter();
+                    searchStatus.style.display = 'none';
+                }
+            });
+            
+            // 清除搜索按鈕點擊事件
+            clearSearchBtn.addEventListener('click', function() {
+                searchInput.value = '';
+                searchInput.focus();
+                resetFilter();
+                this.style.display = 'none';
+                searchStatus.style.display = 'none';
+            });
+            
+            // 移除文章卡片上的inline onclick屬性，改為使用事件監聽器
+            const allArticleItems = document.querySelectorAll('.article-item, .ingredient-item');
+            allArticleItems.forEach(item => {
+                // 獲取文章ID
+                const articleId = item.getAttribute('data-article-id');
+                if (articleId) {
+                    // 添加點擊事件監聽器
+                    item.addEventListener('click', function() {
+                        goToArticle(articleId);
+                    });
+                }
+            });
+        });
+        
+        // 過濾項目的輔助函數
+        function filterItems(items, category) {
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+        
+        // 搜索項目的輔助函數
+        function searchItems(items, searchTerm) {
+            items.forEach(item => {
+                const title = item.querySelector('h3').textContent.toLowerCase();
+                const description = item.querySelector('p') ? 
+                                    item.querySelector('p').textContent.toLowerCase() : '';
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+        
+        // 檢查空狀態並顯示提示的輔助函數
+        function checkEmptyState(items, containerId, itemType) {
+            const container = document.getElementById(containerId);
+            const visibleItems = [...items].filter(item => 
+                item.style.display !== 'none' && container.contains(item)
+            );
+            
+            // 移除現有的空狀態提示
+            const existingEmptyState = container.querySelector('.empty-state-message');
+            if (existingEmptyState) {
+                existingEmptyState.remove();
+            }
+            
+            if (visibleItems.length === 0) {
+                const emptyMessage = document.createElement('p');
+                emptyMessage.className = 'empty-state-message';
+                emptyMessage.style.textAlign = 'center';
+                emptyMessage.style.color = 'var(--text-secondary)';
+                emptyMessage.style.padding = '20px';
+                emptyMessage.innerText = `暫無相關${itemType}，我們正在努力新增中！`;
+                
+                // 將提示插入到合適的位置
+                if (containerId === 'hotArticles') {
+                    container.appendChild(emptyMessage);
+                } else if (containerId === 'ingredients') {
+                    const viewMoreButton = container.querySelector('div[style*="text-align: center"]');
+                    if (viewMoreButton) {
+                        container.insertBefore(emptyMessage, viewMoreButton);
+                    } else {
+                        container.appendChild(emptyMessage);
+                    }
+                }
+            }
+        }
+        
+        // 重置所有過濾器並顯示所有內容
+        function resetFilter() {
+            const articles = document.querySelectorAll('.article-item');
+            const ingredients = document.querySelectorAll('.ingredient-item');
+            
+            articles.forEach(item => item.style.display = 'block');
+            ingredients.forEach(item => item.style.display = 'block');
+            
+            // 重置分類過濾器
+            const categoryFilters = document.querySelectorAll('.category-filter');
+            categoryFilters.forEach(f => {
+                f.classList.remove('active');
+                f.style.backgroundColor = 'white';
+                f.style.color = 'var(--text-primary)';
+            });
+            
+            categoryFilters[0].classList.add('active');
+            categoryFilters[0].style.backgroundColor = 'var(--primary)';
+            categoryFilters[0].style.color = 'white';
+            
+            // 移除所有空狀態提示
+            document.querySelectorAll('.empty-state-message').forEach(msg => msg.remove());
+        }
+        
+        // 搜索功能顯示/隱藏
+        function toggleSearch() {
+            const searchBar = document.getElementById('search-bar');
+            if (searchBar.style.display === 'none' || searchBar.style.display === '') {
+                searchBar.style.display = 'block';
+                setTimeout(() => {
+                    searchBar.querySelector('input').focus();
+                }, 100);
+            } else {
+                searchBar.style.display = 'none';
+                searchBar.querySelector('input').value = '';
+                document.getElementById('clear-search').style.display = 'none';
+                document.getElementById('search-status').style.display = 'none';
+                resetFilter(); // 清除搜索時重置過濾器
+            }
+        }
+        
+        // 文章詳情頁跳轉
+        function goToArticle(articleId) {
+            console.log('跳轉到文章：', articleId);
+            
+            // 不同文章ID對應不同的文章頁面或同一頁面不同參數
+            if (articleId === 'melatonin') {
+                window.location.href = 'article-detail.html?id=melatonin';
+            } else {
+                // 目前其他文章暫無詳情頁，顯示提示
+                alert('這篇文章的詳情頁即將上線，敬請期待！');
+            }
+        }
+        
+        // 顯示更多營養成分
+        function showMoreIngredients() {
+            alert('更多營養成分資訊即將上線，敬請期待！');
+        }
+    </script>
 </body>
 </html> 
