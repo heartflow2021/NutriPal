@@ -161,6 +161,7 @@ NutriPal 為健康生活知識平台，嚴格遵守台灣衛福部相關規範�
 平台：Webflow / Carrd
 主機：Vercel / Netlify
 回應式設計：支援桌面、平板、手機
+後端服務：FastAPI (知識庫自動化內容生成系統)
 
 UI/UX 設計原則
 移動優先設計 (Mobile-First)：
@@ -268,3 +269,91 @@ AI 聊天助手：結合 GPT API 提供自然語言互動體驗
 - `task-master expand --id=<任務編號>`：將任務分解為子任務
 - `task-master update "<更新描述>"`：更新任務定義
 - `task-master generate`：重新生成任務文件
+
+## 知識庫自動化內容生成系統
+
+為了提高內容生產效率並確保一致的品質，我們設計了一套基於FastAPI和Google Sheets的自動化內容生成系統。此系統使用AI技術根據簡單的標題提示自動生成多種格式的健康知識內容。
+
+### 系統架構
+
+- **後端框架**：FastAPI (Python)
+- **數據源**：Google Sheets (作為輕量級CMS)
+- **內容生成**：OpenAI GPT-4o API
+- **圖片生成**：OpenAI DALL·E 3
+- **圖片存儲**：Google Drive
+- **配置管理**：.env環境變數
+
+### 工作流程
+
+1. **數據獲取**：從Google Sheets指定工作表讀取標題資料（A欄）
+2. **內容生成**：對每個標題，使用GPT-4o生成三種不同內容：
+   - Blog文章（1800字，健康資訊導向，避免誇大療效）
+   - 粉專貼文（150~300字，親切語氣，包含emoji）
+   - SEO標題與關鍵字建議（5組）
+3. **圖片生成**：使用DALL·E根據標題創建吉卜力風格的插畫（1024x1024）
+4. **數據處理**：
+   - 上傳圖片至Google Drive指定資料夾（NutriPal Images）
+   - 將生成的內容與圖片URL寫回Google Sheets對應欄位
+5. **內容展示**：自動從Google Sheets獲取資料並顯示在網站上
+
+### Google Sheets數據結構
+
+**工作表名稱**：工作表1
+
+| 欄位 | 內容 | 說明 |
+|------|------|------|
+| A欄 | Blog標題 | 輸入內容（人工） |
+| B欄 | Blog文章內容 | 生成內容（自動） |
+| C欄 | 粉專貼文內容 | 生成內容（自動） |
+| D欄 | SEO建議 | 生成內容（自動） |
+| E欄 | 圖片網址 | Google Drive公開連結（自動） |
+| F欄 | 縮圖 | 使用=IMAGE()函數顯示（自動） |
+
+### 技術實現細節
+
+```python
+# 推薦的資料夾結構
+project/
+├── app/
+│   ├── api/             # API路由
+│   ├── core/            # 設定和共用功能
+│   ├── services/        # 業務邏輯(Google Sheets, OpenAI等)
+│   ├── templates/       # 內容生成提示模板
+│   └── utils/           # 工具函數
+├── .env                 # 環境變數
+├── main.py              # 入口文件
+└── requirements.txt     # 依賴管理
+```
+
+#### 環境變數配置 (.env)
+
+```
+# OpenAI配置
+OPENAI_API_KEY=your_api_key_here
+OPENAI_MODEL=gpt-4o
+
+# Google API配置
+GOOGLE_CREDENTIALS_FILE=path/to/credentials.json
+GOOGLE_SHEET_ID=your_sheet_id_here
+GOOGLE_DRIVE_FOLDER_ID=your_folder_id_here
+```
+
+#### 內容生成限制與風格要求
+
+- 所有內容須遵守台灣衛福部規定，不得宣稱療效
+- 使用自然、親切的語氣，適合台灣讀者
+- 圖片風格統一為吉卜力風格插畫
+- Blog文章結構包含標題、導言、小標題、內容段落和結語
+- 粉專貼文應包含emoji，語氣輕鬆活潑
+- SEO建議需考慮台灣用戶的搜索習慣
+
+### 與現有系統整合
+
+此自動化系統將與現有的知識庫頁面(knowledge.html)和文章詳情頁面(article-detail.html)無縫整合：
+
+1. 自動將生成的Blog文章內容轉換為HTML格式
+2. 使用文章模板生成新的article-detail-[id].html文件
+3. 在knowledge.html頁面自動添加新的文章卡片，連結到對應詳情頁
+4. 更新網站導航和搜索功能以包含新內容
+
+此系統使維護和擴展知識庫變得高效且一致，大幅降低內容生產的時間成本。
