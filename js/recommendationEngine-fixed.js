@@ -90,7 +90,7 @@ function createProductCardHTML(product) {
                     ${benefitBadges}
                 </div>
                 <div class="product-action">
-                    <a href="${product.iherb_link || 'https://tw.iherb.com'}" target="_blank" class="btn-secondary" style="display: inline-block; text-decoration: none; text-align: center;">查看詳情</a>
+                <a href="${product.iherb_link || 'https://tw.iherb.com'}" target="_blank" class="btn-secondary" style="display: inline-block; text-decoration: none; text-align: center;">查看詳情</a>
                 </div>
             </div>
         </div>
@@ -481,65 +481,65 @@ window.initializeRecommendations = async function(healthNeed, lifestyle, budget)
  */
 function updateTimelineHTML(container, products) {
     // 新的現代化時間線設計
-    container.innerHTML = `
+     container.innerHTML = `
         <div class="timeline-track">
             <div class="timeline-line"></div>
         </div>
         
         <div class="time-point-wrapper">
-            <div class="time-point">
+        <div class="time-point">
                 <div class="time-icon" style="background-color: #FFD686;">
-                    <i class="fas fa-sun"></i>
+                <i class="fas fa-sun"></i>
                 </div>
                 <div class="time-content">
                     <div class="time-header">
-                        <h4>早晨</h4>
+                    <h4>早晨</h4>
                         <span class="time-badge">06:00 - 09:00</span>
-                    </div>
+                </div>
                     <div class="time-description">
                         <p>早晨是補充維生素和能量相關營養素的理想時間，可幫助您開始一天的活動。</p>
                         <div class="time-tips">
                             <i class="fas fa-lightbulb" style="color: #F5B17B;"></i>
                             <span>建議飯後服用，可提高部分營養素的吸收率</span>
-                        </div>
-                    </div>
-                </div>
+            </div>
+            </div>
+        </div>
             </div>
             
-            <div class="time-point">
+         <div class="time-point">
                 <div class="time-icon" style="background-color: #A8D5BA;">
-                    <i class="fas fa-utensils"></i>
+                 <i class="fas fa-utensils"></i>
                 </div>
                 <div class="time-content">
                     <div class="time-header">
-                        <h4>隨餐</h4>
+                    <h4>隨餐</h4>
                         <span class="time-badge">用餐時</span>
-                    </div>
+                 </div>
                     <div class="time-description">
                         <p>多數營養補充品隨餐服用可以減少對胃部的刺激，並提高某些脂溶性營養素的吸收效率。</p>
                         <div class="time-tips">
                             <i class="fas fa-lightbulb" style="color: #F5B17B;"></i>
                             <span>礦物質和B族維生素類營養補充品特別適合在餐中或餐後服用</span>
-                        </div>
-                    </div>
-                </div>
+            </div>
+            </div>
+        </div>
             </div>
             
-            <div class="time-point">
+        <div class="time-point">
                 <div class="time-icon" style="background-color: #AEC6CF;">
-                    <i class="fas fa-moon"></i>
+                <i class="fas fa-moon"></i>
                 </div>
                 <div class="time-content">
                     <div class="time-header">
-                        <h4>睡前</h4>
+                    <h4>睡前</h4>
                         <span class="time-badge">21:00 - 23:00</span>
-                    </div>
+                </div>
                     <div class="time-description">
                         <p>睡前是服用某些特定營養補充品的理想時間，特別是與放鬆和睡眠品質相關的成分。</p>
                         <div class="time-tips">
                             <i class="fas fa-lightbulb" style="color: #F5B17B;"></i>
                             <span>鎂、褪黑激素等成分在睡前30-60分鐘服用效果較佳</span>
-                        </div>
+            </div>
                     </div>
                 </div>
             </div>

@@ -134,12 +134,96 @@
       "created_at": "2025-05-06T10:00:00Z",
       "updated_at": "2025-05-06T10:00:00Z",
       "file": "tasks/11.md"
+    },
+    {
+      "id": 12,
+      "title": "開發基於FastAPI的知識庫自動化內容生成系統",
+      "description": "設置FastAPI專案結構與基本API端點，實現自動化內容生成系統的基礎功能。",
+      "priority": "high",
+      "status": "pending",
+      "estimated_time": "5d",
+      "dependencies": [7],
+      "created_at": "2025-05-07T09:00:00Z",
+      "updated_at": "2025-05-07T09:00:00Z",
+      "file": "tasks/12.md"
+    },
+    {
+      "id": 13,
+      "title": "整合OpenAI GPT-4o實現自動化內容生成",
+      "description": "實現OpenAI GPT-4o調用，自動生成Blog文章、粉專貼文和SEO建議，確保內容符合台灣衛福部規範。",
+      "priority": "high",
+      "status": "pending",
+      "estimated_time": "4d",
+      "dependencies": [12],
+      "created_at": "2025-05-07T09:00:00Z",
+      "updated_at": "2025-05-07T09:00:00Z",
+      "file": "tasks/13.md"
+    },
+    {
+      "id": 14,
+      "title": "整合OpenAI DALL·E 3實現圖片自動生成",
+      "description": "實現DALL·E圖片生成功能，根據標題自動創建吉卜力風格的插畫，提升知識內容視覺吸引力。",
+      "priority": "medium",
+      "status": "pending",
+      "estimated_time": "3d",
+      "dependencies": [12],
+      "created_at": "2025-05-07T09:00:00Z",
+      "updated_at": "2025-05-07T09:00:00Z",
+      "file": "tasks/14.md"
+    },
+    {
+      "id": 15,
+      "title": "建立Google Drive整合實現圖片存儲與管理",
+      "description": "開發Google Drive整合，實現自動上傳與管理生成的圖片，獲取公開連結用於網站顯示。",
+      "priority": "medium",
+      "status": "pending",
+      "estimated_time": "3d",
+      "dependencies": [14],
+      "created_at": "2025-05-07T09:00:00Z",
+      "updated_at": "2025-05-07T09:00:00Z",
+      "file": "tasks/15.md"
+    },
+    {
+      "id": 16,
+      "title": "開發HTML轉換系統自動生成文章頁面",
+      "description": "開發HTML轉換系統，根據文章模板自動生成article-detail頁面，確保頁面風格一致性。",
+      "priority": "high",
+      "status": "pending",
+      "estimated_time": "4d",
+      "dependencies": [13, 15],
+      "created_at": "2025-05-07T09:00:00Z",
+      "updated_at": "2025-05-07T09:00:00Z",
+      "file": "tasks/16.md"
+    },
+    {
+      "id": 17,
+      "title": "實現knowledge.html頁面的自動更新機制",
+      "description": "開發knowledge.html頁面的自動更新機制，在新文章生成後自動更新知識庫頁面顯示的文章卡片。",
+      "priority": "high",
+      "status": "pending",
+      "estimated_time": "3d",
+      "dependencies": [16],
+      "created_at": "2025-05-07T09:00:00Z",
+      "updated_at": "2025-05-07T09:00:00Z",
+      "file": "tasks/17.md"
+    },
+    {
+      "id": 18,
+      "title": "建立環境變數管理系統處理API密鑰",
+      "description": "實現環境變數管理系統，安全處理OpenAI和Google API密鑰，確保系統安全性與配置靈活性。",
+      "priority": "high",
+      "status": "pending",
+      "estimated_time": "2d",
+      "dependencies": [12],
+      "created_at": "2025-05-07T09:00:00Z",
+      "updated_at": "2025-05-07T09:00:00Z",
+      "file": "tasks/18.md"
     }
   ],
   "metadata": {
-    "last_task_id": 11,
+    "last_task_id": 18,
     "created_at": "2025-05-02T14:45:00Z",
-    "updated_at": "2025-05-06T10:00:00Z"
+    "updated_at": "2025-05-07T09:00:00Z"
   },
   "settings": {
     "default_priority": "medium",
