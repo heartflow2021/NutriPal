@@ -42,6 +42,14 @@
             margin-right: 6px;
         }
         
+        /* 文章卡片圖片樣式 */
+        .article-card-image, .article-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
         /* 專業背書與免責聲明樣式 */
         .disclaimer-wrapper {
             background-color: rgba(255, 192, 75, 0.1);
@@ -160,14 +168,25 @@
         <section id="hotArticles">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                 <h2 style="font-size: 18px; margin: 0;">熱門文章</h2>
-                <div class="filter-tags">
-                    <span class="filter-tag" data-category="all">全部</span>
-                    <span class="filter-tag" data-category="sleep">睡眠</span>
-                    <span class="filter-tag" data-category="immune">免疫力</span>
-                    <span class="filter-tag" data-category="heart">心血管</span>
-                    <span class="filter-tag" data-category="bone">骨骼</span>
-                </div>
             </div>
+            
+            <!-- 新文章卡片：晚睡與壓力 -->
+            <article class="card article-item" data-category="sleep" data-article-id="stress-sleep" style="margin-bottom: 16px; cursor: pointer;">
+                <div style="display: flex;">
+                    <div style="width: 80px; height: 80px; flex-shrink: 0;">
+                        <img src="images/articles/晚睡的人更容易累積壓力.png" alt="晚睡與壓力關係" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                    </div>
+                    <div style="flex: 1; padding-left: 12px;">
+                        <h3 style="font-size: 16px; margin: 0 0 4px 0;">晚睡的人更容易累積壓力？認識睡眠與壓力的關係</h3>
+                        <p style="font-size: 14px; color: var(--text-secondary); margin: 0 0 8px 0;">了解皮質醇與生理時鐘的關係，以及如何透過作息與飲食安排改善睡眠品質。</p>
+                        <div style="display: flex;">
+                            <div style="font-size: 12px; color: var(--text-secondary);">
+                                <i class="fas fa-tag" style="margin-right: 4px;"></i>睡眠健康
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
             
             <!-- 新文章卡片：助眠營養素 -->
             <article class="card article-item" data-category="sleep" data-article-id="sleep-nutrients" style="margin-bottom: 16px; cursor: pointer;">
@@ -673,6 +692,8 @@
                 window.location.href = 'article-detail.html';
             } else if (articleId === 'sleep-nutrients') {
                 window.location.href = 'sleep-nutrient-article.html';
+            } else if (articleId === 'stress-sleep') {
+                window.location.href = 'stress-sleep-article.html';
             } else {
                 alert('文章正在建設中，敬請期待！');
             }

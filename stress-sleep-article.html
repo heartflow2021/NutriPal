@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>晚睡的人更容易累積壓力？認識睡眠與壓力的關係 | NutriPal 營養好朋友</title>
+    <meta name="description" content="了解睡眠與壓力的關係，以及如何透過良好的作息與飲食調整來改善睡眠品質。">
+    <meta name="keywords" content="晚睡、壓力、皮質醇、生理時鐘、睡眠、健康知識">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 頂部簡化免責聲明 */
+        .top-disclaimer {
+            background-color: #fff9e6;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .top-disclaimer i {
+            color: #F5B17B;
+            margin-right: 6px;
+        }
+        
+        /* 專業背書與免責聲明樣式 */
+        .disclaimer-wrapper {
+            background-color: rgba(255, 192, 75, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0 30px;
+            text-align: center;
+        }
+        
+        .disclaimer-character {
+            width: 100px;
+            height: 100px;
+            margin: 10px auto;
+        }
+        
+        .disclaimer-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .disclaimer-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        
+        .disclaimer-counter {
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .disclaimer-counter strong {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .disclaimer-notices {
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: left;
+        }
+        
+        .disclaimer-notice {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+        
+        .disclaimer-notice:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* 文章內容樣式 */
+        .article-header {
+            margin-bottom: 20px;
+        }
+        
+        .article-category {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .article-title {
+            font-size: 24px;
+            line-height: 1.3;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .article-meta i {
+            margin-right: 5px;
+        }
+        
+        .article-meta span {
+            margin-right: 15px;
+        }
+        
+        .article-image {
+            width: 100%;
+            height: auto;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .article-content {
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+        
+        .article-content p {
+            margin-bottom: 15px;
+        }
+        
+        .article-content h2 {
+            font-size: 20px;
+            margin: 25px 0 15px;
+            color: var(--text-primary);
+        }
+        
+        .article-content h3 {
+            font-size: 18px;
+            margin: 20px 0 10px;
+            color: var(--text-primary);
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        
+        .article-content li {
+            margin-bottom: 8px;
+        }
+        
+        .related-articles {
+            margin-top: 30px;
+        }
+        
+        .related-articles h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .article-card {
+            display: flex;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        
+        .article-card-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 4px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        
+        .article-card-content {
+            flex: 1;
+        }
+        
+        .article-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 0 5px;
+            color: var(--text-primary);
+        }
+        
+        .article-card-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        /* 小帕說對話框樣式 */
+        .palpal-message-box {
+            display: flex;
+            align-items: flex-start;
+            margin: 25px 0;
+            max-width: 100%;
+        }
+        
+        .palpal-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+            flex-shrink: 0;
+            border: 2px solid #f5f5f5;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .palpal-bubble {
+            flex: 1;
+            background-color: #e8e0d0;
+            border-radius: 18px;
+            padding: 16px 20px;
+            position: relative;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #5c5c5c;
+        }
+        
+        .palpal-bubble:before {
+            content: "";
+            position: absolute;
+            left: -12px;
+            top: 15px;
+            border-width: 8px 12px 8px 0;
+            border-style: solid;
+            border-color: transparent #e8e0d0 transparent transparent;
+        }
+    </style>
+</head>
+<body>
+    <!-- 頂部簡化免責聲明 -->
+    <div class="top-disclaimer">
+        <i class="fas fa-heart"></i> 小帕不提供任何醫療建議，所有資訊僅供參考，健康決策請諮詢專業醫師～
+    </div>
+
+    <!-- 頂部導航 -->
+    <header class="nav-header">
+        <a href="knowledge.html" style="color: var(--text-primary); margin-right: 12px;">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 style="flex: 1; text-align: center; font-weight: 600; font-size: 18px; margin: 0;">睡眠與壓力知識</h1>
+        <a href="#" onclick="shareArticle()" style="margin-left: 12px; color: var(--text-primary);" aria-label="分享">
+            <i class="fas fa-share-alt"></i>
+        </a>
+    </header>
+
+    <!-- 主要內容區 -->
+    <main class="app-content" style="padding: 16px;">
+        <!-- 麵包屑導航 -->
+        <nav aria-label="麵包屑" class="breadcrumb" style="margin-bottom: 16px; font-size: 12px;">
+            <ol style="display: flex; list-style: none; padding: 0; margin: 0;">
+                <li style="margin-right: 4px;"><a href="home.html" style="color: var(--text-secondary);">首頁</a></li>
+                <li style="margin-right: 4px; margin-left: 4px;"><span style="color: var(--text-secondary);">/</span></li>
+                <li style="margin-right: 4px; margin-left: 4px;"><a href="knowledge.html" style="color: var(--text-secondary);">知識庫</a></li>
+                <li style="margin-right: 4px; margin-left: 4px;"><span style="color: var(--text-secondary);">/</span></li>
+                <li style="margin-left: 4px; color: var(--text-primary); font-weight: 600;">晚睡的人更容易累積壓力？認識睡眠與壓力的關係</li>
+            </ol>
+        </nav>
+        
+        <!-- 文章頭部 -->
+        <article>
+            <header class="article-header">
+                <span class="badge article-category">睡眠</span>
+                <h1 class="article-title">晚睡的人更容易累積壓力？認識睡眠與壓力的關係</h1>
+                <div class="article-meta">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>2025-06-12</span>
+                    <i class="far fa-eye"></i>
+                    <span>閱讀量：1,247</span>
+                </div>
+                <img src="images/articles/晚睡的人更容易累積壓力.png" alt="晚睡與壓力關係" class="article-image">
+            </header>
+            
+            <div class="article-content">
+                <p>現代人生活忙碌，越來越多人習慣「晚睡」。不論是加班、滑手機、看劇，總覺得夜深才是屬於自己的時間。但你是否曾經發現，晚睡後即使隔天有補眠，仍然感到疲倦、注意力下降，甚至容易緊張或心情低落？</p>
+                
+                <p>其實，這與我們體內的「壓力荷爾蒙」與睡眠節奏有密切關係。今天就讓我們一起從生活觀點出發，認識睡眠與壓力的連動性，並學習如何透過日常作息與飲食安排，支持良好的夜間休息品質。</p>
+                
+                <h2>壓力與睡眠：相互影響的生理現象</h2>
+                <p>壓力會影響入睡這點大家不陌生，但事實上，「睡不好」本身也可能加重壓力感受。</p>
+                
+                <p>人體在壓力狀況下，會分泌一種叫「皮質醇」的激素，幫助我們面對環境變化。當壓力持續累積，皮質醇濃度偏高，可能讓身體處於長時間警覺狀態，也影響夜晚該分泌的褪黑激素（與入睡節奏有關）。</p>
+                
+                <p>同時，若長期作息不規律、晚睡或夜班生活，也可能讓這些激素的分泌時機錯亂，影響白天與夜間的精神狀態。</p>
+                
+                <h2>皮質醇與生理時鐘的日夜節律</h2>
+                <p>正常情況下，皮質醇在清晨偏高，有助於我們清醒、啟動思考力；夜間則逐漸下降，讓身體進入休息狀態。</p>
+                
+                <p>不過，若每天的睡覺時間大幅延後，或日夜顛倒，就可能使這個節律混亂，使人白天疲憊、晚上反而難以放鬆入睡。這也解釋了為什麼「晚睡」會讓人感覺壓力變大、情緒波動增加。</p>
+                
+                <h2>三種日常行為，有助於維持身心放鬆的夜間節奏</h2>
+                <p>我們無法完全避免壓力，但可以透過生活方式來減少壓力堆積，讓晚上的休息時間更順利進行。以下是三個在日常中容易實行的習慣：</p>
+                
+                <h3>固定作息，培養生理節奏</h3>
+                <p>建議每天的睡覺與起床時間盡量一致，即使是假日也維持規律，讓身體建立「該睡覺的生理時段」。</p>
+                
+                <h3>晚間避免高刺激資訊輸入</h3>
+                <p>睡前一小時盡量避免滑手機、追劇或大量用腦，可改為簡單伸展、閱讀紙本書、靜坐放鬆等活動，讓身體自然釋放白天壓力。</p>
+                
+                <h3>攝取均衡營養，有助於整體生理調節</h3>
+                <p>飲食均衡對於壓力與作息的調節也有間接幫助。舉例來說：</p>
+                
+                <ul>
+                    <li>牛奶、香蕉等含色胺酸的食物，是人體合成神經傳導物質的重要來源</li>
+                    <li>深綠蔬菜與堅果富含鎂，為人體維持正常神經功能的重要礦物質</li>
+                    <li>全穀類與豆類中常見的維生素 B 群，參與能量代謝與神經調節</li>
+                </ul>
+                
+                <p>這些營養素不具有治療效果，但可作為均衡飲食的一部分，支持身體維持良好狀態。</p>
+                
+                <h2>常見誤解小提醒：</h2>
+                <p><strong>只要睡夠就好？</strong><br>
+                睡眠時間長不代表睡得好。若作息不規律，即使睡 10 小時仍可能感覺疲憊。</p>
+                
+                <p><strong>滑手機放鬆心情？</strong><br>
+                其實手機螢幕的藍光會干擾褪黑激素分泌，建議將睡前的放鬆方式轉換為非螢幕活動。</p>
+                
+                <p><strong>靠補眠彌補晚睡？</strong><br>
+                補眠無法完全取代規律作息，長期仍建議建立固定的睡眠節奏。</p>
+                
+                <h2>日常可以開始的小行動：</h2>
+                <ol>
+                    <li>設一個「準備上床」的鬧鐘，幫助自己停止資訊輸入</li>
+                    <li>試著在睡前 1 小時遠離螢幕</li>
+                    <li>午餐後選擇富含色胺酸與鎂的天然食物</li>
+                    <li>記錄一週的入睡時間，觀察身體狀態是否有變化</li>
+                </ol>
+                
+                <!-- 小帕說對話框 -->
+                <div class="palpal-message-box">
+                    <img src="images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
+                    <div class="palpal-bubble">
+                        小帕貼心小提醒：不勉強入睡，也不責備晚睡。每一次早點休息，都是你送給身體最溫柔的禮物。🌙今晚，讓我們一起慢慢關燈、慢慢好好睡。
+                    </div>
+                </div>
+            </div>
+        </article>
+        
+        <!-- 相關文章 -->
+        <section class="related-articles">
+            <h2>相關文章推薦</h2>
+            
+            <!-- 相關文章卡片 1 -->
+            <div class="article-card" onclick="goToArticle('sleep-nutrient')">
+                <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=60" 
+                     alt="助眠營養素知識" 
+                     class="article-card-image">
+                <div class="article-card-content">
+                    <h3 class="article-card-title">自然好眠的秘密：解析五大助眠營養素</h3>
+                    <div class="article-card-meta">睡眠知識 · 閱讀量：1,578</div>
+                </div>
+            </div>
+            
+            <!-- 相關文章卡片 2 -->
+            <div class="article-card" onclick="alert('這篇文章的詳情頁即將上線，敬請期待！')">
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=60" 
+                     alt="飲食與壓力" 
+                     class="article-card-image">
+                <div class="article-card-content">
+                    <h3 class="article-card-title">抗壓飲食：哪些食物有助於緩解壓力？</h3>
+                    <div class="article-card-meta">壓力管理 · 閱讀量：1,426</div>
+                </div>
+            </div>
+            
+            <!-- 相關文章卡片 3 -->
+            <div class="article-card" onclick="alert('這篇文章的詳情頁即將上線，敬請期待！')">
+                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=60" 
+                     alt="冥想與睡眠" 
+                     class="article-card-image">
+                <div class="article-card-content">
+                    <h3 class="article-card-title">5分鐘睡前冥想：幫助你快速入睡的簡單方法</h3>
+                    <div class="article-card-meta">睡眠知識 · 閱讀量：1,892</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 專業背書與免責聲明 -->
+        <div style="margin-top: 30px; margin-bottom: 60px;">
+            <div class="disclaimer-wrapper">
+                <!-- 使用小帕圖片 -->
+                <img src="images/mascot/palpal.png" alt="小帕" class="disclaimer-character" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
+                
+                <p class="disclaimer-title">小帕是資訊整理小幫手，不是醫師</p>
+                <p class="disclaimer-subtitle">我會整理營養知識和熱門資訊供你參考，但不提供醫療建議喔！</p>
+                
+                <div class="disclaimer-counter">
+                    已幫助 <strong>2,483</strong> 位朋友了解營養知識
+                </div>
+                
+                <div class="disclaimer-notices">
+                    <p class="disclaimer-notice">
+                        <strong>聯盟行銷關係揭露：</strong>本網站與 iHerb 等平台有聯盟行銷合作關係。當您透過我們的連結購買產品時，我們會收到一定的佣金，這不會增加您的購買成本。我們整理的產品資訊是基於健康知識主題，而非療效宣傳。
+                    </p>
+                    <p class="disclaimer-notice">
+                        <strong>免責聲明：</strong>本網站提供的資訊僅作為一般知識參考，不構成醫療建議。保健品不能預防、診斷、治療或治癒任何疾病。若有健康問題，請諮詢專業醫師。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 底部導航欄 -->
+    <footer class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首頁</span>
+        </a>
+        <a href="chat.html" class="tab-item">
+            <i class="fas fa-comment-medical"></i>
+            <span>諮詢</span>
+        </a>
+        <a href="knowledge.html" class="tab-item active">
+            <i class="fas fa-book-medical"></i>
+            <span>知識庫</span>
+        </a>
+    </footer>
+    
+    <script>
+        // 文章分享功能
+        function shareArticle() {
+            // 檢查是否支援 Web Share API
+            if (navigator.share) {
+                navigator.share({
+                    title: '晚睡的人更容易累積壓力？認識睡眠與壓力的關係 | NutriPal',
+                    text: '了解睡眠與壓力的關係，以及如何透過良好的作息與飲食調整來改善睡眠品質。',
+                    url: window.location.href,
+                })
+                .catch(console.error);
+            } else {
+                // 不支援則顯示簡單提示
+                alert('您可以複製網址分享給朋友：' + window.location.href);
+            }
+        }
+        
+        // 頁面載入時執行
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('文章詳情頁面已載入');
+            
+            // 解析URL參數
+            const urlParams = new URLSearchParams(window.location.search);
+            const articleId = urlParams.get('id');
+            console.log('當前文章ID:', articleId);
+        });
+        
+        // 跳轉到文章
+        function goToArticle(articleId) {
+            if (articleId === 'sleep-nutrient') {
+                window.location.href = 'sleep-nutrient-article.html';
+            } else {
+                alert('文章正在建設中，敬請期待！');
+            }
+        }
+    </script>
+</body>
+</html> 
