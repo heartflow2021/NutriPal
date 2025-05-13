@@ -170,6 +170,24 @@
                 <h2 style="font-size: 18px; margin: 0;">熱門文章</h2>
             </div>
             
+            <!-- 新文章卡片：免疫系統與感冒 -->
+            <article class="card article-item" data-category="immune" data-article-id="immune-cold" style="margin-bottom: 16px; cursor: pointer;">
+                <div style="display: flex;">
+                    <div style="width: 80px; height: 80px; flex-shrink: 0;">
+                        <img src="images/articles/常感冒怎麼辦？日常營養守護你的免疫防線.png" alt="免疫系統防護" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                    </div>
+                    <div style="flex: 1; padding-left: 12px;">
+                        <h3 style="font-size: 16px; margin: 0 0 4px 0;">常感冒怎麼辦？日常營養守護你的免疫防線</h3>
+                        <p style="font-size: 14px; color: var(--text-secondary); margin: 0 0 8px 0;">了解如何透過日常營養補給和生活調整，提升免疫系統功能，減少感冒機會。</p>
+                        <div style="display: flex;">
+                            <div style="font-size: 12px; color: var(--text-secondary);">
+                                <i class="fas fa-tag" style="margin-right: 4px;"></i>免疫系統
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
             <!-- 新文章卡片：晚睡與壓力 -->
             <article class="card article-item" data-category="sleep" data-article-id="stress-sleep" style="margin-bottom: 16px; cursor: pointer;">
                 <div style="display: flex;">
@@ -694,6 +712,8 @@
                 window.location.href = 'sleep-nutrient-article.html';
             } else if (articleId === 'stress-sleep') {
                 window.location.href = 'stress-sleep-article.html';
+            } else if (articleId === 'immune-cold') {
+                window.location.href = 'immune-cold-article.html';
             } else {
                 alert('文章正在建設中，敬請期待！');
             }
