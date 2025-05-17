@@ -135,7 +135,7 @@
             <input type="text" placeholder="搜尋健康知識..." style="width: 100%; padding: 8px 12px 8px 36px; border-radius: 20px; border: 1px solid var(--border-color); font-size: 14px; outline: none;">
             <i class="fas fa-search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-secondary);"></i>
             <i class="fas fa-times" id="clear-search" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); display: none; cursor: pointer;"></i>
-        </div>
+    </div>
         <div id="search-status" style="font-size: 12px; color: var(--text-secondary); margin-top: 6px; display: none;">
             搜尋結果：<span id="search-count">0</span> 個項目
         </div>
@@ -150,6 +150,7 @@
             <span class="badge category-filter" data-category="digestion" style="background-color: white; color: var(--text-primary); border: 1px solid var(--border-color); padding: 8px 16px;">腸胃健康</span>
             <span class="badge category-filter" data-category="heart" style="background-color: white; color: var(--text-primary); border: 1px solid var(--border-color); padding: 8px 16px;">心臟健康</span>
             <span class="badge category-filter" data-category="eye" style="background-color: white; color: var(--text-primary); border: 1px solid var(--border-color); padding: 8px 16px;">視力知識</span>
+            <span class="badge category-filter" data-category="brain" style="background-color: white; color: var(--text-primary); border: 1px solid var(--border-color); padding: 8px 16px;">大腦健康</span>
         </div>
     </nav>
 
@@ -218,6 +219,24 @@
                         <div style="display: flex;">
                             <div style="font-size: 12px; color: var(--text-secondary);">
                                 <i class="fas fa-tag" style="margin-right: 4px;"></i>睡眠健康
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- 新文章卡片：專注力與大腦營養 -->
+            <article class="card article-item" data-category="brain" data-article-id="brain-focus" style="margin-bottom: 16px; cursor: pointer;">
+                <div style="display: flex;">
+                    <div style="width: 80px; height: 80px; flex-shrink: 0;">
+                        <img src="images/articles/專注力大腦營養.png" alt="專注力大腦營養" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                    </div>
+                    <div style="flex: 1; padding-left: 12px;">
+                        <h3 style="font-size: 16px; margin: 0 0 4px 0;">專注力UP！大腦營養這樣補</h3>
+                        <p style="font-size: 14px; color: var(--text-secondary); margin: 0 0 8px 0;">解析有助於提升專注力與腦部健康的營養素，讓你學習、工作更有效率。</p>
+                        <div style="display: flex;">
+                            <div style="font-size: 12px; color: var(--text-secondary);">
+                                <i class="fas fa-tag" style="margin-right: 4px;"></i>大腦健康
                             </div>
                         </div>
                     </div>
@@ -436,9 +455,9 @@
                         <p class="disclaimer-notice">
                             <strong>免責聲明：</strong>本網站提供的所有內容僅作為一般知識參考，不構成醫療建議。任何營養補充品都不能預防、診斷、治療或治癒任何疾病。使用者在考慮任何營養補充品前，應先諮詢專業醫療人員。NutriPal不對因網站內容而產生的任何損失或損害負責。所有健康決策應在專業醫療人員的指導下進行。
                         </p>
-                    </div>
-                </div>
             </div>
+        </div>
+    </div>
         </section>
     </main>
 
@@ -714,6 +733,8 @@
                 window.location.href = 'stress-sleep-article.html';
             } else if (articleId === 'immune-cold') {
                 window.location.href = 'immune-cold-article.html';
+            } else if (articleId === 'brain-focus') {
+                window.location.href = 'brain-focus-article.html';
             } else {
                 alert('文章正在建設中，敬請期待！');
             }
