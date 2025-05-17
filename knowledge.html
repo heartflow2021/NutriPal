@@ -171,6 +171,24 @@
                 <h2 style="font-size: 18px; margin: 0;">熱門文章</h2>
             </div>
             
+            <!-- 新文章卡片：心血管風險 -->
+            <article class="card article-item" data-category="heart" data-article-id="cardiovascular-office-risk" style="margin-bottom: 16px; cursor: pointer;">
+                <div style="display: flex;">
+                    <div style="width: 80px; height: 80px; flex-shrink: 0;">
+                        <img src="images/articles/上班族的隱形殺手：你忽略的心血管風險.png" alt="心血管風險" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;" onerror="this.src='https://images.unsplash.com/photo-1559757175-7cb586218f6c?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=80&w=80'; this.onerror='';">
+                    </div>
+                    <div style="flex: 1; padding-left: 12px;">
+                        <h3 style="font-size: 16px; margin: 0 0 4px 0;">上班族的隱形殺手：你忽略的心血管風險</h3>
+                        <p style="font-size: 14px; color: var(--text-secondary); margin: 0 0 8px 0;">長時間久坐、壓力大？了解上班族常見的心血管問題與日常保養方法。</p>
+                        <div style="display: flex;">
+                            <div style="font-size: 12px; color: var(--text-secondary);">
+                                <i class="fas fa-tag" style="margin-right: 4px;"></i>心臟健康
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
             <!-- 新文章卡片：免疫系統與感冒 -->
             <article class="card article-item" data-category="immune" data-article-id="immune-cold" style="margin-bottom: 16px; cursor: pointer;">
                 <div style="display: flex;">
@@ -733,6 +751,8 @@
                 window.location.href = 'articles/immune-cold-article.html';
             } else if (articleId === 'brain-focus') {
                 window.location.href = 'articles/brain-focus-article.html';
+            } else if (articleId === 'cardiovascular-office-risk') {
+                window.location.href = 'articles/cardiovascular-office-risk-article.html';
             } else {
                 alert('文章正在建設中，敬請期待！');
             }

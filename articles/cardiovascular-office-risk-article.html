@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上班族的隱形殺手：你忽略的心血管風險 | NutriPal 營養好朋友</title>
+    <meta name="description" content="現代上班族長時間久坐，加上壓力、飲食不規律與運動不足，心血管健康早已悄悄埋下風險因子。本文帶你認識常見風險與預防方法。">
+    <meta name="keywords" content="心血管健康, 上班族, 久坐, 心臟病風險, 飲食調整, 運動不足, NutriPal, 高血壓, 膽固醇">
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 頂部簡化免責聲明 */
+        .top-disclaimer {
+            background-color: #fff9e6;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .top-disclaimer i {
+            color: #F5B17B;
+            margin-right: 6px;
+        }
+        
+        /* 專業背書與免責聲明樣式 */
+        .disclaimer-wrapper {
+            background-color: rgba(255, 192, 75, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0 30px;
+            text-align: center;
+        }
+        
+        .disclaimer-character {
+            width: 100px;
+            height: 100px;
+            margin: 10px auto;
+        }
+        
+        .disclaimer-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .disclaimer-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        
+        .disclaimer-counter {
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .disclaimer-counter strong {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .disclaimer-notices {
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: left;
+        }
+        
+        .disclaimer-notice {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+        
+        .disclaimer-notice:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* 文章內容樣式 */
+        .article-header {
+            margin-bottom: 20px;
+        }
+        
+        .article-category {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .article-title {
+            font-size: 24px;
+            line-height: 1.3;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .article-meta i {
+            margin-right: 5px;
+        }
+        
+        .article-meta span {
+            margin-right: 15px;
+        }
+        
+        .article-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            max-height: 320px;
+            display: block;
+            margin: 0 auto 20px auto;
+            object-fit: contain;
+            background: #f8f8f8;
+            border-radius: 12px;
+        }
+        @media (max-width: 600px) {
+            .article-image {
+                max-height: 200px;
+            }
+        }
+        
+        .article-content {
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+        
+        .article-content p {
+            margin-bottom: 15px;
+        }
+        
+        .article-content h2 {
+            font-size: 20px;
+            margin: 25px 0 15px;
+            color: var(--text-primary);
+        }
+        
+        .article-content h3 {
+            font-size: 18px;
+            margin: 20px 0 10px;
+            color: var(--text-primary);
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        
+        .article-content li {
+            margin-bottom: 8px;
+        }
+        
+        .related-articles {
+            margin-top: 30px;
+        }
+        
+        .related-articles h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .article-card {
+            display: flex;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .article-card-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 4px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        
+        .article-card-content {
+            flex: 1;
+        }
+        
+        .article-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 0 5px;
+            color: var(--text-primary);
+        }
+        
+        .article-card-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        /* 小帕說對話框樣式 */
+        .palpal-message-box {
+            display: flex;
+            align-items: flex-start;
+            margin: 25px 0;
+            max-width: 100%;
+        }
+        
+        .palpal-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+            flex-shrink: 0;
+            border: 2px solid #f5f5f5;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .palpal-bubble {
+            flex: 1;
+            background-color: #e8e0d0;
+            border-radius: 18px;
+            padding: 16px 20px;
+            position: relative;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #5c5c5c;
+        }
+        
+        .palpal-bubble:before {
+            content: "";
+            position: absolute;
+            left: -12px;
+            top: 15px;
+            border-width: 8px 12px 8px 0;
+            border-style: solid;
+            border-color: transparent #e8e0d0 transparent transparent;
+        }
+    </style>
+</head>
+<body>
+    <!-- 頂部簡化免責聲明 -->
+    <div class="top-disclaimer">
+        <i class="fas fa-heart"></i> 小帕不提供任何醫療建議，所有資訊僅供參考，健康決策請諮詢專業醫師～
+    </div>
+
+    <!-- 頂部導航 -->
+    <header class="nav-header">
+        <a href="../knowledge.html" style="color: var(--text-primary); margin-right: 12px;">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 style="flex: 1; text-align: center; font-weight: 600; font-size: 18px; margin: 0;">心血管健康</h1>
+        <a href="#" onclick="shareArticle()" style="margin-left: 12px; color: var(--text-primary);" aria-label="分享">
+            <i class="fas fa-share-alt"></i>
+        </a>
+    </header>
+
+    <!-- 主要內容區 -->
+    <main class="app-content" style="padding: 16px;">
+        <!-- 麵包屑導航 -->
+        <nav aria-label="麵包屑" class="breadcrumb" style="margin-bottom: 16px; font-size: 12px;">
+            <ol style="display: flex; list-style: none; padding: 0; margin: 0;">
+                <li style="margin-right: 4px;"><a href="../home.html" style="color: var(--text-secondary);">首頁</a></li>
+                <li style="margin-right: 4px; margin-left: 4px;"><span style="color: var(--text-secondary);">/</span></li>
+                <li style="margin-right: 4px; margin-left: 4px;"><a href="../knowledge.html" style="color: var(--text-secondary);">知識庫</a></li>
+                <li style="margin-right: 4px; margin-left: 4px;"><span style="color: var(--text-secondary);">/</span></li>
+                <li style="margin-left: 4px; color: var(--text-primary); font-weight: 600;">上班族的隱形殺手：你忽略的心血管風險</li>
+            </ol>
+        </nav>
+        
+        <!-- 文章頭部 -->
+        <article>
+            <header class="article-header">
+                <span class="badge article-category">心臟健康</span>
+                <h1 class="article-title">上班族的隱形殺手：你忽略的心血管風險</h1>
+                <div class="article-meta">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>2024-07-27</span>
+                    <i class="far fa-eye"></i>
+                    <span>閱讀量：587</span>
+                </div>
+                <img src="../images/articles/上班族的隱形殺手：你忽略的心血管風險.png" 
+                     alt="上班族心血管風險示意圖" 
+                     class="article-image"
+                     onerror="this.src='https://images.unsplash.com/photo-1559757175-7cb586218f6c?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8aGVhcnR8fHx8fHwxNjgzMTY0ODQ2&ixlib=rb-4.0.3&q=80&w=600'; this.onerror='';">
+            </header>
+            
+            <div class="article-content">
+                <p>你今天坐著的時間有多久了？<br>
+                早上起床坐著通勤、進辦公室坐著回信、開會、寫報告，下班後坐著吃飯、看劇、滑手機——一天結束，很可能已經坐超過 10 小時以上。</p>
+                
+                <p>現代工作型態改變讓許多上班族長時間久坐，加上壓力、飲食不規律與運動不足，心血管健康早已悄悄埋下風險因子，而你可能還沒發現。</p>
+
+                <p>根據國健署統計，心血管疾病多年來一直高居台灣十大死因前幾名。最可怕的是，它不像感冒一樣會立刻有症狀，很多人直到出現胸悶、喘不過氣，甚至中風、心肌梗塞，才驚覺：「原來我早就出了問題。」</p>
+
+                <p>這篇文章要陪你認識，上班族常忽略的心血管健康風險有哪些？又有哪些簡單生活習慣和飲食調整，可以幫助你從日常開始守護自己的「心」安全。</p>
+
+                <h2>一、你可能忽略的心血管風險行為</h2>
+                <p>你可能會想：「我才三十幾歲耶，心臟應該沒事吧？」<br>
+                但事實是，許多心血管疾病的成因都是長期累積的結果，尤其是以下這些生活習慣，早已悄悄破壞你的心血管系統：</p>
+
+                <h3>久坐與缺乏運動</h3>
+                <p>長時間坐著會讓下半身血液循環變慢，心臟需要更費力把血液送回上半身，久而久之可能增加高血壓與血管硬化的風險。</p>
+
+                <h3>高鹽、高油、高糖飲食</h3>
+                <p>外食族特別容易攝取過多飽和脂肪與鈉，這些成分會影響血脂與血壓平衡，進一步傷害血管彈性。</p>
+
+                <h3>壓力過大卻無出口</h3>
+                <p>長期處於高壓狀態，會讓交感神經持續亢奮，造成心跳加速、血壓上升，若無法有效釋放，恐讓心臟長期處於高負荷。</p>
+
+                <h3>菸酒與作息不規律</h3>
+                <p>吸菸會使血管收縮、加速動脈硬化；而過度飲酒與熬夜則會影響心臟修復與代謝節律，增加慢性發炎風險。</p>
+
+                <h2>二、身體早就給你「預警燈」了嗎？</h2>
+                <p>很多人以為心血管疾病是突然發作，其實身體早已悄悄發出訊號，只是你沒注意：</p>
+                <ul>
+                    <li>爬樓梯容易喘，比以前更容易疲倦</li>
+                    <li>常覺得胸口悶悶的，有壓迫感</li>
+                    <li>手腳容易冰冷或麻痺</li>
+                    <li>睡覺時心跳特別快，難以入睡</li>
+                    <li>偶爾頭暈、眼花、注意力無法集中</li>
+                </ul>
+                <p>這些症狀未必就是心血管疾病，但如果長期反覆出現，就應該多留意，並考慮安排健康檢查。</p>
+
+                <h2>三、三種日常營養素，支持你的心血管健康</h2>
+                
+                <h3>鉀（Potassium）— 幫助鈉鉀平衡，穩定血壓</h3>
+                <p>鉀有助於將多餘的鈉排出體外，維持細胞內外的水分與電解質平衡。當飲食中鈉攝取過多（常見於加工食品與外食）時，足夠的鉀攝取能在一定程度上幫助血壓穩定。</p>
+                <p><strong>常見食物來源：</strong>香蕉、木瓜、菠菜、地瓜、豆類</p>
+
+                <h3>Omega-3 脂肪酸 — 支持血管彈性與好膽固醇比率</h3>
+                <p>Omega-3 是一種對心血管有益的不飽和脂肪，能幫助維持血脂平衡，並促進血液流動順暢。</p>
+                <p><strong>常見食物來源：</strong>鮭魚、亞麻仁油、核桃、秋刀魚</p>
+
+                <h3>鎂（Magnesium）— 協助維持心律與神經放鬆</h3>
+                <p>鎂參與數百種酵素反應，對心臟肌肉的節律穩定、神經傳導都至關重要。缺鎂可能會出現心悸、肌肉抽搐等現象。</p>
+                <p><strong>常見食物來源：</strong>南瓜子、深綠色蔬菜、全穀類、堅果</p>
+
+                <h2>四、情境模擬：阿傑的「下班後心痛」</h2>
+                <p>阿傑 35 歲，是一位廣告業主管，白天開會、寫簡報，晚上常和客戶應酬。<br>
+                平時他自認年輕體力好，偶爾熬夜應該沒差。但有一天晚上下班後，他突然覺得胸口悶痛，一開始以為是消化不良，拖了一小時才到醫院，檢查發現血壓偏高、膽固醇指數過高，心臟超音波顯示心臟有輕微肥厚現象。</p>
+                <p>醫生告訴他：「還沒到疾病階段，但若再不改變生活方式，可能很快出問題。」</p>
+                <p>從那之後，他開始下班後改散步回家，戒掉宵夜，週末改煮簡單便當，加強蔬菜與魚類攝取，一邊調整生活，也讓心臟慢慢回到比較穩定的節奏。</p>
+                <p>這不是一個特效藥改變的故事，而是生活習慣影響健康狀態的真實縮影。</p>
+
+                <h2>五、常見錯誤觀念一次破解</h2>
+                <ul>
+                    <li><strong>錯誤一：「有運動就沒問題」</strong><br>
+                    → 若飲食、壓力管理不當，運動效果也會被抵銷。運動是心血管保養的其中一環，不是唯一解法。</li>
+                    <li><strong>錯誤二：「心血管疾病是老年人才有的問題」</strong><br>
+                    → 近年 30 至 40 歲族群心肌梗塞、中風比例上升，與生活型態改變有關，千萬別以年齡自恃。</li>
+                    <li><strong>錯誤三：「我沒有症狀，就代表沒事」</strong><br>
+                    → 心血管問題往往初期無明顯症狀，等到症狀出現時，常常已是風險升高的狀態。</li>
+                </ul>
+
+                <h2>六、今天就能開始的 5 個微調習慣</h2>
+                <ul>
+                    <li>一天至少喝 1,500～2,000 毫升水，幫助血液流動順暢</li>
+                    <li>用走樓梯代替電梯，讓心臟日常有適當刺激</li>
+                    <li>一週至少三餐改為低油、少鹽、包含蔬果的飲食</li>
+                    <li>午休後散步 10 分鐘，幫助下半身循環</li>
+                    <li>減少加工食品攝取，例如香腸、泡麵、罐頭等高鈉食品</li>
+                </ul>
+                
+                <!-- 小帕說對話框 -->
+                <div class="palpal-message-box">
+                    <img src="../images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
+                    <div class="palpal-bubble">
+                        你的心臟每天都努力陪你面對生活的大小挑戰，不吵不鬧、不請功。從今天起，讓我們也用一些簡單的調整，好好回應這顆默默工作的心。❤️
+                    </div>
+                </div>
+            </div>
+        </article>
+        
+        <!-- 相關文章 (可根據實際情況添加或修改) -->
+        <section class="related-articles">
+            <h2>相關文章推薦</h2>
+            
+            <div class="article-card" onclick="window.location.href='../articles/article-detail.html?id=coq10'">
+                <img src="https://images.unsplash.com/photo-1559757175-7cb586218f6c?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=MnwxfDB8MXxyYW5kb218MHx8aGVhcnR8fHx8fHwxNjgzMTY0ODQ2&ixlib=rb-4.0.3&q=80&w=60" 
+                     alt="輔酶Q10" 
+                     class="article-card-image">
+                <div class="article-card-content">
+                    <h3 class="article-card-title">輔酶Q10：營養成分科學介紹</h3>
+                    <div class="article-card-meta">心臟健康 · 閱讀量：2,102</div>
+                </div>
+            </div>
+             <div class="article-card" onclick="window.location.href='../articles/brain-focus-article.html'">
+                <img src="../images/articles/專注力大腦營養.png" 
+                     alt="專注力與大腦營養" 
+                     class="article-card-image">
+                <div class="article-card-content">
+                    <h3 class="article-card-title">找回消失的專注力：大腦能量與營養補給指南</h3>
+                    <div class="article-card-meta">大腦健康 · 閱讀量：1,500+</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 專業背書與免責聲明 -->
+        <div style="margin-top: 30px; margin-bottom: 60px;">
+            <div class="disclaimer-wrapper">
+                <img src="../images/mascot/palpal.png" alt="小帕" class="disclaimer-character" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
+                <p class="disclaimer-title">小帕是資訊整理小幫手，不是醫師</p>
+                <p class="disclaimer-subtitle">我會整理營養知識和熱門資訊供你參考，但不提供醫療建議喔！</p>
+                <div class="disclaimer-counter">
+                    已幫助 <strong>2,500+</strong> 位朋友了解營養知識
+                </div>
+                <div class="disclaimer-notices">
+                    <p class="disclaimer-notice">
+                        <strong>聯盟行銷關係揭露：</strong>本網站與 iHerb 等平台有聯盟行銷合作關係。當您透過我們的連結購買產品時，我們會收到一定的佣金，這不會增加您的購買成本。我們整理的產品資訊是基於健康知識主題，而非療效宣傳。
+                    </p>
+                    <p class="disclaimer-notice">
+                        <strong>免責聲明：</strong>本網站提供的資訊僅作為一般知識參考，不構成醫療建議。保健品不能預防、診斷、治療或治癒任何疾病。若有健康問題，請諮詢專業醫師。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 底部導航欄 -->
+    <footer class="tab-bar">
+        <a href="../home.html" class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首頁</span>
+        </a>
+        <a href="../chat.html" class="tab-item">
+            <i class="fas fa-comment-medical"></i>
+            <span>諮詢</span>
+        </a>
+        <a href="../knowledge.html" class="tab-item active">
+            <i class="fas fa-book-medical"></i>
+            <span>知識庫</span>
+        </a>
+    </footer>
+    
+    <script>
+        function shareArticle() {
+            if (navigator.share) {
+                navigator.share({
+                    title: '上班族的隱形殺手：你忽略的心血管風險 | NutriPal',
+                    text: '現代上班族長時間久坐，心血管健康已悄悄埋下風險。NutriPal帶你認識常見風險與預防方法。',
+                    url: window.location.href,
+                })
+                .catch(console.error);
+            } else {
+                alert('您可以複製網址分享給朋友：' + window.location.href);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('文章詳情頁面已載入');
+        });
+    </script>
+</body>
+</html> 
