@@ -6,7 +6,7 @@
     <title>褪黑激素：生理作用機制與相關資訊 | NutriPal 營養好朋友</title>
     <meta name="description" content="褪黑激素是一種與睡眠-覺醒週期相關的荷爾蒙。本文整理了相關科學資訊和使用參考知識，幫助您了解褪黑激素的生理機制。">
     <meta name="keywords" content="褪黑激素,Melatonin,睡眠知識,營養知識,睡眠週期,NutriPal">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -261,7 +261,7 @@
 
     <!-- 頂部導航 -->
     <header class="nav-header">
-        <a href="knowledge.html" style="color: var(--text-primary); margin-right: 12px;">
+        <a href="../knowledge.html" style="color: var(--text-primary); margin-right: 12px;">
             <i class="fas fa-arrow-left"></i>
         </a>
         <h1 style="flex: 1; text-align: center; font-weight: 600; font-size: 18px; margin: 0;">褪黑激素知識</h1>
@@ -275,9 +275,9 @@
         <!-- 麵包屑導航 -->
         <nav aria-label="麵包屑" class="breadcrumb" style="margin-bottom: 16px; font-size: 12px;">
             <ol style="display: flex; list-style: none; padding: 0; margin: 0;">
-                <li style="margin-right: 4px;"><a href="home.html" style="color: var(--text-secondary);">首頁</a></li>
+                <li style="margin-right: 4px;"><a href="../home.html" style="color: var(--text-secondary);">首頁</a></li>
                 <li style="margin-right: 4px; margin-left: 4px;"><span style="color: var(--text-secondary);">/</span></li>
-                <li style="margin-right: 4px; margin-left: 4px;"><a href="knowledge.html" style="color: var(--text-secondary);">知識庫</a></li>
+                <li style="margin-right: 4px; margin-left: 4px;"><a href="../knowledge.html" style="color: var(--text-secondary);">知識庫</a></li>
                 <li style="margin-right: 4px; margin-left: 4px;"><span style="color: var(--text-secondary);">/</span></li>
                 <li style="margin-left: 4px; color: var(--text-primary); font-weight: 600;">褪黑激素：生理作用機制與相關資訊</li>
             </ol>
@@ -350,7 +350,7 @@
                 
                 <!-- 小帕說對話框 -->
                 <div class="palpal-message-box">
-                    <img src="images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
+                    <img src="../images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
                     <div class="palpal-bubble">
                         你知道嗎？研究顯示，除了褪黑激素之外，鎂元素也可能有助於提升睡眠品質喔！若你對睡眠相關營養素有興趣，可以參考我們的「自然好眠的秘密：解析五大助眠營養素」文章～
                     </div>
@@ -400,7 +400,7 @@
         <div style="margin-top: 30px; margin-bottom: 60px;">
             <div class="disclaimer-wrapper">
                 <!-- 使用小帕圖片 -->
-                <img src="images/mascot/palpal.png" alt="小帕" class="disclaimer-character" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
+                <img src="../images/mascot/palpal.png" alt="小帕" class="disclaimer-character" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
                 
                 <p class="disclaimer-title">小帕是資訊整理小幫手，不是醫師</p>
                 <p class="disclaimer-subtitle">我會整理營養知識和熱門資訊供你參考，但不提供醫療建議喔！</p>
@@ -423,15 +423,15 @@
 
     <!-- 底部導航欄 -->
     <footer class="tab-bar">
-        <a href="home.html" class="tab-item">
+        <a href="../home.html" class="tab-item">
             <i class="fas fa-home"></i>
             <span>首頁</span>
         </a>
-        <a href="chat.html" class="tab-item">
+        <a href="../chat.html" class="tab-item">
             <i class="fas fa-comment-medical"></i>
             <span>諮詢</span>
         </a>
-        <a href="knowledge.html" class="tab-item active">
+        <a href="../knowledge.html" class="tab-item active">
             <i class="fas fa-book-medical"></i>
             <span>知識庫</span>
         </a>
@@ -475,7 +475,7 @@
                     ];
                     
                     if (index < targetArticles.length) {
-                        window.location.href = 'article-detail.html?id=' + targetArticles[index];
+                        window.location.href = '../articles/article-detail.html?id=' + targetArticles[index];
                     } else {
                         alert('這篇文章的詳情頁即將上線，敬請期待！');
                     }
