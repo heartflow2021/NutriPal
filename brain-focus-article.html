@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>找回消失的專注力：大腦能量與營養補給指南 | NutriPal 營養好朋友</title>
+    <meta name="description" content="不是你不努力，而是專注力消失的背後可能與營養、作息等因素有關。了解如何透過營養補給和生活習慣調整，重新找回專注力。">
+    <meta name="keywords" content="專注力,大腦健康,營養知識,Omega-3,B群,鐵鋅,認知功能,NutriPal">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 頂部簡化免責聲明 */
+        .top-disclaimer {
+            background-color: #fff9e6;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .top-disclaimer i {
+            color: #F5B17B;
+            margin-right: 6px;
+        }
+        
+        /* 專業背書與免責聲明樣式 */
+        .disclaimer-wrapper {
+            background-color: rgba(255, 192, 75, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0 30px;
+            text-align: center;
+        }
+        
+        .disclaimer-character {
+            width: 100px;
+            height: 100px;
+            margin: 10px auto;
+        }
+        
+        .disclaimer-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .disclaimer-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        
+        .disclaimer-counter {
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .disclaimer-counter strong {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .disclaimer-notices {
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: left;
+        }
+        
+        .disclaimer-notice {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+        
+        .disclaimer-notice:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* 文章內容樣式 */
+        .article-header {
+            margin-bottom: 20px;
+        }
+        
+        .article-category {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .article-title {
+            font-size: 24px;
+            line-height: 1.3;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .article-meta i {
+            margin-right: 5px;
+        }
+        
+        .article-meta span {
+            margin-right: 15px;
+        }
+        
+        .article-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .article-content {
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+        
+        .article-content p {
+            margin-bottom: 15px;
+        }
+        
+        .article-content h2 {
+            font-size: 20px;
+            margin: 25px 0 15px;
+            color: var(--text-primary);
+        }
+        
+        .article-content h3 {
+            font-size: 18px;
+            margin: 20px 0 10px;
+            color: var(--text-primary);
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        
+        .article-content li {
+            margin-bottom: 8px;
+        }
+        
+        .related-articles {
+            margin-top: 30px;
+        }
+        
+        .related-articles h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .article-card {
+            display: flex;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .article-card-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 4px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        
+        .article-card-content {
+            flex: 1;
+        }
+        
+        .article-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 0 5px;
+            color: var(--text-primary);
+        }
+        
+        .article-card-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        /* 小帕說對話框樣式 */
+        .palpal-message-box {
+            display: flex;
+            align-items: flex-start;
+            margin: 25px 0;
+            max-width: 100%;
+        }
+        
+        .palpal-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+            flex-shrink: 0;
+            border: 2px solid #f5f5f5;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .palpal-bubble {
+            flex: 1;
+            background-color: #e8e0d0;
+            border-radius: 18px;
+            padding: 16px 20px;
+            position: relative;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #5c5c5c;
+        }
+        
+        .palpal-bubble:before {
+            content: "";
+            position: absolute;
+            left: -12px;
+            top: 15px;
+            border-width: 8px 12px 8px 0;
+            border-style: solid;
+            border-color: transparent #e8e0d0 transparent transparent;
+        }
+    </style>
+</head>
+<body>
+    <!-- 頂部簡化免責聲明 -->
+    <div class="top-disclaimer">
+        <i class="fas fa-heart"></i> 小帕不提供任何醫療建議，所有資訊僅供參考，健康決策請諮詢專業醫師～
+    </div>
+
+    <!-- 頂部導航 -->
+    <header class="nav-header">
+        <a href="knowledge.html" style="color: var(--text-primary); margin-right: 12px;">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 style="flex: 1; text-align: center; font-weight: 600; font-size: 18px; margin: 0;">大腦專注力知識</h1>
+        <a href="#" onclick="shareArticle()" style="margin-left: 12px; color: var(--text-primary);" aria-label="分享">
+            <i class="fas fa-share-alt"></i>
+        </a>
+    </header>
+
+    <!-- 主要內容區 -->
+    <main class="app-content" style="padding: 16px;">
+        <!-- 麵包屑導航 -->
+        <nav aria-label="麵包屑" class="breadcrumb" style="margin-bottom: 16px; font-size: 12px;">
+            <ol style="display: flex; list-style: none; padding: 0; margin: 0;">
+                <li style="margin-right: 4px;"><a href="home.html" style="color: var(--text-secondary);">首頁</a></li>
+                <li style="margin-right: 4px; margin-left: 4px;"><span style="color: var(--text-secondary);">/</span></li>
+                <li style="margin-right: 4px; margin-left: 4px;"><a href="knowledge.html" style="color: var(--text-secondary);">知識庫</a></li>
+                <li style="margin-right: 4px; margin-left: 4px;"><span style="color: var(--text-secondary);">/</span></li>
+                <li style="margin-left: 4px; color: var(--text-primary); font-weight: 600;">找回消失的專注力：大腦能量與營養補給指南</li>
+            </ol>
+        </nav>
+        
+        <!-- 文章頭部 -->
+        <article>
+            <header class="article-header">
+                <span class="badge article-category">大腦與認知</span>
+                <h1 class="article-title">找回消失的專注力：大腦能量與營養補給指南</h1>
+                <div class="article-meta">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>2023-08-22</span>
+                    <i class="far fa-eye"></i>
+                    <span>閱讀量：2,176</span>
+                </div>
+                <img src="images/articles/找回消失的專注力：大腦能量與營養補給指南.png" 
+                     alt="專注力與大腦健康圖片" 
+                     class="article-image" 
+                     onerror="this.src='https://images.unsplash.com/photo-1564410267841-915d8e4d71ea?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8YnJhaW58fHx8fHwxNjgzMTY0NjU5&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=600'">
+            </header>
+            
+            <div class="article-content">
+                <p>早上喝了咖啡，開啟筆電準備進入工作狀態，結果卻盯著畫面發呆十幾分鐘。滑一下手機、開個會、再回來看文件，卻發現自己寫了一句話就分神十次。你是不是也有這樣的時候：不是不努力，而是專注力好像消失了？</p>
+                
+                <p>我們總以為工作效率差是因為「太懶」或「沒意志力」，但其實很多時候，專注力下降是來自身體的訊號——睡眠不足、營養失衡、血糖不穩、腦部缺乏適當的補給。今天這篇，就要陪你從日常生活找回專注力，透過營養與生活節奏的調整，重新開啟高效能模式！</p>
+                
+                <h2>不是你不夠努力，是你的大腦「斷線」了</h2>
+                <p>大腦是我們專注工作的司令部，每天消耗掉全身約 20％ 的能量。當你覺得腦袋昏沉、注意力難以集中，其實是身體在提醒你——可能該補充營養、調整作息了。</p>
+                
+                <p>幾個常見的「注意力低落」警訊包括：</p>
+                <ul>
+                    <li>明明有充足睡眠，卻一早就覺得腦袋不清楚</li>
+                    <li>看文件看三遍都記不起來內容</li>
+                    <li>容易焦躁或煩躁，小事就分心</li>
+                    <li>下午時間特別容易想打瞌睡</li>
+                    <li>腦中同時閃過很多念頭，但無法聚焦一件事完成</li>
+                </ul>
+                
+                <p>這些狀況不一定是病，但可能與大腦能量補給不當、神經傳導物質不足或血糖波動過大有關。</p>
+                
+                <h2>支持專注力的三大營養素</h2>
+                
+                <h3>Omega-3脂肪酸：為大腦打造穩定的神經網絡</h3>
+                <p>Omega-3 是大腦細胞膜的重要成分之一，特別是 DHA，與神經傳導與大腦反應速度有關。研究顯示，Omega-3 與學習力、記憶力、情緒穩定等大腦功能密切相關。</p>
+                
+                <p>食物來源：鮭魚、沙丁魚、亞麻仁籽、核桃</p>
+                
+                <p>日常補充建議：每週攝取 2 次富含油脂的深海魚，或使用來源純淨的魚油補充品。</p>
+                
+                <h3>維生素 B 群：神經傳導的小幫手</h3>
+                <p>B 群參與能量代謝與神經系統運作，尤其是 B6、B12 與葉酸，在協助神經穩定、避免疲倦與焦躁方面扮演重要角色。</p>
+                
+                <p>食物來源：全穀類、豆類、蛋黃、深綠色蔬菜</p>
+                
+                <p>注意事項：若長期壓力大、熬夜、外食多，容易使 B 群快速流失，建議每日適度補充。</p>
+                
+                <h3>鐵與鋅：大腦活力的微量元素</h3>
+                <p>缺鐵容易造成腦部供氧不足，讓你感到疲憊；鋅則是神經傳導與記憶能力的重要支持元素。這些礦物雖然需求量不高，但缺乏時會明顯影響認知表現。</p>
+                
+                <p>食物來源：紅肉、牡蠣、南瓜子、全穀類</p>
+                
+                <p>提醒：攝取過量可能影響其他礦物質吸收，建議以天然食物為主，必要時諮詢營養師建議後補充。</p>
+                
+                <h2>生活中的專注力破壞者，你中了幾項？</h2>
+                <p>除了營養，還有一些日常行為會悄悄消耗你的專注力：</p>
+                <ul>
+                    <li>一早空腹喝咖啡：可能刺激腎上腺素短暫清醒，但血糖快速下降後反而頭昏腦脹</li>
+                    <li>午餐吃太油或太飽：消化耗能過高，導致餐後昏沉</li>
+                    <li>用手機當工作休息切換：越滑越分心，反而難以進入深度專注狀態</li>
+                    <li>長時間不動又不喝水：大腦脫水會影響專注力與反應速度</li>
+                </ul>
+                
+                <h2>專注力的生活重建公式：飲食 × 作息 × 節奏感</h2>
+                <p>建立專注力，其實就像培養一種節奏。你可以從以下幾個習慣開始：</p>
+                <ul>
+                    <li><strong>起床後 90 分鐘內吃早餐，避免空腹太久</strong><br>
+                    選擇含蛋白質與複合碳水的組合（如蛋＋吐司＋香蕉），有助於穩定上午血糖與腦部能量供應。</li>
+                    
+                    <li><strong>午餐清爽、適量，餐後走動 10 分鐘</strong><br>
+                    避免攝取過多精緻澱粉與高脂食物，讓身體保有餘力應付下午工作。</li>
+                    
+                    <li><strong>下午 3 點前安排短暫補充</strong><br>
+                    可以選擇少量堅果、全穀餅乾、無糖豆漿，避免血糖過低導致腦袋停機。</li>
+                    
+                    <li><strong>善用 90 分鐘專注週期</strong><br>
+                    人類大腦的自然專注週期約為 90 分鐘，設定一個番茄鐘，專心工作後給自己 5～10 分鐘的身心切換時間。</li>
+                </ul>
+                
+                <h2>模擬生活情境：穩定補給也能找回清醒的自己</h2>
+                <p>小宏是設計系大四生，白天上課，晚上接案到深夜。常常早上到教室時，整個人處在「醒著但沒開機」的狀態。</p>
+                <p>他開始試著做幾個調整：早餐固定吃雞蛋＋香蕉＋堅果，午餐減少油炸物，每天補充 B 群與 Omega-3，一週慢跑兩次。</p>
+                <p>兩週後，他發現上課專注力變好了，設計時腦袋更有靈感，晚上也沒那麼容易爆炸性疲倦。</p>
+                
+                <p>這不是神奇配方，而是當你開始聽懂身體的語言時，能量就會回到該來的地方。</p>
+                
+                <h2>常見錯誤觀念，一次破解</h2>
+                <ul>
+                    <li><strong>錯誤一：喝咖啡越多越清醒？</strong><br>
+                    → 咖啡可能讓你「覺得」專注，但如果睡眠不足、血糖不穩，喝再多也只是撐住身體，而非真正提神。</li>
+                    
+                    <li><strong>錯誤二：餓了才吃，比較能集中？</strong><br>
+                    → 長時間空腹反而讓血糖大幅波動，容易精神不濟、情緒起伏大，建議定時小量進食。</li>
+                    
+                    <li><strong>錯誤三：靠營養補充品就能解決專注力問題？</strong><br>
+                    → 營養補充是輔助，根本還是來自於穩定的作息、良好的飲食與壓力調節。</li>
+                </ul>
+                
+                <h2>今天可以開始的小行動清單</h2>
+                <ul>
+                    <li>起床後 30 分鐘內，喝一杯水＋簡單早餐</li>
+                    <li>每週至少安排三餐攝取深綠蔬菜與豆類</li>
+                    <li>每天補充一次堅果或種子，幫大腦補點好油脂</li>
+                    <li>下午三點過後避免喝含糖飲料，以免血糖暴漲又暴跌</li>
+                    <li>每天花 5 分鐘整理待辦事項，減少大腦記憶負擔</li>
+                </ul>
+                
+                <!-- 小帕說對話框 -->
+                <div class="palpal-message-box">
+                    <img src="images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
+                    <div class="palpal-bubble">
+                        你不是不夠專心，只是太久沒有照顧那顆辛苦運轉的大腦。別忘了，最有效率的你，是在身體被好好對待之後，才會自然出現的版本。
+                    </div>
+                </div>
+            </div>
+        </article>
+        
+        <!-- 相關文章 -->
+        <section class="related-articles">
+            <h2>相關文章推薦</h2>
+            
+            <!-- 相關文章卡片 1 -->
+            <div class="article-card">
+                <img src="https://images.unsplash.com/photo-1597589827317-4c6d6e0a90bd?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=MnwxfDB8MXxyYW5kb218MHx8b21lZ2F8fHx8fHwxNjgzMTY0NDYw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=60" 
+                     alt="Omega-3與大腦健康" 
+                     class="article-card-image">
+                <div class="article-card-content">
+                    <h3 class="article-card-title">Omega-3與大腦發展：一生受用的好油脂</h3>
+                    <div class="article-card-meta">大腦與認知 · 閱讀量：1,755</div>
+                </div>
+            </div>
+            
+            <!-- 相關文章卡片 2 -->
+            <div class="article-card">
+                <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=MnwxfDB8MXxyYW5kb218MHx8bnV0cml0aW9ufHx8fHx8MTY4MzE2NDUyMA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=60" 
+                     alt="營養與記憶力" 
+                     class="article-card-image">
+                <div class="article-card-content">
+                    <h3 class="article-card-title">吃出好記憶：五大記憶力增強食物</h3>
+                    <div class="article-card-meta">大腦與認知 · 閱讀量：1,623</div>
+                </div>
+            </div>
+            
+            <!-- 相關文章卡片 3 -->
+            <div class="article-card">
+                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=MnwxfDB8MXxyYW5kb218MHx8c3RyZXNzfHx8fHx8MTY4MzE2NDU4Nw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=60" 
+                     alt="紓壓與專注力" 
+                     class="article-card-image">
+                <div class="article-card-content">
+                    <h3 class="article-card-title">紓壓也能提升專注力：壓力與認知的關係</h3>
+                    <div class="article-card-meta">大腦與認知 · 閱讀量：1,412</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 專業背書與免責聲明 -->
+        <div style="margin-top: 30px; margin-bottom: 60px;">
+            <div class="disclaimer-wrapper">
+                <!-- 使用小帕圖片 -->
+                <img src="images/mascot/palpal.png" alt="小帕" class="disclaimer-character" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
+                
+                <p class="disclaimer-title">小帕是資訊整理小幫手，不是醫師</p>
+                <p class="disclaimer-subtitle">我會整理營養知識和熱門資訊供你參考，但不提供醫療建議喔！</p>
+                
+                <div class="disclaimer-counter">
+                    已幫助 <strong>2,483</strong> 位朋友了解營養知識
+                </div>
+                
+                <div class="disclaimer-notices">
+                    <p class="disclaimer-notice">
+                        <strong>聯盟行銷關係揭露：</strong>本網站與 iHerb 等平台有聯盟行銷合作關係。當您透過我們的連結購買產品時，我們會收到一定的佣金，這不會增加您的購買成本。我們整理的產品資訊是基於健康知識主題，而非療效宣傳。
+                    </p>
+                    <p class="disclaimer-notice">
+                        <strong>免責聲明：</strong>本網站提供的資訊僅作為一般知識參考，不構成醫療建議。保健品不能預防、診斷、治療或治癒任何疾病。若有健康問題，請諮詢專業醫師。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 底部導航欄 -->
+    <footer class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首頁</span>
+        </a>
+        <a href="chat.html" class="tab-item">
+            <i class="fas fa-comment-medical"></i>
+            <span>諮詢</span>
+        </a>
+        <a href="knowledge.html" class="tab-item active">
+            <i class="fas fa-book-medical"></i>
+            <span>知識庫</span>
+        </a>
+    </footer>
+    
+    <script>
+        // 文章分享功能
+        function shareArticle() {
+            // 檢查是否支援 Web Share API
+            if (navigator.share) {
+                navigator.share({
+                    title: '找回消失的專注力：大腦能量與營養補給指南 | NutriPal',
+                    text: '從日常生活找回專注力，透過營養與生活節奏的調整，重新開啟高效能模式！',
+                    url: window.location.href,
+                })
+                .catch(console.error);
+            } else {
+                // 不支援則顯示簡單提示
+                alert('您可以複製網址分享給朋友：' + window.location.href);
+            }
+        }
+        
+        // 頁面載入時執行
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('文章詳情頁面已載入');
+            
+            // 解析URL參數
+            const urlParams = new URLSearchParams(window.location.search);
+            const articleId = urlParams.get('id');
+            console.log('當前文章ID:', articleId);
+            
+            // 點擊相關文章卡片跳轉
+            const articleCards = document.querySelectorAll('.article-card');
+            articleCards.forEach((card, index) => {
+                card.addEventListener('click', function() {
+                    // 這裡可以根據索引或其他邏輯來決定目標文章
+                    const targetArticles = [
+                        'omega3-brain', 
+                        'memory-foods', 
+                        'stress-focus'
+                    ];
+                    
+                    if (index < targetArticles.length) {
+                        window.location.href = 'article-detail.html?id=' + targetArticles[index];
+                    } else {
+                        alert('這篇文章的詳情頁即將上線，敬請期待！');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
