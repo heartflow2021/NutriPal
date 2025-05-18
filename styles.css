@@ -1108,40 +1108,100 @@ input:focus, select:focus, textarea:focus {
   margin-bottom: 0;
 }
 
+/* 健康標籤區域和標題 */
+.health-tags-section {
+  margin: 20px 0;
+  position: relative;
+  background: rgba(77, 104, 73, 0.04);
+  border-radius: 18px;
+  padding: 20px 15px;
+  border: 1px solid rgba(77, 104, 73, 0.1);
+}
+
+.health-tags-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 15px;
+  color: var(--primary);
+  text-align: center;
+  position: relative;
+  display: inline-block;
+}
+
+.health-tags-title:after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, rgba(77, 104, 73, 0.1), rgba(77, 104, 73, 0.7), rgba(77, 104, 73, 0.1));
+  border-radius: 2px;
+}
+
 /* 健康標籤容器 */
 .health-badges-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 8px;
-  padding: 10px 0;
-  margin-bottom: 20px;
+  gap: 12px;
+  padding: 5px 0 10px;
+  margin-bottom: 5px;
+  position: relative;
 }
 
 .health-badge {
   background-color: white;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   padding: 10px 16px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   text-decoration: none !important;
   color: var(--text-primary) !important;
   margin-bottom: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-left-width: 3px;
+  border-left-color: var(--primary);
 }
 
 .health-badge:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary);
 }
 
 .health-badge i {
-  margin-right: 6px;
+  margin-right: 8px;
+  color: var(--primary);
+  font-size: 16px;
+}
+
+/* 健康標籤類別顏色 */
+.health-badge[data-category="日常健康"],
+.health-badge[data-category="預防保健"],
+.health-badge[data-category="腦部健康"],
+.health-badge[data-category="骨骼健康"],
+.health-badge[data-category="感官健康"],
+.health-badge[data-category="消化系統"],
+.health-badge[data-category="心血管健康"],
+.health-badge[data-category="其他"] {
+  border-left: 3px solid var(--primary);
+}
+
+.health-badge[data-category="日常健康"] i,
+.health-badge[data-category="預防保健"] i,
+.health-badge[data-category="腦部健康"] i,
+.health-badge[data-category="骨骼健康"] i,
+.health-badge[data-category="感官健康"] i,
+.health-badge[data-category="消化系統"] i,
+.health-badge[data-category="心血管健康"] i,
+.health-badge[data-category="其他"] i {
   color: var(--primary);
 }
 
@@ -1150,13 +1210,41 @@ input:focus, select:focus, textarea:focus {
   .health-badges-container {
     justify-content: flex-start;
     overflow-x: auto;
-    padding-bottom: 10px;
+    padding: 15px 5px;
     -webkit-overflow-scrolling: touch;
     flex-wrap: nowrap;
+    margin: 0 -5px 15px -5px;
+    position: relative;
+  }
+  
+  .health-badges-container:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 30px;
+    background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
+    pointer-events: none;
+    z-index: 1;
   }
   
   .health-badge {
     white-space: nowrap;
     flex-shrink: 0;
+    margin: 0 5px;
+    padding: 10px 16px;
+  }
+}
+
+/* 移除波紋效果 */
+.ripple-effect {
+  display: none;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(0);
+    opacity: 0;
   }
 } 

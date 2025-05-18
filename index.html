@@ -60,8 +60,11 @@
             </div>
             
             <!-- 熱門健康需求標籤 - 改為動態生成 -->
-            <div id="health-badges-container" class="health-badges-container">
-                <!-- 由JavaScript動態生成內容 -->
+            <div class="health-tags-section">
+                <h3 class="health-tags-title">熱門健康需求</h3>
+                <div id="health-badges-container" class="health-badges-container">
+                    <!-- 由JavaScript動態生成內容 -->
+                </div>
             </div>
             
             <div class="chat-message" style="margin-top: 16px;">
@@ -186,6 +189,12 @@
                     // 獲取排名數據
                     const healthNeeds = data.ranking;
                     
+                    // 檢查是否為移動設備
+                    const isMobile = window.innerWidth <= 576;
+                    
+                    // 選擇顯示數量 (移動設備顯示更多，讓使用者可以滑動瀏覽)
+                    const displayCount = isMobile ? 8 : 6;
+                    
                     // 使用 Fisher-Yates 洗牌算法隨機打亂陣列
                     function shuffleArray(array) {
                         const result = [...array];
@@ -198,11 +207,37 @@
                         return result;
                     }
                     
-                    // 使用改進的洗牌算法
-                    const shuffled = shuffleArray(healthNeeds);
+                    // 將健康需求依照主要類別分組
+                    function groupNeeds(needs) {
+                        // 確保結果有多樣性
+                        const categories = {};
+                        needs.forEach(need => {
+                            const category = need.category || '其他';
+                            if (!categories[category]) {
+                                categories[category] = [];
+                            }
+                            categories[category].push(need);
+                        });
+                        
+                        // 從每個類別選擇一些
+                        let result = [];
+                        Object.values(categories).forEach(categoryNeeds => {
+                            const shuffled = shuffleArray(categoryNeeds);
+                            result = result.concat(shuffled.slice(0, 2)); // 每類選2個
+                        });
+                        
+                        // 如果不夠，再從全部中隨機補充
+                        if (result.length < displayCount) {
+                            const remainingNeeds = shuffleArray(needs.filter(n => !result.includes(n)));
+                            result = result.concat(remainingNeeds.slice(0, displayCount - result.length));
+                        }
+                        
+                        // 打亂最終順序
+                        return shuffleArray(result).slice(0, displayCount);
+                    }
                     
-                    // 選取前5個
-                    const selected = shuffled.slice(0, 5);
+                    // 獲取分組後的健康需求
+                    const selected = groupNeeds(healthNeeds);
                     
                     // 獲取容器元素
                     const container = document.getElementById('health-badges-container');
@@ -215,8 +250,8 @@
                         const badge = document.createElement('a');
                         badge.href = `chat.html?health=${encodeURIComponent(need.name)}`;
                         badge.className = 'health-badge';
-                        badge.style.textDecoration = 'none';
-                        badge.style.color = 'var(--text-primary)';
+                        badge.setAttribute('data-category', need.category || '其他');
+                        badge.setAttribute('data-rank', need.rank || 999);
                         badge.innerHTML = `<i class="${need.icon}"></i> ${need.name}`;
                         
                         container.appendChild(badge);
@@ -230,11 +265,12 @@
                     
                     // 如果載入失敗，顯示默認健康需求
                     const defaultNeeds = [
-                        { name: '睡眠知識', icon: 'fas fa-moon' },
-                        { name: '免疫系統知識', icon: 'fas fa-shield-virus' },
-                        { name: '認知與記憶知識', icon: 'fas fa-brain' },
-                        { name: '關節與骨骼知識', icon: 'fas fa-walking' },
-                        { name: '視力保健知識', icon: 'fas fa-eye' }
+                        { name: '睡眠品質', icon: 'fas fa-moon', category: '日常健康' },
+                        { name: '免疫力提升', icon: 'fas fa-shield-virus', category: '預防保健' },
+                        { name: '記憶力', icon: 'fas fa-brain', category: '腦部健康' },
+                        { name: '關節保養', icon: 'fas fa-walking', category: '骨骼健康' },
+                        { name: '眼睛保健', icon: 'fas fa-eye', category: '感官健康' },
+                        { name: '腸道健康', icon: 'fas fa-heartbeat', category: '消化系統' }
                     ];
                     
                     const container = document.getElementById('health-badges-container');
@@ -244,8 +280,7 @@
                         const badge = document.createElement('a');
                         badge.href = `chat.html?health=${encodeURIComponent(need.name)}`;
                         badge.className = 'health-badge';
-                        badge.style.textDecoration = 'none';
-                        badge.style.color = 'var(--text-primary)';
+                        badge.setAttribute('data-category', need.category);
                         badge.innerHTML = `<i class="${need.icon}"></i> ${need.name}`;
                         
                         container.appendChild(badge);
