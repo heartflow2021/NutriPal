@@ -163,7 +163,7 @@
         <!-- 麵包屑導航 -->
         <nav aria-label="麵包屑" class="breadcrumb" style="margin-bottom: 16px; font-size: 12px;">
             <ol style="display: flex; list-style: none; padding: 0; margin: 0;">
-                <li style="margin-right: 4px;"><a href="home.html" style="color: var(--text-secondary);">首頁</a></li>
+                <li style="margin-right: 4px;"><a href="index.html" style="color: var(--text-secondary);">首頁</a></li>
                 <li style="margin-right: 4px; margin-left: 4px;"><span style="color: var(--text-secondary);">/</span></li>
                 <li style="margin-left: 4px; color: var(--text-primary); font-weight: 600;">知識庫</li>
             </ol>
@@ -247,6 +247,42 @@
                 </div>
             </article>
             
+            <!-- 新文章卡片：免疫平衡 -->
+            <article class="card article-item" data-category="immune" data-article-id="immune-balance" style="margin-bottom: 16px; cursor: pointer;">
+                <div style="display: flex;">
+                    <div style="width: 80px; height: 80px; flex-shrink: 0;">
+                        <img src="images/articles/提升免疫不是吃多就好，而是吃對.png" alt="免疫系統平衡" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;" onerror="this.src='https://images.unsplash.com/photo-1563699383-79a2069de86e?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=80&w=80'; this.onerror='';">
+                    </div>
+                    <div style="flex: 1; padding-left: 12px;">
+                        <h3 style="font-size: 16px; margin: 0 0 4px 0;">提升免疫不是吃多就好，而是吃對</h3>
+                        <p style="font-size: 14px; color: var(--text-secondary); margin: 0 0 8px 0;">了解免疫系統的平衡之道，以及如何通過合適的營養與生活方式支持免疫健康。</p>
+                        <div style="display: flex;">
+                            <div style="font-size: 12px; color: var(--text-secondary);">
+                                <i class="fas fa-tag" style="margin-right: 4px;"></i>免疫系統
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- 新文章卡片：季節性過敏 -->
+            <article class="card article-item" data-category="immune" data-article-id="seasonal-allergy" style="margin-bottom: 16px; cursor: pointer;">
+                <div style="display: flex;">
+                    <div style="width: 80px; height: 80px; flex-shrink: 0;">
+                        <img src="images/articles/換季過敏不斷？試試這些免疫支持小習慣.png" alt="換季過敏支援" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;" onerror="this.src='https://images.unsplash.com/photo-1590330297626-d7aff25a0431?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=80&w=80'; this.onerror='';">
+                    </div>
+                    <div style="flex: 1; padding-left: 12px;">
+                        <h3 style="font-size: 16px; margin: 0 0 4px 0;">換季過敏不斷？試試這些免疫支持小習慣</h3>
+                        <p style="font-size: 14px; color: var(--text-secondary); margin: 0 0 8px 0;">了解如何通過生活調整與營養支持，幫助你緩解季節性過敏，穩定免疫系統。</p>
+                        <div style="display: flex;">
+                            <div style="font-size: 12px; color: var(--text-secondary);">
+                                <i class="fas fa-tag" style="margin-right: 4px;"></i>免疫系統
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
             <!-- 新文章卡片：專注力與大腦營養 -->
             <article class="card article-item" data-category="brain-cognition" data-article-id="brain-focus" style="margin-bottom: 16px; cursor: pointer;">
                 <div style="display: flex;">
@@ -260,9 +296,9 @@
                             <div style="font-size: 12px; color: var(--text-secondary);">
                                 <i class="fas fa-tag" style="margin-right: 4px;"></i>大腦健康
                             </div>
-                        </div>
                     </div>
                 </div>
+            </div>
             </article>
             
             <!-- 文章卡片 2 -->
@@ -464,7 +500,7 @@
 
     <!-- 底部導航欄 -->
     <footer class="tab-bar">
-        <a href="home.html" class="tab-item">
+        <a href="index.html" class="tab-item">
             <i class="fas fa-home"></i>
             <span>首頁</span>
         </a>
@@ -729,13 +765,17 @@
             if (articleId === 'melatonin') {
                 alert('文章正在建設中，敬請期待！');
             } else if (articleId === 'stress-sleep') {
-                window.location.href = 'articles/stress-sleep-article.html';
+                window.location.href = 'articles/stress-sleep.html';
             } else if (articleId === 'immune-cold') {
-                window.location.href = 'articles/immune-cold-article.html';
+                window.location.href = 'articles/immune-cold.html';
+            } else if (articleId === 'immune-balance') {
+                window.location.href = 'articles/immune-balance.html';
+            } else if (articleId === 'seasonal-allergy') {
+                window.location.href = 'articles/seasonal-allergy-support.html';
             } else if (articleId === 'brain-focus') {
-                window.location.href = 'articles/brain-focus-article.html';
+                window.location.href = 'articles/brain-focus.html';
             } else if (articleId === 'cardiovascular-office-risk') {
-                window.location.href = 'articles/cardiovascular-office-risk-article.html';
+                window.location.href = 'articles/cardiovascular-office-risk.html';
             } else if (articleId === 'golden-sleep-nutrients') {
                 window.location.href = 'articles/golden-sleep-nutrients.html';
             } else {

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>找回消失的專注力：大腦能量與營養補給指南 | NutriPal 營養好朋友</title>
-    <meta name="description" content="不是你不努力，而是專注力消失的背後可能與營養、作息等因素有關。了解如何透過營養補給和生活習慣調整，重新找回專注力。">
-    <meta name="keywords" content="專注力,大腦健康,營養知識,Omega-3,B群,鐵鋅,認知功能,NutriPal">
+    <title>晚睡壓力大怎麼辦？睡眠與壓力惡性循環解析 | NutriPal 營養好朋友</title>
+    <meta name="description" content="經常晚睡、壓力大讓你睡不好嗎？了解睡眠與壓力荷爾蒙的關係，透過飲食與作息調整，改善睡眠品質。">
+    <meta name="keywords" content="睡眠,壓力,皮質醇,晚睡,失眠,健康知識,NutriPal">
     <link rel="stylesheet" href="../styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -126,19 +126,11 @@
         
         .article-image {
             width: 100%;
-            max-width: 600px;
             height: auto;
-            max-height: 320px;
-            display: block;
-            margin: 0 auto 20px auto;
+            max-height: 300px;
             object-fit: contain;
-            background: #f8f8f8;
             border-radius: 12px;
-        }
-        @media (max-width: 600px) {
-            .article-image {
-                max-height: 200px;
-            }
+            margin-bottom: 20px;
         }
         
         .article-content {
@@ -187,6 +179,7 @@
             border-radius: 8px;
             margin-bottom: 10px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            cursor: pointer;
         }
         
         .article-card-image {
@@ -264,7 +257,7 @@
         <a href="../knowledge.html" style="color: var(--text-primary); margin-right: 12px;">
             <i class="fas fa-arrow-left"></i>
         </a>
-        <h1 style="flex: 1; text-align: center; font-weight: 600; font-size: 18px; margin: 0;">大腦認知</h1>
+        <h1 style="flex: 1; text-align: center; font-weight: 600; font-size: 18px; margin: 0;">睡眠知識</h1>
         <a href="#" onclick="shareArticle()" style="margin-left: 12px; color: var(--text-primary);" aria-label="分享">
             <i class="fas fa-share-alt"></i>
         </a>
@@ -275,131 +268,88 @@
         <!-- 麵包屑導航 -->
         <nav aria-label="麵包屑" class="breadcrumb" style="margin-bottom: 16px; font-size: 12px;">
             <ol style="display: flex; list-style: none; padding: 0; margin: 0;">
-                <li style="margin-right: 4px;"><a href="../home.html" style="color: var(--text-secondary);">首頁</a></li>
+                <li style="margin-right: 4px;"><a href="../index.html" style="color: var(--text-secondary);">首頁</a></li>
                 <li style="margin-right: 4px; margin-left: 4px;"><span style="color: var(--text-secondary);">/</span></li>
                 <li style="margin-right: 4px; margin-left: 4px;"><a href="../knowledge.html" style="color: var(--text-secondary);">知識庫</a></li>
                 <li style="margin-right: 4px; margin-left: 4px;"><span style="color: var(--text-secondary);">/</span></li>
-                <li style="margin-left: 4px; color: var(--text-primary); font-weight: 600;">找回消失的專注力：大腦能量與營養補給指南</li>
+                <li style="margin-left: 4px; color: var(--text-primary); font-weight: 600;">晚睡的人更容易累積壓力？認識睡眠與壓力的關係</li>
             </ol>
         </nav>
         
         <!-- 文章頭部 -->
         <article>
             <header class="article-header">
-                <span class="badge article-category">大腦與認知</span>
-                <h1 class="article-title">找回消失的專注力：大腦能量與營養補給指南</h1>
+                <span class="badge article-category">睡眠</span>
+                <h1 class="article-title">晚睡的人更容易累積壓力？認識睡眠與壓力的關係</h1>
                 <div class="article-meta">
                     <i class="far fa-calendar-alt"></i>
-                    <span>2025-05-01</span>
+                    <span>2025-04-30</span>
                     <i class="far fa-eye"></i>
-                    <span>閱讀量：2,176</span>
+                    <span>閱讀量：2,345</span>
                 </div>
-                <img src="../images/articles/專注力大腦營養.png" 
-                     alt="專注力與大腦健康圖片" 
-                     class="article-image" 
-                     onerror="this.src='https://images.unsplash.com/photo-1564410267841-915d8e4d71ea?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8YnJhaW58fHx8fHwxNjgzMTY0NjU5&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=600'">
+                <img src="../images/articles/晚睡的人更容易累積壓力.png" alt="晚睡與壓力關係圖" class="article-image">
             </header>
             
             <div class="article-content">
-                <p>早上喝了咖啡，開啟筆電準備進入工作狀態，結果卻盯著畫面發呆十幾分鐘。滑一下手機、開個會、再回來看文件，卻發現自己寫了一句話就分神十次。你是不是也有這樣的時候：不是不努力，而是專注力好像消失了？</p>
+                <p>現代人生活忙碌，越來越多人習慣「晚睡」。不論是加班、滑手機、看劇，總覺得夜深才是屬於自己的時間。但你是否曾經發現，晚睡後即使隔天有補眠，仍然感到疲倦、注意力下降，甚至容易緊張或心情低落？</p>
                 
-                <p>我們總以為工作效率差是因為「太懶」或「沒意志力」，但其實很多時候，專注力下降是來自身體的訊號——睡眠不足、營養失衡、血糖不穩、腦部缺乏適當的補給。今天這篇，就要陪你從日常生活找回專注力，透過營養與生活節奏的調整，重新開啟高效能模式！</p>
+                <p>其實，這與我們體內的「壓力荷爾蒙」與睡眠節奏有密切關係。今天就讓我們一起從生活觀點出發，認識睡眠與壓力的連動性，並學習如何透過日常作息與飲食安排，支持良好的夜間休息品質。</p>
                 
-                <h2>不是你不夠努力，是你的大腦「斷線」了</h2>
-                <p>大腦是我們專注工作的司令部，每天消耗掉全身約 20％ 的能量。當你覺得腦袋昏沉、注意力難以集中，其實是身體在提醒你——可能該補充營養、調整作息了。</p>
+                <h2>壓力與睡眠：相互影響的生理現象</h2>
+                <p>壓力會影響入睡這點大家不陌生，但事實上，「睡不好」本身也可能加重壓力感受。</p>
                 
-                <p>幾個常見的「注意力低落」警訊包括：</p>
+                <p>人體在壓力狀況下，會分泌一種叫「皮質醇」的激素，幫助我們面對環境變化。當壓力持續累積，皮質醇濃度偏高，可能讓身體處於長時間警覺狀態，也影響夜晚該分泌的褪黑激素（與入睡節奏有關）。</p>
+                
+                <p>同時，若長期作息不規律、晚睡或夜班生活，也可能讓這些激素的分泌時機錯亂，影響白天與夜間的精神狀態。</p>
+                
+                <h2>皮質醇與生理時鐘的日夜節律</h2>
+                <p>正常情況下，皮質醇在清晨偏高，有助於我們清醒、啟動思考力；夜間則逐漸下降，讓身體進入休息狀態。</p>
+                
+                <p>不過，若每天的睡覺時間大幅延後，或日夜顛倒，就可能使這個節律混亂，使人白天疲憊、晚上反而難以放鬆入睡。這也解釋了為什麼「晚睡」會讓人感覺壓力變大、情緒波動增加。</p>
+                
+                <h2>三種日常行為，有助於維持身心放鬆的夜間節奏</h2>
+                <p>我們無法完全避免壓力，但可以透過生活方式來減少壓力堆積，讓晚上的休息時間更順利進行。以下是三個在日常中容易實行的習慣：</p>
+                
+                <h3>固定作息，培養生理節奏</h3>
+                <p>建議每天的睡覺與起床時間盡量一致，即使是假日也維持規律，讓身體建立「該睡覺的生理時段」。</p>
+                
+                <h3>晚間避免高刺激資訊輸入</h3>
+                <p>睡前一小時盡量避免滑手機、追劇或大量用腦，可改為簡單伸展、閱讀紙本書、靜坐放鬆等活動，讓身體自然釋放白天壓力。</p>
+                
+                <h3>攝取均衡營養，有助於整體生理調節</h3>
+                <p>飲食均衡對於壓力與作息的調節也有間接幫助。舉例來說：</p>
+                
                 <ul>
-                    <li>明明有充足睡眠，卻一早就覺得腦袋不清楚</li>
-                    <li>看文件看三遍都記不起來內容</li>
-                    <li>容易焦躁或煩躁，小事就分心</li>
-                    <li>下午時間特別容易想打瞌睡</li>
-                    <li>腦中同時閃過很多念頭，但無法聚焦一件事完成</li>
+                    <li>牛奶、香蕉等含色胺酸的食物，是人體合成神經傳導物質的重要來源</li>
+                    <li>深綠蔬菜與堅果富含鎂，為人體維持正常神經功能的重要礦物質</li>
+                    <li>全穀類與豆類中常見的維生素 B 群，參與能量代謝與神經調節</li>
                 </ul>
                 
-                <p>這些狀況不一定是病，但可能與大腦能量補給不當、神經傳導物質不足或血糖波動過大有關。</p>
+                <p>這些營養素不具有治療效果，但可作為均衡飲食的一部分，支持身體維持良好狀態。</p>
                 
-                <h2>支持專注力的三大營養素</h2>
+                <h2>常見誤解小提醒：</h2>
+                <p><strong>只要睡夠就好？</strong><br>
+                睡眠時間長不代表睡得好。若作息不規律，即使睡 10 小時仍可能感覺疲憊。</p>
                 
-                <h3>Omega-3脂肪酸：為大腦打造穩定的神經網絡</h3>
-                <p>Omega-3 是大腦細胞膜的重要成分之一，特別是 DHA，與神經傳導與大腦反應速度有關。研究顯示，Omega-3 與學習力、記憶力、情緒穩定等大腦功能密切相關。</p>
+                <p><strong>滑手機放鬆心情？</strong><br>
+                其實手機螢幕的藍光會干擾褪黑激素分泌，建議將睡前的放鬆方式轉換為非螢幕活動。</p>
                 
-                <p>食物來源：鮭魚、沙丁魚、亞麻仁籽、核桃</p>
+                <p><strong>靠補眠彌補晚睡？</strong><br>
+                補眠無法完全取代規律作息，長期仍建議建立固定的睡眠節奏。</p>
                 
-                <p>日常補充建議：每週攝取 2 次富含油脂的深海魚，或使用來源純淨的魚油補充品。</p>
-                
-                <h3>維生素 B 群：神經傳導的小幫手</h3>
-                <p>B 群參與能量代謝與神經系統運作，尤其是 B6、B12 與葉酸，在協助神經穩定、避免疲倦與焦躁方面扮演重要角色。</p>
-                
-                <p>食物來源：全穀類、豆類、蛋黃、深綠色蔬菜</p>
-                
-                <p>注意事項：若長期壓力大、熬夜、外食多，容易使 B 群快速流失，建議每日適度補充。</p>
-                
-                <h3>鐵與鋅：大腦活力的微量元素</h3>
-                <p>缺鐵容易造成腦部供氧不足，讓你感到疲憊；鋅則是神經傳導與記憶能力的重要支持元素。這些礦物雖然需求量不高，但缺乏時會明顯影響認知表現。</p>
-                
-                <p>食物來源：紅肉、牡蠣、南瓜子、全穀類</p>
-                
-                <p>提醒：攝取過量可能影響其他礦物質吸收，建議以天然食物為主，必要時諮詢營養師建議後補充。</p>
-                
-                <h2>生活中的專注力破壞者，你中了幾項？</h2>
-                <p>除了營養，還有一些日常行為會悄悄消耗你的專注力：</p>
-                <ul>
-                    <li>一早空腹喝咖啡：可能刺激腎上腺素短暫清醒，但血糖快速下降後反而頭昏腦脹</li>
-                    <li>午餐吃太油或太飽：消化耗能過高，導致餐後昏沉</li>
-                    <li>用手機當工作休息切換：越滑越分心，反而難以進入深度專注狀態</li>
-                    <li>長時間不動又不喝水：大腦脫水會影響專注力與反應速度</li>
-                </ul>
-                
-                <h2>專注力的生活重建公式：飲食 × 作息 × 節奏感</h2>
-                <p>建立專注力，其實就像培養一種節奏。你可以從以下幾個習慣開始：</p>
-                <ul>
-                    <li><strong>起床後 90 分鐘內吃早餐，避免空腹太久</strong><br>
-                    選擇含蛋白質與複合碳水的組合（如蛋＋吐司＋香蕉），有助於穩定上午血糖與腦部能量供應。</li>
-                    
-                    <li><strong>午餐清爽、適量，餐後走動 10 分鐘</strong><br>
-                    避免攝取過多精緻澱粉與高脂食物，讓身體保有餘力應付下午工作。</li>
-                    
-                    <li><strong>下午 3 點前安排短暫補充</strong><br>
-                    可以選擇少量堅果、全穀餅乾、無糖豆漿，避免血糖過低導致腦袋停機。</li>
-                    
-                    <li><strong>善用 90 分鐘專注週期</strong><br>
-                    人類大腦的自然專注週期約為 90 分鐘，設定一個番茄鐘，專心工作後給自己 5～10 分鐘的身心切換時間。</li>
-                </ul>
-                
-                <h2>模擬生活情境：穩定補給也能找回清醒的自己</h2>
-                <p>小宏是設計系大四生，白天上課，晚上接案到深夜。常常早上到教室時，整個人處在「醒著但沒開機」的狀態。</p>
-                <p>他開始試著做幾個調整：早餐固定吃雞蛋＋香蕉＋堅果，午餐減少油炸物，每天補充 B 群與 Omega-3，一週慢跑兩次。</p>
-                <p>兩週後，他發現上課專注力變好了，設計時腦袋更有靈感，晚上也沒那麼容易爆炸性疲倦。</p>
-                
-                <p>這不是神奇配方，而是當你開始聽懂身體的語言時，能量就會回到該來的地方。</p>
-                
-                <h2>常見錯誤觀念，一次破解</h2>
-                <ul>
-                    <li><strong>錯誤一：喝咖啡越多越清醒？</strong><br>
-                    → 咖啡可能讓你「覺得」專注，但如果睡眠不足、血糖不穩，喝再多也只是撐住身體，而非真正提神。</li>
-                    
-                    <li><strong>錯誤二：餓了才吃，比較能集中？</strong><br>
-                    → 長時間空腹反而讓血糖大幅波動，容易精神不濟、情緒起伏大，建議定時小量進食。</li>
-                    
-                    <li><strong>錯誤三：靠營養補充品就能解決專注力問題？</strong><br>
-                    → 營養補充是輔助，根本還是來自於穩定的作息、良好的飲食與壓力調節。</li>
-                </ul>
-                
-                <h2>今天可以開始的小行動清單</h2>
-                <ul>
-                    <li>起床後 30 分鐘內，喝一杯水＋簡單早餐</li>
-                    <li>每週至少安排三餐攝取深綠蔬菜與豆類</li>
-                    <li>每天補充一次堅果或種子，幫大腦補點好油脂</li>
-                    <li>下午三點過後避免喝含糖飲料，以免血糖暴漲又暴跌</li>
-                    <li>每天花 5 分鐘整理待辦事項，減少大腦記憶負擔</li>
-                </ul>
+                <h2>日常可以開始的小行動：</h2>
+                <ol>
+                    <li>設一個「準備上床」的鬧鐘，幫助自己停止資訊輸入</li>
+                    <li>試著在睡前 1 小時遠離螢幕</li>
+                    <li>午餐後選擇富含色胺酸與鎂的天然食物</li>
+                    <li>記錄一週的入睡時間，觀察身體狀態是否有變化</li>
+                </ol>
                 
                 <!-- 小帕說對話框 -->
                 <div class="palpal-message-box">
                     <img src="../images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
                     <div class="palpal-bubble">
-                        你不是不夠專心，只是太久沒有照顧那顆辛苦運轉的大腦。別忘了，最有效率的你，是在身體被好好對待之後，才會自然出現的版本。
+                        睡不著、壓力大，感覺快爆炸了嗎？讓小帕給你一個抱抱！其實只要調整一下下，就能找回好眠。我們一起試試看！
                     </div>
                 </div>
             </div>
@@ -410,35 +360,35 @@
             <h2>相關文章推薦</h2>
             
             <!-- 相關文章卡片 1 -->
-            <div class="article-card">
-                <img src="https://images.unsplash.com/photo-1597589827317-4c6d6e0a90bd?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=MnwxfDB8MXxyYW5kb218MHx8b21lZ2F8fHx8fHwxNjgzMTY0NDYw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=60" 
-                     alt="Omega-3與大腦健康" 
+            <div class="article-card" onclick="goToArticle('sleep-nutrient')">
+                <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=60" 
+                     alt="助眠營養素知識" 
                      class="article-card-image">
                 <div class="article-card-content">
-                    <h3 class="article-card-title">Omega-3與大腦發展：一生受用的好油脂</h3>
-                    <div class="article-card-meta">大腦與認知 · 閱讀量：1,755</div>
+                    <h3 class="article-card-title">自然好眠的秘密：解析五大助眠營養素</h3>
+                    <div class="article-card-meta">睡眠知識 · 閱讀量：1,578</div>
                 </div>
             </div>
             
             <!-- 相關文章卡片 2 -->
-            <div class="article-card">
-                <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=MnwxfDB8MXxyYW5kb218MHx8bnV0cml0aW9ufHx8fHx8MTY4MzE2NDUyMA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=60" 
-                     alt="營養與記憶力" 
+            <div class="article-card" onclick="alert('這篇文章的詳情頁即將上線，敬請期待！')">
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=60" 
+                     alt="飲食與壓力" 
                      class="article-card-image">
                 <div class="article-card-content">
-                    <h3 class="article-card-title">吃出好記憶：五大記憶力增強食物</h3>
-                    <div class="article-card-meta">大腦與認知 · 閱讀量：1,623</div>
+                    <h3 class="article-card-title">抗壓飲食：哪些食物有助於緩解壓力？</h3>
+                    <div class="article-card-meta">壓力管理 · 閱讀量：1,426</div>
                 </div>
             </div>
             
             <!-- 相關文章卡片 3 -->
-            <div class="article-card">
-                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=MnwxfDB8MXxyYW5kb218MHx8c3RyZXNzfHx8fHx8MTY4MzE2NDU4Nw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=60" 
-                     alt="紓壓與專注力" 
+            <div class="article-card" onclick="alert('這篇文章的詳情頁即將上線，敬請期待！')">
+                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=60" 
+                     alt="冥想與睡眠" 
                      class="article-card-image">
                 <div class="article-card-content">
-                    <h3 class="article-card-title">紓壓也能提升專注力：壓力與認知的關係</h3>
-                    <div class="article-card-meta">大腦與認知 · 閱讀量：1,412</div>
+                    <h3 class="article-card-title">5分鐘睡前冥想：幫助你快速入睡的簡單方法</h3>
+                    <div class="article-card-meta">睡眠知識 · 閱讀量：1,892</div>
                 </div>
             </div>
         </section>
@@ -470,7 +420,7 @@
 
     <!-- 底部導航欄 -->
     <footer class="tab-bar">
-        <a href="../home.html" class="tab-item">
+        <a href="../index.html" class="tab-item">
             <i class="fas fa-home"></i>
             <span>首頁</span>
         </a>
@@ -490,8 +440,8 @@
             // 檢查是否支援 Web Share API
             if (navigator.share) {
                 navigator.share({
-                    title: '找回消失的專注力：大腦能量與營養補給指南 | NutriPal',
-                    text: '從日常生活找回專注力，透過營養與生活節奏的調整，重新開啟高效能模式！',
+                    title: '晚睡的人更容易累積壓力？認識睡眠與壓力的關係 | NutriPal',
+                    text: '了解睡眠與壓力的關係，以及如何透過良好的作息與飲食調整來改善睡眠品質。',
                     url: window.location.href,
                 })
                 .catch(console.error);
@@ -509,26 +459,16 @@
             const urlParams = new URLSearchParams(window.location.search);
             const articleId = urlParams.get('id');
             console.log('當前文章ID:', articleId);
-            
-            // 點擊相關文章卡片跳轉
-            const articleCards = document.querySelectorAll('.article-card');
-            articleCards.forEach((card, index) => {
-                card.addEventListener('click', function() {
-                    // 這裡可以根據索引或其他邏輯來決定目標文章
-                    const targetArticles = [
-                        'omega3-brain', 
-                        'memory-foods', 
-                        'stress-focus'
-                    ];
-                    
-                    if (index < targetArticles.length) {
-                        window.location.href = '../articles/article-detail.html?id=' + targetArticles[index];
-                    } else {
-                        alert('這篇文章的詳情頁即將上線，敬請期待！');
-                    }
-                });
-            });
         });
+        
+        // 跳轉到文章
+        function goToArticle(articleId) {
+            if (articleId === 'sleep-nutrient') {
+                window.location.href = '../articles/sleep-nutrient-article.html';
+            } else {
+                alert('這篇文章的詳情頁即將上線，敬請期待！');
+            }
+        }
     </script>
 </body>
 </html> 

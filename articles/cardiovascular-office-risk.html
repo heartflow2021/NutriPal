@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>晚睡壓力大怎麼辦？睡眠與壓力惡性循環解析 | NutriPal 營養好朋友</title>
-    <meta name="description" content="經常晚睡、壓力大讓你睡不好嗎？了解睡眠與壓力荷爾蒙的關係，透過飲食與作息調整，改善睡眠品質。">
-    <meta name="keywords" content="睡眠,壓力,皮質醇,晚睡,失眠,健康知識,NutriPal">
+    <title>上班族的隱形殺手：你忽略的心血管風險 | NutriPal 營養好朋友</title>
+    <meta name="description" content="現代上班族長時間久坐，加上壓力、飲食不規律與運動不足，心血管健康早已悄悄埋下風險因子。本文帶你認識常見風險與預防方法。">
+    <meta name="keywords" content="心血管健康, 上班族, 久坐, 心臟病風險, 飲食調整, 運動不足, NutriPal, 高血壓, 膽固醇">
     <link rel="stylesheet" href="../styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -126,11 +126,19 @@
         
         .article-image {
             width: 100%;
+            max-width: 600px;
             height: auto;
-            max-height: 300px;
+            max-height: 320px;
+            display: block;
+            margin: 0 auto 20px auto;
             object-fit: contain;
+            background: #f8f8f8;
             border-radius: 12px;
-            margin-bottom: 20px;
+        }
+        @media (max-width: 600px) {
+            .article-image {
+                max-height: 200px;
+            }
         }
         
         .article-content {
@@ -179,7 +187,6 @@
             border-radius: 8px;
             margin-bottom: 10px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            cursor: pointer;
         }
         
         .article-card-image {
@@ -257,7 +264,7 @@
         <a href="../knowledge.html" style="color: var(--text-primary); margin-right: 12px;">
             <i class="fas fa-arrow-left"></i>
         </a>
-        <h1 style="flex: 1; text-align: center; font-weight: 600; font-size: 18px; margin: 0;">睡眠知識</h1>
+        <h1 style="flex: 1; text-align: center; font-weight: 600; font-size: 18px; margin: 0;">心血管健康</h1>
         <a href="#" onclick="shareArticle()" style="margin-left: 12px; color: var(--text-primary);" aria-label="分享">
             <i class="fas fa-share-alt"></i>
         </a>
@@ -268,127 +275,138 @@
         <!-- 麵包屑導航 -->
         <nav aria-label="麵包屑" class="breadcrumb" style="margin-bottom: 16px; font-size: 12px;">
             <ol style="display: flex; list-style: none; padding: 0; margin: 0;">
-                <li style="margin-right: 4px;"><a href="../home.html" style="color: var(--text-secondary);">首頁</a></li>
+                <li style="margin-right: 4px;"><a href="../index.html" style="color: var(--text-secondary);">首頁</a></li>
                 <li style="margin-right: 4px; margin-left: 4px;"><span style="color: var(--text-secondary);">/</span></li>
                 <li style="margin-right: 4px; margin-left: 4px;"><a href="../knowledge.html" style="color: var(--text-secondary);">知識庫</a></li>
                 <li style="margin-right: 4px; margin-left: 4px;"><span style="color: var(--text-secondary);">/</span></li>
-                <li style="margin-left: 4px; color: var(--text-primary); font-weight: 600;">晚睡的人更容易累積壓力？認識睡眠與壓力的關係</li>
+                <li style="margin-left: 4px; color: var(--text-primary); font-weight: 600;">上班族的隱形殺手：你忽略的心血管風險</li>
             </ol>
         </nav>
         
         <!-- 文章頭部 -->
         <article>
             <header class="article-header">
-                <span class="badge article-category">睡眠</span>
-                <h1 class="article-title">晚睡的人更容易累積壓力？認識睡眠與壓力的關係</h1>
+                <span class="badge article-category">心臟健康</span>
+                <h1 class="article-title">上班族的隱形殺手：你忽略的心血管風險</h1>
                 <div class="article-meta">
                     <i class="far fa-calendar-alt"></i>
-                    <span>2025-04-30</span>
+                    <span>2025-05-18</span>
                     <i class="far fa-eye"></i>
-                    <span>閱讀量：2,345</span>
+                    <span>閱讀量：587</span>
                 </div>
-                <img src="../images/articles/晚睡的人更容易累積壓力.png" alt="晚睡與壓力關係圖" class="article-image">
+                <img src="../images/articles/上班族的隱形殺手：你忽略的心血管風險.png" 
+                     alt="上班族心血管風險示意圖" 
+                     class="article-image"
+                     onerror="this.src='https://images.unsplash.com/photo-1559757175-7cb586218f6c?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8aGVhcnR8fHx8fHwxNjgzMTY0ODQ2&ixlib=rb-4.0.3&q=80&w=600'; this.onerror='';">
             </header>
             
             <div class="article-content">
-                <p>現代人生活忙碌，越來越多人習慣「晚睡」。不論是加班、滑手機、看劇，總覺得夜深才是屬於自己的時間。但你是否曾經發現，晚睡後即使隔天有補眠，仍然感到疲倦、注意力下降，甚至容易緊張或心情低落？</p>
+                <p>你今天坐著的時間有多久了？<br>
+                早上起床坐著通勤、進辦公室坐著回信、開會、寫報告，下班後坐著吃飯、看劇、滑手機——一天結束，很可能已經坐超過 10 小時以上。</p>
                 
-                <p>其實，這與我們體內的「壓力荷爾蒙」與睡眠節奏有密切關係。今天就讓我們一起從生活觀點出發，認識睡眠與壓力的連動性，並學習如何透過日常作息與飲食安排，支持良好的夜間休息品質。</p>
-                
-                <h2>壓力與睡眠：相互影響的生理現象</h2>
-                <p>壓力會影響入睡這點大家不陌生，但事實上，「睡不好」本身也可能加重壓力感受。</p>
-                
-                <p>人體在壓力狀況下，會分泌一種叫「皮質醇」的激素，幫助我們面對環境變化。當壓力持續累積，皮質醇濃度偏高，可能讓身體處於長時間警覺狀態，也影響夜晚該分泌的褪黑激素（與入睡節奏有關）。</p>
-                
-                <p>同時，若長期作息不規律、晚睡或夜班生活，也可能讓這些激素的分泌時機錯亂，影響白天與夜間的精神狀態。</p>
-                
-                <h2>皮質醇與生理時鐘的日夜節律</h2>
-                <p>正常情況下，皮質醇在清晨偏高，有助於我們清醒、啟動思考力；夜間則逐漸下降，讓身體進入休息狀態。</p>
-                
-                <p>不過，若每天的睡覺時間大幅延後，或日夜顛倒，就可能使這個節律混亂，使人白天疲憊、晚上反而難以放鬆入睡。這也解釋了為什麼「晚睡」會讓人感覺壓力變大、情緒波動增加。</p>
-                
-                <h2>三種日常行為，有助於維持身心放鬆的夜間節奏</h2>
-                <p>我們無法完全避免壓力，但可以透過生活方式來減少壓力堆積，讓晚上的休息時間更順利進行。以下是三個在日常中容易實行的習慣：</p>
-                
-                <h3>固定作息，培養生理節奏</h3>
-                <p>建議每天的睡覺與起床時間盡量一致，即使是假日也維持規律，讓身體建立「該睡覺的生理時段」。</p>
-                
-                <h3>晚間避免高刺激資訊輸入</h3>
-                <p>睡前一小時盡量避免滑手機、追劇或大量用腦，可改為簡單伸展、閱讀紙本書、靜坐放鬆等活動，讓身體自然釋放白天壓力。</p>
-                
-                <h3>攝取均衡營養，有助於整體生理調節</h3>
-                <p>飲食均衡對於壓力與作息的調節也有間接幫助。舉例來說：</p>
-                
+                <p>現代工作型態改變讓許多上班族長時間久坐，加上壓力、飲食不規律與運動不足，心血管健康早已悄悄埋下風險因子，而你可能還沒發現。</p>
+
+                <p>根據國健署統計，心血管疾病多年來一直高居台灣十大死因前幾名。最可怕的是，它不像感冒一樣會立刻有症狀，很多人直到出現胸悶、喘不過氣，甚至中風、心肌梗塞，才驚覺：「原來我早就出了問題。」</p>
+
+                <p>這篇文章要陪你認識，上班族常忽略的心血管健康風險有哪些？又有哪些簡單生活習慣和飲食調整，可以幫助你從日常開始守護自己的「心」安全。</p>
+
+                <h2>一、你可能忽略的心血管風險行為</h2>
+                <p>你可能會想：「我才三十幾歲耶，心臟應該沒事吧？」<br>
+                但事實是，許多心血管疾病的成因都是長期累積的結果，尤其是以下這些生活習慣，早已悄悄破壞你的心血管系統：</p>
+
+                <h3>久坐與缺乏運動</h3>
+                <p>長時間坐著會讓下半身血液循環變慢，心臟需要更費力把血液送回上半身，久而久之可能增加高血壓與血管硬化的風險。</p>
+
+                <h3>高鹽、高油、高糖飲食</h3>
+                <p>外食族特別容易攝取過多飽和脂肪與鈉，這些成分會影響血脂與血壓平衡，進一步傷害血管彈性。</p>
+
+                <h3>壓力過大卻無出口</h3>
+                <p>長期處於高壓狀態，會讓交感神經持續亢奮，造成心跳加速、血壓上升，若無法有效釋放，恐讓心臟長期處於高負荷。</p>
+
+                <h3>菸酒與作息不規律</h3>
+                <p>吸菸會使血管收縮、加速動脈硬化；而過度飲酒與熬夜則會影響心臟修復與代謝節律，增加慢性發炎風險。</p>
+
+                <h2>二、身體早就給你「預警燈」了嗎？</h2>
+                <p>很多人以為心血管疾病是突然發作，其實身體早已悄悄發出訊號，只是你沒注意：</p>
                 <ul>
-                    <li>牛奶、香蕉等含色胺酸的食物，是人體合成神經傳導物質的重要來源</li>
-                    <li>深綠蔬菜與堅果富含鎂，為人體維持正常神經功能的重要礦物質</li>
-                    <li>全穀類與豆類中常見的維生素 B 群，參與能量代謝與神經調節</li>
+                    <li>爬樓梯容易喘，比以前更容易疲倦</li>
+                    <li>常覺得胸口悶悶的，有壓迫感</li>
+                    <li>手腳容易冰冷或麻痺</li>
+                    <li>睡覺時心跳特別快，難以入睡</li>
+                    <li>偶爾頭暈、眼花、注意力無法集中</li>
                 </ul>
+                <p>這些症狀未必就是心血管疾病，但如果長期反覆出現，就應該多留意，並考慮安排健康檢查。</p>
+
+                <h2>三、三種日常營養素，支持你的心血管健康</h2>
                 
-                <p>這些營養素不具有治療效果，但可作為均衡飲食的一部分，支持身體維持良好狀態。</p>
-                
-                <h2>常見誤解小提醒：</h2>
-                <p><strong>只要睡夠就好？</strong><br>
-                睡眠時間長不代表睡得好。若作息不規律，即使睡 10 小時仍可能感覺疲憊。</p>
-                
-                <p><strong>滑手機放鬆心情？</strong><br>
-                其實手機螢幕的藍光會干擾褪黑激素分泌，建議將睡前的放鬆方式轉換為非螢幕活動。</p>
-                
-                <p><strong>靠補眠彌補晚睡？</strong><br>
-                補眠無法完全取代規律作息，長期仍建議建立固定的睡眠節奏。</p>
-                
-                <h2>日常可以開始的小行動：</h2>
-                <ol>
-                    <li>設一個「準備上床」的鬧鐘，幫助自己停止資訊輸入</li>
-                    <li>試著在睡前 1 小時遠離螢幕</li>
-                    <li>午餐後選擇富含色胺酸與鎂的天然食物</li>
-                    <li>記錄一週的入睡時間，觀察身體狀態是否有變化</li>
-                </ol>
+                <h3>鉀（Potassium）— 幫助鈉鉀平衡，穩定血壓</h3>
+                <p>鉀有助於將多餘的鈉排出體外，維持細胞內外的水分與電解質平衡。當飲食中鈉攝取過多（常見於加工食品與外食）時，足夠的鉀攝取能在一定程度上幫助血壓穩定。</p>
+                <p><strong>常見食物來源：</strong>香蕉、木瓜、菠菜、地瓜、豆類</p>
+
+                <h3>Omega-3 脂肪酸 — 支持血管彈性與好膽固醇比率</h3>
+                <p>Omega-3 是一種對心血管有益的不飽和脂肪，能幫助維持血脂平衡，並促進血液流動順暢。</p>
+                <p><strong>常見食物來源：</strong>鮭魚、亞麻仁油、核桃、秋刀魚</p>
+
+                <h3>鎂（Magnesium）— 協助維持心律與神經放鬆</h3>
+                <p>鎂參與數百種酵素反應，對心臟肌肉的節律穩定、神經傳導都至關重要。缺鎂可能會出現心悸、肌肉抽搐等現象。</p>
+                <p><strong>常見食物來源：</strong>南瓜子、深綠色蔬菜、全穀類、堅果</p>
+
+                <h2>四、情境模擬：阿傑的「下班後心痛」</h2>
+                <p>阿傑 35 歲，是一位廣告業主管，白天開會、寫簡報，晚上常和客戶應酬。<br>
+                平時他自認年輕體力好，偶爾熬夜應該沒差。但有一天晚上下班後，他突然覺得胸口悶痛，一開始以為是消化不良，拖了一小時才到醫院，檢查發現血壓偏高、膽固醇指數過高，心臟超音波顯示心臟有輕微肥厚現象。</p>
+                <p>醫生告訴他：「還沒到疾病階段，但若再不改變生活方式，可能很快出問題。」</p>
+                <p>從那之後，他開始下班後改散步回家，戒掉宵夜，週末改煮簡單便當，加強蔬菜與魚類攝取，一邊調整生活，也讓心臟慢慢回到比較穩定的節奏。</p>
+                <p>這不是一個特效藥改變的故事，而是生活習慣影響健康狀態的真實縮影。</p>
+
+                <h2>五、常見錯誤觀念一次破解</h2>
+                <ul>
+                    <li><strong>錯誤一：「有運動就沒問題」</strong><br>
+                    → 若飲食、壓力管理不當，運動效果也會被抵銷。運動是心血管保養的其中一環，不是唯一解法。</li>
+                    <li><strong>錯誤二：「心血管疾病是老年人才有的問題」</strong><br>
+                    → 近年 30 至 40 歲族群心肌梗塞、中風比例上升，與生活型態改變有關，千萬別以年齡自恃。</li>
+                    <li><strong>錯誤三：「我沒有症狀，就代表沒事」</strong><br>
+                    → 心血管問題往往初期無明顯症狀，等到症狀出現時，常常已是風險升高的狀態。</li>
+                </ul>
+
+                <h2>六、今天就能開始的 5 個微調習慣</h2>
+                <ul>
+                    <li>一天至少喝 1,500～2,000 毫升水，幫助血液流動順暢</li>
+                    <li>用走樓梯代替電梯，讓心臟日常有適當刺激</li>
+                    <li>一週至少三餐改為低油、少鹽、包含蔬果的飲食</li>
+                    <li>午休後散步 10 分鐘，幫助下半身循環</li>
+                    <li>減少加工食品攝取，例如香腸、泡麵、罐頭等高鈉食品</li>
+                </ul>
                 
                 <!-- 小帕說對話框 -->
                 <div class="palpal-message-box">
                     <img src="../images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
                     <div class="palpal-bubble">
-                        睡不著、壓力大，感覺快爆炸了嗎？讓小帕給你一個抱抱！其實只要調整一下下，就能找回好眠。我們一起試試看！
+                        你的心臟每天都努力陪你面對生活的大小挑戰，不吵不鬧、不請功。從今天起，讓我們也用一些簡單的調整，好好回應這顆默默工作的心。❤️
                     </div>
                 </div>
             </div>
         </article>
         
-        <!-- 相關文章 -->
+        <!-- 相關文章 (可根據實際情況添加或修改) -->
         <section class="related-articles">
             <h2>相關文章推薦</h2>
             
-            <!-- 相關文章卡片 1 -->
-            <div class="article-card" onclick="goToArticle('sleep-nutrient')">
-                <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=60" 
-                     alt="助眠營養素知識" 
+            <div class="article-card" onclick="window.location.href='../articles/article-detail.html?id=coq10'">
+                <img src="https://images.unsplash.com/photo-1559757175-7cb586218f6c?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=MnwxfDB8MXxyYW5kb218MHx8aGVhcnR8fHx8fHwxNjgzMTY0ODQ2&ixlib=rb-4.0.3&q=80&w=60" 
+                     alt="輔酶Q10" 
                      class="article-card-image">
                 <div class="article-card-content">
-                    <h3 class="article-card-title">自然好眠的秘密：解析五大助眠營養素</h3>
-                    <div class="article-card-meta">睡眠知識 · 閱讀量：1,578</div>
+                    <h3 class="article-card-title">輔酶Q10：營養成分科學介紹</h3>
+                    <div class="article-card-meta">心臟健康 · 閱讀量：2,102</div>
                 </div>
             </div>
-            
-            <!-- 相關文章卡片 2 -->
-            <div class="article-card" onclick="alert('這篇文章的詳情頁即將上線，敬請期待！')">
-                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=60" 
-                     alt="飲食與壓力" 
+             <div class="article-card" onclick="window.location.href='../articles/brain-focus-article.html'">
+                <img src="../images/articles/專注力大腦營養.png" 
+                     alt="專注力與大腦營養" 
                      class="article-card-image">
                 <div class="article-card-content">
-                    <h3 class="article-card-title">抗壓飲食：哪些食物有助於緩解壓力？</h3>
-                    <div class="article-card-meta">壓力管理 · 閱讀量：1,426</div>
-                </div>
-            </div>
-            
-            <!-- 相關文章卡片 3 -->
-            <div class="article-card" onclick="alert('這篇文章的詳情頁即將上線，敬請期待！')">
-                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=60" 
-                     alt="冥想與睡眠" 
-                     class="article-card-image">
-                <div class="article-card-content">
-                    <h3 class="article-card-title">5分鐘睡前冥想：幫助你快速入睡的簡單方法</h3>
-                    <div class="article-card-meta">睡眠知識 · 閱讀量：1,892</div>
+                    <h3 class="article-card-title">找回消失的專注力：大腦能量與營養補給指南</h3>
+                    <div class="article-card-meta">大腦健康 · 閱讀量：1,500+</div>
                 </div>
             </div>
         </section>
@@ -396,16 +414,12 @@
         <!-- 專業背書與免責聲明 -->
         <div style="margin-top: 30px; margin-bottom: 60px;">
             <div class="disclaimer-wrapper">
-                <!-- 使用小帕圖片 -->
                 <img src="../images/mascot/palpal.png" alt="小帕" class="disclaimer-character" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
-                
                 <p class="disclaimer-title">小帕是資訊整理小幫手，不是醫師</p>
                 <p class="disclaimer-subtitle">我會整理營養知識和熱門資訊供你參考，但不提供醫療建議喔！</p>
-                
                 <div class="disclaimer-counter">
-                    已幫助 <strong>2,483</strong> 位朋友了解營養知識
+                    已幫助 <strong>2,500+</strong> 位朋友了解營養知識
                 </div>
-                
                 <div class="disclaimer-notices">
                     <p class="disclaimer-notice">
                         <strong>聯盟行銷關係揭露：</strong>本網站與 iHerb 等平台有聯盟行銷合作關係。當您透過我們的連結購買產品時，我們會收到一定的佣金，這不會增加您的購買成本。我們整理的產品資訊是基於健康知識主題，而非療效宣傳。
@@ -420,7 +434,7 @@
 
     <!-- 底部導航欄 -->
     <footer class="tab-bar">
-        <a href="../home.html" class="tab-item">
+        <a href="../index.html" class="tab-item">
             <i class="fas fa-home"></i>
             <span>首頁</span>
         </a>
@@ -435,40 +449,22 @@
     </footer>
     
     <script>
-        // 文章分享功能
         function shareArticle() {
-            // 檢查是否支援 Web Share API
             if (navigator.share) {
                 navigator.share({
-                    title: '晚睡的人更容易累積壓力？認識睡眠與壓力的關係 | NutriPal',
-                    text: '了解睡眠與壓力的關係，以及如何透過良好的作息與飲食調整來改善睡眠品質。',
+                    title: '上班族的隱形殺手：你忽略的心血管風險 | NutriPal',
+                    text: '現代上班族長時間久坐，心血管健康已悄悄埋下風險。NutriPal帶你認識常見風險與預防方法。',
                     url: window.location.href,
                 })
                 .catch(console.error);
             } else {
-                // 不支援則顯示簡單提示
                 alert('您可以複製網址分享給朋友：' + window.location.href);
             }
         }
         
-        // 頁面載入時執行
         document.addEventListener('DOMContentLoaded', function() {
             console.log('文章詳情頁面已載入');
-            
-            // 解析URL參數
-            const urlParams = new URLSearchParams(window.location.search);
-            const articleId = urlParams.get('id');
-            console.log('當前文章ID:', articleId);
         });
-        
-        // 跳轉到文章
-        function goToArticle(articleId) {
-            if (articleId === 'sleep-nutrient') {
-                window.location.href = '../articles/sleep-nutrient-article.html';
-            } else {
-                alert('這篇文章的詳情頁即將上線，敬請期待！');
-            }
-        }
     </script>
 </body>
 </html> 
