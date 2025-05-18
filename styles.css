@@ -1027,4 +1027,119 @@ input:focus, select:focus, textarea:focus {
         height: auto;
         max-height: 200px;
     }
+}
+
+/* 頂部簡化免責聲明 */
+.top-disclaimer {
+  background-color: #fff9e6;
+  padding: 10px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.top-disclaimer i {
+  color: #F5B17B;
+  margin-right: 6px;
+}
+
+/* 專業背書與免責聲明樣式 */
+.disclaimer-wrapper {
+  background-color: rgba(255, 192, 75, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0 30px;
+  text-align: center;
+}
+
+.disclaimer-character {
+  width: 100px;
+  height: 100px;
+  margin: 10px auto;
+}
+
+.disclaimer-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.disclaimer-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.disclaimer-counter {
+  padding: 10px;
+  background-color: white;
+  border-radius: 8px;
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.disclaimer-counter strong {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.disclaimer-notices {
+  padding: 15px;
+  background-color: white;
+  border-radius: 8px;
+  margin-top: 15px;
+  text-align: left;
+}
+
+.disclaimer-notice {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.disclaimer-notice:last-child {
+  margin-bottom: 0;
+}
+
+/* 健康標籤容器 */
+.health-badges-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+.health-badge {
+  background-color: white;
+  border-radius: 12px;
+  padding: 10px 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.health-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.health-badge i {
+  margin-right: 6px;
+  color: var(--primary);
 } 
