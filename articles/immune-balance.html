@@ -54,7 +54,7 @@
             background: #f8f8f8;
             border-radius: 12px;
         }
-         (max-width: 600px) {
+        @media @media (max-width: 600px) {
             .article-image {
                 max-height: 200px;
             }
@@ -334,6 +334,17 @@
         // 頁面載入時執行
         document.addEventListener('DOMContentLoaded', function() {
             console.log('文章詳情頁面已載入');
+            
+            // 處理圖片路徑問題 - 為所有圖片添加URL編碼處理
+            document.querySelectorAll('img[src^="../images/articles/"]').forEach(img => {
+                const originalSrc = img.getAttribute('src');
+                const basePath = originalSrc.substring(0, originalSrc.lastIndexOf('/') + 1);
+                const fileName = originalSrc.substring(originalSrc.lastIndexOf('/') + 1);
+                const encodedFileName = encodeURIComponent(fileName);
+                const newSrc = basePath + encodedFileName;
+                img.setAttribute('src', newSrc);
+                console.log('圖片路徑編碼:', originalSrc, '->', newSrc);
+            });
             
             // 解析URL參數
             const urlParams = new URLSearchParams(window.location.search);
