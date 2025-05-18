@@ -215,6 +215,8 @@
                         const badge = document.createElement('a');
                         badge.href = `chat.html?health=${encodeURIComponent(need.name)}`;
                         badge.className = 'health-badge';
+                        badge.style.textDecoration = 'none';
+                        badge.style.color = 'var(--text-primary)';
                         badge.innerHTML = `<i class="${need.icon}"></i> ${need.name}`;
                         
                         container.appendChild(badge);
@@ -242,6 +244,8 @@
                         const badge = document.createElement('a');
                         badge.href = `chat.html?health=${encodeURIComponent(need.name)}`;
                         badge.className = 'health-badge';
+                        badge.style.textDecoration = 'none';
+                        badge.style.color = 'var(--text-primary)';
                         badge.innerHTML = `<i class="${need.icon}"></i> ${need.name}`;
                         
                         container.appendChild(badge);

@@ -732,8 +732,6 @@ input:focus, select:focus, textarea:focus {
   justify-content: flex-end;
 }
 
-
-
 .search-box {
   display: flex;
   align-items: center;
@@ -1132,6 +1130,9 @@ input:focus, select:focus, textarea:focus {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  text-decoration: none !important;
+  color: var(--text-primary) !important;
+  margin-bottom: 8px;
 }
 
 .health-badge:hover {
@@ -1142,4 +1143,20 @@ input:focus, select:focus, textarea:focus {
 .health-badge i {
   margin-right: 6px;
   color: var(--primary);
+}
+
+/* 針對移動端的健康標籤調整 */
+@media (max-width: 576px) {
+  .health-badges-container {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+  }
+  
+  .health-badge {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
 } 
