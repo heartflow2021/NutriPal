@@ -88,12 +88,41 @@
             color: #F5B17B;
             margin-right: 6px;
         }
+
+        /* 健康需求標籤新樣式 */
+        .health-badges-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        
+        .health-badge {
+            background-color: var(--primary);
+            padding: 8px 16px;
+            text-decoration: none;
+            color: white;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .health-badge:hover {
+            transform: translateY(-3px);
+            background-color: var(--primary-dark);
+        }
+        
+        .health-badge i {
+            margin-right: 6px;
+        }
     </style>
 </head>
 <body>
     <!-- 頂部簡化免責聲明 -->
     <div class="top-disclaimer">
-        <i class="fas fa-heart"></i> 小帕不提供任何醫療建議，所有資訊僅供參考，健康決策請諮詢專業醫師～
+        <i class="fas fa-heart"></i> 小帕僅提供營養資訊與知識整理，不提供任何醫療診斷、治療或預防建議，所有內容僅供參考，健康決策請諮詢專業醫師～
         </div>
 
     <!-- 頂部導航 -->
@@ -140,22 +169,9 @@
                 </div>
             </div>
             
-            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px;">
-                <a href="chat.html?health=睡眠相關知識" class="badge" style="background-color: var(--primary); padding: 8px 16px; text-decoration: none; color: white;">
-                    <i class="fas fa-moon"></i> 睡眠知識
-                </a>
-                <a href="chat.html?health=免疫系統知識" class="badge" style="background-color: var(--primary); padding: 8px 16px; text-decoration: none; color: white;">
-                    <i class="fas fa-shield-virus"></i> 免疫系統知識
-                </a>
-                <a href="chat.html?health=大腦與認知知識" class="badge" style="background-color: var(--primary); padding: 8px 16px; text-decoration: none; color: white;">
-                    <i class="fas fa-brain"></i> 認知與記憶知識
-                </a>
-                <a href="chat.html?health=骨骼與關節知識" class="badge" style="background-color: var(--primary); padding: 8px 16px; text-decoration: none; color: white;">
-                    <i class="fas fa-walking"></i> 關節與骨骼知識
-                </a>
-                <a href="chat.html?health=眼睛保健知識" class="badge" style="background-color: var(--primary); padding: 8px 16px; text-decoration: none; color: white;">
-                    <i class="fas fa-eye"></i> 視力保健知識
-                </a>
+            <!-- 熱門健康需求標籤 - 改為動態生成 -->
+            <div id="health-badges-container" class="health-badges-container">
+                <!-- 由JavaScript動態生成內容 -->
             </div>
             
             <div class="chat-message" style="margin-top: 16px;">
@@ -168,7 +184,7 @@
             </div>
             
             <a href="chat.html" class="btn-primary" style="width: 100%; display: block; margin-top: 20px;">
-                <i class="fas fa-comment-dots"></i> 開始個人化整理
+                <i class="fas fa-comment-dots"></i> 了解營養選擇
             </a>
         </div>
 
@@ -182,7 +198,7 @@
                         <i class="fas fa-search"></i>
                     </div>
                     <div class="feature-content">
-                        <h3>幫你整理熱門選擇</h3>
+                        <h3>幫你整理保健品熱門選擇</h3>
                         <p>我會依據你的需求，找出其他人常用的保健品組合</p>
                 </div>
             </div>
@@ -202,8 +218,8 @@
                     <i class="fas fa-calendar-check"></i>
                 </div>
                     <div class="feature-content">
-                        <h3>提供友善使用指南</h3>
-                        <p>整理常見的使用時間和注意事項，方便你參考</p>
+                        <h3>提供友善保健品使用指南</h3>
+                        <p>整理常見的保健品使用時間和注意事項，方便你參考</p>
                     </div>
                 </div>
             </div>
@@ -211,10 +227,10 @@
 
         <!-- 用戶評價 -->
         <div style="padding: 20px;">
-            <h2 style="font-size: 18px; margin-bottom: 16px;">用戶見證</h2>
+            <h2 style="font-size: 18px; margin-bottom: 16px;">用戶分享</h2>
             
             <div id="testimonials-container" class="testimonials-container">
-                <!-- 用戶見證將由 JavaScript 動態加載 -->
+                <!-- 用戶分享將由 JavaScript 動態加載 -->
             </div>
                     </div>
 
@@ -238,6 +254,9 @@
                     <p class="disclaimer-notice">
                         <strong>免責聲明：</strong>本網站提供的資訊僅作為一般知識參考，不構成醫療建議。保健品不能預防、診斷、治療或治癒任何疾病。若有健康問題，請諮詢專業醫師。
                     </p>
+                    <p class="disclaimer-notice">
+                        <strong>法規遵循聲明：</strong>本網站遵循台灣衛生福利部相關法規，不宣稱任何營養補充品有預防、改善或治療疾病的功效。用戶分享僅代表個人經驗，不代表所有人都會有相同效果，也不能取代專業醫療建議。
+                    </p>
                 </div>
             </div>
         </div>
@@ -258,6 +277,291 @@
             <span>知識庫</span>
         </a>
     </div>
+
+    <!-- 添加隨機熱門健康需求的JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 防止瀏覽器緩存
+            const cacheBuster = new Date().getTime();
+            
+            // 載入熱門健康需求排名數據
+            fetch(`data/mappings/health_needs_ranking.json?_=${cacheBuster}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('無法載入健康需求排名數據');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // 獲取排名數據
+                    const healthNeeds = data.ranking;
+                    
+                    // 使用 Fisher-Yates 洗牌算法隨機打亂陣列
+                    function shuffleArray(array) {
+                        const result = [...array];
+                        for (let i = result.length - 1; i > 0; i--) {
+                            // 產生0到i之間的隨機索引
+                            const j = Math.floor(Math.random() * (i + 1));
+                            // 交換元素
+                            [result[i], result[j]] = [result[j], result[i]];
+                        }
+                        return result;
+                    }
+                    
+                    // 使用改進的洗牌算法
+                    const shuffled = shuffleArray(healthNeeds);
+                    
+                    // 選取前5個
+                    const selected = shuffled.slice(0, 5);
+                    
+                    // 獲取容器元素
+                    const container = document.getElementById('health-badges-container');
+                    
+                    // 清空容器
+                    container.innerHTML = '';
+                    
+                    // 添加隨機選擇的健康需求標籤
+                    selected.forEach(need => {
+                        const badge = document.createElement('a');
+                        badge.href = `chat.html?health=${encodeURIComponent(need.name)}`;
+                        badge.className = 'health-badge';
+                        badge.innerHTML = `<i class="${need.icon}"></i> ${need.name}`;
+                        
+                        container.appendChild(badge);
+                    });
+                    
+                    // 在控制台輸出當前選擇的健康需求，方便調試
+                    console.log('當前顯示的健康需求:', selected.map(item => item.name));
+                })
+                .catch(error => {
+                    console.error('載入健康需求排名失敗:', error);
+                    
+                    // 如果載入失敗，顯示默認健康需求
+                    const defaultNeeds = [
+                        { name: '睡眠知識', icon: 'fas fa-moon' },
+                        { name: '免疫系統知識', icon: 'fas fa-shield-virus' },
+                        { name: '認知與記憶知識', icon: 'fas fa-brain' },
+                        { name: '關節與骨骼知識', icon: 'fas fa-walking' },
+                        { name: '視力保健知識', icon: 'fas fa-eye' }
+                    ];
+                    
+                    const container = document.getElementById('health-badges-container');
+                    container.innerHTML = '';
+                    
+                    defaultNeeds.forEach(need => {
+                        const badge = document.createElement('a');
+                        badge.href = `chat.html?health=${encodeURIComponent(need.name)}`;
+                        badge.className = 'health-badge';
+                        badge.innerHTML = `<i class="${need.icon}"></i> ${need.name}`;
+                        
+                        container.appendChild(badge);
+                    });
+                });
+                
+            // 用戶分享部分 - 增加更多用戶並實現隨機顯示
+            const allTestimonials = [
+                {
+                    name: '黃女士',
+                    icon: 'fas fa-user',
+                    age: '58',
+                    job: '退休人士',
+                    rating: 5,
+                    text: '網站設計簡潔明瞭，即使我這年紀的人也能輕鬆瀏覽。特別喜歡健康分類的圖標設計，讓我一眼就能找到想了解的內容，不需要到處點擊尋找。'
+                },
+                {
+                    name: '陳小姐',
+                    icon: 'fas fa-user',
+                    age: '40',
+                    job: '上班族',
+                    rating: 5,
+                    text: '睡眠相關的文章對我幫助很大。作為上班族，壓力大常影響睡眠，這裡提供了很多實用的放鬆技巧和營養建議，讓我知道如何改善睡眠品質。'
+                },
+                {
+                    name: '趙先生',
+                    icon: 'fas fa-user',
+                    age: '36',
+                    job: '銷售經理',
+                    rating: 4,
+                    text: '這個網站最棒的是對話式的互動設計，非常直覺。我只需簡單回答幾個問題，小帕就能幫我整理出適合的保健品選擇和服用建議，不像其他網站要自己搜尋比較，省下很多時間。'
+                },
+                {
+                    name: '林小姐',
+                    icon: 'fas fa-user',
+                    age: '32',
+                    job: '護理師',
+                    rating: 5,
+                    text: '免疫相關的文章內容紮實，引用的資料也很專業。作為護理師，我能看出這些內容確實參考了可靠的醫學資源，而不是網路上的偽科學。'
+                },
+                {
+                    name: '李先生',
+                    icon: 'fas fa-user',
+                    age: '45',
+                    job: '健身教練',
+                    rating: 5,
+                    text: '網站的閱讀體驗很舒適，字體大小適中且清晰。我常在閒暇時間閱讀關於心血管健康的資訊，整體文章排版合理，閱讀起來不會感到疲勞。'
+                },
+                {
+                    name: '吳小姐',
+                    icon: 'fas fa-user',
+                    age: '28',
+                    job: '軟體工程師',
+                    rating: 4,
+                    text: '文章內容層次分明，從入門到進階，讓我這個健康知識小白也能逐步理解。特別是關於認知與專注力的文章，解釋得非常清楚易懂。'
+                },
+                {
+                    name: '王先生',
+                    icon: 'fas fa-user',
+                    age: '52',
+                    job: '企業主管',
+                    rating: 5,
+                    text: '網站的無廣告設計很舒適，但最喜歡的是小帕這個角色的陪伴感。每次閱讀文章，小帕都像朋友一樣在身邊解說，文章最後的溫馨提醒也很貼心，讓營養知識不再冰冷艱澀。'
+                },
+                {
+                    name: '謝小姐',
+                    icon: 'fas fa-user',
+                    age: '31',
+                    job: '瑜伽老師',
+                    rating: 5,
+                    text: '季節性過敏的相關建議對我幫助很大，提供的生活調整方式和飲食建議很實用。作為瑜伽老師，我也把這些知識融入到我的課程中分享給學生。'
+                },
+                {
+                    name: '鄭先生',
+                    icon: 'fas fa-user',
+                    age: '38',
+                    job: '工程師',
+                    rating: 4,
+                    text: '網站的圖表和數據視覺化做得很好，作為理工男特別欣賞。複雜的健康資訊通過直觀的圖表呈現，讓人一目了然，比純文字描述容易理解多了。'
+                },
+                {
+                    name: '張女士',
+                    icon: 'fas fa-user',
+                    age: '62',
+                    job: '退休教師',
+                    rating: 5,
+                    text: '淺眠問題困擾我多年，網站提供的改善睡眠品質的建議非常實用。不像其他網站只說要吃什麼保健品，這裡還講解了原理和生活習慣的調整方法。'
+                },
+                {
+                    name: '劉先生',
+                    icon: 'fas fa-user',
+                    age: '48',
+                    job: '業務經理',
+                    rating: 4,
+                    text: '網站內容的更新頻率很適中，每次訪問都能看到一些新內容，但又不會過於頻繁讓人跟不上。這種節奏很適合我這種忙碌但又想持續學習的上班族。'
+                },
+                {
+                    name: '楊小姐',
+                    icon: 'fas fa-user',
+                    age: '34',
+                    job: '營養師',
+                    rating: 5,
+                    text: '作為營養師，我很欣賞網站的對話互動模式，讓複雜的保健品資訊變得簡單易懂。用戶只要跟著對話流程走，就能迅速找到適合自己的保健品和正確的使用方法，這是很多健康網站做不到的。'
+                },
+                {
+                    name: '周先生',
+                    icon: 'fas fa-user',
+                    age: '56',
+                    job: '計程車司機',
+                    rating: 5,
+                    text: '網站的文章長度很合適，既有深度又不會太冗長，對我這種工作間隙閱讀的人來說很友好。特別喜歡關於辦公室心血管健康的建議，非常實用。'
+                },
+                {
+                    name: '蔡小姐',
+                    icon: 'fas fa-user',
+                    age: '29',
+                    job: '素食主義者',
+                    rating: 4,
+                    text: '身為素食者，我特別喜歡可愛的小帕陪我一起學習營養知識的感覺。文章最後都會有小帕的飲食小提醒和注意事項，這些貼心設計讓健康知識變得有溫度，也更容易記住重點。'
+                },
+                {
+                    name: '馮先生',
+                    icon: 'fas fa-user',
+                    age: '42',
+                    job: '小學老師',
+                    rating: 5,
+                    text: '網站的內容編排很有系統，我經常向家長推薦這個網站上的有用文章。資訊整理得很好，能幫助家長們更好地理解兒童營養需求與健康知識。'
+                }
+            ];
+            
+            // 使用洗牌算法隨機選擇用戶分享
+            function shuffleArray(array) {
+                const result = [...array];
+                for (let i = result.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [result[i], result[j]] = [result[j], result[i]];
+                }
+                return result;
+            }
+            
+            // 根據螢幕寬度決定顯示多少個用戶分享
+            function getDisplayCount() {
+                if (window.innerWidth >= 1200) {
+                    return 3; // 大螢幕顯示3個
+                } else if (window.innerWidth >= 768) {
+                    return 2; // 中等螢幕顯示2個
+                } else {
+                    return 2; // 手機螢幕顯示2個
+                }
+            }
+            
+            // 打亂並顯示用戶分享
+            function displayTestimonials() {
+                const displayCount = getDisplayCount();
+                const selectedTestimonials = shuffleArray(allTestimonials).slice(0, displayCount);
+                console.log(`當前螢幕寬度: ${window.innerWidth}px, 顯示${displayCount}個用戶分享:`, selectedTestimonials.map(item => item.name));
+                
+                const testimonialsContainer = document.getElementById('testimonials-container');
+                testimonialsContainer.innerHTML = ''; // 清空容器
+                
+                selectedTestimonials.forEach(testimonial => {
+                    const testimonialCard = document.createElement('div');
+                    testimonialCard.className = 'testimonial-card';
+                    
+                    let stars = '';
+                    for (let i = 0; i < 5; i++) {
+                        if (i < testimonial.rating) {
+                            stars += '<i class="fas fa-star" style="color: #F5B17B;"></i>';
+                        } else {
+                            stars += '<i class="far fa-star" style="color: #F5B17B;"></i>';
+                        }
+                    }
+                    
+                    testimonialCard.innerHTML = `
+                        <div class="testimonial-header">
+                            <div class="testimonial-avatar">
+                                <i class="${testimonial.icon}"></i>
+                            </div>
+                            <div style="font-weight: 600; margin: 10px 0 5px; font-size: 16px;">${testimonial.name}</div>
+                            <div style="font-size: 14px; color: var(--text-secondary);">${testimonial.age}歲，${testimonial.job}</div>
+                        </div>
+                        <p style="color: var(--text-secondary); margin: 0 0 15px; font-size: 14px; line-height: 1.6; text-align: center;">${testimonial.text}</p>
+                        <div style="text-align: center;">${stars}</div>
+                    `;
+                    
+                    testimonialsContainer.appendChild(testimonialCard);
+                });
+            }
+            
+            // 初始顯示
+            displayTestimonials();
+            
+            // 監聽窗口大小變化，當尺寸變化較大時重新計算和顯示
+            let lastWidth = window.innerWidth;
+            window.addEventListener('resize', function() {
+                // 只有當尺寸變化超過重要斷點(breakpoint)時才重新顯示
+                const currentWidth = window.innerWidth;
+                const isBreakpointChange = 
+                    (lastWidth < 768 && currentWidth >= 768) || 
+                    (lastWidth >= 768 && currentWidth < 768) ||
+                    (lastWidth < 1200 && currentWidth >= 1200) ||
+                    (lastWidth >= 1200 && currentWidth < 1200);
+                
+                if (isBreakpointChange) {
+                    lastWidth = currentWidth;
+                    displayTestimonials();
+                }
+            });
+        });
+    </script>
 
     <style>
     /* 產品特色區塊 */
@@ -370,14 +674,20 @@
         display: grid;
         grid-template-columns: 1fr;
         gap: 16px;
+        margin-bottom: 20px;
     }
 
     .testimonial-card {
         background-color: white;
         border-radius: 12px;
-        padding: 16px;
+        padding: 24px 16px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        height: 100%;
     }
 
     .testimonial-card:hover {
@@ -387,220 +697,53 @@
 
     .testimonial-header {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        margin-bottom: 12px;
+        margin-bottom: 16px;
+        width: 100%;
     }
 
     .testimonial-avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        margin-right: 12px;
-        object-fit: cover;
-    }
-
-    .testimonial-info p {
-        margin: 0;
-    }
-
-    .testimonial-name {
-        font-weight: 600;
-        font-size: 14px;
-    }
-
-    .testimonial-meta {
-        font-size: 12px;
-        color: var(--text-secondary);
-    }
-
-    .testimonial-content {
-        font-size: 14px;
-        line-height: 1.5;
-        margin: 0;
-    }
-
-    .testimonial-rating {
-        color: #FFB800;
-        margin-top: 8px;
-        font-size: 12px;
-    }
-
-    .testimonial-icon {
         width: 60px;
         height: 60px;
         border-radius: 50%;
+        margin: 0 auto 12px;
+        background-color: #4d6d4e; /* 深綠色 */
         display: flex;
         align-items: center;
         justify-content: center;
         color: white;
-        font-size: 22px;
-        background-color: var(--primary);
-        margin-right: 16px;
-        flex-shrink: 0;
+        font-size: 20px;
     }
 
     @media (min-width: 768px) {
         .testimonials-container {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
         }
         
         .testimonial-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 24px;
-        }
-        
-        .testimonial-header {
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-        
-        .testimonial-icon {
-            margin-right: 0;
-            margin-bottom: 16px;
-        }
-        
-        .testimonial-info {
-            text-align: center;
+            padding: 24px 20px;
         }
     }
-
-    @media (max-width: 767px) and (min-width: 500px) {
+    
+    @media (min-width: 992px) {
         .testimonials-container {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        
+        .testimonial-card {
+            padding: 24px;
+        }
+    }
+    
+    @media (max-width: 500px) {
+        .testimonial-card p {
+            font-size: 13px;
+            line-height: 1.5;
         }
     }
     </style>
-
-    <script>
-    // 修改用戶見證數據，統一使用相同風格的圖標
-    const testimonials = [
-        {
-            name: "陳小姐",
-            age: 40,
-            occupation: "上班族",
-            icon: "fa-user",
-            content: "長期工作壓力大導致難以入睡，透過小帕的資料整理功能，幫我找到許多人使用的褪黑激素和鎂補充品參考資訊，參考後我的睡眠變得更加規律了！",
-            rating: 5
-        },
-        {
-            name: "林先生",
-            age: 52,
-            occupation: "企業主管",
-            icon: "fa-user-tie",
-            content: "年過五十後開始關注心血管相關知識，小帕整理的魚油和輔酶Q10參考資訊，是我現在持續參考的保健方案，讓我對日常營養攝取更有信心！",
-            rating: 5
-        },
-        {
-            name: "王太太",
-            age: 35,
-            occupation: "專職媽媽",
-            icon: "fa-user",
-            content: "懷孕期間關心營養知識，小帕整理的孕期保健資訊幫我找到適合的葉酸和鈣質相關資訊，醫生也認可這類營養素的重要性，感謝貼心的資訊整理！",
-            rating: 5
-        },
-        {
-            name: "張先生",
-            age: 28,
-            occupation: "工程師",
-            icon: "fa-user",
-            content: "常熬夜加班眼睛乾澀，參考小帕整理的資訊後嘗試了葉黃素和藍莓萃取物相關產品，持續使用三個月後，感覺用眼舒適度有所不同。",
-            rating: 4
-        },
-        {
-            name: "李小姐",
-            age: 32,
-            occupation: "健身教練",
-            icon: "fa-user",
-            content: "作為健身教練，我常推薦客戶參考小帕的營養知識。在蛋白質和BCAA的選擇上，小帕整理的資訊非常專業，幫助我和客戶了解更多相關營養知識。",
-            rating: 5
-        },
-        {
-            name: "吳先生",
-            age: 45,
-            occupation: "教師",
-            icon: "fa-user",
-            content: "關節不適困擾我多年，透過小帕了解到葡萄糖胺和薑黃素的相關知識，三個月後感覺活動更加順暢，現在能和學生一起打籃球了！",
-            rating: 5
-        },
-        {
-            name: "黃女士",
-            age: 58,
-            occupation: "退休人士",
-            icon: "fa-user",
-            content: "退休後更注重健康養生，小帕整理的鈣片和維生素D相關知識很實用，參考這些資訊搭配醫師建議後，我的骨質健康知識更加豐富了。",
-            rating: 5
-        },
-        {
-            name: "趙先生",
-            age: 36,
-            occupation: "銷售經理",
-            icon: "fa-user",
-            content: "工作需要經常出差，腸胃常常不適。參考小帕整理的益生菌和消化酵素相關知識，讓我對這些營養素有更深入的了解，旅途中的飲食選擇也更加注重營養均衡。",
-            rating: 4
-        }
-    ];
-
-    // 當頁面加載完成後執行
-    document.addEventListener('DOMContentLoaded', function() {
-        // 洗牌算法，隨機排序用戶見證
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-        
-        // 隨機選擇3個用戶見證
-        const shuffledTestimonials = shuffleArray([...testimonials]).slice(0, 3);
-        
-        // 獲取容器元素
-        const container = document.getElementById('testimonials-container');
-        
-        // 清空容器
-        container.innerHTML = '';
-        
-        // 生成星級評分HTML
-        function generateStars(rating) {
-            let stars = '';
-            for (let i = 0; i < 5; i++) {
-                if (i < rating) {
-                    stars += '<i class="fas fa-star"></i>';
-                } else {
-                    stars += '<i class="far fa-star"></i>';
-                }
-            }
-            return stars;
-        }
-        
-        // 修改用戶見證的創建邏輯，統一使用圓形圖標
-        shuffledTestimonials.forEach(testimonial => {
-            const testimonialElement = document.createElement('div');
-            testimonialElement.className = 'testimonial-card';
-            
-            testimonialElement.innerHTML = `
-                <div class="testimonial-header">
-                    <div class="testimonial-icon">
-                        <i class="fas ${testimonial.icon}"></i>
-        </div>
-                    <div class="testimonial-info">
-                        <p class="testimonial-name">${testimonial.name}</p>
-                        <p class="testimonial-meta">${testimonial.age} 歲，${testimonial.occupation}</p>
-        </div>
-    </div>
-                <p class="testimonial-content">「${testimonial.content}」</p>
-                <div class="testimonial-rating">
-                    ${generateStars(testimonial.rating)}
-                </div>
-            `;
-            
-            container.appendChild(testimonialElement);
-        });
-    });
-    </script>
 </body>
 </html> 
