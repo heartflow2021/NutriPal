@@ -175,6 +175,24 @@
                 <h2 style="font-size: 18px; margin: 0;">熱門文章</h2>
             </div>
             
+            <!-- 新文章卡片：黃金睡眠力 -->
+            <article class="card article-item" data-category="sleep" data-article-id="golden-sleep-nutrients" style="margin-bottom: 16px; cursor: pointer;">
+                <div style="display: flex;">
+                    <div style="width: 80px; height: 80px; flex-shrink: 0;">
+                        <img src="images/articles/打造黃金睡眠力：3種營養素幫助你放鬆入眠.png" alt="睡眠營養素" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;" onerror="this.src='https://images.unsplash.com/photo-1585424520010-dbf5e1677a69?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=80&w=80'; this.onerror='';">
+                    </div>
+                    <div style="flex: 1; padding-left: 12px;">
+                        <h3 style="font-size: 16px; margin: 0 0 4px 0;">打造黃金睡眠力：3種營養素幫助你放鬆入眠</h3>
+                        <p style="font-size: 14px; color: var(--text-secondary); margin: 0 0 8px 0;">探索鎂、色胺酸與維生素B6如何幫助你改善睡眠品質，告別輾轉難眠。</p>
+                        <div style="display: flex;">
+                            <div style="font-size: 12px; color: var(--text-secondary);">
+                                <i class="fas fa-tag" style="margin-right: 4px;"></i>睡眠知識
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
             <!-- 新文章卡片：心血管風險 -->
             <article class="card article-item" data-category="heart" data-article-id="cardiovascular-office-risk" style="margin-bottom: 16px; cursor: pointer;">
                 <div style="display: flex;">
@@ -718,6 +736,8 @@
                 window.location.href = 'articles/brain-focus-article.html';
             } else if (articleId === 'cardiovascular-office-risk') {
                 window.location.href = 'articles/cardiovascular-office-risk-article.html';
+            } else if (articleId === 'golden-sleep-nutrients') {
+                window.location.href = 'articles/golden-sleep-nutrients.html';
             } else {
                 alert('文章正在建設中，敬請期待！');
             }
