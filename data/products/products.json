@@ -964,66 +964,36 @@
       "benefits": ["皮膚健康", "頭髮與指甲健康", "關節與骨骼健康", "保濕"],
       "usage": "每日將 1 勺（約 5.16 克♦️）混入約 2 盎司水或果汁中攪拌。再加入 6-8 盎司液體，充分攪拌，空腹飲用，或至少在飯前 1 小時或飯後 2 小時飲用。最好避免與含蛋白質的食物一起服用。",
       "caution": "孕婦、哺乳婦女、服藥或有疾病者食用前請諮詢醫師。避免兒童誤食；若防拆封條破損請勿使用。存放於陰涼乾燥處，避免高溫、光照與潮濕。",
-  "ingredients": "Vitamin C (as Calcium Ascorbate), Sodium, Hydrolyzed Marine Collagen Peptides, Hyaluronic Acid (as Sodium Hyaluronate)。其他成分：無。含魚類（鱗目；詳見標示）。",
-  "supplement_facts": {
-    "serving_size": "1 scoop (5 g)",
-    "servings_per_container": "約 93",
-    "nutrients": [
-      { "name": "熱量", "amount": "20", "daily_value": "" },
-      { "name": "蛋白質", "amount": "4 g", "daily_value": "" },
-      { "name": "維生素 C（碳酸鈣抗壞血酸）", "amount": "90 mg", "daily_value": "100%" },
-      { "name": "鈉", "amount": "20 mg", "daily_value": "1%" },
-      { "name": "水解海洋膠原蛋白肽", "amount": "5 g", "daily_value": "†" },
-      { "name": "玻尿酸（透明質酸鈉）", "amount": "60 mg", "daily_value": "†" }
-    ]
-  },
-  "health_needs": [
-    "肌膚與美容",
-    "骨骼與關節健康",
-    "抗老化",
-    "頭髮與指甲"
-  ],
-  "tags": [
-    "膠原蛋白",
-    "海洋膠原",
-    "玻尿酸",
-    "維生素C",
-    "California Gold Nutrition"
-  ],
-  "iherb_link": "https://tw.iherb.com/pr/california-gold-nutrition-collagenup-hydrolyzed-marine-collagen-peptides-with-hyaluronic-acid-and-vitamin-c-unflavored-1-02-lb-464-g/64902"
+      "ingredients": "Vitamin C (as Calcium Ascorbate), Sodium, Hydrolyzed Marine Collagen Peptides, Hyaluronic Acid (as Sodium Hyaluronate). Other ingredients: None. Contains fish ( siluriformes; see label).",
+      "supplement_facts": {
+        "serving_size": "1 scoop (5 g)",
+        "servings_per_container": "約 93",
+        "nutrients": [
+          { "name": "熱量", "amount": "20", "daily_value": "" },
+          { "name": "蛋白質", "amount": "4 g", "daily_value": "" },
+          { "name": "維生素 C（碳酸鈣抗壞血酸）", "amount": "90 mg", "daily_value": "100%" },
+          { "name": "鈉", "amount": "20 mg", "daily_value": "1%" },
+          { "name": "水解海洋膠原蛋白肽", "amount": "5 g", "daily_value": "†" },
+          { "name": "玻尿酸（透明質酸鈉）", "amount": "60 mg", "daily_value": "†" }
+        ]
+      },
+      "health_needs": [
+        "肌膚與美容",
+        "骨骼與關節健康",
+        "抗老化",
+        "頭髮與指甲"
+      ],
+      "tags": [
+        "膠原蛋白",
+        "海洋膠原",
+        "玻尿酸",
+        "維生素C",
+        "California Gold Nutrition"
+      ],
+      "iherb_link": "https://tw.iherb.com/pr/california-gold-nutrition-collagenup-hydrolyzed-marine-collagen-peptides-with-hyaluronic-acid-and-vitamin-c-unflavored-1-02-lb-464-g/64902"
     },
     {
       "id": "p032",
-      "name": "Source Naturals, 超鎂片劑，120片",
-      "brand": "Source Naturals",
-      "description": "Ultra-Mag 含有五種生物可利用形式的鎂（檸檬酸鎂、琥珀酸鎂、甘氨酸鎂、蘋果酸鎂和牛磺酸鎂複合物），再加上維生素 B-6 以提高鎂的利用率。這種配方有助於放鬆肌肉和神經，支持心血管健康，並參與超過 300 種重要的酶促反應。",
-      "price": 580,
-      "original_price": 700,
-      "discount_percentage": 17,
-      "rating": 4.6,
-      "review_count": 45890,
-      "image_url": "https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/snp/snp02048/u/106.jpg",
-      "benefits": ["肌肉放鬆", "神經系統健康", "心血管健康", "骨骼健康", "能量代謝支持"],
-      "usage": "每日 1-2 片，隨餐服用，或遵醫囑。",
-      "caution": "如果您正在懷孕、可能懷孕或哺乳，請在使用本產品前諮詢您的醫療保健專業人員。請勿在防偽封條破損或遺失的情況下使用。放在兒童接觸不到的地方。存放在陰涼乾燥處。",
-      "ingredients": "改性纖維素膠、硬脂酸、羥丙基纖維素、阿拉伯樹膠、硬脂酸鎂和二氧化矽。",
-      "supplement_facts": {
-        "serving_size": "2 片",
-        "servings_per_container": 60,
-        "nutrients": [
-          {"name": "熱量", "amount": "10", "daily_value": ""},
-          {"name": "總碳水化合物", "amount": "1 克", "daily_value": "<1%"},
-          {"name": "維生素 B-6（鹽酸吡哆醇）", "amount": "30 毫克", "daily_value": "1765%"},
-          {"name": "鎂（來自檸檬酸鎂、琥珀酸複合物、甘氨酸鎂、蘋果酸鎂和牛磺酸複合物）", "amount": "420 毫克", "daily_value": "100%"},
-          {"name": "鈉", "amount": "30 毫克", "daily_value": "1%"}
-        ]
-      },
-      "health_needs": ["睡眠與放鬆", "骨骼與關節健康", "心血管健康", "神經系統健康", "能量與活力"],
-      "tags": ["鎂", "多重鎂", "高生物利用度", "肌肉放鬆", "心血管健康", "壓力管理", "Source Naturals"],
-      "iherb_link": "https://tw.iherb.com/pr/source-naturals-ultra-mag-120-tablets/13"
-    },
-    {
-      "id": "p033",
       "name": "NOW Foods, 鐵，Double Strength，36 毫克，90 粒素食膠囊",
       "brand": "NOW Foods",
       "description": "鐵是紅血球中血紅蛋白形成所必需的礦物質，對能量產生和免疫功能至關重要。此配方使用 Ferrochel® 鐵雙甘氨酸鹽，具有優越的生物利用度且不易引起便秘。",
@@ -1049,9 +1019,9 @@
       "iherb_link": "https://tw.iherb.com/pr/now-foods-iron-double-strength-36-mg-90-veg-capsules/54089"
     },
     {
-      "id": "p034",
-      "name": "21st Century, 檸檬酸鋅，50 毫克，60 片",
-      "brand": "21st Century",
+      "id": "p033",
+      "name": "NOW Foods, 鋅片，50 毫克，60 片",
+      "brand": "NOW Foods",
       "description": "鋅是一種重要的抗氧化營養素，支持免疫系統和細胞健康。檸檬酸鋅是一種易於吸收的形式。",
       "price": 90,
       "original_price": 110,
@@ -1076,7 +1046,7 @@
       "iherb_link": "https://tw.iherb.com/pr/21st-century-zinc-citrate-50-mg-60-tablets/104765"
     },
     {
-      "id": "p035",
+      "id": "p034",
       "name": "Swanson, Albion®，甘氨酸鎂，133 毫克，90 粒全素膠囊",
       "brand": "Swanson",
       "description": "採用 Albion® 螯合甘氨酸鎂，提供高生物利用度的鎂，支持神經、肌肉、骨骼和心臟健康。有助於身心放鬆。",
@@ -1102,7 +1072,7 @@
       "iherb_link": "https://tw.iherb.com/pr/swanson-albion-magnesium-glycinate-133-mg-90-vegan-capsules/116273"
     },
     {
-      "id": "p036",
+      "id": "p035",
       "name": "NOW Foods, omega-3 魚油，200 粒軟凝膠",
       "brand": "NOW Foods",
       "description": "提供 EPA 和 DHA Omega-3 脂肪酸，支持心血管健康。經過分子蒸餾，確保不含有害污染物。",
@@ -1136,7 +1106,7 @@
       "iherb_link": "https://tw.iherb.com/pr/now-foods-omega-3-fish-oil-200-softgels/323"
     },
     {
-      "id": "p037",
+      "id": "p036",
       "name": "California Gold Nutrition, 蝦青素，AstaLif 全冰島，12 毫克，30 粒素食軟凝膠",
       "brand": "California Gold Nutrition",
       "description": "採用來自冰島微藻的優質 AstaLif™ 純蝦青素。蝦青素是一種強效抗氧化類胡蘿蔔素，有助於支持眼睛健康、大腦功能、皮膚健康和健康的炎症反應。",
@@ -1162,7 +1132,7 @@
       "iherb_link": "https://tw.iherb.com/pr/california-gold-nutrition-astaxanthin-astalif-pure-icelandic-12-mg-30-veggie-softgels/71683"
     },
     {
-      "id": "p038",
+      "id": "p037",
       "name": "Natural Factors, WellBetX，小檗鹼，500毫克，120 粒素食膠囊",
       "brand": "Natural Factors",
       "description": "小檗鹼是一種天然植物生物鹼，有助於維持健康的血糖水平，支持心血管健康和健康的體重管理。",
@@ -1188,7 +1158,7 @@
       "iherb_link": "https://tw.iherb.com/pr/natural-factors-wellbetx-berberine-500-mg-120-vegetarian-capsules/85657"
     },
     {
-      "id": "p039",
+      "id": "p038",
       "name": "NOW Foods, 肌醇膠囊，500 毫克，100 粒素食膠囊",
       "brand": "NOW Foods",
       "description": "肌醇是 B 族維生素的一員，對細胞膜的健康至關重要，參與神經信號傳導，有助於支持情緒健康和神經系統功能。",
@@ -1214,7 +1184,7 @@
       "iherb_link": "https://tw.iherb.com/pr/now-foods-inositol-capsules-500-mg-100-veg-capsules/684"
     },
     {
-      "id": "p040",
+      "id": "p039",
       "name": "NOW Foods, Ultra Omega-3 魚油，180 粒軟凝膠",
       "brand": "NOW Foods",
       "description": "提供高濃度的 EPA 和 DHA Omega-3 脂肪酸，支持心血管健康、大腦功能和健康的免疫反應。腸溶包衣，減少魚腥味。",
@@ -1243,7 +1213,7 @@
       "iherb_link": "https://tw.iherb.com/pr/now-foods-ultra-omega-3-fish-oil-180-softgels/8341"
     },
     {
-      "id": "p041",
+      "id": "p040",
       "name": "Futurebiotics, 含維生素 K2 的維生素 K2 + D3（MK-7），120 粒膠囊",
       "brand": "Futurebiotics",
       "description": "結合維生素 D3 和維生素 K2（MK-7 形式），協同作用支持骨骼健康、鈣的正常代謝和心血管健康。",
@@ -1271,7 +1241,7 @@
       "iherb_link": "https://tw.iherb.com/pr/futurebiotics-vitamin-k2-d3-120-capsules/99900"
     },
     {
-      "id": "p042",
+      "id": "p041",
       "name": "California Gold Nutrition, 嬰兒維生素 D3 滴劑，10 微克（400 國際單位），0.34 液量盎司（10 毫升）",
       "brand": "California Gold Nutrition",
       "description": "專為嬰兒設計的維生素 D3 滴劑，以支持健康的骨骼生長、免疫系統發育和鈣的吸收。無酒精，易於給藥。",
@@ -1297,7 +1267,7 @@
       "iherb_link": "https://tw.iherb.com/pr/california-gold-nutrition-baby-vitamin-d3-drops-10-mcg-400-iu-0-34-fl-oz-10-ml/65958"
     },
     {
-      "id": "p043",
+      "id": "p042",
       "name": "KAL, 高吸收甘氨酸鎂 350，160 粒素食膠囊",
       "brand": "KAL",
       "description": "提供高吸收的甘氨酸鎂複合物，支持肌肉放鬆、神經系統健康、骨骼健康和心臟功能。含每份 350 毫克的鎂。",
@@ -1323,7 +1293,7 @@
       "iherb_link": "https://tw.iherb.com/pr/kal-high-absorption-magnesium-glycinate-350-160-vegcaps/112998"
     },
     {
-      "id": "p044",
+      "id": "p043",
       "name": "Life Extension, 鋰，1,000 微克，100 粒素食膠囊",
       "brand": "Life Extension",
       "description": "低劑量的鋰補充劑，用於支持健康的大腦認知功能、神經保護和情緒平衡。鋰是一種微量營養素，對腦細胞健康和神經元功能至關重要。",
@@ -1349,7 +1319,7 @@
       "iherb_link": "https://tw.iherb.com/pr/life-extension-lithium-1-000-mcg-100-vegetarian-capsules/100435"
     },
     {
-      "id": "p045",
+      "id": "p044",
       "name": "Doctor's Best, 含 OptiMSM 的 MSM，1500 毫克，120 片",
       "brand": "Doctor's Best",
       "description": "含有 OptiMSM®（甲基磺酰甲烷）的膳食補充劑，一種天然存在於人體和新鮮食物中的有機硫化合物。有助於支持關節健康、皮膚彈性和抗發炎反應。",
@@ -1375,7 +1345,7 @@
       "iherb_link": "https://tw.iherb.com/pr/doctor-s-best-msm-with-optimsm-1-500-mg-120-tablets/3"
     },
     {
-      "id": "p046",
+      "id": "p045",
       "name": "NeoCell, 超級膠原蛋白 + 維生素 C 和生物維生素，270 片",
       "brand": "NeoCell",
       "description": "提供易於吸收的 1 型和 3 型水解膠原蛋白，搭配維生素 C 和生物維生素，支持皮膚健康、頭髮生長和指甲強韌度。",
@@ -1403,7 +1373,7 @@
       "iherb_link": "https://tw.iherb.com/pr/neocell-super-collagen-vitamin-c-biotin-270-tablets/113089"
     },
     {
-      "id": "p047",
+      "id": "p046",
       "name": "NOW Foods, 檸檬酸鎂素食膠囊，120 粒（每粒 133 毫克）",
       "brand": "NOW Foods",
       "description": "檸檬酸鎂是一種生物利用度高的鎂形式，有助於維持健康的神經、肌肉功能和骨骼密度。鎂還支持健康的心血管功能。",
@@ -1429,7 +1399,7 @@
       "iherb_link": "https://tw.iherb.com/pr/now-foods-magnesium-citrate-120-veg-capsules-133-mg-per-capsule/698"
     },
     {
-      "id": "p048",
+      "id": "p047",
       "name": "NOW Foods, 生物維生素，5,000 微克，120 粒素食膠囊",
       "brand": "NOW Foods",
       "description": "生物維生素（也稱為維生素 B7）是 B 族維生素的成員，對頭髮、皮膚和指甲的健康至關重要。它還支持能量代謝、神經功能和碳水化合物代謝。",
@@ -1455,7 +1425,7 @@
       "iherb_link": "https://tw.iherb.com/pr/now-foods-biotin-5-000-mcg-120-veg-capsules/3319"
     },
     {
-      "id": "p049",
+      "id": "p048",
       "name": "NOW Foods, Zinc Picolinate，50毫克，120粒素食膠囊",
       "brand": "NOW Foods",
       "description": "聚烴酸鋅是一種高吸收形式的鋅，是人體必需的微量礦物質，對免疫功能、細胞分裂、DNA合成和正常生長發育至關重要。",
@@ -1481,7 +1451,7 @@
       "iherb_link": "https://tw.iherb.com/pr/now-foods-zinc-picolinate-50-mg-120-veg-capsules/878"
     },
     {
-      "id": "p050",
+      "id": "p049",
       "name": "Vital Proteins, 膠原蛋白多肽，原味，1.25 磅（567 克）",
       "brand": "Vital Proteins",
       "description": "來自健康草飼牛的優質膠原蛋白多肽，支持皮膚、毛髮、指甲和關節健康。無添加劑，溶於冷熱飲品，無味易溶。",
@@ -1510,7 +1480,7 @@
       "iherb_link": "https://tw.iherb.com/pr/vital-proteins-collagen-peptides-unflavored-20-oz-567-g/71356"
     },
     {
-      "id": "p051",
+      "id": "p050",
       "name": "California Gold Nutrition, 含維生素 B6 和 B12、葉酸和生物維生素的複合維生素 B 軟糖，草莓味，45 粒素食軟糖",
       "brand": "California Gold Nutrition",
       "description": "美味的草莓味維生素 B 群軟糖，含有維生素 B6、B12、葉酸和生物維生素等關鍵的 B 族維生素，支持能量代謝和神經系統健康。",
@@ -1539,7 +1509,7 @@
       "iherb_link": "https://tw.iherb.com/pr/california-gold-nutrition-b-complex-gummies-with-vitamins-b6-and-b12-folate-and-biotin-strawberry-45-vegetarian-gummies/82261"
     },
     {
-      "id": "p052",
+      "id": "p051",
       "name": "California Gold Nutrition, 維生素 C 軟糖，250 毫克，含來自全 β-胡蘿卜素的維生素 A，90 粒素食軟糖",
       "brand": "California Gold Nutrition",
       "description": "柑橘風味的素食軟糖，為成人和兒童提供維生素 C 和從全 β-胡蘿卜素獲得的維生素 A，支持免疫系統健康和抗氧化防護。",
