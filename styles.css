@@ -1383,10 +1383,10 @@ input:focus, select:focus, textarea:focus {
 }
 
 .article-content .chat-message .chat-bubble {
-  background-color: rgba(255, 250, 230, 0.8);
-  padding: 10px 14px;
-  /* 減少陰影 */
-  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  background-color: transparent;
+  padding: 0 6px;
+  box-shadow: none;
+  border-radius: 0;
 }
 
 .article-content .chat-message .chat-bubble p {
