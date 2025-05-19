@@ -14,6 +14,9 @@ const userSelections = {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('【診斷】頁面載入完成');
     
+    // 初始化對話框動畫
+    initChatMessageAnimation();
+    
     // 初始化頁面事件監聽器
     initEventListeners();
     
@@ -1546,10 +1549,12 @@ function checkDisclaimerState() {
     }
 }
 
-// 添加對話框漸入動畫函數
+/**
+ * 初始化對話框漸入動畫
+ */
 function initChatMessageAnimation() {
-    // 選取所有 chat-message 元素
-    const chatMessages = document.querySelectorAll('.chat-message');
+    // 只選取需要動畫效果的對話框
+    const chatMessages = document.querySelectorAll('.chat-message-animated');
     
     // 使用 setTimeout 添加延遲，使動畫效果更明顯
     chatMessages.forEach((message, index) => {

@@ -726,8 +726,13 @@ input:focus, select:focus, textarea:focus {
 .chat-message {
   display: flex;
   margin-bottom: 12px;
+  opacity: 1; /* 修改：默認可見，不需要 JavaScript 設置 */
+  transition: opacity 0.5s ease; /* 保留過渡效果 */
+}
+
+/* 特別為動態頁面設計的對話框，需要 JavaScript 控制顯示 */
+.chat-message-animated {
   opacity: 0; /* 初始透明度為0，用於漸入動畫 */
-  transition: opacity 0.5s ease; /* 添加過渡效果 */
 }
 
 .chat-message.right {
