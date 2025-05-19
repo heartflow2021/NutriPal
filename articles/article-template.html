@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章標題 | NutriPal 營養好朋友</title>
+    <meta name="description" content="在這裡填寫文章描述，60-160字之間">
+    <meta name="keywords" content="關鍵詞1, 關鍵詞2, 關鍵詞3, NutriPal">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../css/article.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 頂部簡化免責聲明 -->
+    <div class="top-disclaimer">
+        <i class="fas fa-heart"></i> 小帕僅提供營養資訊與知識整理，不提供任何醫療診斷、治療或預防建議，所有內容僅供參考，健康決策請諮詢專業醫師～
+    </div>
+
+    <!-- 頂部導航 -->
+    <header class="nav-header">
+        <a href="../knowledge.html" class="article-nav-back">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 class="article-nav-title">分類名稱</h1>
+        <a href="#" onclick="shareArticle()" class="article-nav-share" aria-label="分享">
+            <i class="fas fa-share-alt"></i>
+        </a>
+    </header>
+
+    <!-- 主要內容區 -->
+    <main class="app-content" style="padding: 16px;">
+        <!-- 麵包屑導航 -->
+        <nav aria-label="麵包屑" class="breadcrumb">
+            <ol>
+                <li><a href="../index.html">首頁</a></li>
+                <li><span>/</span></li>
+                <li><a href="../knowledge.html">知識庫</a></li>
+                <li><span>/</span></li>
+                <li>文章標題</li>
+            </ol>
+        </nav>
+        
+        <!-- 文章頭部 -->
+        <article>
+            <header class="article-header">
+                <span class="badge article-category">文章分類</span>
+                <h1 class="article-title">文章標題</h1>
+                <div class="article-meta">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>YYYY-MM-DD</span>
+                    <i class="far fa-eye"></i>
+                    <span>閱讀量：0</span>
+                </div>
+                <img src="../images/articles/文章圖片.png" 
+                     alt="文章主題圖片" 
+                     class="article-image"
+                     onerror="this.src='https://via.placeholder.com/600x300?text=NutriPal+文章圖片'; this.onerror='';">
+            </header>
+            
+            <div class="article-content">
+                <!-- 文章內容 -->
+                <p>這是文章的第一段...</p>
+                
+                <h2>一、小標題</h2>
+                <p>文章內容...</p>
+
+                <h3>小標題的子標題</h3>
+                <p>更多文章內容...</p>
+                
+                <ul>
+                    <li>項目一</li>
+                    <li>項目二</li>
+                </ul>
+                
+                <!-- 小帕提醒對話框 -->
+                <div class="chat-message">
+                    <div class="avatar">
+                        <img src="../images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="chat-bubble">
+                        <p>小帕 PalPal</p>
+                        <p>這裡是小帕要提醒的內容...</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+        
+        <!-- 相關文章 -->
+        <section class="related-articles">
+            <h2>相關文章推薦</h2>
+            
+            <div class="article-card" onclick="window.location.href='../articles/相關文章1.html'">
+                <img src="../images/articles/相關文章1.png" 
+                     alt="相關文章1" 
+                     class="article-card-image"
+                     onerror="this.src='https://via.placeholder.com/60?text=NutriPal'; this.onerror='';">
+                <div class="article-card-content">
+                    <h3 class="article-card-title">相關文章標題1</h3>
+                    <div class="article-card-meta">分類 · 閱讀量：0</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 專業背書與免責聲明 -->
+        <div style="margin-top: 30px; margin-bottom: 60px;">
+            <div class="disclaimer-wrapper">
+                <img src="../images/mascot/palpal.png" alt="小帕" class="disclaimer-character" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
+                <p class="disclaimer-title">小帕是資訊整理小幫手，不是醫師</p>
+                <p class="disclaimer-subtitle">我會整理營養知識和熱門資訊供你參考，但不提供醫療建議喔！</p>
+                <div class="disclaimer-counter">
+                    已幫助 <strong>2,500+</strong> 位朋友了解營養知識
+                </div>
+                <div class="disclaimer-notices">
+                    <p class="disclaimer-notice">
+                        <strong>聯盟行銷關係揭露：</strong>本網站與 iHerb 等平台有聯盟行銷合作關係。當您透過我們的連結購買產品時，我們會收到一定的佣金，這不會增加您的購買成本。我們整理的產品資訊是基於健康知識主題，而非療效宣傳。
+                    </p>
+                    <p class="disclaimer-notice">
+                        <strong>免責聲明：</strong>本網站提供的資訊僅作為一般知識參考，不構成醫療建議。保健品不能預防、診斷、治療或治癒任何疾病。若有健康問題，請諮詢專業醫師。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 底部導航欄 -->
+    <footer class="tab-bar">
+        <a href="../index.html" class="tab-item">
+            <i class="fas fa-home"></i>
+            <span>首頁</span>
+        </a>
+        <a href="../chat.html" class="tab-item">
+            <i class="fas fa-comment-medical"></i>
+            <span>諮詢</span>
+        </a>
+        <a href="../knowledge.html" class="tab-item active">
+            <i class="fas fa-book-medical"></i>
+            <span>知識庫</span>
+        </a>
+    </footer>
+    
+    <script>
+        function shareArticle() {
+            if (navigator.share) {
+                navigator.share({
+                    title: '文章標題 | NutriPal',
+                    text: '文章分享描述文字',
+                    url: window.location.href,
+                })
+                .catch(console.error);
+            } else {
+                alert('您可以複製網址分享給朋友：' + window.location.href);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('文章詳情頁面已載入');
+        });
+    </script>
+    <!-- 添加 main.js 引用 -->
+    <script src="../js/main.js"></script>
+</body>
+</html> 

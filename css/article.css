@@ -1,0 +1,143 @@
+/* NutriPal 文章頁面樣式 */
+
+/* 文章頭部樣式 */
+.article-header {
+    margin-bottom: 20px;
+}
+
+.article-category {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.article-title {
+    font-size: 24px;
+    line-height: 1.3;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.article-meta {
+    display: flex;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+.article-meta i {
+    margin-right: 5px;
+}
+
+.article-meta span {
+    margin-right: 15px;
+}
+
+.article-image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    max-height: 320px;
+    display: block;
+    margin: 0 auto 20px auto;
+    object-fit: contain;
+    background: #f8f8f8;
+    border-radius: 12px;
+}
+
+/* 文章內容樣式 */
+.article-content {
+    line-height: 1.6;
+    color: var(--text-primary);
+}
+
+.article-content p {
+    margin-bottom: 15px;
+}
+
+.article-content h2 {
+    font-size: 20px;
+    margin: 25px 0 15px;
+    color: var(--text-primary);
+}
+
+.article-content h3 {
+    font-size: 18px;
+    margin: 20px 0 10px;
+    color: var(--text-primary);
+}
+
+.article-content ul, .article-content ol {
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
+
+.article-content li {
+    margin-bottom: 8px;
+}
+
+/* 麵包屑導航樣式 */
+.breadcrumb {
+    margin-bottom: 16px;
+    font-size: 12px;
+}
+
+.breadcrumb ol {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.breadcrumb li {
+    margin-right: 4px;
+}
+
+.breadcrumb li + li {
+    margin-left: 4px;
+}
+
+.breadcrumb a {
+    color: var(--text-secondary);
+    text-decoration: none;
+}
+
+.breadcrumb li:last-child {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* 文章導航樣式 */
+.article-nav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.article-nav-back {
+    color: var(--text-primary);
+    margin-right: 12px;
+    text-decoration: none;
+}
+
+.article-nav-title {
+    flex: 1;
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0;
+}
+
+.article-nav-share {
+    margin-left: 12px;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+/* 響應式調整 */
+@media (max-width: 600px) {
+    .article-image {
+        max-height: 200px;
+    }
+} 
