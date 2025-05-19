@@ -54,7 +54,8 @@
             background: #f8f8f8;
             border-radius: 12px;
         }
-         (max-width: 600px) {
+        
+        @media (max-width: 600px) {
             .article-image {
                 max-height: 200px;
             }
@@ -232,9 +233,10 @@
             
             <!-- 相關文章卡片 1 -->
             <div class="article-card">
-                <img src="https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=MnwxfDB8MXxyYW5kb218MHx8c2xlZXB8fHx8fHwxNjgzMTY0NDYw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=60" 
+                <img src="../images/articles/改善睡眠品質的六種自然方法.png" 
                      alt="改善睡眠品質" 
-                     class="article-card-image">
+                     class="article-card-image"
+                     onerror="this.src='https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&w=60'; this.onerror='';">
                 <div class="article-card-content">
                     <h3 class="article-card-title">改善睡眠品質的六種自然方法</h3>
                     <div class="article-card-meta">睡眠知識 · 閱讀量：1,895</div>
@@ -243,9 +245,10 @@
             
             <!-- 相關文章卡片 2 -->
             <div class="article-card">
-                <img src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=MnwxfDB8MXxyYW5kb218MHx8aGVyYnN8fHx8fHwxNjgzMTY0NTIw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=60" 
+                <img src="../images/articles/五種有助睡眠的常見草本植物.png" 
                      alt="改善睡眠的草本植物" 
-                     class="article-card-image">
+                     class="article-card-image"
+                     onerror="this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&w=60'; this.onerror='';">
                 <div class="article-card-content">
                     <h3 class="article-card-title">五種有助睡眠的常見草本植物</h3>
                     <div class="article-card-meta">睡眠知識 · 閱讀量：1,562</div>
@@ -254,9 +257,10 @@
             
             <!-- 相關文章卡片 3 -->
             <div class="article-card">
-                <img src="https://images.unsplash.com/photo-1594007654729-407eedc4fe24?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=MnwxfDB8MXxyYW5kb218MHx8bWFnbmVzaXVtfHx8fHx8MTY4MzE2NDU4Nw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=60" 
+                <img src="../images/articles/鎂與睡眠品質：營養素知識解析.png" 
                      alt="鎂與睡眠" 
-                     class="article-card-image">
+                     class="article-card-image"
+                     onerror="this.src='https://images.unsplash.com/photo-1594007654729-407eedc4fe24?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&w=60'; this.onerror='';">
                 <div class="article-card-content">
                     <h3 class="article-card-title">鎂與睡眠品質：營養素知識解析</h3>
                     <div class="article-card-meta">睡眠知識 · 閱讀量：1,328</div>
@@ -326,6 +330,17 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('文章詳情頁面已載入');
             
+            // 處理圖片路徑問題 - 為所有圖片添加URL編碼處理
+            document.querySelectorAll('img[src*="images/articles/"]').forEach(img => {
+                const originalSrc = img.getAttribute('src');
+                const basePath = originalSrc.substring(0, originalSrc.lastIndexOf('/') + 1);
+                const fileName = originalSrc.substring(originalSrc.lastIndexOf('/') + 1);
+                const encodedFileName = encodeURIComponent(fileName);
+                const newSrc = basePath + encodedFileName;
+                img.setAttribute('src', newSrc);
+                console.log('文章圖片路徑編碼:', originalSrc, '->', newSrc);
+            });
+            
             // 解析URL參數
             const urlParams = new URLSearchParams(window.location.search);
             const articleId = urlParams.get('id');
@@ -343,12 +358,20 @@
                     ];
                     
                     if (index < targetArticles.length) {
-                        window.location.href = '../articles/article-detail.html?id=' + targetArticles[index];
+                        window.location.href = '../articles/' + targetArticles[index] + '.html';
                     } else {
                         alert('這篇文章的詳情頁即將上線，敬請期待！');
                     }
                 });
             });
+            
+            // 為小帕貼心提醒添加漸入動畫效果
+            const palpalBox = document.querySelector('.palpal-message-box');
+            if (palpalBox) {
+                setTimeout(() => {
+                    palpalBox.style.opacity = '1';
+                }, 500);
+            }
         });
     </script>
 </body>
