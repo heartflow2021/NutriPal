@@ -1365,4 +1365,50 @@ input:focus, select:focus, textarea:focus {
 .article-card-meta {
     font-size: 12px;
     color: #a6a6a6;
+}
+
+/* 專門針對文章頁面的小帕對話框樣式 */
+.article-content .chat-message {
+  margin: 24px 0;
+  background-color: rgba(255, 250, 230, 0.35);
+  padding: 12px 12px 12px 16px;
+  border-radius: 12px;
+  border-left: 4px solid var(--accent);
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.article-content .chat-message .avatar {
+  width: 36px;
+  height: 36px;
+}
+
+.article-content .chat-message .chat-bubble {
+  background-color: rgba(255, 250, 230, 0.8);
+  padding: 10px 14px;
+  /* 減少陰影 */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.article-content .chat-message .chat-bubble p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #5a5a5a;
+}
+
+.article-content .chat-message .chat-bubble p:first-of-type {
+  /* 小帕名稱保持原有大小和顏色 */
+  font-size: 15px;
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 6px;
+  /* 添加小圖標 */
+  display: flex;
+  align-items: center;
+}
+
+.article-content .chat-message .chat-bubble p:first-of-type::before {
+  content: "💡";
+  margin-right: 6px;
+  font-size: 13px;
 } 
