@@ -536,6 +536,11 @@ input:focus, select:focus, textarea:focus {
     max-width: 75%;
   }
   
+  /* 確保文章頁面中的小帕提醒不受上面寬度限制影響 */
+  .article-content .chat-message .chat-bubble {
+    max-width: 100% !important;
+  }
+  
   .btn-primary, .btn-secondary {
     max-width: 280px;
   }
@@ -582,6 +587,11 @@ input:focus, select:focus, textarea:focus {
   
   .chat-bubble {
     max-width: 65%;
+  }
+  
+  /* 確保文章頁面中的小帕提醒不受上面寬度限制影響 */
+  .article-content .chat-message .chat-bubble {
+    max-width: 100% !important;
   }
   
   .feature-section {
@@ -1369,30 +1379,52 @@ input:focus, select:focus, textarea:focus {
 
 /* 專門針對文章頁面的小帕對話框樣式 */
 .article-content .chat-message {
-  margin: 24px 0;
+  margin: 24px 0 !important;
   background-color: rgba(255, 250, 230, 0.35);
-  padding: 12px;
+  padding: 16px !important;
   border-radius: 12px;
   position: relative;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  box-shadow: none !important;
+  /* 確保寬度充足 */
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
 }
 
 .article-content .chat-message .avatar {
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  margin-right: 12px !important;
+  background-color: transparent !important;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .article-content .chat-message .chat-bubble {
-  background-color: transparent;
-  padding: 0 6px;
-  box-shadow: none;
-  border-radius: 0;
+  background-color: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  /* 確保文字容器有足夠空間，避免突然換行 */
+  width: calc(100% - 60px) !important;
+  max-width: 100% !important; /* 覆蓋所有媒體查詢中的限制 */
+  flex: 1;
+  margin-right: 0 !important;
 }
 
 .article-content .chat-message .chat-bubble p {
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.6;
   color: #5a5a5a;
+  /* 文字自然流動 */
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  margin-right: 0 !important;
+  padding-right: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .article-content .chat-message .chat-bubble p:first-of-type {
@@ -1400,7 +1432,7 @@ input:focus, select:focus, textarea:focus {
   font-size: 15px;
   color: var(--primary);
   font-weight: 600;
-  margin-bottom: 6px;
+  margin-bottom: 8px !important;
   /* 添加小圖標 */
   display: flex;
   align-items: center;
