@@ -1513,3 +1513,32 @@ function showProductDetail(productId) {
     }
 } 
 } 
+
+// 折疊/展開頂部免責聲明
+function toggleDisclaimer(button) {
+    const disclaimer = button.closest('.top-disclaimer');
+    disclaimer.classList.toggle('expanded');
+    
+    // 更新icon
+    const icon = button.querySelector('i');
+    if (disclaimer.classList.contains('expanded')) {
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
+    } else {
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
+    }
+}
+
+// 儲存免責聲明顯示狀態到localStorage（未來可添加此功能）
+function saveDisclaimerState(isShown) {
+    localStorage.setItem('disclaimerShown', isShown);
+}
+
+// 頁面載入時檢查免責聲明顯示狀態（未來可添加此功能）
+function checkDisclaimerState() {
+    const disclaimerShown = localStorage.getItem('disclaimerShown');
+    if (disclaimerShown === 'false') {
+        document.querySelector('.top-disclaimer').style.display = 'none';
+    }
+}
