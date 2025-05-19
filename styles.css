@@ -1371,9 +1371,8 @@ input:focus, select:focus, textarea:focus {
 .article-content .chat-message {
   margin: 24px 0;
   background-color: rgba(255, 250, 230, 0.35);
-  padding: 12px 12px 12px 16px;
+  padding: 12px;
   border-radius: 12px;
-  border-left: 4px solid var(--accent);
   position: relative;
   box-shadow: 0 2px 8px rgba(0,0,0,0.03);
 }
