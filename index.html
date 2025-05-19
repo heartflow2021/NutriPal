@@ -678,5 +678,20 @@
         }
     }
     </style>
+    
+    <!-- 添加對話框漸入動畫的JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 選取所有 chat-message 元素
+            const chatMessages = document.querySelectorAll('.chat-message');
+            
+            // 使用 setTimeout 添加延遲，使動畫效果更明顯
+            chatMessages.forEach((message, index) => {
+                setTimeout(() => {
+                    message.style.opacity = '1';
+                }, 100 * (index + 1)); // 每個對話框依序顯示
+            });
+        });
+    </script>
 </body>
 </html> 

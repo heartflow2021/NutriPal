@@ -61,6 +61,9 @@ document.addEventListener('DOMContentLoaded', function() {
             displayError('處理結果頁面時發生錯誤: ' + error.message);
         }
     }
+    
+    // 初始化對話框動畫
+    initChatMessageAnimation();
 });
 
 /**
@@ -1541,4 +1544,17 @@ function checkDisclaimerState() {
     if (disclaimerShown === 'false') {
         document.querySelector('.top-disclaimer').style.display = 'none';
     }
+}
+
+// 添加對話框漸入動畫函數
+function initChatMessageAnimation() {
+    // 選取所有 chat-message 元素
+    const chatMessages = document.querySelectorAll('.chat-message');
+    
+    // 使用 setTimeout 添加延遲，使動畫效果更明顯
+    chatMessages.forEach((message, index) => {
+        setTimeout(() => {
+            message.style.opacity = '1';
+        }, 100 * (index + 1)); // 每個對話框依序顯示
+    });
 }
