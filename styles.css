@@ -1247,4 +1247,80 @@ input:focus, select:focus, textarea:focus {
     transform: scale(0);
     opacity: 0;
   }
+}
+
+/* 小帕貼心提醒樣式 */
+.palpal-message-box {
+    display: flex;
+    align-items: flex-start;
+    background: #fffbe7;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 16px;
+    margin: 24px 0;
+    gap: 12px;
+}
+.palpal-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: #fff;
+    border: 2px solid #f5e6b2;
+    object-fit: cover;
+}
+.palpal-bubble {
+    background: #fffde2;
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: #7a5c1e;
+    font-size: 15px;
+    line-height: 1.7;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    flex: 1;
+}
+
+/* 相關文章推薦卡片樣式 */
+.related-articles {
+    margin-top: 36px;
+}
+.related-articles h2 {
+    font-size: 18px;
+    margin-bottom: 18px;
+}
+.article-card {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 16px;
+    padding: 12px;
+    gap: 16px;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+.article-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+.article-card-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #f7f7f7;
+}
+.article-card-content {
+    flex: 1;
+}
+.article-card-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 6px 0;
+    color: #333;
+}
+.article-card-meta {
+    font-size: 12px;
+    color: #a6a6a6;
 } 
