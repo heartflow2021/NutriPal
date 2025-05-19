@@ -1255,7 +1255,7 @@ input:focus, select:focus, textarea:focus {
     align-items: flex-start;
     /* background: #fffbe7; */
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    /* box-shadow: 0 2px 8px rgba(0,0,0,0.04); */
     padding: 16px;
     margin: 24px 0;
     gap: 12px;
