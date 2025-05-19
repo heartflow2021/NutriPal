@@ -725,7 +725,9 @@ input:focus, select:focus, textarea:focus {
 /* 常用布局組件 - 從內聯樣式轉換 */
 .chat-message {
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
+  opacity: 0; /* 初始透明度為0，用於漸入動畫 */
+  transition: opacity 0.5s ease; /* 添加過渡效果 */
 }
 
 .chat-message.right {

@@ -54,7 +54,7 @@
             background: #f8f8f8;
             border-radius: 12px;
         }
-         @media (max-width: 600px) {
+        @media (max-width: 600px) {
             .article-image {
                 max-height: 200px;
             }
@@ -132,7 +132,7 @@
                     <i class="far fa-eye"></i>
                     <span>閱讀量：2,176</span>
                 </div>
-                <img src="../images/articles/專注力大腦營養.png" 
+                <img src="../images/articles/brain-focus.png" 
                      alt="專注力與大腦健康圖片" 
                      class="article-image" 
                      onerror="this.src='https://images.unsplash.com/photo-1564410267841-915d8e4d71ea?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8YnJhaW58fHx8fHwxNjgzMTY0NjU5&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=600'">
@@ -234,10 +234,13 @@
                 </ul>
                 
                 <!-- 小帕說對話框 -->
-                <div class="palpal-message-box">
-                    <img src="../images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
-                    <div class="palpal-bubble">
-                        你不是不夠專心，只是太久沒有照顧那顆辛苦運轉的大腦。別忘了，最有效率的你，是在身體被好好對待之後，才會自然出現的版本。
+                <div class="chat-message">
+                    <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                        <img src="../images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="chat-bubble">
+                        <p style="margin: 0 0 8px; font-weight: 600;">小帕 PalPal</p>
+                        <p style="margin: 0;">就像我們保養皮膚需要多重面向的照顧，大腦也需要全方位的維護。除了營養補充外，不要忘了睡眠、運動和社交互動，這些都是大腦保持活力的必要元素喔！</p>
                     </div>
                 </div>
             </div>
@@ -341,18 +344,7 @@
         
         // 頁面載入時執行
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('腦部功能文章頁面已載入');
-            
-            // 處理圖片路徑問題 - 為所有圖片添加URL編碼處理
-            document.querySelectorAll('img[src^="../images/articles/"]').forEach(img => {
-                const originalSrc = img.getAttribute('src');
-                const basePath = originalSrc.substring(0, originalSrc.lastIndexOf('/') + 1);
-                const fileName = originalSrc.substring(originalSrc.lastIndexOf('/') + 1);
-                const encodedFileName = encodeURIComponent(fileName);
-                const newSrc = basePath + encodedFileName;
-                img.setAttribute('src', newSrc);
-                console.log('圖片路徑編碼:', originalSrc, '->', newSrc);
-            });
+            console.log('文章詳情頁面已載入');
             
             // 解析URL參數
             const urlParams = new URLSearchParams(window.location.search);
@@ -377,6 +369,14 @@
                     }
                 });
             });
+
+            // 為貼心提醒添加漸入動畫效果
+            const palpalBox = document.querySelector('.chat-message');
+            if (palpalBox) {
+                setTimeout(() => {
+                    palpalBox.style.opacity = '1';
+                }, 500);
+            }
         });
     </script>
 </body>

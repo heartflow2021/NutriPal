@@ -54,7 +54,7 @@
             background: #f8f8f8;
             border-radius: 12px;
         }
-         (max-width: 600px) {
+         @media (max-width: 600px) {
             .article-image {
                 max-height: 200px;
             }
@@ -132,7 +132,7 @@
                     <i class="far fa-eye"></i>
                     <span>閱讀量：587</span>
                 </div>
-                <img src="../images/articles/上班族的隱形殺手：你忽略的心血管風險.png" 
+                <img src="../images/articles/cardiovascular-office-risk.png" 
                      alt="上班族心血管風險示意圖" 
                      class="article-image"
                      onerror="this.src='https://images.unsplash.com/photo-1559757175-7cb586218f6c?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8aGVhcnR8fHx8fHwxNjgzMTY0ODQ2&ixlib=rb-4.0.3&q=80&w=600'; this.onerror='';">
@@ -216,10 +216,13 @@
                 </ul>
                 
                 <!-- 小帕說對話框 -->
-                <div class="palpal-message-box">
-                    <img src="../images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
-                    <div class="palpal-bubble">
-                        你的心臟每天都努力陪你面對生活的大小挑戰，不吵不鬧、不請功。從今天起，讓我們也用一些簡單的調整，好好回應這顆默默工作的心。❤️
+                <div class="chat-message">
+                    <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                        <img src="../images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="chat-bubble">
+                        <p style="margin: 0 0 8px; font-weight: 600;">小帕 PalPal</p>
+                        <p style="margin: 0;">如果你像許多上班族一樣，在辦公室一坐就是一天，小帕提醒你別忘了每隔一小時站起來活動5分鐘，就算只是去倒杯水、做個簡單伸展，都能讓血液循環順暢許多喔！</p>
                     </div>
                 </div>
             </div>
@@ -302,6 +305,13 @@
         
         document.addEventListener('DOMContentLoaded', function() {
             console.log('文章詳情頁面已載入');
+            // 為貼心提醒添加漸入動畫效果
+            const palpalBox = document.querySelector('.chat-message');
+            if (palpalBox) {
+                setTimeout(() => {
+                    palpalBox.style.opacity = '1';
+                }, 500);
+            }
         });
     </script>
 </body>

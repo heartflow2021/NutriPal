@@ -54,7 +54,7 @@
             background: #f8f8f8;
             border-radius: 12px;
         }
-         (max-width: 600px) {
+         @media (max-width: 600px) {
             .article-image {
                 max-height: 200px;
             }
@@ -132,7 +132,7 @@
                     <i class="far fa-eye"></i>
                     <span>閱讀量：2,345</span>
                 </div>
-                <img src="../images/articles/晚睡的人更容易累積壓力.png" alt="晚睡與壓力關係圖" class="article-image">
+                <img src="../images/articles/stress-sleep.png" alt="晚睡與壓力關係圖" class="article-image">
             </header>
             
             <div class="article-content">
@@ -191,10 +191,13 @@
                 </ol>
                 
                 <!-- 小帕說對話框 -->
-                <div class="palpal-message-box">
-                    <img src="../images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
-                    <div class="palpal-bubble">
-                        睡不著、壓力大，感覺快爆炸了嗎？讓小帕給你一個抱抱！其實只要調整一下下，就能找回好眠。我們一起試試看！
+                <div class="chat-message">
+                    <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                        <img src="../images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="chat-bubble">
+                        <p style="margin: 0 0 8px; font-weight: 600;">小帕 PalPal</p>
+                        <p style="margin: 0;">記住，睡眠時間的「量」與「質」同樣重要。與其硬撐著延後上床時間，不如試著在睡前一小時放下手機，泡杯無咖啡因茶飲，讓身心能真正準備好進入夢鄉。</p>
                     </div>
                 </div>
             </div>
@@ -304,6 +307,14 @@
             const urlParams = new URLSearchParams(window.location.search);
             const articleId = urlParams.get('id');
             console.log('當前文章ID:', articleId);
+            
+            // 為貼心提醒添加漸入動畫效果
+            const palpalBox = document.querySelector('.chat-message');
+            if (palpalBox) {
+                setTimeout(() => {
+                    palpalBox.style.opacity = '1';
+                }, 500);
+            }
         });
         
         // 跳轉到文章

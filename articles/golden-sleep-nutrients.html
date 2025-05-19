@@ -133,7 +133,7 @@
                     <i class="far fa-eye"></i>
                     <span>閱讀量：2,356</span>
                 </div>
-                <img src="../images/articles/打造黃金睡眠力：3種營養素幫助你放鬆入眠.png" 
+                <img src="../images/articles/golden-sleep-nutrients.png" 
                      alt="黃金睡眠力營養素介紹" 
                      class="article-image"
                      onerror="this.src='https://images.unsplash.com/photo-1585424520010-dbf5e1677a69?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8c2xlZXB8fHx8fHwxNjgzMTY0NDU5&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=600'; this.onerror='';">
@@ -218,10 +218,13 @@
                 </ul>
                 
                 <!-- 小帕說對話框 -->
-                <div class="palpal-message-box">
-                    <img src="../images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
-                    <div class="palpal-bubble">
-                        睡得好不是奢侈，是你的身體應得的獎勵。今晚早一點放下手機，留一點時間給真正的你，讓我們一起慢慢練習，好好入睡 🌙
+                <div class="chat-message">
+                    <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                        <img src="../images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="chat-bubble">
+                        <p style="margin: 0 0 8px; font-weight: 600;">小帕 PalPal</p>
+                        <p style="margin: 0;">良好的睡眠就像一次身心的全面充電，而營養素則是為你的「充電器」提供穩定電流的關鍵。如果你正在為睡眠煩惱，不妨從飲食中尋找那些天然的助眠好幫手吧！</p>
                     </div>
                 </div>
             </div>
@@ -330,17 +333,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('文章詳情頁面已載入');
             
-            // 處理圖片路徑問題 - 為所有圖片添加URL編碼處理
-            document.querySelectorAll('img[src*="images/articles/"]').forEach(img => {
-                const originalSrc = img.getAttribute('src');
-                const basePath = originalSrc.substring(0, originalSrc.lastIndexOf('/') + 1);
-                const fileName = originalSrc.substring(originalSrc.lastIndexOf('/') + 1);
-                const encodedFileName = encodeURIComponent(fileName);
-                const newSrc = basePath + encodedFileName;
-                img.setAttribute('src', newSrc);
-                console.log('文章圖片路徑編碼:', originalSrc, '->', newSrc);
-            });
-            
             // 解析URL參數
             const urlParams = new URLSearchParams(window.location.search);
             const articleId = urlParams.get('id');
@@ -366,7 +358,7 @@
             });
             
             // 為小帕貼心提醒添加漸入動畫效果
-            const palpalBox = document.querySelector('.palpal-message-box');
+            const palpalBox = document.querySelector('.chat-message');
             if (palpalBox) {
                 setTimeout(() => {
                     palpalBox.style.opacity = '1';

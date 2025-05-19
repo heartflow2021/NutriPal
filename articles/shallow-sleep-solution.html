@@ -54,7 +54,7 @@
             background: #f8f8f8;
             border-radius: 12px;
         }
-         (max-width: 600px) {
+        @media (max-width: 600px) {
             .article-image {
                 max-height: 200px;
             }
@@ -213,10 +213,13 @@
                 </ul>
                 
                 <!-- 小帕說對話框 -->
-                <div class="palpal-message-box">
-                    <img src="../images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
-                    <div class="palpal-bubble">
-                        溫馨提示：雖然許多人發現這些方法有幫助，但每個人的身體狀況都不同喔！如果你已嘗試改善睡眠卻仍有嚴重的淺眠問題，建議諮詢專業醫師，因為有時候淺眠可能是某些健康問題的徵兆。
+                <div class="chat-message">
+                    <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                        <img src="../images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="chat-bubble">
+                        <p style="margin: 0 0 8px; font-weight: 600;">小帕 PalPal</p>
+                        <p style="margin: 0;">深層睡眠不會一下子就回來，但只要持續實踐這些小調整，你的身體會慢慢記住那個放鬆的感覺。正如滴水可以穿石，循序漸進的小改變，最終會帶來深沉穩定的好眠。</p>
                     </div>
                 </div>
                 
@@ -334,6 +337,14 @@
         // 頁面載入時執行
         document.addEventListener('DOMContentLoaded', function() {
             console.log('文章詳情頁面已載入');
+            
+            // 為貼心提醒添加漸入動畫效果
+            const palpalBox = document.querySelector('.chat-message');
+            if (palpalBox) {
+                setTimeout(() => {
+                    palpalBox.style.opacity = '1';
+                }, 500);
+            }
             
             // 解析URL參數
             const urlParams = new URLSearchParams(window.location.search);

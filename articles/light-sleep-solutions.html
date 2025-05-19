@@ -54,7 +54,7 @@
             background: #f8f8f8;
             border-radius: 12px;
         }
-         (max-width: 600px) {
+        @media (max-width: 600px) {
             .article-image {
                 max-height: 200px;
             }
@@ -132,7 +132,7 @@
                     <i class="far fa-eye"></i>
                     <span>閱讀量：1,782</span>
                 </div>
-                <img src="../images/articles/淺眠易醒怎麼辦？從作息與營養找到根源.png" 
+                <img src="../images/articles/light-sleep-solutions.png" 
                      alt="淺眠易醒解決方案" 
                      class="article-image"
                      onerror="this.src='https://images.unsplash.com/photo-1585424520010-dbf5e1677a69?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8c2xlZXB8fHx8fHwxNjgzMTY0NDU5&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=600'; this.onerror='';">
@@ -231,10 +231,13 @@
                 </ul>
                 
                 <!-- 小帕說對話框 -->
-                <div class="palpal-message-box">
-                    <img src="../images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
-                    <div class="palpal-bubble">
-                        半夜總醒來，不代表你睡不好，也許只是身體在對你輕聲提醒：「我們還沒完全放鬆呢。」從今天開始，讓我們一起，慢慢學會把自己安頓好。
+                <div class="chat-message">
+                    <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                        <img src="../images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="chat-bubble">
+                        <p style="margin: 0 0 8px; font-weight: 600;">小帕 PalPal</p>
+                        <p style="margin: 0;">淺眠不是一種「錯誤」，而是身體在提醒你需要更好的睡眠管理。漸進式的小改變往往比立即大幅調整更容易持續，從今晚開始一個小小的睡前習慣吧！</p>
                     </div>
                 </div>
             </div>
@@ -339,6 +342,14 @@
         // 頁面載入時執行
         document.addEventListener('DOMContentLoaded', function() {
             console.log('文章詳情頁面已載入');
+            
+            // 為貼心提醒添加漸入動畫效果
+            const palpalBox = document.querySelector('.chat-message');
+            if (palpalBox) {
+                setTimeout(() => {
+                    palpalBox.style.opacity = '1';
+                }, 500);
+            }
             
             // 解析URL參數
             const urlParams = new URLSearchParams(window.location.search);

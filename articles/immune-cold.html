@@ -54,7 +54,7 @@
             background: #f8f8f8;
             border-radius: 12px;
         }
-         (max-width: 600px) {
+         @media (max-width: 600px) {
             .article-image {
                 max-height: 200px;
             }
@@ -132,7 +132,7 @@
                     <i class="far fa-eye"></i>
                     <span>閱讀量：2,876</span>
                 </div>
-                <img src="../images/articles/常感冒怎麼辦？日常營養守護你的免疫防線.png" 
+                <img src="../images/articles/immune-cold.png" 
                      alt="免疫系統與感冒防護圖片" 
                      class="article-image">
             </header>
@@ -231,10 +231,13 @@
                 </ol>
                 
                 <!-- 小帕說對話框 -->
-                <div class="palpal-message-box">
-                    <img src="../images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
-                    <div class="palpal-bubble">
-                        哈啾！你也常常這樣嗎？別擔心，小帕我研究了很多提升保護力的方法，從飲食開始調整，一起變得更健康吧！
+                <div class="chat-message">
+                    <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                        <img src="../images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="chat-bubble">
+                        <p style="margin: 0 0 8px; font-weight: 600;">小帕 PalPal</p>
+                        <p style="margin: 0;">免疫力是無法囤積的，它需要你每天的關注與照顧。如果你總是感到容易生病，不妨邀請小小的營養支持者們加入你的日常，看它們如何陪你打造一道更堅固的防護網。</p>
                     </div>
                 </div>
             </div>
@@ -344,6 +347,14 @@
             const urlParams = new URLSearchParams(window.location.search);
             const articleId = urlParams.get('id');
             console.log('當前文章ID:', articleId);
+            
+            // 為貼心提醒添加漸入動畫效果
+            const palpalBox = document.querySelector('.chat-message');
+            if (palpalBox) {
+                setTimeout(() => {
+                    palpalBox.style.opacity = '1';
+                }, 500);
+            }
         });
         
         // 跳轉到文章

@@ -187,10 +187,13 @@
                 </ul>
                 
                 <!-- 小帕說對話框 -->
-                <div class="palpal-message-box">
-                    <img src="../images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
-                    <div class="palpal-bubble">
-                        你知道嗎？研究顯示，除了褪黑激素之外，鎂元素也可能有助於提升睡眠品質喔！若你對睡眠相關營養素有興趣，可以參考我們的「自然好眠的秘密：解析五大助眠營養素」文章～
+                <div class="chat-message">
+                    <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                        <img src="../images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="chat-bubble">
+                        <p style="margin: 0 0 8px; font-weight: 600;">小帕 PalPal</p>
+                        <p style="margin: 0;">[這裡是小帕的貼心提醒內容，請根據文章主題撰寫]</p>
                     </div>
                 </div>
             </div>
@@ -295,6 +298,14 @@
         // 頁面載入時執行
         document.addEventListener('DOMContentLoaded', function() {
             console.log('文章詳情頁面已載入');
+            
+            // 為貼心提醒添加漸入動畫效果
+            const palpalBox = document.querySelector('.chat-message');
+            if (palpalBox) {
+                setTimeout(() => {
+                    palpalBox.style.opacity = '1';
+                }, 500);
+            }
             
             // 解析URL參數
             const urlParams = new URLSearchParams(window.location.search);

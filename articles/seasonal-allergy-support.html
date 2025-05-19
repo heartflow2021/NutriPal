@@ -10,75 +10,80 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* 文章頁面自定義樣式 */
+        /* 文章內容樣式 */
         .article-header {
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         
         .article-category {
-            background-color: var(--primary);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 600;
             display: inline-block;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         
         .article-title {
             font-size: 24px;
-            font-weight: 700;
-            margin: 0 0 12px 0;
             line-height: 1.3;
+            margin-bottom: 10px;
+            color: var(--text-primary);
         }
         
         .article-meta {
-            color: var(--text-secondary);
-            font-size: 14px;
             display: flex;
             align-items: center;
-            margin-bottom: 16px;
-            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .article-meta i {
+            margin-right: 5px;
+        }
+        
+        .article-meta span {
+            margin-right: 15px;
         }
         
         .article-image {
             width: 100%;
             max-width: 600px;
             height: auto;
-            max-height: 300px;
+            max-height: 320px;
             display: block;
             margin: 0 auto 20px auto;
-            object-fit: cover;
+            object-fit: contain;
             background: #f8f8f8;
             border-radius: 12px;
         }
         
+        @media (max-width: 600px) {
+            .article-image {
+                max-height: 200px;
+            }
+        }
+        
         .article-content {
-            font-size: 16px;
-            line-height: 1.7;
+            line-height: 1.6;
             color: var(--text-primary);
+        }
+        
+        .article-content p {
+            margin-bottom: 15px;
         }
         
         .article-content h2 {
             font-size: 20px;
-            font-weight: 700;
-            margin: 32px 0 16px 0;
-            color: var(--primary);
+            margin: 25px 0 15px;
+            color: var(--text-primary);
         }
         
         .article-content h3 {
             font-size: 18px;
-            font-weight: 600;
-            margin: 24px 0 12px 0;
+            margin: 20px 0 10px;
+            color: var(--text-primary);
         }
         
-        .article-content p {
-            margin-bottom: 16px;
-        }
-        
-        .article-content ul {
-            margin-bottom: 16px;
+        .article-content ul, .article-content ol {
+            margin-bottom: 15px;
             padding-left: 20px;
         }
         
@@ -249,7 +254,7 @@
                     <i class="far fa-eye"></i>
                     <span>閱讀量：1,248</span>
                 </div>
-                <img src="../images/articles/換季過敏不斷？試試這些免疫支持小習慣.png" 
+                <img src="../images/articles/seasonal-allergy-support.png" 
                      alt="換季過敏與免疫支持小習慣" 
                      class="article-image"
                      onerror="this.src='https://images.unsplash.com/photo-1590330297626-d7aff25a0431?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8YWxsZXJneXx8fHx8fDE2OTQxNjQ0NTk&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=600'; this.onerror='';">
@@ -354,10 +359,13 @@
                 </ul>
                 
                 <!-- 小帕說對話框 -->
-                <div class="palpal-message-box">
-                    <img src="../images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
-                    <div class="palpal-bubble">
-                        身體不是對你鬧脾氣，而是在提醒你「我們需要一點幫助」。從今天開始，讓我們一起練習，用溫柔的生活習慣，安撫那個總是為你辛苦奮戰的免疫系統吧。
+                <div class="chat-message">
+                    <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                        <img src="../images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="chat-bubble">
+                        <p style="margin: 0 0 8px; font-weight: 600;">小帕 PalPal</p>
+                        <p style="margin: 0;">身體不是對你鬧脾氣，而是在提醒你「我們需要一點幫助」。從今天開始，讓我們一起練習，用溫柔的生活習慣，安撫那個總是為你辛苦奮戰的免疫系統吧。</p>
                     </div>
                 </div>
             </div>
@@ -369,7 +377,7 @@
             
             <!-- 相關文章卡片 1 -->
             <div class="article-card">
-                <img src="../images/articles/提升免疫不是吃多就好，而是吃對.png" 
+                <img src="../images/articles/immune-balance.png" 
                      alt="提升免疫" 
                      class="article-card-image"
                      onerror="this.src='https://images.unsplash.com/photo-1563699383-79a2069de86e?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&w=60'; this.onerror='';">
@@ -381,7 +389,7 @@
             
             <!-- 相關文章卡片 2 -->
             <div class="article-card">
-                <img src="../images/articles/常感冒怎麼辦？日常營養守護你的免疫防線.png" 
+                <img src="../images/articles/immune-cold.png" 
                      alt="常感冒怎麼辦" 
                      class="article-card-image"
                      onerror="this.src='https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&w=60'; this.onerror='';">
@@ -393,7 +401,7 @@
             
             <!-- 相關文章卡片 3 -->
             <div class="article-card">
-                <img src="../images/articles/晚睡的人更容易累積壓力.png" 
+                <img src="../images/articles/stress-sleep.png" 
                      alt="睡眠與免疫力" 
                      class="article-card-image"
                      onerror="this.src='https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&w=60'; this.onerror='';">
@@ -466,17 +474,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('文章詳情頁面已載入');
             
-            // 處理圖片路徑問題 - 為所有圖片添加URL編碼處理
-            document.querySelectorAll('img[src*="images/articles/"]').forEach(img => {
-                const originalSrc = img.getAttribute('src');
-                const basePath = originalSrc.substring(0, originalSrc.lastIndexOf('/') + 1);
-                const fileName = originalSrc.substring(originalSrc.lastIndexOf('/') + 1);
-                const encodedFileName = encodeURIComponent(fileName);
-                const newSrc = basePath + encodedFileName;
-                img.setAttribute('src', newSrc);
-                console.log('文章圖片路徑編碼:', originalSrc, '->', newSrc);
-            });
-            
             // 解析URL參數
             const urlParams = new URLSearchParams(window.location.search);
             const articleId = urlParams.get('id');
@@ -521,7 +518,7 @@
             });
 
             // 為貼心提醒添加漸入動畫效果
-            const palpalBox = document.querySelector('.palpal-message-box');
+            const palpalBox = document.querySelector('.chat-message');
             if (palpalBox) {
                 setTimeout(() => {
                     palpalBox.style.opacity = '1';

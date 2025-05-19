@@ -231,10 +231,13 @@
                 </ul>
                 
                 <!-- 小帕說對話框 -->
-                <div class="palpal-message-box">
-                    <img src="../images/mascot/palpal.png" alt="小帕" class="palpal-avatar" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
-                    <div class="palpal-bubble">
-                        免疫系統就像默默守護你的夥伴，不需要你拼命餵它吃很多，只需要你在生活中多給它一點節奏與平衡。記得，吃得多不如吃得對，照顧身體，從認真生活開始。
+                <div class="chat-message">
+                    <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                        <img src="../images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="chat-bubble">
+                        <p style="margin: 0 0 8px; font-weight: 600;">小帕 PalPal</p>
+                        <p style="margin: 0;">支持免疫系統就像培養一棵植物，需要的不是狂風暴雨式的營養轟炸，而是按時澆水、適度施肥和持續的陽光照射。所以，不妨從一個小小的改變開始，讓你的身體慢慢感受到你的用心和耐心。</p>
                     </div>
                 </div>
             </div>
@@ -340,17 +343,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('文章詳情頁面已載入');
             
-            // 處理圖片路徑問題 - 為所有圖片添加URL編碼處理
-            document.querySelectorAll('img[src*="images/articles/"]').forEach(img => {
-                const originalSrc = img.getAttribute('src');
-                const basePath = originalSrc.substring(0, originalSrc.lastIndexOf('/') + 1);
-                const fileName = originalSrc.substring(originalSrc.lastIndexOf('/') + 1);
-                const encodedFileName = encodeURIComponent(fileName);
-                const newSrc = basePath + encodedFileName;
-                img.setAttribute('src', newSrc);
-                console.log('文章圖片路徑編碼:', originalSrc, '->', newSrc);
-            });
-            
             // 解析URL參數
             const urlParams = new URLSearchParams(window.location.search);
             const articleId = urlParams.get('id');
@@ -378,6 +370,14 @@
                     }
                 });
             });
+
+            // 為貼心提醒添加漸入動畫效果
+            const palpalBox = document.querySelector('.chat-message');
+            if (palpalBox) {
+                setTimeout(() => {
+                    palpalBox.style.opacity = '1';
+                }, 500);
+            }
         });
     </script>
 </body>
