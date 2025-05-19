@@ -7,89 +7,10 @@
     <meta name="description" content="不是你不努力，而是專注力消失的背後可能與營養、作息等因素有關。了解如何透過營養補給和生活習慣調整，重新找回專注力。">
     <meta name="keywords" content="專注力,大腦健康,營養知識,Omega-3,B群,鐵鋅,認知功能,NutriPal">
     <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../css/article.css">
+    <link rel="stylesheet" href="../css/article.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* 文章內容樣式 */
-        .article-header {
-            margin-bottom: 20px;
-        }
-        
-        .article-category {
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-        
-        .article-title {
-            font-size: 24px;
-            line-height: 1.3;
-            margin-bottom: 10px;
-            color: var(--text-primary);
-        }
-        
-        .article-meta {
-            display: flex;
-            align-items: center;
-            color: var(--text-secondary);
-            font-size: 12px;
-            margin-bottom: 15px;
-        }
-        
-        .article-meta i {
-            margin-right: 5px;
-        }
-        
-        .article-meta span {
-            margin-right: 15px;
-        }
-        
-        .article-image {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            max-height: 320px;
-            display: block;
-            margin: 0 auto 20px auto;
-            object-fit: contain;
-            background: #f8f8f8;
-            border-radius: 12px;
-        }
-        @media (max-width: 600px) {
-            .article-image {
-                max-height: 200px;
-            }
-        }
-        
-        .article-content {
-            line-height: 1.6;
-            color: var(--text-primary);
-        }
-        
-        .article-content p {
-            margin-bottom: 15px;
-        }
-        
-        .article-content h2 {
-            font-size: 20px;
-            margin: 25px 0 15px;
-            color: var(--text-primary);
-        }
-        
-        .article-content h3 {
-            font-size: 18px;
-            margin: 20px 0 10px;
-            color: var(--text-primary);
-        }
-        
-        .article-content ul, .article-content ol {
-            margin-bottom: 15px;
-            padding-left: 20px;
-        }
-        
-        .article-content li {
-            margin-bottom: 8px;
-        }
-    </style>
 </head>
 <body>
     <!-- 頂部簡化免責聲明 -->
@@ -99,11 +20,11 @@
 
     <!-- 頂部導航 -->
     <header class="nav-header">
-        <a href="../knowledge.html" style="color: var(--text-primary); margin-right: 12px;">
+        <a href="../knowledge.html" class="article-nav-back">
             <i class="fas fa-arrow-left"></i>
         </a>
-        <h1 style="flex: 1; text-align: center; font-weight: 600; font-size: 18px; margin: 0;">大腦認知</h1>
-        <a href="#" onclick="shareArticle()" style="margin-left: 12px; color: var(--text-primary);" aria-label="分享">
+        <h1 class="article-nav-title">大腦認知</h1>
+        <a href="#" onclick="shareArticle()" class="article-nav-share" aria-label="分享">
             <i class="fas fa-share-alt"></i>
         </a>
     </header>
@@ -111,13 +32,13 @@
     <!-- 主要內容區 -->
     <main class="app-content" style="padding: 16px;">
         <!-- 麵包屑導航 -->
-        <nav aria-label="麵包屑" class="breadcrumb" style="margin-bottom: 16px; font-size: 12px;">
-            <ol style="display: flex; list-style: none; padding: 0; margin: 0;">
-                <li style="margin-right: 4px;"><a href="../index.html" style="color: var(--text-secondary);">首頁</a></li>
-                <li style="margin-right: 4px; margin-left: 4px;"><span style="color: var(--text-secondary);">/</span></li>
-                <li style="margin-right: 4px; margin-left: 4px;"><a href="../knowledge.html" style="color: var(--text-secondary);">知識庫</a></li>
-                <li style="margin-right: 4px; margin-left: 4px;"><span style="color: var(--text-secondary);">/</span></li>
-                <li style="margin-left: 4px; color: var(--text-primary); font-weight: 600;">找回消失的專注力：大腦能量與營養補給指南</li>
+        <nav aria-label="麵包屑" class="breadcrumb">
+            <ol>
+                <li><a href="../index.html">首頁</a></li>
+                <li><span>/</span></li>
+                <li><a href="../knowledge.html">知識庫</a></li>
+                <li><span>/</span></li>
+                <li>找回消失的專注力：大腦能量與營養補給指南</li>
             </ol>
         </nav>
         
@@ -234,13 +155,13 @@
                 </ul>
                 
                 <!-- 小帕說對話框 -->
-                <div class="chat-message" style="opacity: 1;">
-                    <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                <div class="chat-message">
+                    <div class="avatar">
                         <img src="../images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="chat-bubble">
-                        <p style="margin: 0 0 8px; font-weight: 600;">小帕 PalPal</p>
-                        <p style="margin: 0;">就像我們保養皮膚需要多重面向的照顧，大腦也需要全方位的維護。除了營養補充外，不要忘了睡眠、運動和社交互動，這些都是大腦保持活力的必要元素喔！</p>
+                        <p>小帕 PalPal</p>
+                        <p>就像我們保養皮膚需要多重面向的照顧，大腦也需要全方位的維護。除了營養補充外，不要忘了睡眠、運動和社交互動，這些都是大腦保持活力的必要元素喔！</p>
                     </div>
                 </div>
             </div>

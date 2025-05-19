@@ -7,89 +7,10 @@
     <meta name="description" content="淺眠問題困擾許多現代人。本文詳細介紹淺眠的原因、影響及改善方法，幫助您找回優質睡眠。">
     <meta name="keywords" content="淺眠,深度睡眠,睡眠品質,睡眠知識,睡眠週期,NutriPal">
     <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../css/article.css">
+    <link rel="stylesheet" href="../css/article.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* 文章內容樣式 */
-        .article-header {
-            margin-bottom: 20px;
-        }
-        
-        .article-category {
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-        
-        .article-title {
-            font-size: 24px;
-            line-height: 1.3;
-            margin-bottom: 10px;
-            color: var(--text-primary);
-        }
-        
-        .article-meta {
-            display: flex;
-            align-items: center;
-            color: var(--text-secondary);
-            font-size: 12px;
-            margin-bottom: 15px;
-        }
-        
-        .article-meta i {
-            margin-right: 5px;
-        }
-        
-        .article-meta span {
-            margin-right: 15px;
-        }
-        
-        .article-image {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            max-height: 320px;
-            display: block;
-            margin: 0 auto 20px auto;
-            object-fit: contain;
-            background: #f8f8f8;
-            border-radius: 12px;
-        }
-        @media (max-width: 600px) {
-            .article-image {
-                max-height: 200px;
-            }
-        }
-        
-        .article-content {
-            line-height: 1.6;
-            color: var(--text-primary);
-        }
-        
-        .article-content p {
-            margin-bottom: 15px;
-        }
-        
-        .article-content h2 {
-            font-size: 20px;
-            margin: 25px 0 15px;
-            color: var(--text-primary);
-        }
-        
-        .article-content h3 {
-            font-size: 18px;
-            margin: 20px 0 10px;
-            color: var(--text-primary);
-        }
-        
-        .article-content ul, .article-content ol {
-            margin-bottom: 15px;
-            padding-left: 20px;
-        }
-        
-        .article-content li {
-            margin-bottom: 8px;
-        }
-    </style>
 </head>
 <body>
     <!-- 頂部簡化免責聲明 -->
@@ -99,11 +20,11 @@
 
     <!-- 頂部導航 -->
     <header class="nav-header">
-        <a href="../knowledge.html" style="color: var(--text-primary); margin-right: 12px;">
+        <a href="../knowledge.html" class="article-nav-back">
             <i class="fas fa-arrow-left"></i>
         </a>
-        <h1 style="flex: 1; text-align: center; font-weight: 600; font-size: 18px; margin: 0;">淺眠問題解決方案</h1>
-        <a href="#" onclick="shareArticle()" style="margin-left: 12px; color: var(--text-primary);" aria-label="分享">
+        <h1 class="article-nav-title">淺眠問題解決方案</h1>
+        <a href="#" onclick="shareArticle()" class="article-nav-share" aria-label="分享">
             <i class="fas fa-share-alt"></i>
         </a>
     </header>
@@ -111,13 +32,13 @@
     <!-- 主要內容區 -->
     <main class="app-content" style="padding: 16px;">
         <!-- 麵包屑導航 -->
-        <nav aria-label="麵包屑" class="breadcrumb" style="margin-bottom: 16px; font-size: 12px;">
-            <ol style="display: flex; list-style: none; padding: 0; margin: 0;">
-                <li style="margin-right: 4px;"><a href="../index.html" style="color: var(--text-secondary);">首頁</a></li>
-                <li style="margin-right: 4px; margin-left: 4px;"><span style="color: var(--text-secondary);">/</span></li>
-                <li style="margin-right: 4px; margin-left: 4px;"><a href="../knowledge.html" style="color: var(--text-secondary);">知識庫</a></li>
-                <li style="margin-right: 4px; margin-left: 4px;"><span style="color: var(--text-secondary);">/</span></li>
-                <li style="margin-left: 4px; color: var(--text-primary); font-weight: 600;">淺眠問題解決方案：如何提升深度睡眠</li>
+        <nav aria-label="麵包屑" class="breadcrumb">
+            <ol>
+                <li><a href="../index.html">首頁</a></li>
+                <li><span>/</span></li>
+                <li><a href="../knowledge.html">知識庫</a></li>
+                <li><span>/</span></li>
+                <li>淺眠問題解決方案：如何提升深度睡眠</li>
             </ol>
         </nav>
         
@@ -213,13 +134,13 @@
                 </ul>
                 
                 <!-- 小帕說對話框 -->
-                <div class="chat-message" style="opacity: 1;">
-                    <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
+                <div class="chat-message">
+                    <div class="avatar">
                         <img src="../images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="chat-bubble">
-                        <p style="margin: 0 0 8px; font-weight: 600;">小帕 PalPal</p>
-                        <p style="margin: 0;">深層睡眠不會一下子就回來，但只要持續實踐這些小調整，你的身體會慢慢記住那個放鬆的感覺。正如滴水可以穿石，循序漸進的小改變，最終會帶來深沉穩定的好眠。</p>
+                        <p>小帕 PalPal</p>
+                        <p>深層睡眠不會一下子就回來，但只要持續實踐這些小調整，你的身體會慢慢記住那個放鬆的感覺。正如滴水可以穿石，循序漸進的小改變，最終會帶來深沉穩定的好眠。</p>
                     </div>
                 </div>
                 
