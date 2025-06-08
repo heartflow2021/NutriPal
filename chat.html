@@ -411,212 +411,67 @@
         event.preventDefault();
         
         console.log('點擊了預算按鈕，準備保存數據並跳轉');
+
+        // 更新預算選擇
+        window.userSelections.budget = parseInt(budget, 10) || 0;
         
-        // 獲取選擇的健康需求
+        // 再次確認健康需求和生活型態已被保存
         const selectedHealthButton = document.querySelector('button[data-type="health-need"].selected');
         if (selectedHealthButton) {
             window.userSelections.healthNeed = selectedHealthButton.getAttribute('data-value');
         } else {
-            // 如果沒有選擇，設置默認值
-            window.userSelections.healthNeed = '改善睡眠品質';
+            console.warn('無法找到已選擇的健康需求按鈕，將使用 sessionStorage 的值');
+            window.userSelections.healthNeed = sessionStorage.getItem('userHealthNeed') || '睡眠相關知識';
         }
         
-        // 獲取選擇的生活型態
         const selectedLifestyleButton = document.querySelector('button[data-type="lifestyle"].selected');
         if (selectedLifestyleButton) {
             window.userSelections.lifestyle = selectedLifestyleButton.getAttribute('data-value');
         } else {
-            // 如果沒有選擇，設置默認值
-            window.userSelections.lifestyle = '長時間工作';
+            console.warn('無法找到已選擇的生活型態按鈕，將使用 sessionStorage 的值');
+            window.userSelections.lifestyle = sessionStorage.getItem('userLifestyle') || '長時間工作';
         }
         
-        // 設置預算
-        window.userSelections.budget = parseInt(budget, 10) || 0;
+        console.log('用戶最終選擇:', window.userSelections);
         
-        console.log('用戶選擇已更新:', window.userSelections);
-        
-        // 保存到localStorage（確保跨頁面可用）和sessionStorage（兼容原有代碼）
-        localStorage.setItem('userHealthNeed', window.userSelections.healthNeed);
-        localStorage.setItem('userLifestyle', window.userSelections.lifestyle);
-        localStorage.setItem('userBudget', window.userSelections.budget);
-        
-        sessionStorage.setItem('userHealthNeed', window.userSelections.healthNeed);
-        sessionStorage.setItem('userLifestyle', window.userSelections.lifestyle);
-        sessionStorage.setItem('userBudget', window.userSelections.budget);
-        
-        // 創建測試產品數據，根據用戶選擇調整產品內容
-        let testProducts = [];
-        
-        // 根據不同的健康需求生成相關的產品
-        if (window.userSelections.healthNeed === '改善睡眠品質') {
-            testProducts = [
-                {
-                    id: "sleep1",
-                    name: "褪黑激素 3mg",
-                    brand: "睡眠專家",
-                    description: "促進自然睡眠的褪黑激素補充劑，改善入睡時間和睡眠品質。",
-                    price: 350,
-                    rating: 4.6,
-                    image_url: "https://via.placeholder.com/150",
-                    benefits: ["改善睡眠質量", "縮短入睡時間", "調節生理時鐘"],
-                    usage: "睡前30分鐘服用1粒",
-                    caution: "白天避免服用，可能導致嗜睡",
-                    ingredients: "褪黑激素、植物性膠囊",
-                    health_needs: ["改善睡眠品質"],
-                    lifestyle_match: [window.userSelections.lifestyle]
-                },
-                {
-                    id: "sleep2",
-                    name: "複合鎂補充劑",
-                    brand: "營養均衡",
-                    description: "含多種形式鎂的複合配方，幫助放鬆肌肉，改善睡眠，緩解壓力。",
-                    price: 420,
-                    rating: 4.5,
-                    image_url: "https://via.placeholder.com/150",
-                    benefits: ["肌肉放鬆", "改善睡眠", "減輕壓力"],
-                    usage: "每日1-2粒，晚餐時服用",
-                    caution: "某些形式的鎂可能有輕微腹瀉作用",
-                    ingredients: "甘氨酸鎂、檸檬酸鎂、氧化鎂",
-                    health_needs: ["改善睡眠品質", "骨骼與關節健康"],
-                    lifestyle_match: [window.userSelections.lifestyle]
-                }
-            ];
-        } else if (window.userSelections.healthNeed === '增強免疫力') {
-            testProducts = [
-                {
-                    id: "immune1",
-                    name: "維生素C+鋅",
-                    brand: "免疫防護",
-                    description: "強效抗氧化配方，每片含1000mg維生素C和15mg鋅，幫助增強免疫系統。",
-                    price: 380,
-                    rating: 4.7,
-                    image_url: "https://via.placeholder.com/150",
-                    benefits: ["增強免疫力", "抗氧化保護", "促進膠原蛋白形成"],
-                    usage: "每日1片，飯後服用",
-                    caution: "空腹服用可能導致胃部不適",
-                    ingredients: "維生素C、檸檬素、鋅",
-                    health_needs: ["增強免疫力"],
-                    lifestyle_match: [window.userSelections.lifestyle]
-                },
-                {
-                    id: "immune2",
-                    name: "蜂膠膠囊",
-                    brand: "自然防禦",
-                    description: "天然抗菌配方，含高濃度黃酮類和多酚類抗氧化物，強化免疫系統。",
-                    price: 450,
-                    rating: 4.4,
-                    image_url: "https://via.placeholder.com/150",
-                    benefits: ["提升抵抗力", "抗菌抗病毒", "減少發炎反應"],
-                    usage: "每日2次，每次1-2粒",
-                    caution: "對蜜蜂產品過敏者慎用",
-                    ingredients: "蜂膠萃取物、蜂蠟、植物纖維素",
-                    health_needs: ["增強免疫力"],
-                    lifestyle_match: [window.userSelections.lifestyle]
-                }
-            ];
-        } else {
-            // 其他健康需求的預設產品
-            testProducts = [
-                {
-                    id: "default1",
-                    name: `${window.userSelections.healthNeed}專用配方`,
-                    brand: "健康專家",
-                    description: `針對${window.userSelections.healthNeed}需求特別設計的營養補充配方。`,
-                    price: 350,
-                    rating: 4.6,
-                    image_url: "https://via.placeholder.com/150",
-                    benefits: ["提升整體健康", "針對性營養補充", "全面保健"],
-                    usage: "每日1次，飯後服用",
-                    caution: "請遵循包裝說明使用",
-                    ingredients: "複合維生素、礦物質、植物萃取物",
-                    health_needs: [window.userSelections.healthNeed],
-                    lifestyle_match: [window.userSelections.lifestyle]
-                },
-                {
-                    id: "default2",
-                    name: `生活平衡配方-${window.userSelections.lifestyle}適用`,
-                    brand: "日常保健",
-                    description: `特別針對${window.userSelections.lifestyle}生活型態設計的營養支持。`,
-                    price: 420,
-                    rating: 4.5,
-                    image_url: "https://via.placeholder.com/150",
-                    benefits: ["提升活力", "平衡營養", "日常保健"],
-                    usage: "每日1-2粒，隨餐服用",
-                    caution: "兒童、孕婦使用前請諮詢醫師",
-                    ingredients: "天然萃取物、維生素複合物",
-                    health_needs: [window.userSelections.healthNeed],
-                    lifestyle_match: [window.userSelections.lifestyle]
-                }
-            ];
+        // 使用 localStorage，因為它的可靠性更高
+        try {
+            localStorage.setItem('userHealthNeed', window.userSelections.healthNeed);
+            localStorage.setItem('userLifestyle', window.userSelections.lifestyle);
+            localStorage.setItem('userBudget', window.userSelections.budget);
+            console.log('已將用戶選擇成功儲存到 localStorage');
+        } catch (e) {
+            console.error('儲存到 localStorage 失敗:', e);
+            // 作為備用，再次嘗試 sessionStorage
+            sessionStorage.setItem('userHealthNeed', window.userSelections.healthNeed);
+            sessionStorage.setItem('userLifestyle', window.userSelections.lifestyle);
+            sessionStorage.setItem('userBudget', window.userSelections.budget);
         }
-        
-        // 根據預算篩選產品
-        if (window.userSelections.budget > 0) {
-            testProducts = testProducts.filter(product => product.price <= window.userSelections.budget);
-            
-            // 如果篩選後沒有產品，添加一個符合預算的基本產品
-            if (testProducts.length === 0) {
-                testProducts.push({
-                    id: "budget1",
-                    name: `經濟型${window.userSelections.healthNeed}配方`,
-                    brand: "實惠之選",
-                    description: `符合您預算的${window.userSelections.healthNeed}基礎保健配方。`,
-                    price: Math.min(window.userSelections.budget, 500),
-                    rating: 4.2,
-                    image_url: "https://via.placeholder.com/150",
-                    benefits: ["基礎保健", "經濟實惠", "日常補充"],
-                    usage: "每日1次，餐後服用",
-                    caution: "請遵循包裝說明使用",
-                    ingredients: "基礎維生素、植物萃取物",
-                    health_needs: [window.userSelections.healthNeed],
-                    lifestyle_match: [window.userSelections.lifestyle]
-                });
-            }
-        }
-        
-        // 保存產品數據到localStorage和sessionStorage
-        localStorage.setItem('recommendedProducts', JSON.stringify(testProducts));
-        sessionStorage.setItem('recommendedProducts', JSON.stringify(testProducts));
-        
-        console.log('數據已保存，正在跳轉到results.html');
         
         // 顯示預算選擇的用戶回應
         const budgetResponse = document.getElementById('budget-response');
         if (budgetResponse) {
             budgetResponse.style.display = 'block';
-            
-            // 更新顯示的預算文本
-            const selectedBudgetSpan = document.querySelector('.selected-budget');
+            const selectedBudgetSpan = budgetResponse.querySelector('.selected-budget');
             if (selectedBudgetSpan) {
-                let budgetText = '';
-                switch (budget) {
-                    case '500':
-                        budgetText = '經濟實惠型（500元以下）';
-                        break;
-                    case '1000':
-                        budgetText = '中等預算（500-1000元）';
-                        break;
-                    case '2000':
-                        budgetText = '高品質型（1000元以上）';
-                        break;
-                    case '0':
-                    default:
-                        budgetText = '無預算限制';
-                        break;
-                }
-                selectedBudgetSpan.textContent = budgetText;
+                const budgetButton = document.querySelector(`a[data-value="${budget}"]`);
+                selectedBudgetSpan.textContent = budgetButton ? budgetButton.querySelector('p:first-child').textContent : '';
             }
         }
         
         // 延遲跳轉，讓用戶看到預算選擇的回應
         setTimeout(function() {
-            // 添加URL參數，作為備用傳遞機制
-            const params = new URLSearchParams();
-            params.append('health', window.userSelections.healthNeed);
-            params.append('lifestyle', window.userSelections.lifestyle);
-            params.append('budget', window.userSelections.budget);
+            // 優先使用 localStorage 的資料來建立 URL，確保資料一致性
+            const health = localStorage.getItem('userHealthNeed');
+            const lifestyle = localStorage.getItem('userLifestyle');
+            const userBudget = localStorage.getItem('userBudget');
             
-            // 跳轉到結果頁面
+            const params = new URLSearchParams();
+            params.append('health', health);
+            params.append('lifestyle', lifestyle);
+            params.append('budget', userBudget);
+            
+            // 跳轉到結果頁面，並帶上可靠的參數
             window.location.href = 'results.html?' + params.toString();
         }, 1500);
     }
@@ -653,108 +508,55 @@
         }, 2000); // 2秒後檢查
         
         // 健康需求處理函數
-        window.processHealthNeedSelection = function(healthNeed) {
-            console.log(`處理健康需求選擇: ${healthNeed}`);
+        window.showLifestyleOptions = function(healthNeed) {
+            console.log(`選擇了健康需求: ${healthNeed}`);
             
-            // 直接更新全局對象
+            // 設置選中狀態
+            document.querySelectorAll('button[data-type="health-need"]').forEach(btn => btn.classList.remove('selected'));
+            const currentButton = document.querySelector(`button[data-type="health-need"][data-value="${healthNeed}"]`);
+            if (currentButton) currentButton.classList.add('selected');
+            
+            // 保存選擇到 sessionStorage 和 localStorage，增加可靠性
             window.userSelections.healthNeed = healthNeed;
-            // 同時保存到sessionStorage作為備份
             sessionStorage.setItem('userHealthNeed', healthNeed);
-            
-            console.log('更新後的選擇:', window.userSelections);
+            localStorage.setItem('userHealthNeed', healthNeed);
             
             // 更新顯示
             const selectedNeedSpan = document.querySelector('.selected-health-need');
-            if (selectedNeedSpan) {
-                selectedNeedSpan.textContent = healthNeed;
-            }
+            if (selectedNeedSpan) selectedNeedSpan.textContent = healthNeed;
             
-            // 更新反饋文本
-            const feedbackSpan = document.querySelector('.health-need-feedback');
-            if (feedbackSpan) {
-                // 依據不同的健康需求給出不同反饋
-                const feedbacks = {
-                    '改善睡眠品質': '良好的睡眠對健康很重要呢。',
-                    '增強免疫力': '保持良好的免疫系統對健康很重要。',
-                    '提升腦力與專注': '腦力和專注力對日常生活和工作都很重要。',
-                    '心臟健康': '心臟健康是整體健康的關鍵。',
-                    '骨骼與關節健康': '保持骨骼和關節健康能讓活動更輕鬆。',
-                    '視力保健': '保護視力在現代數位生活中尤為重要。',
-                    '肝臟保健': '肝臟是身體重要的解毒器官。',
-                    '女性保健': '女性健康需要特別的照顧和關注。',
-                    '消化系統保健': '健康的消化系統是整體健康的基礎。',
-                    '體重管理': '健康的體重管理對整體健康很重要。'
-                };
-                
-                const feedbackText = feedbacks[healthNeed] || '了解您的健康需求了。';
-                feedbackSpan.textContent = feedbackText;
-            }
+            document.getElementById('health-need-response').style.display = 'block';
             
-            // 顯示健康需求回應
-            const healthNeedResponse = document.getElementById('health-need-response');
-            if (healthNeedResponse) {
-                healthNeedResponse.style.display = 'block';
-                healthNeedResponse.classList.add('fade-in');
-            }
-            
-            // 延遲顯示生活型態選項
-            setTimeout(() => {
-                const lifestyleOptions = document.getElementById('lifestyle-options');
-                if (lifestyleOptions) {
-                    lifestyleOptions.style.display = 'block';
-                    lifestyleOptions.classList.add('fade-in');
-                    
-                    // 確保滾動到可見區域
-                    try {
-                        lifestyleOptions.scrollIntoView({ behavior: 'smooth' });
-                    } catch (scrollError) {
-                        // 使用備用滾動方法
-                        window.scrollBy(0, 200);
-                    }
-                }
-            }, 800);
+            // 立即顯示生活型態選項
+            const lifestyleOptions = document.getElementById('lifestyle-options');
+            lifestyleOptions.style.display = 'block';
+            lifestyleOptions.scrollIntoView({ behavior: 'smooth', block: 'center' });
         };
         
         // 生活型態選擇處理函數
-        window.processLifestyleSelection = function(lifestyle) {
-            console.log(`處理生活型態選擇: ${lifestyle}`);
+        window.showBudgetOptions = function(lifestyle) {
+            console.log(`選擇了生活型態: ${lifestyle}`);
             
-            // 直接更新全局對象
+            // 設置選中狀態
+            document.querySelectorAll('button[data-type="lifestyle"]').forEach(btn => btn.classList.remove('selected'));
+            const currentButton = document.querySelector(`button[data-type="lifestyle"][data-value="${lifestyle}"]`);
+            if (currentButton) currentButton.classList.add('selected');
+
+            // 保存選擇到 sessionStorage 和 localStorage
             window.userSelections.lifestyle = lifestyle;
-            // 同時保存到sessionStorage作為備份
             sessionStorage.setItem('userLifestyle', lifestyle);
-            
-            console.log('更新後的選擇:', window.userSelections);
-            
+            localStorage.setItem('userLifestyle', lifestyle);
+
             // 更新顯示
             const selectedLifestyleSpan = document.querySelector('.selected-lifestyle');
-            if (selectedLifestyleSpan) {
-                selectedLifestyleSpan.textContent = lifestyle;
-            }
+            if (selectedLifestyleSpan) selectedLifestyleSpan.textContent = lifestyle;
             
-            // 顯示生活型態回應
-            const lifestyleResponse = document.getElementById('lifestyle-response');
-            if (lifestyleResponse) {
-                lifestyleResponse.style.display = 'block';
-                lifestyleResponse.classList.add('fade-in');
-            }
+            document.getElementById('lifestyle-response').style.display = 'block';
             
-            // 延遲顯示預算選項
-            setTimeout(() => {
-                const budgetOptions = document.getElementById('budget-options');
-                if (budgetOptions) {
-                    budgetOptions.style.display = 'block';
-                    budgetOptions.classList.add('fade-in');
-                    
-                    // 確保滾動到可見區域
-                    try {
-                        budgetOptions.scrollIntoView({ behavior: 'smooth' });
-                    } catch (scrollError) {
-                        // 使用備用滾動方法
-                        window.scrollBy(0, 200);
-                    }
-                }
-            }, 800);
+            // 立即顯示預算選項
+            const budgetOptions = document.getElementById('budget-options');
+            budgetOptions.style.display = 'block';
+            budgetOptions.scrollIntoView({ behavior: 'smooth', block: 'center' });
         };
         
         // 預算選擇處理函數
@@ -844,7 +646,7 @@
                 this.classList.add('selected');
                 
                 // 調用自定義處理函數
-                window.processHealthNeedSelection(value);
+                window.showLifestyleOptions(value);
             });
             console.log(`成功綁定健康需求按鈕: ${button.getAttribute('data-value')}`);
         });
@@ -865,7 +667,7 @@
                 this.classList.add('selected');
                 
                 // 調用自定義處理函數
-                window.processLifestyleSelection(value);
+                window.showBudgetOptions(value);
             });
         });
         
@@ -1216,90 +1018,6 @@
             output.style.display = 'block';
             output.textContent = '所有數據已清除';
         });
-    }
-
-    // 直接顯示生活型態選項的函數
-    function showLifestyleOptions(healthNeed) {
-        console.log(`選擇了健康需求: ${healthNeed}`);
-        
-        // 設置選中狀態
-        const buttons = document.querySelectorAll('button[data-type="health-need"]');
-        buttons.forEach(btn => btn.classList.remove('selected'));
-        const currentButton = document.querySelector(`button[data-type="health-need"][data-value="${healthNeed}"]`);
-        if (currentButton) {
-            currentButton.classList.add('selected');
-        }
-        
-        // 保存選擇
-        window.userSelections.healthNeed = healthNeed;
-        sessionStorage.setItem('userHealthNeed', healthNeed);
-        
-        // 更新顯示
-        const selectedNeedSpan = document.querySelector('.selected-health-need');
-        if (selectedNeedSpan) {
-            selectedNeedSpan.textContent = healthNeed;
-        }
-        
-        // 顯示健康需求回應
-        const healthNeedResponse = document.getElementById('health-need-response');
-        if (healthNeedResponse) {
-            healthNeedResponse.style.display = 'block';
-        }
-        
-        // 立即顯示生活型態選項
-        const lifestyleOptions = document.getElementById('lifestyle-options');
-        if (lifestyleOptions) {
-            lifestyleOptions.style.display = 'block';
-            
-            // 確保滾動到可見區域
-            try {
-                lifestyleOptions.scrollIntoView({ behavior: 'smooth' });
-            } catch (scrollError) {
-                window.scrollBy(0, 200);
-            }
-        }
-    }
-    
-    // 直接顯示預算選項的函數
-    function showBudgetOptions(lifestyle) {
-        console.log(`選擇了生活型態: ${lifestyle}`);
-        
-        // 設置選中狀態
-        const buttons = document.querySelectorAll('button[data-type="lifestyle"]');
-        buttons.forEach(btn => btn.classList.remove('selected'));
-        const currentButton = document.querySelector(`button[data-type="lifestyle"][data-value="${lifestyle}"]`);
-        if (currentButton) {
-            currentButton.classList.add('selected');
-        }
-        
-        // 保存選擇
-        window.userSelections.lifestyle = lifestyle;
-        sessionStorage.setItem('userLifestyle', lifestyle);
-        
-        // 更新顯示
-        const selectedLifestyleSpan = document.querySelector('.selected-lifestyle');
-        if (selectedLifestyleSpan) {
-            selectedLifestyleSpan.textContent = lifestyle;
-        }
-        
-        // 顯示生活型態回應
-        const lifestyleResponse = document.getElementById('lifestyle-response');
-        if (lifestyleResponse) {
-            lifestyleResponse.style.display = 'block';
-        }
-        
-        // 立即顯示預算選項
-        const budgetOptions = document.getElementById('budget-options');
-        if (budgetOptions) {
-            budgetOptions.style.display = 'block';
-            
-            // 確保滾動到可見區域
-            try {
-                budgetOptions.scrollIntoView({ behavior: 'smooth' });
-            } catch (scrollError) {
-                window.scrollBy(0, 200);
-            }
-        }
     }
     </script>
 
