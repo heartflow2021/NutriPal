@@ -1533,3 +1533,257 @@ window.advancedRecommendProducts = advancedRecommendProducts;
 window.createProductCardHTML = createProductCardHTML;
 
 console.log('推薦引擎已載入，initializeRecommendations 函數已掛載到 window 物件');
+
+/**
+ * 主要的推薦引擎初始化函數 - 這是 results.html 頁面調用的入口點
+ * @param {string} healthNeed 用戶選擇的健康需求
+ * @param {string} lifestyle 用戶選擇的生活型態
+ * @param {number} budget 用戶的預算限制
+ * @returns {Promise<void>}
+ */
+async function initializeRecommendations(healthNeed, lifestyle, budget = 0) {
+    console.log('初始化推薦引擎...', { healthNeed, lifestyle, budget });
+    
+    try {
+        // 1. 清除載入指示器
+        const loadingIndicators = document.querySelectorAll('.loading-indicator');
+        loadingIndicators.forEach(indicator => {
+            indicator.style.display = 'none';
+        });
+        
+        // 2. 獲取主要推薦產品
+        console.log('獲取主要推薦產品...');
+        const mainProducts = await recommendWithinBudget(healthNeed, lifestyle, budget);
+        
+        // 3. 獲取相關產品（從主要推薦中選擇一個作為基準）
+        console.log('獲取相關產品...');
+        let relatedProducts = [];
+        if (mainProducts.length > 0) {
+            relatedProducts = await getRelatedProducts(mainProducts[0], 3);
+        }
+        
+        // 如果相關產品不足，從不同類別補充
+        if (relatedProducts.length < 3) {
+            try {
+                const additionalProducts = await getPopularByCategory('熱門推薦', 3 - relatedProducts.length);
+                relatedProducts = relatedProducts.concat(additionalProducts);
+            } catch (error) {
+                console.warn('獲取熱門產品失敗:', error);
+            }
+        }
+        
+        // 4. 渲染主要推薦產品
+        const mainContainer = document.getElementById('recommended-products');
+        if (mainContainer && mainProducts.length > 0) {
+            console.log(`渲染 ${mainProducts.length} 個主要推薦產品`);
+            mainContainer.innerHTML = mainProducts.map(product => createProductCardHTML(product)).join('');
+        } else if (mainContainer) {
+            mainContainer.innerHTML = `
+                <div class="no-products-message">
+                    <i class="fas fa-search"></i>
+                    <h3>暫時沒有找到完全符合條件的產品</h3>
+                    <p>請嘗試調整您的選擇條件，或查看下方的相關推薦</p>
+                </div>
+            `;
+        }
+        
+        // 5. 渲染相關產品
+        const relatedContainer = document.getElementById('related-products');
+        if (relatedContainer && relatedProducts.length > 0) {
+            console.log(`渲染 ${relatedProducts.length} 個相關產品`);
+            relatedContainer.innerHTML = relatedProducts.map(product => createProductCardHTML(product)).join('');
+        } else if (relatedContainer) {
+            relatedContainer.innerHTML = `
+                <div class="no-products-message">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>正在為您尋找更多相關產品</h3>
+                    <p>我們會持續更新產品資料庫，為您提供更好的推薦</p>
+                </div>
+            `;
+        }
+        
+        // 6. 生成使用時間表
+        const timelineContainer = document.getElementById('usage-timeline');
+        if (timelineContainer) {
+            console.log('生成使用時間表...');
+            const allProducts = [...mainProducts, ...relatedProducts];
+            updateTimelineHTML(timelineContainer, allProducts);
+        }
+        
+        // 7. 生成注意事項
+        const cautionsContainer = document.getElementById('product-cautions');
+        if (cautionsContainer) {
+            console.log('生成注意事項...');
+            const allProducts = [...mainProducts, ...relatedProducts];
+            updateCautionsHTML(cautionsContainer, allProducts);
+        }
+        
+        console.log('推薦引擎初始化完成！');
+        
+    } catch (error) {
+        console.error('推薦引擎初始化失敗:', error);
+        
+        // 顯示錯誤信息
+        const containers = [
+            'recommended-products',
+            'related-products', 
+            'usage-timeline',
+            'product-cautions'
+        ];
+        
+        containers.forEach(containerId => {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.innerHTML = `
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>載入失敗</h3>
+                        <p>無法載入推薦內容，請稍後再試。錯誤：${error.message}</p>
+                        <button onclick="location.reload()" class="btn-secondary">重新載入</button>
+                    </div>
+                `;
+            }
+        });
+        
+        // 拋出錯誤以便上層處理
+        throw error;
+    }
+}
+
+// 將函數掛載到全域物件，讓 results.html 可以使用
+window.initializeRecommendations = initializeRecommendations;
+
+// 同時掛載其他可能需要的函數
+window.recommendProducts = recommendProducts;
+window.getRelatedProducts = getRelatedProducts;
+window.advancedRecommendProducts = advancedRecommendProducts;
+window.createProductCardHTML = createProductCardHTML;
+
+console.log('推薦引擎已載入，initializeRecommendations 函數已掛載到 window 物件');
+
+/**
+ * 主要的推薦引擎初始化函數 - 這是 results.html 頁面調用的入口點
+ * @param {string} healthNeed 用戶選擇的健康需求
+ * @param {string} lifestyle 用戶選擇的生活型態
+ * @param {number} budget 用戶的預算限制
+ * @returns {Promise<void>}
+ */
+async function initializeRecommendations(healthNeed, lifestyle, budget = 0) {
+    console.log('初始化推薦引擎...', { healthNeed, lifestyle, budget });
+    
+    try {
+        // 1. 清除載入指示器
+        const loadingIndicators = document.querySelectorAll('.loading-indicator');
+        loadingIndicators.forEach(indicator => {
+            indicator.style.display = 'none';
+        });
+        
+        // 2. 獲取主要推薦產品
+        console.log('獲取主要推薦產品...');
+        const mainProducts = await recommendWithinBudget(healthNeed, lifestyle, budget);
+        
+        // 3. 獲取相關產品（從主要推薦中選擇一個作為基準）
+        console.log('獲取相關產品...');
+        let relatedProducts = [];
+        if (mainProducts.length > 0) {
+            relatedProducts = await getRelatedProducts(mainProducts[0], 3);
+        }
+        
+        // 如果相關產品不足，從不同類別補充
+        if (relatedProducts.length < 3) {
+            try {
+                const additionalProducts = await getPopularByCategory('熱門推薦', 3 - relatedProducts.length);
+                relatedProducts = relatedProducts.concat(additionalProducts);
+            } catch (error) {
+                console.warn('獲取熱門產品失敗:', error);
+            }
+        }
+        
+        // 4. 渲染主要推薦產品
+        const mainContainer = document.getElementById('recommended-products');
+        if (mainContainer && mainProducts.length > 0) {
+            console.log(`渲染 ${mainProducts.length} 個主要推薦產品`);
+            mainContainer.innerHTML = mainProducts.map(product => createProductCardHTML(product)).join('');
+        } else if (mainContainer) {
+            mainContainer.innerHTML = `
+                <div class="no-products-message">
+                    <i class="fas fa-search"></i>
+                    <h3>暫時沒有找到完全符合條件的產品</h3>
+                    <p>請嘗試調整您的選擇條件，或查看下方的相關推薦</p>
+                </div>
+            `;
+        }
+        
+        // 5. 渲染相關產品
+        const relatedContainer = document.getElementById('related-products');
+        if (relatedContainer && relatedProducts.length > 0) {
+            console.log(`渲染 ${relatedProducts.length} 個相關產品`);
+            relatedContainer.innerHTML = relatedProducts.map(product => createProductCardHTML(product)).join('');
+        } else if (relatedContainer) {
+            relatedContainer.innerHTML = `
+                <div class="no-products-message">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>正在為您尋找更多相關產品</h3>
+                    <p>我們會持續更新產品資料庫，為您提供更好的推薦</p>
+                </div>
+            `;
+        }
+        
+        // 6. 生成使用時間表
+        const timelineContainer = document.getElementById('usage-timeline');
+        if (timelineContainer) {
+            console.log('生成使用時間表...');
+            const allProducts = [...mainProducts, ...relatedProducts];
+            updateTimelineHTML(timelineContainer, allProducts);
+        }
+        
+        // 7. 生成注意事項
+        const cautionsContainer = document.getElementById('product-cautions');
+        if (cautionsContainer) {
+            console.log('生成注意事項...');
+            const allProducts = [...mainProducts, ...relatedProducts];
+            updateCautionsHTML(cautionsContainer, allProducts);
+        }
+        
+        console.log('推薦引擎初始化完成！');
+        
+    } catch (error) {
+        console.error('推薦引擎初始化失敗:', error);
+        
+        // 顯示錯誤信息
+        const containers = [
+            'recommended-products',
+            'related-products', 
+            'usage-timeline',
+            'product-cautions'
+        ];
+        
+        containers.forEach(containerId => {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.innerHTML = `
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>載入失敗</h3>
+                        <p>無法載入推薦內容，請稍後再試。錯誤：${error.message}</p>
+                        <button onclick="location.reload()" class="btn-secondary">重新載入</button>
+                    </div>
+                `;
+            }
+        });
+        
+        // 拋出錯誤以便上層處理
+        throw error;
+    }
+}
+
+// 將函數掛載到全域物件，讓 results.html 可以使用
+window.initializeRecommendations = initializeRecommendations;
+
+// 同時掛載其他可能需要的函數
+window.recommendProducts = recommendProducts;
+window.getRelatedProducts = getRelatedProducts;
+window.advancedRecommendProducts = advancedRecommendProducts;
+window.createProductCardHTML = createProductCardHTML;
+
+console.log('推薦引擎已載入，initializeRecommendations 函數已掛載到 window 物件');
