@@ -3,9 +3,8 @@
  * 用於將所有產品連結轉換為獎勵連結，為 NutriPal 帶來收益
  */
 const IHERB_REWARD_CONFIG = {
-    // 你的 iHerb 推薦代碼 (從獎勵連結 https://iherb.co/UT5tXTvq 推斷)
-    // 這是附加到產品 URL 後の關鍵代碼
-    rewardCode: 'UT5tXTvq',
+    // 你的 iHerb Rewards 推薦連結（通用連結，會跟蹤訪客 7 天內的所有購買）
+    rewardLink: 'https://iherb.co/UT5tXTvq',
     
     // 是否啟用獎勵連結（可用於開關功能）
     enabled: true,
@@ -15,41 +14,72 @@ const IHERB_REWARD_CONFIG = {
 };
 
 /**
- * 將產品連結轉換為帶有獎勵代碼的直連產品頁連結
+ * 重新設計的獎勵連結策略
+ * 
+ * 由於您使用的是 iHerb Rewards 系統（而非 Affiliate 系統），
+ * 該系統的工作原理是：
+ * 1. 使用者先點擊您的獎勵連結（在 iHerb 設置 7 天 cookie）
+ * 2. 然後使用者可以瀏覽和購買任何產品，都會歸功於您
+ * 
+ * 為了平衡使用者體驗和獎勵追蹤，我們採用以下策略：
+ * - 保持產品連結直接指向產品頁（良好的使用者體驗）
+ * - 在頁面上添加明顯的「啟動 iHerb 獎勵」按鈕
+ * - 當使用者點擊任何購買按鈕時，先在背景中載入獎勵連結
+ * 
  * @param {string} originalLink - 原始的 iHerb 產品連結
- * @returns {string} 包含獎勵代碼的產品連結，或在無效時返回備用連結
+ * @returns {string} 保持原始產品連結，但會觸發獎勵追蹤
  */
 function convertToRewardLink(originalLink) {
     if (!IHERB_REWARD_CONFIG.enabled) {
-        // 如果功能停用，返回原始連結或備用連結
         return originalLink || IHERB_REWARD_CONFIG.fallbackUrl;
     }
 
-    if (!originalLink) {
-        // 如果沒有提供原始連結，則使用帶有獎勵代碼的 iHerb 首頁
-        return `${IHERB_REWARD_CONFIG.fallbackUrl}?rcode=${IHERB_REWARD_CONFIG.rewardCode}`;
+    // 保持原始產品連結，因為 iHerb Rewards 系統的追蹤是全局的
+    return originalLink || IHERB_REWARD_CONFIG.fallbackUrl;
+}
+
+/**
+ * 新增：在背景中載入獎勵連結以啟動追蹤
+ * 這個函數會在使用者點擊購買按鈕時被調用
+ */
+function activateRewardTracking() {
+    // 檢查是否已經激活過獎勵追蹤（避免重複）
+    if (sessionStorage.getItem('nutripal_reward_activated')) {
+        console.log('🎁 獎勵追蹤已激活');
+        return Promise.resolve();
     }
 
-    try {
-        // 創建一個 URL 對象來處理參數
-        const url = new URL(originalLink);
-
-        // 檢查是否已經存在 rcode，如果存在則不重複添加
-        if (url.searchParams.has('rcode')) {
-            return originalLink;
-        }
-
-        // 添加或更新 rcode 參數
-        url.searchParams.set('rcode', IHERB_REWARD_CONFIG.rewardCode);
-
-        // 返回包含獎勵代碼的完整產品 URL
-        return url.toString();
-
-    } catch (e) {
-        console.error('無效的原始產品連結:', originalLink, e);
-        // 如果 URL 無效，則回退到帶有獎勵代碼的 iHerb 首頁
-        return `${IHERB_REWARD_CONFIG.fallbackUrl}?rcode=${IHERB_REWARD_CONFIG.rewardCode}`;
-    }
+    console.log('🎁 啟動 iHerb 獎勵追蹤...');
+    
+    return new Promise((resolve) => {
+        // 創建隱藏的 iframe 來載入獎勵連結
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.style.width = '1px';
+        iframe.style.height = '1px';
+        iframe.src = IHERB_REWARD_CONFIG.rewardLink;
+        
+        iframe.onload = () => {
+            console.log('✅ iHerb 獎勵追蹤已啟動');
+            sessionStorage.setItem('nutripal_reward_activated', 'true');
+            
+            // 2 秒後移除 iframe
+            setTimeout(() => {
+                if (iframe.parentNode) {
+                    iframe.parentNode.removeChild(iframe);
+                }
+            }, 2000);
+            
+            resolve();
+        };
+        
+        iframe.onerror = () => {
+            console.warn('⚠️ 獎勵追蹤啟動失敗，但不影響購買');
+            resolve();
+        };
+        
+        document.body.appendChild(iframe);
+    });
 }
 
 /**
@@ -58,16 +88,37 @@ function convertToRewardLink(originalLink) {
  * @returns {string} 完整的購買連結 HTML 字符串
  */
 function createPurchaseLink(product) {
-    const rewardLink = convertToRewardLink(product.iherb_link);
+    const productLink = product.iherb_link || IHERB_REWARD_CONFIG.fallbackUrl;
     
-    return `<a href="${rewardLink}" 
+    return `<a href="${productLink}" 
                target="_blank" 
                rel="noopener noreferrer"
                class="btn-secondary product-purchase-btn" 
-               onclick="trackPurchaseClick('${product.id || 'unknown'}', '${(product.name || '').replace(/'/g, '\\\'')}')"
+               onclick="handlePurchaseClick('${product.id || 'unknown'}', '${(product.name || '').replace(/'/g, '\\\'')}')"
                style="display: inline-block; text-decoration: none; text-align: center;">
-               <i class="fas fa-shopping-cart"></i> 前往 iHerb 購買
+               <i class="fas fa-shopping-cart"></i> 前往購買
             </a>`;
+}
+
+/**
+ * 處理購買點擊 - 先啟動獎勵追蹤，然後打開產品頁
+ * @param {string} productId - 產品 ID
+ * @param {string} productName - 產品名稱
+ */
+function handlePurchaseClick(productId, productName) {
+    console.log(`🛒 使用者準備購買: ${productName} (ID: ${productId})`);
+    
+    // 啟動獎勵追蹤
+    activateRewardTracking().then(() => {
+        console.log('🎯 獎勵追蹤啟動完成，使用者可以正常購買');
+    });
+    
+    // 追蹤點擊統計
+    if (window.trackPurchaseClick) {
+        window.trackPurchaseClick(productId, productName);
+    }
+    
+    // 正常的連結點擊會自動處理導航，無需額外操作
 }
 
 /**
@@ -129,21 +180,24 @@ function getClickStats() {
  */
 function showRewardInfo() {
     console.log('🎁 NutriPal iHerb 獎勵連結配置:');
-    console.log('- 推薦代碼 (rcode):', IHERB_REWARD_CONFIG.rewardCode);
+    console.log('- 獎勵連結 (Rewards):', IHERB_REWARD_CONFIG.rewardLink);
     console.log('- 功能狀態:', IHERB_REWARD_CONFIG.enabled ? '✅ 已啟用' : '❌ 已停用');
+    console.log('- 獎勵追蹤狀態:', sessionStorage.getItem('nutripal_reward_activated') ? '✅ 已啟動' : '❌ 未啟動');
     console.log('- 點擊統計:', getClickStats());
 }
 
 // 將配置和函數掛載到全域對象，供其他腳本使用
 window.IHERB_REWARD_CONFIG = IHERB_REWARD_CONFIG;
 window.convertToRewardLink = convertToRewardLink;
+window.activateRewardTracking = activateRewardTracking;
 window.createPurchaseLink = createPurchaseLink;
+window.handlePurchaseClick = handlePurchaseClick;
 window.trackPurchaseClick = trackPurchaseClick;
 window.getClickStats = getClickStats;
 window.showRewardInfo = showRewardInfo;
 
 // 啟動時顯示配置信息
-console.log('🚀 iHerb 獎勵連結系統已載入');
+console.log('🚀 iHerb 獎勵連結系統已載入 (Rewards 模式)');
 if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
     // 只在非本地環境顯示詳細信息
     showRewardInfo();
