@@ -90,7 +90,14 @@ function createProductCardHTML(product) {
                     ${benefitBadges}
                 </div>
                 <div class="product-action">
-                <a href="${product.iherb_link || 'https://tw.iherb.com'}" target="_blank" class="btn-secondary" style="display: inline-block; text-decoration: none; text-align: center;">查看詳情</a>
+                <a href="${window.convertToRewardLink ? window.convertToRewardLink(product.iherb_link) : (product.iherb_link || 'https://iherb.co/UT5tXTvq')}" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="btn-secondary" 
+                   onclick="window.trackPurchaseClick && window.trackPurchaseClick('${product.id || 'unknown'}', '${(product.name || '').replace(/'/g, '\\\'')}')"
+                   style="display: inline-block; text-decoration: none; text-align: center;">
+                   <i class="fas fa-shopping-cart"></i> 前往購買
+                </a>
                 </div>
             </div>
         </div>

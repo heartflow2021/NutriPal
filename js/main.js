@@ -1495,9 +1495,14 @@ function showProductDetail(productId) {
                     <p class="detail-brand">${product.brand || '未知品牌'}</p>
                     <div class="detail-rating">${ratingStars}</div>
                     <p class="detail-price">NT$ ${product.price || '---'}</p>
-                    <button class="btn-primary detail-buy-btn">
+                    <a href="${window.convertToRewardLink ? window.convertToRewardLink(product.iherb_link) : (product.iherb_link || 'https://iherb.co/UT5tXTvq')}" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="btn-primary detail-buy-btn" 
+                       onclick="window.trackPurchaseClick && window.trackPurchaseClick('${product.id || 'unknown'}', '${(product.name || '').replace(/'/g, '\\\'')}')"
+                       style="display: inline-block; text-decoration: none; text-align: center;">
                         <i class="fas fa-shopping-cart"></i> 前往購買
-                    </button>
+                    </a>
                 </div>
             </div>
             <div class="product-detail-description">
