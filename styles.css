@@ -51,6 +51,7 @@ html, body {
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
+  position: relative; /* 修復 iOS overflow 問題 */
 }
 
 body {
@@ -63,6 +64,9 @@ body {
   font-size: 16px;
   overflow-wrap: break-word;
   word-wrap: break-word;
+  /* 修復 iOS flexbox 內容溢出問題 */
+  min-height: 0;
+  -webkit-transform: translateZ(0); /* 強制硬體加速 */
 }
 
 /* 通用容器類 */
@@ -145,6 +149,10 @@ body {
   overflow-y: auto;
   padding-bottom: 180px; /* 為底部導航欄留出更多空間，從150px提高到180px */
   -webkit-overflow-scrolling: touch; /* 增加 iOS 滑動流暢性 */
+  /* 修復 iOS flexbox 問題 */
+  min-height: 0;
+  position: relative;
+  -webkit-transform: translateZ(0);
 }
 
 /* 按鈕樣式 */
@@ -325,6 +333,14 @@ body {
 .feature-section {
   margin-top: 24px;
   width: 100%;
+  padding: 20px;
+}
+
+.feature-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
 }
 
 .feature-item {
@@ -332,6 +348,12 @@ body {
   align-items: center;
   margin-bottom: 16px;
   flex-wrap: wrap;
+  min-height: 0; /* 防止 iOS flexbox 溢出 */
+}
+
+.feature-content {
+  flex: 1;
+  min-width: 0; /* 防止文字溢出 */
 }
 
 .feature-icon {
@@ -1442,4 +1464,49 @@ input:focus, select:focus, textarea:focus {
   content: "💡";
   margin-right: 6px;
   font-size: 13px;
+}
+
+/* 修復 iOS WebKit 特定問題 */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .app-content {
+    /* 強制重新計算布局 */
+    transform: translateZ(0);
+  }
+  
+  .feature-section,
+  .health-badges-container,
+  .chat-message {
+    /* 防止內容溢出 */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  .health-badge {
+    /* 確保標籤正確顯示 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* 修復 iOS Safari 特定的 flexbox 問題 */
+@supports (-webkit-touch-callout: none) {
+  .app-content {
+    /* iOS Safari 特定修復 */
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+  }
+  
+  .feature-container {
+    /* 確保 feature 容器在 iOS 上正確顯示 */
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  
+  .feature-item {
+    /* 防止 flex item 溢出 */
+    flex-shrink: 0;
+    min-height: 0;
+  }
 } 
