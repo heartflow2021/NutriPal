@@ -3,35 +3,53 @@
  * 用於將所有產品連結轉換為獎勵連結，為 NutriPal 帶來收益
  */
 const IHERB_REWARD_CONFIG = {
-    // 你的獎勵連結基礎 URL
-    rewardBaseUrl: 'https://iherb.co/UT5tXTvq',
+    // 你的 iHerb 推薦代碼 (從獎勵連結 https://iherb.co/UT5tXTvq 推斷)
+    // 這是附加到產品 URL 後の關鍵代碼
+    rewardCode: 'UT5tXTvq',
     
     // 是否啟用獎勵連結（可用於開關功能）
     enabled: true,
     
-    // 備用連結（當獎勵連結無法使用時）
+    // 備用連結（當原始連結不存在時，導向 iHerb 首頁）
     fallbackUrl: 'https://tw.iherb.com'
 };
 
 /**
- * 將產品連結轉換為獎勵連結
- * @param {string} originalLink - 原始產品連結
- * @returns {string} 獎勵連結
+ * 將產品連結轉換為帶有獎勵代碼的直連產品頁連結
+ * @param {string} originalLink - 原始的 iHerb 產品連結
+ * @returns {string} 包含獎勵代碼的產品連結，或在無效時返回備用連結
  */
 function convertToRewardLink(originalLink) {
     if (!IHERB_REWARD_CONFIG.enabled) {
+        // 如果功能停用，返回原始連結或備用連結
         return originalLink || IHERB_REWARD_CONFIG.fallbackUrl;
     }
-    
-    // 如果已經是獎勵連結，直接返回
-    if (originalLink && originalLink.includes('iherb.co/UT5tXTvq')) {
-        return originalLink;
+
+    if (!originalLink) {
+        // 如果沒有提供原始連結，則使用帶有獎勵代碼的 iHerb 首頁
+        return `${IHERB_REWARD_CONFIG.fallbackUrl}?rcode=${IHERB_REWARD_CONFIG.rewardCode}`;
     }
-    
-    // iHerb 獎勵連結的運作方式：
-    // 訪客點擊獎勵連結後，會在一定時間內將該訪客的所有購買歸屬給推薦人
-    // 因此直接使用獎勵連結即可，不需要特殊的產品 ID 處理
-    return IHERB_REWARD_CONFIG.rewardBaseUrl;
+
+    try {
+        // 創建一個 URL 對象來處理參數
+        const url = new URL(originalLink);
+
+        // 檢查是否已經存在 rcode，如果存在則不重複添加
+        if (url.searchParams.has('rcode')) {
+            return originalLink;
+        }
+
+        // 添加或更新 rcode 參數
+        url.searchParams.set('rcode', IHERB_REWARD_CONFIG.rewardCode);
+
+        // 返回包含獎勵代碼的完整產品 URL
+        return url.toString();
+
+    } catch (e) {
+        console.error('無效的原始產品連結:', originalLink, e);
+        // 如果 URL 無效，則回退到帶有獎勵代碼的 iHerb 首頁
+        return `${IHERB_REWARD_CONFIG.fallbackUrl}?rcode=${IHERB_REWARD_CONFIG.rewardCode}`;
+    }
 }
 
 /**
@@ -111,7 +129,7 @@ function getClickStats() {
  */
 function showRewardInfo() {
     console.log('🎁 NutriPal iHerb 獎勵連結配置:');
-    console.log('- 獎勵連結:', IHERB_REWARD_CONFIG.rewardBaseUrl);
+    console.log('- 推薦代碼 (rcode):', IHERB_REWARD_CONFIG.rewardCode);
     console.log('- 功能狀態:', IHERB_REWARD_CONFIG.enabled ? '✅ 已啟用' : '❌ 已停用');
     console.log('- 點擊統計:', getClickStats());
 }
