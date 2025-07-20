@@ -14,15 +14,15 @@ const userSelections = {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('【診斷】頁面載入完成');
     
-    // 初始化對話框動畫
-    initChatMessageAnimation();
-    
-    // 初始化頁面事件監聽器
-    initEventListeners();
-    
-    // 如果在聊天頁面，添加隱藏的表單來幫助導航
+    // 檢查當前頁面並執行對應初始化
     if (window.location.href.toLowerCase().includes('chat.html')) {
-        console.log('【診斷】在聊天頁面添加輔助表單');
+        console.log('【診斷】在聊天頁面，初始化聊天相關功能');
+        
+        // 初始化對話框動畫
+        initChatMessageAnimation();
+        
+        // 初始化頁面事件監聽器
+        initEventListeners();
         
         // 確保提交按鈕綁定了事件
         const submitButton = document.getElementById('submit-selections');
@@ -39,8 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     } else if (window.location.href.toLowerCase().includes('results.html')) {
-        // 結果頁面處理
-        console.log('【診斷】在結果頁面初始化產品顯示');
+        console.log('【診斷】在結果頁面，初始化產品顯示');
         
         try {
             // 顯示推薦產品
@@ -63,22 +62,25 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('結果頁面處理錯誤:', error);
             displayError('處理結果頁面時發生錯誤: ' + error.message);
         }
+    } else {
+        console.log('【診斷】在其他頁面，執行通用初始化');
+        // 在其他頁面只初始化對話框動畫
+        initChatMessageAnimation();
     }
-    
-    // 初始化對話框動畫
-    initChatMessageAnimation();
 });
 
 /**
- * 初始化事件監聽器
+ * 初始化事件監聽器（僅用於聊天頁面）
  */
 function initEventListeners() {
-    console.log('【調試】開始初始化頁面事件監聽器');
+    // 只在聊天頁面執行
+    if (!window.location.href.toLowerCase().includes('chat.html')) {
+        console.log('【調試】非聊天頁面，跳過事件監聽器初始化');
+        return;
+    }
     
     try {
-        console.log('【調試】DOM元素檢查: 健康需求按鈕', !!document.querySelector('button[data-type="health-need"]'));
-        console.log('【調試】DOM元素檢查: 生活型態按鈕', !!document.querySelector('button[data-type="lifestyle"]'));
-        console.log('【調試】DOM元素檢查: 預算按鈕', !!document.querySelector('button[data-type="budget"]'));
+        console.log('【調試】開始初始化聊天頁面事件監聽器');
         
         // 綁定健康需求選項按鈕
         console.log('【調試】初始化健康需求按鈕');
@@ -126,7 +128,7 @@ function initEventListeners() {
             console.warn('【警告】找不到手動跳轉按鈕元素 (#manual-redirect)');
         }
         
-        console.log('【調試】所有事件監聽器初始化完成');
+        console.log('【調試】聊天頁面事件監聽器初始化完成');
     } catch (error) {
         console.error('【錯誤】初始化事件監聽器時發生錯誤:', error);
     }
@@ -477,7 +479,8 @@ async function processUserSelectionsAndSubmitForm() {
                     caution: "備用注意事項",
                     ingredients: "備用成分",
                     health_needs: ["改善睡眠品質"],
-                    lifestyle_match: ["長時間工作"]
+                    lifestyle_match: ["長時間工作"],
+                    iherb_link: "https://tw.iherb.com"
                 }
             ];
         }
@@ -581,7 +584,7 @@ async function loadRecommendationEngine() {
         
         console.log('嘗試重新加載推薦引擎');
         const script = document.createElement('script');
-        script.src = 'js/recommendationEngine.js';
+        script.src = 'js/models/backup/recommendationEngine.js';
         
         // 添加超時處理
         const timeout = setTimeout(() => {
@@ -652,75 +655,99 @@ if (window.location.pathname.includes('results.html')) {
                 await loadRecommendationEngine();
             }
             
-            // 檢查推薦產品是否存在
-            let recommendedProductsJson = sessionStorage.getItem('recommendedProducts');
+            // ✅ 直接從 products.json 載入產品資料
+            console.log('🔄 從 products.json 載入產品資料...');
+            let allProducts = [];
             
-            // 如果 sessionStorage 中沒有數據，創建一些測試數據
-            if (!recommendedProductsJson) {
-                console.log('【診斷】結果頁面沒有找到推薦產品數據，創建測試數據');
-                
-                // 添加一些測試數據
-                const testProducts = [
-                    {
-                        id: "result-test1",
-                        name: "褪黑激素3mg",
-                        brand: "睡眠專家",
-                        description: "促進自然睡眠的褪黑激素補充劑，改善入睡時間和睡眠品質。",
-                        price: 350,
-                        rating: 4.6,
-                        image_url: "https://via.placeholder.com/150",
-                        benefits: ["改善睡眠質量", "縮短入睡時間", "調節生理時鐘"],
-                        usage: "睡前30分鐘服用1粒",
-                        caution: "白天避免服用，可能導致嗜睡",
-                        ingredients: "褪黑激素、植物性膠囊",
-                        health_needs: ["改善睡眠品質"],
-                        lifestyle_match: ["經常熬夜", "長時間工作"]
-                    },
-                    {
-                        id: "result-test2",
-                        name: "複合鎂補充劑",
-                        brand: "營養均衡",
-                        description: "含多種形式鎂的複合配方，幫助放鬆肌肉，改善睡眠，緩解壓力。",
-                        price: 420,
-                        rating: 4.5,
-                        image_url: "https://via.placeholder.com/150",
-                        benefits: ["肌肉放鬆", "改善睡眠", "減輕壓力"],
-                        usage: "每日1-2粒，晚餐時服用",
-                        caution: "某些形式的鎂可能有輕微腹瀉作用",
-                        ingredients: "甘氨酸鎂、檸檬酸鎂、氧化鎂",
-                        health_needs: ["改善睡眠品質", "骨骼與關節健康"],
-                        lifestyle_match: ["長時間工作", "經常熬夜"]
-                    },
-                    {
-                        id: "result-test3",
-                        name: "舒壓草本茶",
-                        brand: "自然療法",
-                        description: "特調草本茶配方，含纈草根、洋甘菊和薰衣草，幫助放鬆和改善睡眠。",
-                        price: 280,
-                        rating: 4.3,
-                        image_url: "https://via.placeholder.com/150",
-                        benefits: ["天然舒緩", "幫助放鬆", "促進睡眠"],
-                        usage: "睡前30-60分鐘沖泡一杯",
-                        caution: "孕婦應諮詢醫生後使用",
-                        ingredients: "纈草根、洋甘菊花、薰衣草、檸檬香蜂草",
-                        health_needs: ["改善睡眠品質"],
-                        lifestyle_match: ["長時間工作", "壓力大"]
+            try {
+                const response = await fetch('data/products/products.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data && data.products && Array.isArray(data.products)) {
+                        allProducts = data.products;
+                        console.log(`✅ 成功載入 ${allProducts.length} 個產品，包含聯盟連結`);
+                        
+                        // 檢查第一個產品是否有聯盟連結
+                        if (allProducts[0] && allProducts[0].affiliate_link) {
+                            console.log('✅ 確認產品包含聯盟連結:', allProducts[0].affiliate_link.substring(0, 50) + '...');
+                        }
+                    } else {
+                        console.warn('⚠️ products.json 資料格式不正確');
                     }
-                ];
-                
-                // 儲存到 sessionStorage
-                recommendedProductsJson = JSON.stringify(testProducts);
-                sessionStorage.setItem('recommendedProducts', recommendedProductsJson);
-                
-                // 設置其他必要數據
-                if (!sessionStorage.getItem('userHealthNeed')) {
-                    sessionStorage.setItem('userHealthNeed', '改善睡眠品質');
+                } else {
+                    console.warn('⚠️ 無法載入 products.json，狀態碼:', response.status);
                 }
-                
-                if (!sessionStorage.getItem('userLifestyle')) {
-                    sessionStorage.setItem('userLifestyle', '長時間工作');
+            } catch (fetchError) {
+                console.error('❌ 載入 products.json 時出錯:', fetchError);
+            }
+            
+            // 如果無法載入產品資料，使用推薦引擎的備用資料
+            if (allProducts.length === 0 && window.NutriPalRecommender) {
+                console.log('🔄 嘗試使用推薦引擎載入產品資料...');
+                try {
+                    allProducts = await window.NutriPalRecommender.getProducts();
+                    console.log(`✅ 從推薦引擎載入 ${allProducts.length} 個產品`);
+                } catch (engineError) {
+                    console.error('❌ 推薦引擎載入失敗:', engineError);
                 }
             }
+            
+            // 獲取用戶選擇的健康需求和生活型態
+            const userHealthNeed = sessionStorage.getItem('userHealthNeed') || '改善睡眠品質';
+            const userLifestyle = sessionStorage.getItem('userLifestyle') || '長時間工作';
+            
+            console.log('👤 用戶選擇:', { userHealthNeed, userLifestyle });
+            
+            // 根據健康需求篩選產品
+            let recommendedProducts = [];
+            if (allProducts.length > 0) {
+                // 篩選符合健康需求的產品
+                recommendedProducts = allProducts.filter(product => {
+                    if (!product.health_needs) return false;
+                    return product.health_needs.some(need => 
+                        need.includes(userHealthNeed) || userHealthNeed.includes(need)
+                    );
+                }).slice(0, 6); // 取前6個產品
+                
+                console.log(`🎯 根據健康需求篩選出 ${recommendedProducts.length} 個產品`);
+                
+                // 如果篩選結果太少，補充一些相關產品
+                if (recommendedProducts.length < 3) {
+                    const additionalProducts = allProducts
+                        .filter(p => !recommendedProducts.find(rp => rp.id === p.id))
+                        .slice(0, 6 - recommendedProducts.length);
+                    recommendedProducts = [...recommendedProducts, ...additionalProducts];
+                }
+            }
+            
+            // 如果還是沒有產品，使用預設產品
+            if (recommendedProducts.length === 0) {
+                console.log('⚠️ 使用預設測試產品');
+                recommendedProducts = [
+                    {
+                        id: "p001",
+                        name: "California Gold Nutrition, LactoBif® 30 益生菌，300 億 CFU，60 粒素食膠囊",
+                        brand: "California Gold Nutrition",
+                        description: "包含8種活性益生菌菌株，有助於維持健康的腸道菌群，支援消化系統和免疫系統健康。",
+                        price: 680,
+                        rating: 4.7,
+                        image_url: "https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/cgn/cgn00965/u/148.jpg",
+                        benefits: ["維持腸道健康", "增強免疫力", "促進消化"],
+                        usage: "每日 1 粒膠囊，隨食物與否均可。",
+                        caution: "放在兒童接觸不到的地方。如果您正在懷孕、哺乳、服用方劑或有某種健康問題，請在使用前諮詢醫生。",
+                        health_needs: ["消化系統健康", "增強免疫力"],
+                        tags: ["益生菌", "消化健康", "免疫支持"],
+                        iherb_link: "https://tw.iherb.com/pr/california-gold-nutrition-lactobif-30-probiotics-30-billion-cfu-60-veggie-capsules/64009",
+                        affiliate_link: "https://tinyurl.com/24d9swe3?pid=64009&slug=california-gold-nutrition-lactobif-30-probiotics-30-billion-cfu-60-veggie-capsules&ref=p001"
+                    }
+                ];
+            }
+            
+            // 儲存推薦產品到 sessionStorage
+            const recommendedProductsJson = JSON.stringify(recommendedProducts);
+            sessionStorage.setItem('recommendedProducts', recommendedProductsJson);
+            sessionStorage.setItem('userHealthNeed', userHealthNeed);
+            sessionStorage.setItem('userLifestyle', userLifestyle);
             
             // 檢查數據是否有效JSON
             try {
@@ -805,7 +832,8 @@ function displayRecommendedProducts() {
                     caution: "白天避免服用，可能導致嗜睡",
                     ingredients: "褪黑激素、植物性膠囊",
                     health_needs: ["改善睡眠品質"],
-                    lifestyle_match: ["經常熬夜", "長時間工作"]
+                    lifestyle_match: ["經常熬夜", "長時間工作"],
+                    iherb_link: "https://tw.iherb.com/pr/natrol-melatonin-3-mg-240-tablets/531"
                 },
                 {
                     id: "test2",
@@ -820,7 +848,8 @@ function displayRecommendedProducts() {
                     caution: "大劑量可能導致腹瀉，請從小劑量開始",
                     ingredients: "檸檬酸鎂、甘氨酸鎂、牛磺酸、維生素B6",
                     health_needs: ["改善睡眠品質", "緩解壓力"],
-                    lifestyle_match: ["長時間工作", "經常熬夜"]
+                    lifestyle_match: ["長時間工作", "經常熬夜"],
+                    iherb_link: "https://tw.iherb.com/pr/doctor-s-best-high-absorption-magnesium-200-mg-240-tablets-100-mg-per-tablet/16567"
                 }
             ];
         }
@@ -843,12 +872,13 @@ function displayRecommendedProducts() {
             }
         });
         
-        // 添加產品卡點擊事件
+        // 暫時移除產品卡點擊事件，避免跑版問題
+        /*
         const productCards = document.querySelectorAll('.product-card');
         productCards.forEach(card => {
             card.addEventListener('click', function(e) {
                 // 如果點擊的不是詳情按鈕，則整個卡片也可以點擊
-                if (!e.target.classList.contains('product-detail-btn')) {
+                if (!e.target.classList.contains('product-detail-btn') && !e.target.classList.contains('product-purchase-btn')) {
                     const productId = this.getAttribute('data-product-id');
                     if (productId) {
                         showProductDetail(productId);
@@ -856,6 +886,7 @@ function displayRecommendedProducts() {
                 }
             });
         });
+        */
         
         // 更新頁面上的選擇摘要
         updateSelectionSummary();
@@ -879,8 +910,31 @@ function createProductCard(product) {
         card.className = 'product-card';
         card.setAttribute('data-product-id', product.id);
         
-        // 使用預設圖片如果沒有提供
-        const imageUrl = product.image_url || 'https://via.placeholder.com/150?text=產品圖片';
+        // 使用實際的產品圖片
+        let imageUrl = product.image_url;
+        
+        // 如果沒有圖片，嘗試從 iHerb 連結提取
+        if (!imageUrl || imageUrl.includes('placeholder')) {
+            if (product.iherb_link && product.iherb_link.includes('iherb.com/pr/')) {
+                const productSlug = product.iherb_link.split('/pr/')[1]?.split('/')[0];
+                if (productSlug) {
+                    imageUrl = `https://s3.images-iherb.com/prd/${productSlug}/y/1.jpg`;
+                }
+            } else {
+                // 根據產品名稱使用不同的預設圖片
+                if (product.name.includes('褪黑激素') || product.name.includes('melatonin')) {
+                    imageUrl = 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=150&h=150&fit=crop&crop=center';
+                } else if (product.name.includes('鎂') || product.name.includes('magnesium')) {
+                    imageUrl = 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=150&h=150&fit=crop&crop=center';
+                } else if (product.name.includes('維生素') || product.name.includes('vitamin')) {
+                    imageUrl = 'https://images.unsplash.com/photo-1550572017-edd951b55104?w=150&h=150&fit=crop&crop=center';
+                } else if (product.name.includes('茶') || product.name.includes('tea')) {
+                    imageUrl = 'https://images.unsplash.com/photo-1556881286-fc6915169721?w=150&h=150&fit=crop&crop=center';
+                } else {
+                    imageUrl = 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=150&h=150&fit=crop&crop=center';
+                }
+            }
+        }
         
         // 產品評分星級
         const ratingStars = generateRatingStars(product.rating || 0);
@@ -912,10 +966,20 @@ function createProductCard(product) {
                 '</ul>';
         }
         
+        // 使用新的聯盟連結按鈕系統
+        const purchaseButtonHtml = window.createPurchaseButton 
+            ? window.createPurchaseButton(product, '前往購買', 'btn-secondary')
+            : `<button class="btn-secondary product-detail-btn" onclick="showProductDetail('${product.id}')">
+                查看詳情
+               </button>`;
+        
         // 設置卡片HTML
         card.innerHTML = `
             <div class="product-image">
-                <img src="${imageUrl}" alt="${product.name}" loading="lazy">
+                <img src="${imageUrl}" 
+                     alt="${product.name}" 
+                     loading="lazy"
+                     onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=150&h=150&fit=crop&crop=center'; this.onerror=null;">
             </div>
             <div class="product-details">
                 <h3 class="product-name">${product.name}</h3>
@@ -925,9 +989,18 @@ function createProductCard(product) {
                 <div class="product-tags">${tagsHtml}</div>
                 <p class="product-description">${product.description || '無產品說明'}</p>
                 ${benefitsHtml}
-                <button class="btn-secondary product-detail-btn" onclick="showProductDetail('${product.id}')">
-                    查看詳情
-                </button>
+                <div class="product-actions">
+                    <div class="button-row">
+                        ${purchaseButtonHtml}
+                    </div>
+                    <!-- 暫時隱藏查看詳情按鈕，避免跑版問題
+                    <div class="button-row">
+                        <button class="btn-outline product-detail-btn" onclick="showProductDetail('${product.id}')">
+                            查看詳情
+                        </button>
+                    </div>
+                    -->
+                </div>
             </div>
         `;
         
@@ -974,70 +1047,127 @@ function generateRatingStars(rating) {
 /**
  * 顯示相關產品
  */
-function displayRelatedProducts() {
+async function displayRelatedProducts() {
     try {
         // 獲取相關產品容器
         const productsContainer = document.getElementById('related-products');
         if (!productsContainer) return;
         
-        // 從 sessionStorage 獲取已推薦的產品
-        const recommendedProductsJson = sessionStorage.getItem('recommendedProducts');
-        if (!recommendedProductsJson) return;
-        
-        const recommendedProducts = JSON.parse(recommendedProductsJson);
-        if (!recommendedProducts || recommendedProducts.length === 0) return;
-        
-        // 創建相關產品測試數據
-        // 在實際應用中，這應該由一個更復雜的相關產品推薦算法來提供
-        const relatedProducts = [
-            {
-                id: "related1",
-                name: "GABA 腦鎂寧",
-                brand: "健腦寶",
-                description: "GABA（γ-氨基丁酸）和鎂的複合配方，有助於放鬆神經和改善睡眠質量。",
-                price: 580,
-                rating: 4.6,
-                image_url: "https://via.placeholder.com/150",
-                benefits: ["改善睡眠質量", "舒緩焦慮", "促進大腦放鬆"],
-                usage: "睡前30分鐘服用1-2粒",
-                caution: "孕婦和18歲以下青少年應諮詢醫生後使用",
-                ingredients: "GABA、甘氨酸鎂、維生素B6",
-                health_needs: ["改善睡眠品質", "情緒支持"],
-                lifestyle_match: ["長時間工作", "壓力大"]
-            },
-            {
-                id: "related2",
-                name: "複合B群加強配方",
-                brand: "活力源",
-                description: "高劑量B群配方，特別添加B5和B6，幫助緩解工作壓力和疲勞。",
-                price: 450,
-                rating: 4.3,
-                image_url: "https://via.placeholder.com/150",
-                benefits: ["提升精力", "緩解壓力", "支持神經系統"],
-                usage: "早餐後服用1粒",
-                caution: "如有特殊疾病請先諮詢醫生",
-                ingredients: "維生素B1、B2、B3、B5、B6、B12、葉酸、生物素",
-                health_needs: ["提升能量", "緩解疲勞"],
-                lifestyle_match: ["長時間工作", "經常熬夜"]
-            }
-        ];
-        
         // 清空容器
         productsContainer.innerHTML = '';
         
-        // 添加相關產品卡片
-        relatedProducts.forEach(product => {
-            const productCard = createProductCard(product);
-            productsContainer.appendChild(productCard);
+        // 從 products.json 載入所有產品
+        let allProducts = [];
+        try {
+            const response = await fetch('data/products/products.json');
+            if (response.ok) {
+                const data = await response.json();
+                if (data && data.products && Array.isArray(data.products)) {
+                    allProducts = data.products;
+                    console.log(`✅ 延伸資訊載入 ${allProducts.length} 個產品`);
+                }
+            }
+        } catch (fetchError) {
+            console.error('❌ 載入延伸產品資料時出錯:', fetchError);
+        }
+        
+        // 如果無法載入產品資料，使用備用資料
+        if (allProducts.length === 0) {
+            console.warn('⚠️ 使用備用延伸產品資料');
+            allProducts = [
+                {
+                    id: "backup1",
+                    name: "GABA 腦鎂寧",
+                    brand: "健腦寶",
+                    description: "GABA（γ-氨基丁酸）和鎂的複合配方，有助於放鬆神經和改善睡眠質量。",
+                    price: 580,
+                    rating: 4.6,
+                    image_url: "https://via.placeholder.com/150",
+                    benefits: ["改善睡眠質量", "舒緩焦慮", "促進大腦放鬆"],
+                    usage: "睡前30分鐘服用1-2粒",
+                    caution: "孕婦和18歲以下青少年應諮詢醫生後使用",
+                    ingredients: "GABA、甘氨酸鎂、維生素B6",
+                    health_needs: ["改善睡眠品質", "情緒支持"],
+                    lifestyle_match: ["長時間工作", "壓力大"],
+                    iherb_link: "https://tw.iherb.com/pr/now-foods-gaba-750-mg-100-veg-capsules/832",
+                    affiliate_link: "https://tinyurl.com/backup1"
+                }
+            ];
+        }
+        
+        // 從 sessionStorage 獲取已推薦的產品ID，避免重複
+        const recommendedProductsJson = sessionStorage.getItem('recommendedProducts');
+        let recommendedProductIds = [];
+        if (recommendedProductsJson) {
+            try {
+                const recommendedProducts = JSON.parse(recommendedProductsJson);
+                recommendedProductIds = recommendedProducts.map(p => p.id);
+            } catch (e) {
+                console.warn('解析推薦產品ID失敗:', e);
+            }
+        }
+        
+        // 獲取用戶的健康需求和生活型態
+        const userHealthNeed = sessionStorage.getItem('userHealthNeed') || '';
+        const userLifestyle = sessionStorage.getItem('userLifestyle') || '';
+        
+        // 篩選相關產品（排除已推薦的產品）
+        let relatedProducts = allProducts.filter(product => {
+            // 排除已推薦的產品
+            if (recommendedProductIds.includes(product.id)) {
+                return false;
+            }
+            
+            // 檢查是否與用戶需求相關
+            let isRelevant = false;
+            
+            // 檢查健康需求匹配
+            if (product.health_needs && userHealthNeed) {
+                isRelevant = product.health_needs.some(need => 
+                    need.includes(userHealthNeed) || userHealthNeed.includes(need)
+                );
+            }
+            
+            // 檢查生活型態匹配
+            if (!isRelevant && product.lifestyle_match && userLifestyle) {
+                isRelevant = product.lifestyle_match.some(style => 
+                    style.includes(userLifestyle) || userLifestyle.includes(style)
+                );
+            }
+            
+            return isRelevant;
         });
         
-        // 如果沒有相關產品，隱藏相關產品部分
-        if (relatedProducts.length === 0) {
-            const relatedSection = document.querySelector('h2:contains("延伸相關選擇")');
-            if (relatedSection) {
-                relatedSection.style.display = 'none';
+        // 如果相關產品太少，補充一些其他產品
+        if (relatedProducts.length < 2) {
+            const additionalProducts = allProducts
+                .filter(p => !recommendedProductIds.includes(p.id) && 
+                           !relatedProducts.find(rp => rp.id === p.id))
+                .slice(0, 2 - relatedProducts.length);
+            relatedProducts = [...relatedProducts, ...additionalProducts];
+        }
+        
+        // 限制顯示數量
+        relatedProducts = relatedProducts.slice(0, 3);
+        
+        console.log(`🔗 顯示 ${relatedProducts.length} 個延伸產品`);
+        
+        // 保存延伸產品到全局變量，供詳情查看使用
+        window.currentRelatedProducts = relatedProducts;
+        
+        // 添加相關產品卡片
+        relatedProducts.forEach(product => {
+            try {
+                const productCard = createProductCard(product);
+                productsContainer.appendChild(productCard);
+            } catch (cardError) {
+                console.error('創建延伸產品卡片時出錯:', cardError, '產品:', product);
             }
-            productsContainer.style.display = 'none';
+        });
+        
+        // 如果沒有相關產品，顯示提示
+        if (relatedProducts.length === 0) {
+            productsContainer.innerHTML = '<p class="no-results">暫無相關延伸產品資訊</p>';
         }
         
     } catch (error) {
@@ -1045,331 +1175,202 @@ function displayRelatedProducts() {
         // 如果出錯，隱藏相關產品部分
         const productsContainer = document.getElementById('related-products');
         if (productsContainer) {
-            productsContainer.style.display = 'none';
+            productsContainer.innerHTML = '<p class="error-message">載入延伸產品時發生錯誤</p>';
         }
     }
 }
 
 /**
- * 生成保健品使用時間表
+ * 生成使用時間表
  */
 function generateUsageTimeline() {
-    try {
-        const timelineContainer = document.getElementById('usage-timeline');
-        if (!timelineContainer) return;
-        
-        // 從 sessionStorage 獲取推薦產品
-        const recommendedProductsJson = sessionStorage.getItem('recommendedProducts');
-        if (!recommendedProductsJson) return;
-        
-        const recommendedProducts = JSON.parse(recommendedProductsJson);
-        if (!recommendedProducts || recommendedProducts.length === 0) return;
-        
-        // 清空容器
-        timelineContainer.innerHTML = '';
-        
-        // 創建時間點
-        const timePoints = [
-            { id: 'morning', label: '早晨', icon: 'fa-sun', time: '06:00 - 09:00' },
-            { id: 'noon', label: '中午', icon: 'fa-mug-hot', time: '11:30 - 13:30' },
-            { id: 'evening', label: '晚上', icon: 'fa-moon', time: '18:00 - 20:00' },
-            { id: 'before-sleep', label: '睡前', icon: 'fa-bed', time: '21:00 - 23:00' }
-        ];
-        
-        // 為每個時間點分配產品
-        timePoints.forEach(point => {
-            // 創建時間點容器
-            const timePoint = document.createElement('div');
-            timePoint.className = 'time-point';
-            
-            // 根據產品使用說明決定在哪個時間點顯示
-            const productsForThisTime = recommendedProducts.filter(product => {
-                const usage = (product.usage || '').toLowerCase();
-                
-                switch (point.id) {
-                    case 'morning': 
-                        return usage.includes('早上') || 
-                               usage.includes('早晨') || 
-                               usage.includes('早餐');
-                    case 'noon': 
-                        return usage.includes('中午') || 
-                               usage.includes('午餐') || 
-                               usage.includes('午');
-                    case 'evening': 
-                        return usage.includes('晚上') || 
-                               usage.includes('晚餐') || 
-                               usage.includes('晚');
-                    case 'before-sleep': 
-                        return usage.includes('睡前') || 
-                               usage.includes('就寢') || 
-                               usage.includes('睡覺');
-                    default: 
-                        return false;
-                }
-            });
-            
-            // 如果這個時間點沒有產品，使用簡單格式
-            if (productsForThisTime.length === 0) {
-                timePoint.innerHTML = `
-                    <div class="time-header">
-                        <i class="fas ${point.icon}"></i>
-                        <div class="time-info">
-                            <h4>${point.label}</h4>
-                            <p class="time">${point.time}</p>
-                        </div>
+    console.log('生成使用時間表');
+    const timelineContainer = document.getElementById('usage-timeline');
+    if (!timelineContainer) return;
+    
+    timelineContainer.innerHTML = `
+        <div class="time-point">
+            <i class="fas fa-sun"></i>
+            <div>
+                <div class="time-header">
+                    <div class="time-info">
+                        <h4>早晨</h4>
+                        <p class="time">06:00 - 09:00</p>
                     </div>
-                    <div class="time-products empty">
-                        <p>此時段無需服用保健品</p>
+                </div>
+                <div class="time-products">
+                    <p>建議服用維生素或能量相關補充品</p>
+                </div>
+            </div>
+        </div>
+        <div class="time-point">
+            <i class="fas fa-utensils"></i>
+            <div>
+                <div class="time-header">
+                    <div class="time-info">
+                        <h4>隨餐</h4>
+                        <p class="time">用餐時</p>
                     </div>
-                `;
-            } else {
-                // 創建產品列表
-                const productsList = productsForThisTime.map(product => `
-                    <div class="timeline-product">
-                        <div class="product-icon">
-                            <img src="${product.image_url || 'https://via.placeholder.com/40'}" alt="${product.name}">
-                        </div>
-                        <div class="product-info">
-                            <h5>${product.name}</h5>
-                            <p>${product.usage || '每日服用一次'}</p>
-                        </div>
+                </div>
+                <div class="time-products">
+                    <p>多數補充品可隨餐服用以提高吸收</p>
+                </div>
+            </div>
+        </div>
+        <div class="time-point">
+            <i class="fas fa-moon"></i>
+            <div>
+                <div class="time-header">
+                    <div class="time-info">
+                        <h4>睡前</h4>
+                        <p class="time">21:00 - 23:00</p>
                     </div>
-                `).join('');
-                
-                timePoint.innerHTML = `
-                    <div class="time-header">
-                        <i class="fas ${point.icon}"></i>
-                        <div class="time-info">
-                            <h4>${point.label}</h4>
-                            <p class="time">${point.time}</p>
-                        </div>
-                    </div>
-                    <div class="time-products">
-                        ${productsList}
-                    </div>
-                `;
-            }
-            
-            timelineContainer.appendChild(timePoint);
-        });
-        
-    } catch (error) {
-        console.error('生成使用時間表時出錯:', error);
-    }
+                </div>
+                <div class="time-products">
+                    <p>建議服用幫助睡眠或放鬆的補充品</p>
+                </div>
+            </div>
+        </div>
+    `;
 }
 
 /**
- * 生成保健品注意事項列表
+ * 生成注意事項列表
  */
 function generateCautionsList() {
-    try {
-        const cautionsContainer = document.getElementById('product-cautions');
-        if (!cautionsContainer) return;
-        
-        // 從 sessionStorage 獲取推薦產品
-        const recommendedProductsJson = sessionStorage.getItem('recommendedProducts');
-        if (!recommendedProductsJson) return;
-        
-        const recommendedProducts = JSON.parse(recommendedProductsJson);
-        if (!recommendedProducts || recommendedProducts.length === 0) return;
-        
-        // 清空容器
-        cautionsContainer.innerHTML = '';
-        
-        // 標題
-        const title = document.createElement('h3');
-        title.textContent = '服用注意事項';
-        cautionsContainer.appendChild(title);
-        
-        // 創建注意事項列表
-        const cautionsList = document.createElement('ul');
-        cautionsList.className = 'cautions-list';
-        
-        // 添加每個產品的注意事項
-        recommendedProducts.forEach(product => {
-            if (product.caution) {
-                const listItem = document.createElement('li');
-                listItem.innerHTML = `
-                    <span class="product-name">${product.name}:</span> 
-                    ${product.caution}
-                `;
-                cautionsList.appendChild(listItem);
-            }
-        });
-        
-        // 如果沒有注意事項，顯示預設消息
-        if (cautionsList.children.length === 0) {
-            const defaultMsg = document.createElement('p');
-            defaultMsg.textContent = '選擇的產品沒有特別的注意事項。一般建議遵循產品包裝上的指示使用。';
-            cautionsContainer.appendChild(defaultMsg);
-        } else {
-            cautionsContainer.appendChild(cautionsList);
-        }
-        
-    } catch (error) {
-        console.error('生成注意事項列表時出錯:', error);
-    }
+    console.log('生成注意事項列表');
+    const cautionsContainer = document.getElementById('product-cautions');
+    if (!cautionsContainer) return;
+    
+    cautionsContainer.innerHTML = `
+        <div class="caution-item">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div>
+                <h4>服用前諮詢</h4>
+                <p>孕婦、哺乳期婦女或有慢性疾病者，服用前請諮詢醫師</p>
+            </div>
+        </div>
+        <div class="caution-item">
+            <i class="fas fa-pills"></i>
+            <div>
+                <h4>藥物交互作用</h4>
+                <p>如正在服用處方藥物，請確認是否有交互作用</p>
+            </div>
+        </div>
+        <div class="caution-item">
+            <i class="fas fa-clock"></i>
+            <div>
+                <h4>按時服用</h4>
+                <p>請依照建議劑量和時間服用，避免過量</p>
+            </div>
+        </div>
+    `;
 }
 
 /**
- * 更新選擇顯示
+ * 更新選擇摘要
  */
-function updateSelectionDisplay() {
-    try {
-        console.log('更新選擇顯示');
-        
-        // 尋找顯示健康需求的元素
-        const healthNeedElement = document.querySelector('.health-need-display');
-        const lifestyleElement = document.querySelector('.lifestyle-display');
-        
-        if (healthNeedElement) {
-            // 從 sessionStorage 獲取健康需求
-            const healthNeed = sessionStorage.getItem('userHealthNeed') || 
-                              sessionStorage.getItem('healthNeed') || 
-                              '改善健康';
-            
-            console.log('顯示健康需求:', healthNeed);
-            
-            // 更新顯示
-            healthNeedElement.textContent = healthNeed;
-            
-            // 更新結果分類標籤
-            const categoryBadge = document.querySelector('.badge.result-category');
-            if (categoryBadge) {
-                // 基於健康需求設置適當的類別
-                const categories = {
-                    '改善睡眠品質': '睡眠相關',
-                    '增強免疫力': '免疫相關',
-                    '提升腦力與專注': '腦力相關',
-                    '心臟健康': '心臟相關',
-                    '骨骼與關節健康': '骨關節相關',
-                    '視力保健': '視力相關',
-                    '肝臟保健': '肝臟相關',
-                    '女性保健': '女性保健',
-                    '消化系統保健': '消化相關',
-                    '體重管理': '體重管理'
-                };
-                
-                categoryBadge.textContent = categories[healthNeed] || '保健相關';
-            }
-        } else {
-            console.warn('找不到健康需求顯示元素');
-        }
-        
-        if (lifestyleElement) {
-            // 從 sessionStorage 獲取生活型態
-            const lifestyle = sessionStorage.getItem('userLifestyle') || 
-                             sessionStorage.getItem('lifestyle') || 
-                             '一般生活型態';
-            
-            console.log('顯示生活型態:', lifestyle);
-            
-            // 更新顯示
-            lifestyleElement.textContent = lifestyle;
-        } else {
-            console.warn('找不到生活型態顯示元素');
-        }
-    } catch (error) {
-        console.error('更新選擇顯示時出錯:', error);
+function updateSelectionSummary() {
+    const healthNeed = sessionStorage.getItem('userHealthNeed') || '改善睡眠品質';
+    const lifestyle = sessionStorage.getItem('userLifestyle') || '長時間工作';
+    
+    const healthNeedElement = document.getElementById('user-health-need');
+    const lifestyleElement = document.getElementById('user-lifestyle');
+    
+    if (healthNeedElement) {
+        healthNeedElement.textContent = healthNeed;
+    }
+    
+    if (lifestyleElement) {
+        lifestyleElement.textContent = lifestyle;
     }
 }
 
 /**
  * 顯示錯誤訊息
- * @param {string} message 錯誤訊息
- * @param {boolean} showReturnButton 是否顯示返回按鈕
  */
-function displayError(message, showReturnButton = true) {
-    try {
-        const errorContainer = document.createElement('div');
-        errorContainer.className = 'error-message';
-        errorContainer.innerHTML = `
-            <i class="fas fa-exclamation-circle"></i>
-            <p>${message}</p>
-            ${showReturnButton ? '<a href="chat.html" class="btn-primary">返回選擇</a>' : ''}
-        `;
-        
-        // 找一個合適的容器來顯示錯誤
-        const container = document.querySelector('.app-content') || document.body;
-        
-        // 清空容器並顯示錯誤
-        if (container) {
-            container.innerHTML = '';
-            container.appendChild(errorContainer);
-            
-            // 如果頁面滾動到頂部
-            window.scrollTo(0, 0);
-        } else {
-            // 如果找不到容器，使用alert顯示錯誤
-            alert('錯誤: ' + message);
-        }
-    } catch (e) {
-        // 最後的保障：如果顯示錯誤也出錯，使用alert
-        console.error('顯示錯誤訊息時失敗:', e);
-        alert('發生錯誤: ' + message);
+function displayError(message, redirectToHome = false) {
+    console.error('顯示錯誤:', message);
+    
+    // 隱藏備用內容
+    const fallbackContent = document.getElementById('fallback-content');
+    if (fallbackContent) {
+        fallbackContent.style.display = 'none';
     }
-}
-
-/**
- * 更新頁面上的選擇摘要
- */
-function updateSelectionSummary() {
-    try {
-        // 獲取用戶選擇數據
-        const healthNeed = sessionStorage.getItem('userHealthNeed');
-        const lifestyle = sessionStorage.getItem('userLifestyle');
-        
-        // 更新摘要描述區域
-        const summaryElem = document.querySelector('.selection-summary') || document.querySelector('.recommendation-header');
-        if (summaryElem) {
-            const healthNeedText = healthNeed ? `「${healthNeed}」` : '';
-            const lifestyleText = lifestyle ? `「${lifestyle}」` : '';
-            
-            if (healthNeedText && lifestyleText) {
-                summaryElem.textContent = `根據你選擇的 ${healthNeedText} 需求，以及 ${lifestyleText} 的生活型態，以下是我整理的熱門保健品資訊。`;
-            } else if (healthNeedText) {
-                summaryElem.textContent = `根據你選擇的 ${healthNeedText} 需求，以下是我整理的熱門保健品資訊。`;
-            } else if (lifestyleText) {
-                summaryElem.textContent = `根據你 ${lifestyleText} 的生活型態，以下是我整理的熱門保健品資訊。`;
-            }
-        }
-    } catch (error) {
-        console.error('更新選擇摘要時出錯:', error);
-    }
+    
+    // 可以在頁面上顯示錯誤訊息
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #ff4444;
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        z-index: 9999;
+        text-align: center;
+        max-width: 80%;
+    `;
+    errorDiv.innerHTML = `
+        <h3>發生錯誤</h3>
+        <p>${message}</p>
+        ${redirectToHome ? '<p><a href="index.html" style="color: white; text-decoration: underline;">返回首頁</a></p>' : ''}
+        <button onclick="this.parentNode.remove()" style="background: transparent; border: 1px solid white; color: white; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-top: 10px;">關閉</button>
+    `;
+    
+    document.body.appendChild(errorDiv);
 }
 
 /**
  * 顯示產品詳情彈窗
  * @param {string} productId 產品ID
  */
-function showProductDetail(productId) {
+async function showProductDetail(productId) {
     try {
         console.log('【產品】顯示產品詳情:', productId);
         
-        // 首先從sessionStorage嘗試獲取產品數據
         let allProducts = [];
-        let products = [];
         
+        // 1. 首先從 products.json 載入完整產品數據
         try {
-            // 嘗試從recommendedProducts獲取
-            const recommendedJson = sessionStorage.getItem('recommendedProducts');
-            if (recommendedJson) {
-                products = JSON.parse(recommendedJson);
-                allProducts = [...products];
+            const response = await fetch('data/products/products.json');
+            if (response.ok) {
+                const data = await response.json();
+                if (data && data.products && Array.isArray(data.products)) {
+                    allProducts = data.products;
+                    console.log(`✅ 從 products.json 載入 ${allProducts.length} 個產品用於詳情顯示`);
+                }
             }
-            
-            // 嘗試從relatedProducts獲取
-            const relatedJson = sessionStorage.getItem('relatedProducts');
-            if (relatedJson) {
-                const relatedProducts = JSON.parse(relatedJson);
-                allProducts = [...allProducts, ...relatedProducts];
-            }
-        } catch (e) {
-            console.error('【產品】從sessionStorage獲取產品數據時出錯:', e);
+        } catch (fetchError) {
+            console.warn('❌ 載入 products.json 失敗:', fetchError);
         }
         
-        // 如果沒有產品數據，使用測試數據
+        // 2. 如果無法從 products.json 載入，嘗試從 sessionStorage 獲取
         if (allProducts.length === 0) {
+            console.log('⚠️ 從 sessionStorage 獲取產品數據');
+            try {
+                // 嘗試從recommendedProducts獲取
+                const recommendedJson = sessionStorage.getItem('recommendedProducts');
+                if (recommendedJson) {
+                    const products = JSON.parse(recommendedJson);
+                    allProducts = [...allProducts, ...products];
+                }
+                
+                // 嘗試從全局變量獲取（延伸產品）
+                if (window.currentRelatedProducts && Array.isArray(window.currentRelatedProducts)) {
+                    allProducts = [...allProducts, ...window.currentRelatedProducts];
+                }
+            } catch (e) {
+                console.error('【產品】從sessionStorage獲取產品數據時出錯:', e);
+            }
+        }
+        
+        // 3. 如果還是沒有數據，使用備用測試數據
+        if (allProducts.length === 0) {
+            console.warn('⚠️ 使用備用測試產品數據');
             allProducts = [
                 {
                     id: "test1",
@@ -1384,19 +1385,26 @@ function showProductDetail(productId) {
                     caution: "白天避免服用，可能導致嗜睡",
                     ingredients: "褪黑激素、植物性膠囊",
                     health_needs: ["改善睡眠品質"],
-                    lifestyle_match: ["經常熬夜", "長時間工作"]
+                    lifestyle_match: ["經常熬夜", "長時間工作"],
+                    iherb_link: "https://tw.iherb.com/pr/natrol-melatonin-3-mg-240-tablets/531",
+                    affiliate_link: "https://tinyurl.com/test1"
                 }
             ];
         }
+        
+        console.log(`🔍 在 ${allProducts.length} 個產品中查找 ID: ${productId}`);
+        console.log('🔍 可用產品ID:', allProducts.map(p => p.id).join(', '));
         
         // 尋找對應ID的產品
         const product = allProducts.find(p => p.id === productId);
         
         if (!product) {
-            console.error('【產品】找不到產品:', productId);
+            console.error('【產品】找不到產品:', productId, '可用ID:', allProducts.map(p => p.id));
             alert('找不到此產品的詳細資訊');
             return;
         }
+        
+        console.log('✅ 找到產品:', product.name);
         
         // 創建模態彈窗
         let modal = document.getElementById('product-detail-modal');
@@ -1420,12 +1428,14 @@ function showProductDetail(productId) {
             const closeBtn = modal.querySelector('.close-modal');
             closeBtn.addEventListener('click', function() {
                 modal.style.display = 'none';
+                document.body.classList.remove('modal-open');
             });
             
             // 點擊模態框外部也可關閉
             window.addEventListener('click', function(event) {
                 if (event.target === modal) {
                     modal.style.display = 'none';
+                    document.body.classList.remove('modal-open');
                 }
             });
         }
@@ -1438,6 +1448,8 @@ function showProductDetail(productId) {
             <h4>使用方法</h4>
             <p>${product.usage}</p>
         </div>` : '';
+        
+
         
         const cautionHtml = product.caution ? `<div class="detail-section">
             <h4>注意事項</h4>
@@ -1484,25 +1496,61 @@ function showProductDetail(productId) {
             tagsHtml += `</div></div>`;
         }
         
+
+        
         // 填充模態框內容
         const modalBody = modal.querySelector('.modal-body');
+        
+        // 清空之前的內容，防止內容累積
+        modalBody.innerHTML = '';
+        
+        // 使用與產品卡片相同的圖片邏輯
+        let modalImageUrl = product.image_url;
+        if (!modalImageUrl || modalImageUrl.includes('placeholder')) {
+            if (product.iherb_link && product.iherb_link.includes('iherb.com/pr/')) {
+                const productSlug = product.iherb_link.split('/pr/')[1]?.split('/')[0];
+                if (productSlug) {
+                    modalImageUrl = `https://s3.images-iherb.com/prd/${productSlug}/y/1.jpg`;
+                }
+            } else {
+                // 根據產品名稱使用不同的預設圖片（高解析度版本）
+                if (product.name.includes('褪黑激素') || product.name.includes('melatonin')) {
+                    modalImageUrl = 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=300&h=300&fit=crop&crop=center';
+                } else if (product.name.includes('鎂') || product.name.includes('magnesium')) {
+                    modalImageUrl = 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=300&h=300&fit=crop&crop=center';
+                } else if (product.name.includes('維生素') || product.name.includes('vitamin')) {
+                    modalImageUrl = 'https://images.unsplash.com/photo-1550572017-edd951b55104?w=300&h=300&fit=crop&crop=center';
+                } else if (product.name.includes('茶') || product.name.includes('tea')) {
+                    modalImageUrl = 'https://images.unsplash.com/photo-1556881286-fc6915169721?w=300&h=300&fit=crop&crop=center';
+                } else {
+                    modalImageUrl = 'https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=300&h=300&fit=crop&crop=center';
+                }
+            }
+        }
+        
         modalBody.innerHTML = `
             <div class="product-detail-header">
-                <img src="${product.image_url || 'https://via.placeholder.com/300?text=產品圖片'}" 
-                     alt="${product.name}" class="product-detail-image">
+                <img src="${modalImageUrl}" 
+                     alt="${product.name}" 
+                     class="product-detail-image"
+                     onerror="this.src='https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=300&h=300&fit=crop&crop=center'; this.onerror=null;">
                 <div class="product-detail-info">
                     <h2>${product.name}</h2>
                     <p class="detail-brand">${product.brand || '未知品牌'}</p>
                     <div class="detail-rating">${ratingStars}</div>
                     <p class="detail-price">NT$ ${product.price || '---'}</p>
-                    <a href="${window.convertToRewardLink ? window.convertToRewardLink(product.iherb_link) : (product.iherb_link || 'https://iherb.co/UT5tXTvq')}" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       class="btn-primary detail-buy-btn" 
-                       onclick="window.trackPurchaseClick && window.trackPurchaseClick('${product.id || 'unknown'}', '${(product.name || '').replace(/'/g, '\\\'')}')"
-                       style="display: inline-block; text-decoration: none; text-align: center;">
-                        <i class="fas fa-shopping-cart"></i> 前往購買
-                    </a>
+                    <div class="detail-purchase-section">
+                        ${window.createPurchaseButton 
+                            ? window.createPurchaseButton(product, '立即購買', 'btn-primary')
+                            : `<a href="${product.iherb_link || 'https://iherb.co/UT5tXTvq'}" 
+                                 target="_blank" 
+                                 rel="noopener noreferrer"
+                                 class="btn-primary detail-buy-btn" 
+                                 style="display: inline-block; text-decoration: none; text-align: center;">
+                                 <i class="fas fa-shopping-cart"></i> 立即購買
+                               </a>`
+                        }
+                    </div>
                 </div>
             </div>
             <div class="product-detail-description">
@@ -1518,12 +1566,14 @@ function showProductDetail(productId) {
         // 顯示模態框
         modal.style.display = 'block';
         
+        // 防止背景滾動
+        document.body.classList.add('modal-open');
+        
     } catch (error) {
         console.error('【產品】顯示產品詳情出錯:', error);
         alert('無法顯示產品詳情: ' + error.message);
     }
-} 
-} 
+}
 
 // 折疊/展開頂部免責聲明
 function toggleDisclaimer(button) {

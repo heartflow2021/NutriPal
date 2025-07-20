@@ -915,6 +915,19 @@ function adjustBySeasonality(products, season) {
     });
 }
 
+// 將主要函數暴露到全域變數
+window.NutriPalRecommender = {
+    recommendProducts: recommendProducts,
+    recommendWithinBudget: recommendWithinBudget,
+    getRelatedProducts: getRelatedProducts,
+    getProducts: getProducts,
+    filterByHealthNeed: filterByHealthNeed,
+    filterByBudget: filterByBudget,
+    filterByLifestyle: filterByLifestyle
+};
+
+console.log('✅ NutriPalRecommender 已掛載到全域變數');
+
 /**
  * 增強型推薦主函數 - 支持多種高級篩選和排序功能
  * @param {Object} params 推薦參數對象

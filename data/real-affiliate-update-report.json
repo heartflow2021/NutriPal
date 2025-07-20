@@ -1,0 +1,17 @@
+{
+  "updated_at": "2025-07-20T17:39:52.810043",
+  "total_products": 51,
+  "updated_products": 51,
+  "real_short_links": 2,
+  "generated_links": 49,
+  "affiliate_config": {
+    "tracking_domains": [
+      "https://vbtrax.com/track/clicks/4032/c627c2bc980422d6fd8dec23d62e9647266f4ddf2aabebf00763b013210652aa8272f4",
+      "https://abzcoupon.com/track/clicks/4032/c627c2bc980422d6fd8dec23d62e9647266f4ddf2aabebf00763b013210652aa8272f4"
+    ],
+    "known_short_links": {
+      "p001": "https://tinyurl.com/2xpolt8s",
+      "p002": "https://tinyurl.com/2cjjj9wp"
+    }
+  }
+}
