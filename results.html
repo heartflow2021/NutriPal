@@ -171,12 +171,18 @@
             border-left: 3px solid #e74c3c;
         }
         
-        /* Results 頁面專用底部導航樣式已移至 styles.css */
+        /* Results 頁面底部導航樣式調整 */
+        .tab-bar {
+            /* 確保在 results 頁面也能正確固定 */
+            position: fixed !important;
+            bottom: 0 !important;
+            z-index: 1000 !important;
+        }
         
 
         
         /* 為底部導航留出空間 */
-        body.results-page {
+        body {
             padding-bottom: 80px;
             margin-bottom: 0;
             min-height: 100vh;
@@ -667,7 +673,7 @@
 
     </style>
 </head>
-<body class="results-page">
+<body>
     <!-- 頂部簡化免責聲明 -->
     <div class="top-disclaimer">
         <i class="fas fa-heart"></i> 小帕僅提供營養資訊與知識整理，不提供任何醫療診斷、治療或預防建議，所有內容僅供參考，健康決策請諮詢專業醫師～
@@ -767,16 +773,16 @@
     <!-- 備用顯示已移除，main.js 會動態處理錯誤狀態 -->
 
     <!-- 底部導航欄 -->
-    <div class="results-tab-bar">
-        <a href="index.html" class="results-tab-item">
+    <div class="tab-bar">
+        <a href="index.html" class="tab-item">
             <i class="fas fa-home"></i>
             <span>首頁</span>
         </a>
-        <a href="chat.html" class="results-tab-item">
+        <a href="chat.html" class="tab-item">
             <i class="fas fa-comment-medical"></i>
             <span>諮詢</span>
         </a>
-        <a href="knowledge.html" class="results-tab-item">
+        <a href="knowledge.html" class="tab-item">
             <i class="fas fa-book-medical"></i>
             <span>知識庫</span>
         </a>
