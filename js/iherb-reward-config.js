@@ -172,7 +172,7 @@ function markAsReturningUser() {
  * @param {string} buttonClass - 按鈕樣式類別（可選）
  * @returns {string} 完整的購買按鈕 HTML 字符串
  */
-function createPurchaseButton(product, buttonText = '前往購買', buttonClass = 'btn-secondary') {
+function createPurchaseButton(product, buttonText = '立即購買', buttonClass = 'btn-secondary') {
     const bestPromoCode = getBestPromoCodeForProduct(product);
     const trackingTag = `product_${product.id || 'unknown'}`;
     const affiliateLink = convertToRewardLink(product.iherb_link, bestPromoCode, trackingTag, product);

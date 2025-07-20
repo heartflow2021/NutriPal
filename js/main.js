@@ -968,13 +968,13 @@ function createProductCard(product) {
         
         // 使用新的聯盟連結按鈕系統
         const purchaseButtonHtml = window.createPurchaseButton 
-            ? window.createPurchaseButton(product, '前往購買', 'btn-secondary')
+            ? window.createPurchaseButton(product, '立即購買', 'btn-secondary')
             : `<a href="${product.affiliate_link || product.iherb_link || 'https://iherb.co/UT5tXTvq'}" 
                  target="_blank" 
                  rel="noopener noreferrer"
                  class="btn-secondary" 
                  style="display: inline-block; text-decoration: none; text-align: center;">
-                 <i class="fas fa-shopping-cart"></i> 前往購買
+                 <i class="fas fa-shopping-cart"></i> 立即購買
                </a>`;
         
         // 設置卡片HTML
