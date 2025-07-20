@@ -117,7 +117,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding-bottom: 20px;
+  padding-bottom: max(20px, env(safe-area-inset-bottom));
   position: fixed;
   bottom: 0;
   z-index: 100;
@@ -147,7 +147,7 @@ body {
 .app-content {
   height: calc(100% - 56px); /* 改為減去 nav-header 的高度 */
   overflow-y: auto;
-  padding-bottom: 120px; /* 為底部導航欄留出適當空間，避免過多底部間距 */
+  padding-bottom: calc(84px + max(20px, env(safe-area-inset-bottom))); /* 動態匹配 tab-bar 實際佔用空間 */
   -webkit-overflow-scrolling: touch; /* 增加 iOS 滑動流暢性 */
   /* 修復 iOS flexbox 問題 */
   min-height: 0;
