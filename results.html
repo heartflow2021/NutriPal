@@ -171,60 +171,12 @@
             border-left: 3px solid #e74c3c;
         }
         
-        /* Results 頁面專用底部導航樣式 */
-        .results-tab-bar {
-            position: fixed !important;
-            bottom: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            width: 100vw !important;
-            height: auto !important;
-            margin: 0 !important;
-            padding: 15px 0 calc(15px + env(safe-area-inset-bottom)) !important;
-            background: rgba(255, 255, 255, 0.98) !important;
-            border-top: 1px solid #e0e0e0 !important;
-            display: flex !important;
-            justify-content: space-around !important;
-            align-items: center !important;
-            z-index: 9999 !important;
-            box-shadow: 0 -3px 20px rgba(0,0,0,0.2) !important;
-            backdrop-filter: blur(25px) !important;
-            -webkit-backdrop-filter: blur(25px) !important;
-            transform: translateZ(0) !important;
-            box-sizing: border-box !important;
-        }
-        
-        .results-tab-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: #666;
-            font-size: 12px;
-            padding: 4px 8px;
-            transition: color 0.2s ease;
-            min-width: 60px;
-        }
-        
-        .results-tab-item:hover {
-            color: var(--primary, #007bff);
-        }
-        
-        .results-tab-item i {
-            font-size: 20px;
-            margin-bottom: 4px;
-        }
-        
-        .results-tab-item span {
-            font-size: 11px;
-            font-weight: 500;
-        }
+        /* Results 頁面專用底部導航樣式已移至 styles.css */
         
 
         
         /* 為底部導航留出空間 */
-        body {
+        body.results-page {
             padding-bottom: 80px;
             margin-bottom: 0;
             min-height: 100vh;
@@ -715,7 +667,7 @@
 
     </style>
 </head>
-<body>
+<body class="results-page">
     <!-- 頂部簡化免責聲明 -->
     <div class="top-disclaimer">
         <i class="fas fa-heart"></i> 小帕僅提供營養資訊與知識整理，不提供任何醫療診斷、治療或預防建議，所有內容僅供參考，健康決策請諮詢專業醫師～
