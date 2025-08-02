@@ -152,7 +152,7 @@
 
 /* 為固定底部導航留出空間 */
 body {
-    padding-bottom: 80px; /* 60px tab-bar height + 20px extra space */
+    padding-bottom: calc(60px + max(8px, env(safe-area-inset-bottom))); /* 與其他頁面一致 */
     margin-bottom: 0;
     min-height: 100vh;
 }
@@ -562,7 +562,7 @@ body.modal-open .tab-bar {
     }
     
     body {
-        padding-bottom: 80px !important; /* Mobile: adjusted for 60px tab-bar + 20px space */
+        padding-bottom: calc(60px + max(8px, env(safe-area-inset-bottom))) !important; /* 與其他頁面一致 */
     }
     
     .timeline-container, .cautions-container {
