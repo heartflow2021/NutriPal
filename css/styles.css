@@ -51,7 +51,8 @@ html, body {
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
-  position: relative; /* 修復 iOS overflow 問題 */
+  /* position: relative 會影響 fixed 定位，改用其他方式處理 overflow */
+  overflow: hidden;
 }
 
 body {
@@ -119,15 +120,12 @@ body {
   align-items: center;
   justify-content: space-around;
   padding-bottom: max(8px, env(safe-area-inset-bottom));
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
   z-index: 1000;
-  /* 確保固定定位穩定性 */
-  transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+  will-change: transform;
 }
 
 .tab-item {
