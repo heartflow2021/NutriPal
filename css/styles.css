@@ -110,7 +110,7 @@ body {
 
 /* 標籤頁底部導航 - 固定在瀏覽器底端 */
 .tab-bar {
-  height: 84px;
+  height: 60px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.95);
   border-top: 1px solid var(--border-color);
@@ -118,7 +118,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding-bottom: max(20px, env(safe-area-inset-bottom));
+  padding-bottom: max(8px, env(safe-area-inset-bottom));
   position: fixed;
   bottom: 0;
   left: 0;
@@ -154,7 +154,7 @@ body {
 .app-content {
   height: calc(100% - 56px); /* 改為減去 nav-header 的高度 */
   overflow-y: auto;
-  padding-bottom: calc(84px + max(20px, env(safe-area-inset-bottom))); /* 動態匹配 tab-bar 實際佔用空間 */
+  padding-bottom: calc(60px + max(20px, env(safe-area-inset-bottom))); /* 動態匹配 tab-bar 實際佔用空間 */
   -webkit-overflow-scrolling: touch; /* 增加 iOS 滑動流暢性 */
   /* 修復 iOS flexbox 問題 */
   min-height: 0;
@@ -541,7 +541,7 @@ input:focus, select:focus, textarea:focus {
   }
   
   .tab-bar {
-    height: 64px;
+    height: 60px;
   }
   
   .tab-item i {
@@ -677,7 +677,7 @@ input:focus, select:focus, textarea:focus {
   }
   
   .app-content {
-    padding-bottom: calc(84px + max(20px, env(safe-area-inset-bottom)));
+    padding-bottom: calc(60px + max(20px, env(safe-area-inset-bottom)));
   }
 }
 
