@@ -382,11 +382,12 @@ body {
   background-color: white;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
-  padding: 14px 16px;
+  padding: 16px;
   text-align: left;
   margin-bottom: 12px;
   transition: all 0.2s ease;
   cursor: pointer;
+  min-height: 76px;
 }
 
 .option-button:hover, .option-button.selected {
@@ -1580,8 +1581,13 @@ input:focus, select:focus, textarea:focus {
 
 /* 圖標樣式 */
 .icon-with-margin {
-  margin-right: 12px;
+  margin-right: 16px;
   color: var(--primary);
+  font-size: 20px;
+  min-width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* 邊距工具類 */
