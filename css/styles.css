@@ -108,19 +108,26 @@ body {
   border-bottom: 1px solid var(--border-color);
 }
 
-/* 標籤頁底部導航 */
+/* 標籤頁底部導航 - 固定在瀏覽器底端 */
 .tab-bar {
   height: 84px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.95);
   border-top: 1px solid var(--border-color);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: space-around;
   padding-bottom: max(20px, env(safe-area-inset-bottom));
   position: fixed;
   bottom: 0;
-  z-index: 100;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  /* 確保固定定位穩定性 */
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .tab-item {
@@ -670,7 +677,7 @@ input:focus, select:focus, textarea:focus {
   }
   
   .app-content {
-    padding-bottom: 90px;
+    padding-bottom: calc(84px + max(20px, env(safe-area-inset-bottom)));
   }
 }
 

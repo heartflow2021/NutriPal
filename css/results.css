@@ -150,9 +150,9 @@
     border-left: 3px solid #e74c3c;
 }
 
-/* 為底部導航留出空間 */
-.results-page body {
-    padding-bottom: 100px;
+/* 為固定底部導航留出空間 */
+body {
+    padding-bottom: 104px; /* 84px tab-bar height + 20px extra space */
     margin-bottom: 0;
     min-height: 100vh;
 }
@@ -549,20 +549,7 @@ body.modal-open .tab-bar {
     margin-bottom: 20px;
 }
 
-/* 強制固定底部導航，以防特殊情況下被覆蓋 */
-.tab-bar {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    z-index: 1002 !important;
-    /* 強制創建新的堆疊上下文，避免被父元素影響 */
-    transform: translateZ(0) !important;
-    will-change: transform !important;
-    /* 確保在所有情況下都保持固定定位 */
-    -webkit-backface-visibility: hidden !important;
-    backface-visibility: hidden !important;
-}
+
 
 /* 響應式設計 - 手機版 */
 @media (max-width: 767px) {
@@ -574,8 +561,8 @@ body.modal-open .tab-bar {
         width: 100%;
     }
     
-    .results-page body {
-        padding-bottom: 120px !important;
+    body {
+        padding-bottom: 84px !important; /* Mobile: adjusted for 64px tab-bar + 20px space */
     }
     
     .timeline-container, .cautions-container {
