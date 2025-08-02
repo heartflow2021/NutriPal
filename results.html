@@ -33,74 +33,101 @@
         </a>
     </div>
 
-    <!-- 結果容器 -->
-    <div class="results-container">
-        <div class="results-title">
-            <h1>健康營養知識資訊</h1>
-            <p>根據您選擇的健康主題 <span id="user-health-need"></span> 與生活型態 <span id="user-lifestyle"></span>，我們整理了以下相關營養產品參考：</p>
-                </div>
-
-        <div class="product-section">
-            <h2>主要資訊整理</h2>
-            <p class="section-description">與您選擇的健康主題相關的產品</p>
-            <div id="recommended-products" class="products-grid">
-                <!-- 推薦產品將在這裡動態生成 -->
-                <div class="loading-indicator">
-                    <i class="fas fa-spinner fa-pulse"></i>
-                    <p>正在整理資訊...</p>
-                </div>
+    <!-- 主要內容區 -->
+    <main class="results-main" role="main">
+      <!-- 快速摘要區塊 -->
+      <section class="hero-summary" aria-labelledby="summary-title">
+        <div class="summary-content">
+          <h1 id="summary-title">為您推薦 <span id="product-count">8</span> 款<span id="health-type">免疫系統</span>保健品</h1>
+          <div class="budget-status">
+            <span class="budget-label">預算範圍</span>
+            <span class="budget-value">$<span id="current-budget">1000</span> 以內</span>
+            <button class="budget-adjust-btn" onclick="openBudgetModal()">
+              <i class="fas fa-edit" aria-hidden="true"></i>
+              調整
+            </button>
             </div>
         </div>
 
-        <div class="product-section">
-            <h2>延伸資訊</h2>
-            <p class="section-description">其他相關營養產品參考</p>
-            <div id="related-products" class="products-grid">
-                <!-- 相關產品將在這裡動態生成 -->
-                <div class="loading-indicator">
-                    <i class="fas fa-spinner fa-pulse"></i>
-                    <p>正在整理資訊...</p>
+        <!-- 快篩分類 -->
+        <nav class="filter-chips" role="navigation" aria-label="產品分類篩選">
+          <button class="chip active" data-filter="all">全部</button>
+          <button class="chip" data-filter="vitamin">維生素</button>
+          <button class="chip" data-filter="probiotic">益生菌</button>
+          <button class="chip" data-filter="herbal">草本</button>
+          <button class="chip" data-filter="mineral">礦物質</button>
+        </nav>
+      </section>
+
+      <!-- 主要推薦區塊 -->
+      <section class="recommendations-section" aria-labelledby="main-recommendations">
+        <header class="section-header">
+          <h2 id="main-recommendations">主要推薦</h2>
+          <div class="sort-controls">
+            <select class="sort-select" aria-label="排序方式">
+              <option value="relevance">相關性</option>
+              <option value="price-low">價格由低到高</option>
+              <option value="price-high">價格由高到低</option>
+              <option value="rating">評分最高</option>
+            </select>
                 </div>
+        </header>
+        
+        <div id="recommended-products" class="products-grid" role="grid">
+          <!-- 產品卡片動態生成 -->
+          <div class="loading-state" aria-live="polite">
+            <div class="spinner" aria-label="正在載入推薦產品"></div>
+            <p>正在整理最適合的推薦...</p>
             </div>
         </div>
 
-        <div class="product-section">
-            <h2>產品使用參考</h2>
+        <button class="load-more-btn" style="display: none;">
+          查看更多推薦 <i class="fas fa-chevron-down"></i>
+        </button>
+      </section>
+
+      <!-- 使用指南區塊 -->
+      <section class="usage-guide-section" aria-labelledby="usage-guide">
+        <h2 id="usage-guide">使用指南</h2>
             <div id="usage-timeline" class="timeline-container">
-                <!-- 時間表將在這裡動態生成 -->
-                <div class="loading-indicator">
-                    <i class="fas fa-spinner fa-pulse"></i>
-                    <p>正在整理資訊...</p>
-                </div>
+          <div class="loading-state" aria-live="polite">
+            <div class="spinner" aria-label="正在載入使用指南"></div>
+            <p>正在整理使用建議...</p>
             </div>
         </div>
+      </section>
 
-        <div class="product-section">
-            <h2>注意事項參考</h2>
-            <div id="product-cautions" class="cautions-container">
-                <!-- 注意事項將在這裡動態生成 -->
-                <div class="loading-indicator">
-                    <i class="fas fa-spinner fa-pulse"></i>
-                    <p>正在整理注意事項...</p>
+      <!-- 延伸建議區塊 -->
+      <section class="related-section" aria-labelledby="related-products-title">
+        <h2 id="related-products-title">延伸建議</h2>
+        <div id="related-products" class="products-grid secondary">
+          <div class="loading-state" aria-live="polite">
+            <div class="spinner" aria-label="正在載入延伸建議"></div>
+            <p>正在整理相關產品...</p>
                 </div>
                 </div>
-                
-            <!-- 移除硬編碼的交互作用卡片，因其會由 JS 動態生成 -->
+      </section>
+
+      <!-- 注意事項區塊 -->
+      <section class="cautions-section" aria-labelledby="cautions-title">
+        <h2 id="cautions-title">注意事項</h2>
+        <div id="product-cautions" class="cautions-container">
+          <div class="loading-state" aria-live="polite">
+            <div class="spinner" aria-label="正在載入注意事項"></div>
+            <p>正在整理安全須知...</p>
+          </div>
         </div>
+      </section>
 
-        <!-- 專業背書與免責聲明 - 與 index.html 保持一致 -->
-        <div class="product-section">
+      <!-- 免責聲明 -->
+      <section class="disclaimer-section">
             <div class="disclaimer-wrapper">
-                <!-- 使用小帕圖片 -->
-                <img src="images/mascot/palpal.png" alt="小帕" class="disclaimer-character" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
-                
+          <img src="images/mascot/palpal.png" alt="小帕營養顧問" class="disclaimer-character" onerror="this.src='https://i.imgur.com/n3C4rQs.png'; this.onerror='';">
                 <p class="disclaimer-title">小帕是資訊整理小幫手，不是醫師</p>
                 <p class="disclaimer-subtitle">我會整理營養知識和熱門資訊供你參考，但不提供醫療建議喔！</p>
-                
                 <div class="disclaimer-counter">
                     已幫助 <strong>2,483</strong> 位朋友了解營養知識
                 </div>
-                
                 <div class="disclaimer-notices">
                     <p class="disclaimer-notice">
                         <strong>聯盟行銷關係揭露：</strong>本網站與 iHerb 等平台有聯盟行銷合作關係。當您透過我們的連結購買產品時，我們會收到一定的佣金，這不會增加您的購買成本。我們整理的產品資訊是基於健康知識主題，而非療效宣傳。
@@ -110,8 +137,8 @@
                     </p>
                 </div>
             </div>
-        </div>
-        </div>
+      </section>
+    </main>
 
     <!-- 備用顯示已移除，main.js 會動態處理錯誤狀態 -->
 

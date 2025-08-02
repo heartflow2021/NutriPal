@@ -18,11 +18,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.location.href.toLowerCase().includes('chat.html')) {
         console.log('【診斷】在聊天頁面，初始化聊天相關功能');
         
-        // 初始化對話框動畫
-        initChatMessageAnimation();
-        
-        // 初始化頁面事件監聽器
-        initEventListeners();
+    // 初始化對話框動畫
+    initChatMessageAnimation();
+    
+    // 初始化頁面事件監聽器
+    initEventListeners();
         
         // 確保提交按鈕綁定了事件
         const submitButton = document.getElementById('submit-selections');
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.log('【診斷】在其他頁面，執行通用初始化');
         // 在其他頁面只初始化對話框動畫
-        initChatMessageAnimation();
+    initChatMessageAnimation();
     }
 });
 
@@ -666,7 +666,7 @@ if (window.location.pathname.includes('results.html')) {
                     if (data && data.products && Array.isArray(data.products)) {
                         allProducts = data.products;
                         console.log(`✅ 成功載入 ${allProducts.length} 個產品，包含聯盟連結`);
-                        
+                
                         // 檢查第一個產品是否有聯盟連結
                         if (allProducts[0] && allProducts[0].affiliate_link) {
                             console.log('✅ 確認產品包含聯盟連結:', allProducts[0].affiliate_link.substring(0, 50) + '...');
@@ -742,10 +742,10 @@ if (window.location.pathname.includes('results.html')) {
                     }
                 ];
             }
-            
+                
             // 儲存推薦產品到 sessionStorage
             const recommendedProductsJson = JSON.stringify(recommendedProducts);
-            sessionStorage.setItem('recommendedProducts', recommendedProductsJson);
+                sessionStorage.setItem('recommendedProducts', recommendedProductsJson);
             sessionStorage.setItem('userHealthNeed', userHealthNeed);
             sessionStorage.setItem('userLifestyle', userLifestyle);
             
@@ -1000,8 +1000,8 @@ function createProductCard(product) {
                     <!-- 暫時隱藏查看詳情按鈕，避免跑版問題
                     <div class="button-row">
                         <button class="btn-outline product-detail-btn" onclick="showProductDetail('${product.id}')">
-                            查看詳情
-                        </button>
+                    查看詳情
+                </button>
                     </div>
                     -->
                 </div>
@@ -1079,19 +1079,19 @@ async function displayRelatedProducts() {
         if (allProducts.length === 0) {
             console.warn('⚠️ 使用備用延伸產品資料');
             allProducts = [
-                {
+            {
                     id: "backup1",
-                    name: "GABA 腦鎂寧",
-                    brand: "健腦寶",
-                    description: "GABA（γ-氨基丁酸）和鎂的複合配方，有助於放鬆神經和改善睡眠質量。",
-                    price: 580,
-                    rating: 4.6,
-                    image_url: "https://via.placeholder.com/150",
-                    benefits: ["改善睡眠質量", "舒緩焦慮", "促進大腦放鬆"],
-                    usage: "睡前30分鐘服用1-2粒",
-                    caution: "孕婦和18歲以下青少年應諮詢醫生後使用",
-                    ingredients: "GABA、甘氨酸鎂、維生素B6",
-                    health_needs: ["改善睡眠品質", "情緒支持"],
+                name: "GABA 腦鎂寧",
+                brand: "健腦寶",
+                description: "GABA（γ-氨基丁酸）和鎂的複合配方，有助於放鬆神經和改善睡眠質量。",
+                price: 580,
+                rating: 4.6,
+                image_url: "https://via.placeholder.com/150",
+                benefits: ["改善睡眠質量", "舒緩焦慮", "促進大腦放鬆"],
+                usage: "睡前30分鐘服用1-2粒",
+                caution: "孕婦和18歲以下青少年應諮詢醫生後使用",
+                ingredients: "GABA、甘氨酸鎂、維生素B6",
+                health_needs: ["改善睡眠品質", "情緒支持"],
                     lifestyle_match: ["長時間工作", "壓力大"],
                     iherb_link: "https://tw.iherb.com/pr/now-foods-gaba-750-mg-100-veg-capsules/832",
                     affiliate_link: "https://tinyurl.com/backup1"
@@ -1162,8 +1162,8 @@ async function displayRelatedProducts() {
         // 添加相關產品卡片
         relatedProducts.forEach(product => {
             try {
-                const productCard = createProductCard(product);
-                productsContainer.appendChild(productCard);
+            const productCard = createProductCard(product);
+            productsContainer.appendChild(productCard);
             } catch (cardError) {
                 console.error('創建延伸產品卡片時出錯:', cardError, '產品:', product);
             }
@@ -1189,24 +1189,24 @@ async function displayRelatedProducts() {
  */
 function generateUsageTimeline() {
     console.log('生成使用時間表');
-    const timelineContainer = document.getElementById('usage-timeline');
-    if (!timelineContainer) return;
-    
+        const timelineContainer = document.getElementById('usage-timeline');
+        if (!timelineContainer) return;
+        
     timelineContainer.innerHTML = `
         <div class="time-point">
             <i class="fas fa-sun"></i>
             <div>
-                <div class="time-header">
-                    <div class="time-info">
+                    <div class="time-header">
+                        <div class="time-info">
                         <h4>早晨</h4>
                         <p class="time">06:00 - 09:00</p>
+                        </div>
                     </div>
-                </div>
                 <div class="time-products">
                     <p>建議服用維生素或能量相關補充品</p>
-                </div>
-            </div>
-        </div>
+                    </div>
+                        </div>
+                        </div>
         <div class="time-point">
             <i class="fas fa-utensils"></i>
             <div>
@@ -1224,28 +1224,28 @@ function generateUsageTimeline() {
         <div class="time-point">
             <i class="fas fa-moon"></i>
             <div>
-                <div class="time-header">
-                    <div class="time-info">
+                    <div class="time-header">
+                        <div class="time-info">
                         <h4>睡前</h4>
                         <p class="time">21:00 - 23:00</p>
+                        </div>
                     </div>
-                </div>
-                <div class="time-products">
+                    <div class="time-products">
                     <p>建議服用幫助睡眠或放鬆的補充品</p>
                 </div>
             </div>
-        </div>
-    `;
-}
+                    </div>
+                `;
+            }
 
 /**
  * 生成注意事項列表
  */
 function generateCautionsList() {
     console.log('生成注意事項列表');
-    const cautionsContainer = document.getElementById('product-cautions');
-    if (!cautionsContainer) return;
-    
+        const cautionsContainer = document.getElementById('product-cautions');
+        if (!cautionsContainer) return;
+        
     cautionsContainer.innerHTML = `
         <div class="caution-item">
             <i class="fas fa-exclamation-triangle"></i>
@@ -1269,7 +1269,7 @@ function generateCautionsList() {
             </div>
         </div>
     `;
-}
+            }
 
 /**
  * 更新選擇摘要
@@ -1280,13 +1280,13 @@ function updateSelectionSummary() {
     
     const healthNeedElement = document.getElementById('user-health-need');
     const lifestyleElement = document.getElementById('user-lifestyle');
-    
-    if (healthNeedElement) {
-        healthNeedElement.textContent = healthNeed;
-    }
-    
-    if (lifestyleElement) {
-        lifestyleElement.textContent = lifestyle;
+        
+        if (healthNeedElement) {
+            healthNeedElement.textContent = healthNeed;
+        }
+        
+        if (lifestyleElement) {
+            lifestyleElement.textContent = lifestyle;
     }
 }
 
@@ -1355,20 +1355,20 @@ async function showProductDetail(productId) {
         // 2. 如果無法從 products.json 載入，嘗試從 sessionStorage 獲取
         if (allProducts.length === 0) {
             console.log('⚠️ 從 sessionStorage 獲取產品數據');
-            try {
-                // 嘗試從recommendedProducts獲取
-                const recommendedJson = sessionStorage.getItem('recommendedProducts');
-                if (recommendedJson) {
+        try {
+            // 嘗試從recommendedProducts獲取
+            const recommendedJson = sessionStorage.getItem('recommendedProducts');
+            if (recommendedJson) {
                     const products = JSON.parse(recommendedJson);
                     allProducts = [...allProducts, ...products];
-                }
-                
+            }
+            
                 // 嘗試從全局變量獲取（延伸產品）
                 if (window.currentRelatedProducts && Array.isArray(window.currentRelatedProducts)) {
                     allProducts = [...allProducts, ...window.currentRelatedProducts];
-                }
-            } catch (e) {
-                console.error('【產品】從sessionStorage獲取產品數據時出錯:', e);
+            }
+        } catch (e) {
+            console.error('【產品】從sessionStorage獲取產品數據時出錯:', e);
             }
         }
         
@@ -1547,10 +1547,10 @@ async function showProductDetail(productId) {
                         ${window.createPurchaseButton 
                             ? window.createPurchaseButton(product, '立即購買', 'btn-primary')
                             : `<a href="${product.iherb_link || 'https://iherb.co/UT5tXTvq'}" 
-                                 target="_blank" 
-                                 rel="noopener noreferrer"
-                                 class="btn-primary detail-buy-btn" 
-                                 style="display: inline-block; text-decoration: none; text-align: center;">
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="btn-primary detail-buy-btn" 
+                       style="display: inline-block; text-decoration: none; text-align: center;">
                                  <i class="fas fa-shopping-cart"></i> 立即購買
                                </a>`
                         }
@@ -1576,8 +1576,8 @@ async function showProductDetail(productId) {
     } catch (error) {
         console.error('【產品】顯示產品詳情出錯:', error);
         alert('無法顯示產品詳情: ' + error.message);
-    }
-}
+} 
+} 
 
 // 折疊/展開頂部免責聲明
 function toggleDisclaimer(button) {
@@ -1622,3 +1622,316 @@ function initChatMessageAnimation() {
         }, 100 * (index + 1)); // 每個對話框依序顯示
     });
 }
+
+/* ===== 新版 UI/UX 優化 JavaScript 函數 ===== */
+
+// 優化後的結果頁面初始化
+function initResultsPageOptimized() {
+  console.log('🚀 初始化優化版結果頁面');
+  
+  try {
+    // 解析 URL 參數並更新摘要
+    updateHeroSummary();
+    
+    // 初始化篩選器
+    initFilterChips();
+    
+    // 初始化排序控制
+    initSortControls();
+    
+    // 確保底部導航固定
+    ensureFixedTabBar();
+    
+    // 優先載入主要推薦
+    loadRecommendationsWithPriority();
+    
+  } catch (error) {
+    console.error('初始化結果頁面失敗:', error);
+    showErrorState();
+  }
+}
+
+// 更新摘要區塊
+function updateHeroSummary() {
+  console.log('📊 更新頁面摘要');
+  
+  const urlParams = new URLSearchParams(window.location.search);
+  const health = decodeURIComponent(urlParams.get('health') || '');
+  const lifestyle = decodeURIComponent(urlParams.get('lifestyle') || '');
+  const budget = urlParams.get('budget') || '1000';
+  
+  // 更新健康類型
+  const healthTypeElement = document.getElementById('health-type');
+  if (healthTypeElement && health) {
+    // 簡化健康需求顯示
+    let healthDisplay = health.replace('知識', '').replace('系統', '');
+    healthTypeElement.textContent = healthDisplay;
+  }
+  
+  // 更新預算顯示
+  const budgetElement = document.getElementById('current-budget');
+  if (budgetElement) {
+    budgetElement.textContent = budget;
+  }
+  
+  // 儲存到全域變數
+  if (typeof userSelections !== 'undefined') {
+    userSelections.healthNeed = health;
+    userSelections.lifestyle = lifestyle;
+    userSelections.budget = parseInt(budget);
+  }
+  
+  console.log('✅ 摘要更新完成:', { health, lifestyle, budget });
+}
+
+// 初始化篩選器
+function initFilterChips() {
+  console.log('🏷️ 初始化篩選器');
+  
+  const chips = document.querySelectorAll('.chip');
+  chips.forEach(chip => {
+    chip.addEventListener('click', (e) => {
+      // 移除其他 active 狀態
+      chips.forEach(c => c.classList.remove('active'));
+      // 添加當前 active 狀態
+      e.target.classList.add('active');
+      
+      // 執行篩選
+      const filter = e.target.dataset.filter;
+      filterProducts(filter);
+      
+      console.log('🔍 篩選產品:', filter);
+    });
+  });
+}
+
+// 產品篩選功能
+function filterProducts(filterType) {
+  const productCards = document.querySelectorAll('.product-card');
+  let visibleCount = 0;
+  
+  productCards.forEach(card => {
+    if (filterType === 'all') {
+      card.style.display = 'block';
+      visibleCount++;
+    } else {
+      // 檢查產品分類（可以根據實際數據結構調整）
+      const categories = card.dataset.categories || '';
+      const productTitle = card.querySelector('.product-title')?.textContent || '';
+      const productBrand = card.querySelector('.product-brand')?.textContent || '';
+      
+      // 簡單的關鍵詞匹配
+      let shouldShow = false;
+      switch(filterType) {
+        case 'vitamin':
+          shouldShow = productTitle.includes('維生素') || productTitle.includes('Vitamin') || 
+                      productBrand.includes('維生素') || categories.includes('vitamin');
+          break;
+        case 'probiotic':
+          shouldShow = productTitle.includes('益生菌') || productTitle.includes('Probiotic') || 
+                      productBrand.includes('益生菌') || categories.includes('probiotic');
+          break;
+        case 'herbal':
+          shouldShow = productTitle.includes('草本') || productTitle.includes('Herbal') || 
+                      productTitle.includes('植物') || categories.includes('herbal');
+          break;
+        case 'mineral':
+          shouldShow = productTitle.includes('礦物質') || productTitle.includes('Mineral') || 
+                      productTitle.includes('鈣') || productTitle.includes('鋅') || 
+                      productTitle.includes('鐵') || categories.includes('mineral');
+          break;
+      }
+      
+      if (shouldShow) {
+        card.style.display = 'block';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    }
+  });
+  
+  // 更新產品數量
+  const countElement = document.getElementById('product-count');
+  if (countElement) {
+    countElement.textContent = visibleCount;
+  }
+  
+  console.log(`📊 篩選結果: ${visibleCount} 個產品顯示`);
+}
+
+// 初始化排序控制
+function initSortControls() {
+  console.log('📈 初始化排序控制');
+  
+  const sortSelect = document.querySelector('.sort-select');
+  if (sortSelect) {
+    sortSelect.addEventListener('change', (e) => {
+      const sortType = e.target.value;
+      sortProducts(sortType);
+      console.log('🔄 排序產品:', sortType);
+    });
+  }
+}
+
+// 產品排序功能
+function sortProducts(sortType) {
+  const productsContainer = document.getElementById('recommended-products');
+  if (!productsContainer) return;
+  
+  const productCards = Array.from(productsContainer.querySelectorAll('.product-card'));
+  
+  productCards.sort((a, b) => {
+    switch(sortType) {
+      case 'price-low':
+        const priceA = parseFloat(a.querySelector('.product-price')?.textContent?.replace(/[^\d.]/g, '') || '0');
+        const priceB = parseFloat(b.querySelector('.product-price')?.textContent?.replace(/[^\d.]/g, '') || '0');
+        return priceA - priceB;
+      
+      case 'price-high':
+        const priceHighA = parseFloat(a.querySelector('.product-price')?.textContent?.replace(/[^\d.]/g, '') || '0');
+        const priceHighB = parseFloat(b.querySelector('.product-price')?.textContent?.replace(/[^\d.]/g, '') || '0');
+        return priceHighB - priceHighA;
+      
+      case 'rating':
+        const ratingA = parseFloat(a.querySelector('.product-rating')?.textContent || '0');
+        const ratingB = parseFloat(b.querySelector('.product-rating')?.textContent || '0');
+        return ratingB - ratingA;
+      
+      default: // relevance
+        return 0; // 保持原順序
+    }
+  });
+  
+  // 重新插入排序後的產品
+  productCards.forEach(card => {
+    productsContainer.appendChild(card);
+  });
+}
+
+// 優先載入策略
+async function loadRecommendationsWithPriority() {
+  console.log('⚡ 開始優先載入策略');
+  
+  try {
+    // 1. 優先載入主要推薦 (用戶最關心)
+    console.log('📦 載入主要推薦...');
+    await displayRecommendedProducts();
+    
+    // 2. 短暫延遲後載入使用指南
+    setTimeout(async () => {
+      console.log('📋 載入使用指南...');
+      if (typeof displayUsageTimeline === 'function') {
+        try {
+          await displayUsageTimeline();
+        } catch (err) {
+          console.warn('使用指南載入失敗:', err);
+        }
+      }
+    }, 500);
+    
+    // 3. 再延遲載入延伸建議
+    setTimeout(async () => {
+      console.log('🔗 載入延伸建議...');
+      if (typeof displayRelatedProducts === 'function') {
+        try {
+          await displayRelatedProducts();
+        } catch (err) {
+          console.warn('延伸建議載入失敗:', err);
+        }
+      }
+    }, 1000);
+    
+    // 4. 最後載入注意事項
+    setTimeout(async () => {
+      console.log('⚠️ 載入注意事項...');
+      if (typeof displayProductCautions === 'function') {
+        try {
+          await displayProductCautions();
+        } catch (err) {
+          console.warn('注意事項載入失敗:', err);
+        }
+      }
+    }, 1500);
+    
+  } catch (error) {
+    console.error('優先載入失敗:', error);
+    showErrorState();
+  }
+}
+
+// 確保底部導航固定
+function ensureFixedTabBar() {
+  const tabBar = document.querySelector('.tab-bar');
+  if (tabBar) {
+    // 強制設置固定定位樣式
+    tabBar.style.position = 'fixed';
+    tabBar.style.bottom = '0';
+    tabBar.style.left = '0';
+    tabBar.style.right = '0';
+    tabBar.style.zIndex = '1000';
+    
+    console.log('✅ 底部導航已確保固定');
+  } else {
+    console.warn('⚠️ 找不到底部導航元素');
+  }
+}
+
+// 錯誤狀態顯示
+function showErrorState() {
+  console.log('❌ 顯示錯誤狀態');
+  
+  const loadingStates = document.querySelectorAll('.loading-state');
+  loadingStates.forEach(state => {
+    state.innerHTML = `
+      <div class="error-state">
+        <i class="fas fa-exclamation-triangle" style="color: #f59e0b; font-size: 24px; margin-bottom: 8px;"></i>
+        <p>載入失敗，請重新整理頁面</p>
+        <button onclick="location.reload()" class="btn-secondary" style="margin-top: 8px; padding: 8px 16px; border: 1px solid #6b7280; background: white; border-radius: 6px; cursor: pointer;">重新載入</button>
+      </div>
+    `;
+  });
+}
+
+// 預算調整模態框（簡化版）
+function openBudgetModal() {
+  const newBudget = prompt('請輸入新的預算範圍 (台幣):', document.getElementById('current-budget')?.textContent || '1000');
+  
+  if (newBudget && !isNaN(newBudget) && newBudget > 0) {
+    // 更新顯示
+    const budgetElement = document.getElementById('current-budget');
+    if (budgetElement) {
+      budgetElement.textContent = newBudget;
+    }
+    
+    // 更新 URL 參數
+    const url = new URL(window.location);
+    url.searchParams.set('budget', newBudget);
+    window.history.replaceState({}, '', url);
+    
+    // 重新載入推薦
+    console.log('💰 預算已更新:', newBudget);
+    loadRecommendationsWithPriority();
+  }
+}
+
+// 覆蓋原有的 DOMContentLoaded 事件處理，加入新的初始化
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('【優化版】頁面載入完成');
+  
+  // 檢查當前頁面
+  if (window.location.href.toLowerCase().includes('results.html')) {
+    console.log('【優化版】初始化結果頁面');
+    
+    // 使用優化版初始化
+    setTimeout(() => {
+      initResultsPageOptimized();
+    }, 100);
+    
+  } else {
+    // 其他頁面使用原有邏輯
+    console.log('【優化版】非結果頁面，使用原有初始化');
+  }
+});
+
+console.log('✅ 優化版 JavaScript 功能已載入');
