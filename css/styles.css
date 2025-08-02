@@ -1509,4 +1509,125 @@ input:focus, select:focus, textarea:focus {
     flex-shrink: 0;
     min-height: 0;
   }
+}
+
+/* 通用工具類 - 從行內樣式抽取的常用樣式 */
+
+/* Avatar 相關樣式 */
+.avatar-transparent {
+  background-color: transparent !important;
+  padding: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  overflow: hidden !important;
+}
+
+.avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 導航標題樣式 */
+.nav-title {
+  flex: 1;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* 間隔工具類 */
+.spacer-24 {
+  width: 24px;
+}
+
+.spacer-height-30 {
+  height: 30px;
+}
+
+.spacer-height-50 {
+  height: 50px;
+}
+
+/* 文字邊距工具類 */
+.text-no-margin {
+  margin: 0;
+}
+
+.text-margin-bottom-8 {
+  margin: 0 0 8px;
+}
+
+.text-margin-bottom-2 {
+  margin: 0 0 2px;
+}
+
+.text-title {
+  margin: 0 0 2px;
+  font-weight: 600;
+}
+
+.text-subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* 圖標樣式 */
+.icon-with-margin {
+  margin-right: 12px;
+  color: var(--primary);
+}
+
+/* 邊距工具類 */
+.mb-24 {
+  margin-bottom: 24px;
+}
+
+.mb-40 {
+  margin-bottom: 40px;
+}
+
+.mb-60 {
+  margin-bottom: 60px;
+}
+
+.mt-24 {
+  margin-top: 24px;
+}
+
+/* 顯示/隱藏工具類 */
+.display-none {
+  display: none;
+}
+
+.display-block {
+  display: block;
+}
+
+/* 按鈕擴展樣式 */
+.btn-full-width {
+  display: block;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* 背景色工具類 */
+.bg-background {
+  background-color: var(--background);
+}
+
+/* padding 工具類 */
+.p-16 {
+  padding: 16px;
+}
+
+/* Flex 工具類擴展 */
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 } 

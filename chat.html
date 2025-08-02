@@ -7,11 +7,9 @@
     <meta name="description" content="透過簡單對話了解你的健康需求，NutriPal 小帕會根據你的生活習慣推薦合適的營養補充方案。">
     <meta name="keywords" content="營養諮詢,健康需求,營養補充,保健品推薦,NutriPal,小帕">
     <link rel="icon" type="image/x-icon" href="icon_pal.ico">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    </style>
 </head>
 <body>
     <!-- 頂部簡化免責聲明 -->
@@ -25,326 +23,326 @@
 
     <!-- 頂部導航 -->
     <div class="nav-header">
-        <a href="index.html" style="color: var(--text-primary); margin-right: 12px;">
+        <a href="index.html" style="color: var(--text-primary); margin-right: 12px;" /* keep-inline */>
             <i class="fas fa-arrow-left"></i>
         </a>
-        <div style="flex: 1; text-align: center; font-weight: 600;">健康知識整理</div>
-        <div style="width: 24px;"></div> <!-- 為了保持兩邊對稱 -->
+        <div class="nav-title">健康知識整理</div>
+        <div class="spacer-24"></div> <!-- 為了保持兩邊對稱 -->
     </div>
 
     <!-- 主要內容區 -->
-    <div class="app-content" style="background-color: var(--background); padding: 16px;">
+    <div class="app-content bg-background p-16">
         <!-- 對話流程 -->
         <div class="chat-message chat-message-animated">
-            <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-                <img src="images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+            <div class="avatar avatar-transparent">
+                <img src="images/mascot/palpal-avatar.png" alt="小帕" class="avatar-image">
             </div>
             <div class="chat-bubble">
-                <p style="margin: 0 0 8px; font-weight: 600;">小帕 PalPal</p>
-                <p style="margin: 0;">哈囉哈囉～我是你的營養知識小幫手小帕！超級開心能幫你整理健康資訊，一起來找找適合你的營養知識吧～</p>
+                <p class="text-margin-bottom-8" style="font-weight: 600;" /* keep-inline */>小帕 PalPal</p>
+                <p class="text-no-margin">哈囉哈囉～我是你的營養知識小幫手小帕！超級開心能幫你整理健康資訊，一起來找找適合你的營養知識吧～</p>
             </div>
         </div>
 
         <div class="chat-message chat-message-animated">
-            <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-                <img src="images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+            <div class="avatar avatar-transparent">
+                <img src="images/mascot/palpal-avatar.png" alt="小帕" class="avatar-image">
             </div>
             <div class="chat-bubble">
-                <p style="margin: 0;">先告訴我你最近對哪方面的健康知識特別感興趣呢？我會幫你整理相關的營養資訊喔～</p>
+                <p class="text-no-margin">先告訴我你最近對哪方面的健康知識特別感興趣呢？我會幫你整理相關的營養資訊喔～</p>
             </div>
         </div>
 
         <!-- 選擇按鈕 -->
-        <div style="margin-bottom: 24px;">
+        <div class="mb-24">
             <button class="option-button" data-type="health-need" data-value="睡眠相關知識" onclick="showLifestyleOptions('睡眠相關知識')">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-moon" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-moon" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">睡眠相關知識</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">入睡時間、睡眠週期、睡眠環境</p>
+                        <p class="text-title">睡眠相關知識</p>
+                        <p class="text-subtitle">入睡時間、睡眠週期、睡眠環境</p>
                     </div>
                 </div>
             </button>
 
             <button class="option-button" data-type="health-need" data-value="免疫系統知識" onclick="showLifestyleOptions('免疫系統知識')">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-shield-virus" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-shield-virus" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">免疫系統知識</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">免疫系統功能、季節性變化</p>
+                        <p class="text-title">免疫系統知識</p>
+                        <p class="text-subtitle">免疫系統功能、季節性變化</p>
                     </div>
                 </div>
             </button>
 
             <button class="option-button" data-type="health-need" data-value="女性健康知識" onclick="showLifestyleOptions('女性健康知識')">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-venus" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-venus" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">女性健康知識</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">女性生理週期、更年期知識</p>
+                        <p class="text-title">女性健康知識</p>
+                        <p class="text-subtitle">女性生理週期、更年期知識</p>
                     </div>
                 </div>
             </button>
 
             <button class="option-button" data-type="health-need" data-value="消化系統知識" onclick="showLifestyleOptions('消化系統知識')">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-apple-alt" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-apple-alt" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">消化系統知識</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">腸胃健康、消化過程</p>
+                        <p class="text-title">消化系統知識</p>
+                        <p class="text-subtitle">腸胃健康、消化過程</p>
                     </div>
                 </div>
             </button>
 
             <button class="option-button" data-type="health-need" data-value="體重管理知識" onclick="showLifestyleOptions('體重管理知識')">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-weight" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-weight" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">體重管理知識</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">代謝知識、營養均衡</p>
+                        <p class="text-title">體重管理知識</p>
+                        <p class="text-subtitle">代謝知識、營養均衡</p>
                     </div>
                 </div>
             </button>
 
             <button class="option-button" data-type="health-need" data-value="大腦與認知知識" onclick="showLifestyleOptions('大腦與認知知識')">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-brain" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-brain" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">大腦與認知知識</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">認知功能、大腦營養素</p>
+                        <p class="text-title">大腦與認知知識</p>
+                        <p class="text-subtitle">認知功能、大腦營養素</p>
                     </div>
                 </div>
             </button>
 
             <button class="option-button" data-type="health-need" data-value="心血管系統知識" onclick="showLifestyleOptions('心血管系統知識')">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-heartbeat" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-heartbeat" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">心血管系統知識</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">心臟功能、血管健康知識</p>
+                        <p class="text-title">心血管系統知識</p>
+                        <p class="text-subtitle">心臟功能、血管健康知識</p>
                     </div>
                 </div>
             </button>
             
             <button class="option-button" data-type="health-need" data-value="骨骼與關節知識" onclick="showLifestyleOptions('骨骼與關節知識')">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-bone" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-bone" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">骨骼與關節知識</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">關節運動、骨質密度知識</p>
+                        <p class="text-title">骨骼與關節知識</p>
+                        <p class="text-subtitle">關節運動、骨質密度知識</p>
                     </div>
                 </div>
             </button>
             
             <button class="option-button" data-type="health-need" data-value="視力保健知識" onclick="showLifestyleOptions('視力保健知識')">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-eye" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-eye" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">視力保健知識</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">用眼習慣、視力保養知識</p>
+                        <p class="text-title">視力保健知識</p>
+                        <p class="text-subtitle">用眼習慣、視力保養知識</p>
                     </div>
                 </div>
             </button>
             
             <button class="option-button" data-type="health-need" data-value="肝臟保健知識" onclick="showLifestyleOptions('肝臟保健知識')">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-tint" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-tint" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">肝臟保健知識</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">肝臟功能、代謝知識</p>
+                        <p class="text-title">肝臟保健知識</p>
+                        <p class="text-subtitle">肝臟功能、代謝知識</p>
                     </div>
                 </div>
             </button>
             
             <button class="option-button" data-type="health-need" data-value="其他" onclick="showLifestyleOptions('其他健康知識')">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-plus" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-plus" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">其他健康知識</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">輸入您想了解的健康主題</p>
+                        <p class="text-title">其他健康知識</p>
+                        <p class="text-subtitle">輸入您想了解的健康主題</p>
                     </div>
                 </div>
             </button>
             
             <!-- 底部額外間距，確保按鈕不被導航欄遮擋 -->
-            <div style="height: 30px;"></div>
+            <div class="spacer-height-30"></div>
         </div>
 
-        <div id="health-need-response" style="display: none;">
+        <div id="health-need-response" class="display-none">
         <div class="chat-message right chat-message-animated">
             <div class="chat-bubble user">
-                    <p style="margin: 0;">我想了解<span class="selected-health-need"></span></p>
+                    <p class="text-no-margin">我想了解<span class="selected-health-need"></span></p>
             </div>
         </div>
 
         <div class="chat-message chat-message-animated">
-                <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-                    <img src="images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="avatar avatar-transparent">
+                    <img src="images/mascot/palpal-avatar.png" alt="小帕" class="avatar-image">
             </div>
             <div class="chat-bubble">
-                    <p style="margin: 0;">太棒了！<span class="health-need-feedback"></span>小帕接下來想知道你的生活型態是怎樣的呢？這樣才能幫你找到更適合的健康知識資訊喔～</p>
+                    <p class="text-no-margin">太棒了！<span class="health-need-feedback"></span>小帕接下來想知道你的生活型態是怎樣的呢？這樣才能幫你找到更適合的健康知識資訊喔～</p>
                 </div>
             </div>
         </div>
 
         <!-- 生活型態選項 -->
-        <div id="lifestyle-options" style="margin-bottom: 24px; display: none;">
+        <div id="lifestyle-options" class="mb-24 display-none">
             <button class="option-button" data-type="lifestyle" data-value="長時間工作" onclick="showBudgetOptions('長時間工作')">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-briefcase" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-briefcase" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">長時間工作</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">工作壓力大、久坐</p>
+                        <p class="text-title">長時間工作</p>
+                        <p class="text-subtitle">工作壓力大、久坐</p>
                     </div>
                 </div>
             </button>
 
             <button class="option-button" data-type="lifestyle" data-value="經常運動" onclick="showBudgetOptions('經常運動')">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-running" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-running" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">經常運動</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">健身、跑步等運動</p>
+                        <p class="text-title">經常運動</p>
+                        <p class="text-subtitle">健身、跑步等運動</p>
                     </div>
                 </div>
             </button>
 
             <button class="option-button" data-type="lifestyle" data-value="飲食不規律" onclick="showBudgetOptions('飲食不規律')">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-hamburger" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-hamburger" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">飲食不規律</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">外食多、不定時進食</p>
+                        <p class="text-title">飲食不規律</p>
+                        <p class="text-subtitle">外食多、不定時進食</p>
                     </div>
                 </div>
             </button>
 
             <button class="option-button" data-type="lifestyle" data-value="長時間使用電子產品" onclick="showBudgetOptions('長時間使用電子產品')">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-laptop" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-laptop" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">長時間使用電子產品</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">電腦、手機、平板</p>
+                        <p class="text-title">長時間使用電子產品</p>
+                        <p class="text-subtitle">電腦、手機、平板</p>
                     </div>
                 </div>
             </button>
 
             <button class="option-button" data-type="lifestyle" data-value="經常熬夜" onclick="showBudgetOptions('經常熬夜')">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-hourglass-half" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-hourglass-half" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">經常熬夜</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">睡眠不規律、睡眠品質差</p>
+                        <p class="text-title">經常熬夜</p>
+                        <p class="text-subtitle">睡眠不規律、睡眠品質差</p>
                     </div>
                 </div>
             </button>
 
             <button class="option-button" data-type="lifestyle" data-value="經常外食" onclick="showBudgetOptions('經常外食')">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-utensils" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-utensils" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">經常外食</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">外食、外送、便利商店</p>
+                        <p class="text-title">經常外食</p>
+                        <p class="text-subtitle">外食、外送、便利商店</p>
                     </div>
                 </div>
             </button>
         </div>
 
-        <div id="lifestyle-response" style="display: none;">
+        <div id="lifestyle-response" class="display-none">
             <div class="chat-message right chat-message-animated">
                 <div class="chat-bubble user">
-                    <p style="margin: 0;">我的生活型態是<span class="selected-lifestyle"></span></p>
+                    <p class="text-no-margin">我的生活型態是<span class="selected-lifestyle"></span></p>
                 </div>
             </div>
 
             <div class="chat-message chat-message-animated">
-                <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-                    <img src="images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="avatar avatar-transparent">
+                    <img src="images/mascot/palpal-avatar.png" alt="小帕" class="avatar-image">
                 </div>
                 <div class="chat-bubble">
-                    <p style="margin: 0;">謝謝你告訴我這些！最後一個小問題～有沒有預算上的考量呢？小帕會努力找出最符合你需求的參考資訊～</p>
+                    <p class="text-no-margin">謝謝你告訴我這些！最後一個小問題～有沒有預算上的考量呢？小帕會努力找出最符合你需求的參考資訊～</p>
                 </div>
             </div>
         </div>
 
         <!-- 預算選項 -->
-        <div id="budget-options" style="margin-bottom: 60px; display: none;">
-            <a href="results.html" onclick="saveSelectionAndRedirect('500', event)" class="option-button" data-type="budget" data-value="500" style="text-decoration: none; color: inherit;">
+        <div id="budget-options" class="mb-60 display-none">
+            <a href="results.html" onclick="saveSelectionAndRedirect('500', event)" class="option-button" data-type="budget" data-value="500" style="text-decoration: none; color: inherit;" /* keep-inline */>
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-dollar-sign" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-dollar-sign" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">經濟實惠型（500元以下）</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">基本需求，平價選擇</p>
+                        <p class="text-title">經濟實惠型（500元以下）</p>
+                        <p class="text-subtitle">基本需求，平價選擇</p>
                     </div>
                 </div>
             </a>
 
-            <a href="results.html" onclick="saveSelectionAndRedirect('1000', event)" class="option-button" data-type="budget" data-value="1000" style="text-decoration: none; color: inherit;">
+            <a href="results.html" onclick="saveSelectionAndRedirect('1000', event)" class="option-button" data-type="budget" data-value="1000" style="text-decoration: none; color: inherit;" /* keep-inline */>
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-dollar-sign" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-dollar-sign" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">中等預算（500-1000元）</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">性價比高，品質保證</p>
+                        <p class="text-title">中等預算（500-1000元）</p>
+                        <p class="text-subtitle">性價比高，品質保證</p>
                     </div>
                 </div>
             </a>
 
-            <a href="results.html" onclick="saveSelectionAndRedirect('2000', event)" class="option-button" data-type="budget" data-value="2000" style="text-decoration: none; color: inherit;">
+            <a href="results.html" onclick="saveSelectionAndRedirect('2000', event)" class="option-button" data-type="budget" data-value="2000" style="text-decoration: none; color: inherit;" /* keep-inline */>
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-dollar-sign" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-dollar-sign" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">高品質型（1000元以上）</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">高檔品牌，專業配方</p>
+                        <p class="text-title">高品質型（1000元以上）</p>
+                        <p class="text-subtitle">高檔品牌，專業配方</p>
                     </div>
                 </div>
             </a>
 
-            <a href="results.html" onclick="saveSelectionAndRedirect('0', event)" class="option-button" data-type="budget" data-value="0" style="text-decoration: none; color: inherit;">
+            <a href="results.html" onclick="saveSelectionAndRedirect('0', event)" class="option-button" data-type="budget" data-value="0" style="text-decoration: none; color: inherit;" /* keep-inline */>
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-infinity" style="margin-right: 12px; color: var(--primary);"></i>
+                    <i class="fas fa-infinity" class="icon-with-margin"></i>
                     <div>
-                        <p style="margin: 0 0 2px; font-weight: 600;">無預算限制</p>
-                        <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">優先考慮效果與品質</p>
+                        <p class="text-title">無預算限制</p>
+                        <p class="text-subtitle">優先考慮效果與品質</p>
                     </div>
                 </div>
             </a>
             
             <!-- 底部額外間距，防止被導航欄遮擋 -->
-            <div style="height: 50px;"></div>
+            <div class="spacer-height-50"></div>
         </div>
 
-        <div id="budget-response" style="display: none; margin-bottom: 40px;">
+        <div id="budget-response" class="display-none mb-40">
             <div class="chat-message right chat-message-animated">
                 <div class="chat-bubble user">
-                    <p style="margin: 0;">我選擇<span class="selected-budget"></span></p>
+                    <p class="text-no-margin">我選擇<span class="selected-budget"></span></p>
                 </div>
             </div>
 
             <div class="chat-message chat-message-animated">
-                <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-                    <img src="images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="avatar avatar-transparent">
+                    <img src="images/mascot/palpal-avatar.png" alt="小帕" class="avatar-image">
                 </div>
                 <div class="chat-bubble">
-                    <p style="margin: 0;">收到收到！小帕已經記下你的需求啦～現在就來幫你整理熱門的健康知識資訊，希望能幫到你喔！</p>
+                    <p class="text-no-margin">收到收到！小帕已經記下你的需求啦～現在就來幫你整理熱門的健康知識資訊，希望能幫到你喔！</p>
                 </div>
             </div>
         </div>
 
         <!-- 提交按鈕區域 - 恢復到對話流程中，但使用更可靠的方式 -->
-        <div id="submit-container" style="margin-top: 24px; display: none;">
-            <a href="results.html" id="submit-selections" class="btn-primary" style="display: block; width: 100%; text-align: center; text-decoration: none; padding: 12px; border-radius: 8px;" onclick="saveSelectionsBeforeRedirect(event)">
+        <div id="submit-container" class="mt-24 display-none">
+            <a href="results.html" id="submit-selections" class="btn-primary btn-full-width" style="padding: 12px; border-radius: 8px;" /* keep-inline */ onclick="saveSelectionsBeforeRedirect(event)">
                 獲取保健品推薦
             </a>
             
             <!-- 加載指示器 -->
-            <div id="loading-indicator" style="display: none; text-align: center; margin-top: 20px;">
+            <div id="loading-indicator" style="display: none; text-align: center; margin-top: 20px;" /* keep-inline */>
                 <div class="loading-spinner"></div>
                 <p>正在整理保健品資訊，請稍候...</p>
             </div>
         </div>
 
         <!-- 添加一個隱藏的表單，用於更可靠的頁面跳轉 -->
-        <form id="navigation-form" action="results.html" method="get" style="display: none;">
+        <form id="navigation-form" action="results.html" method="get" class="display-none">
             <input type="hidden" name="health" value="">
             <input type="hidden" name="lifestyle" value="">
             <input type="hidden" name="budget" value="">
@@ -352,20 +350,20 @@
         </form>
 
         <!-- 隱藏的調試工具 -->
-        <div id="debug-tools" style="display: none; margin-top: 20px; border-top: 1px dashed #ccc; padding-top: 20px;">
-            <h4 style="text-align: center; margin-bottom: 15px;">開發階段調試工具</h4>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
-                <button id="debug-show-data" class="btn-secondary" style="font-size: 12px;">
+        <div id="debug-tools" style="display: none; margin-top: 20px; border-top: 1px dashed #ccc; padding-top: 20px;" /* keep-inline debug tool */>
+            <h4 style="text-align: center; margin-bottom: 15px;" /* keep-inline debug tool */>開發階段調試工具</h4>
+            <div class="flex-center">
+                <button id="debug-show-data" class="btn-secondary" style="font-size: 12px;" /* keep-inline debug tool */>
                     顯示sessionStorage數據
                 </button>
-                <button id="debug-test-redirect" class="btn-secondary" style="font-size: 12px;">
+                <button id="debug-test-redirect" class="btn-secondary" style="font-size: 12px;" /* keep-inline debug tool */>
                     測試頁面跳轉
             </button>
-                <button id="debug-clear-data" class="btn-secondary" style="font-size: 12px;">
+                <button id="debug-clear-data" class="btn-secondary" style="font-size: 12px;" /* keep-inline debug tool */>
                     清除所有數據
             </button>
             </div>
-            <div id="debug-output" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px; font-family: monospace; font-size: 12px; white-space: pre-wrap; max-height: 200px; overflow: auto; display: none;"></div>
+            <div id="debug-output" style="margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px; font-family: monospace; font-size: 12px; white-space: pre-wrap; max-height: 200px; overflow: auto; display: none;" /* keep-inline debug tool */></div>
         </div>
     </div>
 

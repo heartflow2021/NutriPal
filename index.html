@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NutriPal 營養好朋友 - 首頁</title>
     <link rel="icon" type="image/x-icon" href="icon_pal.ico">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/index.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -22,45 +23,45 @@
 
     <!-- 頂部導航 -->
     <div class="nav-header">
-        <div style="width: 24px;"></div> <!-- 為了保持兩邊對稱 -->
-        <div style="flex: 1; text-align: center; font-weight: 600;">NutriPal 營養好朋友</div>
-        <div style="width: 24px;"></div> <!-- 為了保持兩邊對稱 -->
+        <div class="spacer-24"></div> <!-- 為了保持兩邊對稱 -->
+        <div class="nav-title">NutriPal 營養好朋友</div>
+        <div class="spacer-24"></div> <!-- 為了保持兩邊對稱 -->
     </div>
 
     <!-- 主要內容區 -->
     <div class="app-content">
         <!-- 頂部品牌區 -->
-        <div style="padding: 20px 20px 0;">
-            <div style="display: flex; align-items: center; margin-bottom: 16px;">
+        <div style="padding: 20px 20px 0;" /* keep-inline */>
+            <div style="display: flex; align-items: center; margin-bottom: 16px;" /* keep-inline */>
                 <!-- 小帕 PalPal 吉祥物圖標 - 使用新上傳的圖片 -->
-                <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-                    <img src="images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="avatar avatar-transparent">
+                    <img src="images/mascot/palpal-avatar.png" alt="小帕" class="avatar-image">
                 </div>
-                <h1 style="margin: 0 0 0 12px; font-size: 24px;">NutriPal 營養好朋友</h1>
+                <h1 style="margin: 0 0 0 12px; font-size: 24px;" /* keep-inline */>NutriPal 營養好朋友</h1>
             </div>
-            <p style="font-size: 18px; font-weight: 600; margin-bottom: 4px;">哈囉！我是小帕 PalPal</p>
-            <p style="color: var(--text-secondary); margin-top: 0;">讓我幫你找到最多人使用的營養補充方案！</p>
+            <p style="font-size: 18px; font-weight: 600; margin-bottom: 4px;" /* keep-inline */>哈囉！我是小帕 PalPal</p>
+            <p style="color: var(--text-secondary); margin-top: 0;" /* keep-inline */>讓我幫你找到最多人使用的營養補充方案！</p>
         </div>
 
         <!-- 主要 CTA 按鈕 -->
-        <div style="padding: 20px 20px 0;">
+        <div style="padding: 20px 20px 0;" /* keep-inline */>
             <!-- 小帕對話框 -->
             <div class="chat-message chat-message-animated">
-                <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-                    <img src="images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+                <div class="avatar avatar-transparent">
+                    <img src="images/mascot/palpal-avatar.png" alt="小帕" class="avatar-image">
                 </div>
                 <div class="chat-bubble">
-                    <p style="margin: 0 0 8px; font-weight: 600;">小帕 PalPal</p>
-                    <p style="margin: 0;">你好啊～我可以整理出許多人喜歡的保健品組合供你參考喔！需要我幫你整理哪方面的資訊呢？</p>
+                    <p class="text-margin-bottom-8" style="font-weight: 600;" /* keep-inline */>小帕 PalPal</p>
+                    <p class="text-no-margin">你好啊～我可以整理出許多人喜歡的保健品組合供你參考喔！需要我幫你整理哪方面的資訊呢？</p>
                 </div>
             </div>
         </div>
 
         <!-- 熱門健康需求 - 整合了用戶互動區 -->
-        <div style="padding: 0 20px; margin-bottom: 20px;">
+        <div style="padding: 0 20px; margin-bottom: 20px;" /* keep-inline */>
             <div class="chat-message right chat-message-animated">
                 <div class="chat-bubble user">
-                    <p style="margin: 0;">我想了解關於...</p>
+                    <p class="text-no-margin">我想了解關於...</p>
                 </div>
             </div>
             
@@ -72,16 +73,16 @@
                 </div>
             </div>
             
-            <div class="chat-message chat-message-animated" style="margin-top: 16px;">
-                <div class="avatar" style="background-color: transparent; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden;">
-                    <img src="images/mascot/palpal-avatar.png" alt="小帕" style="width: 100%; height: 100%; object-fit: cover;">
+            <div class="chat-message chat-message-animated" style="margin-top: 16px;" /* keep-inline */>
+                <div class="avatar avatar-transparent">
+                    <img src="images/mascot/palpal-avatar.png" alt="小帕" class="avatar-image">
                 </div>
                 <div class="chat-bubble">
-                    <p style="margin: 0;">想了解更多健康需求？讓我們開始更完整的對話吧！</p>
+                    <p class="text-no-margin">想了解更多健康需求？讓我們開始更完整的對話吧！</p>
                 </div>
             </div>
             
-            <a href="chat.html" class="btn-primary" style="width: 100%; display: block; margin-top: 20px;">
+            <a href="chat.html" class="btn-primary" style="width: 100%; display: block; margin-top: 20px;" /* keep-inline */>
                 <i class="fas fa-comment-dots"></i> 了解營養選擇
             </a>
         </div>
@@ -124,8 +125,8 @@
         </div>
 
         <!-- 用戶評價 -->
-        <div style="padding: 20px;">
-            <h2 style="font-size: 18px; margin-bottom: 16px;">用戶分享</h2>
+        <div style="padding: 20px;" /* keep-inline */>
+            <h2 style="font-size: 18px; margin-bottom: 16px;" /* keep-inline */>用戶分享</h2>
             
             <div id="testimonials-container" class="testimonials-container">
                 <!-- 用戶分享將由 JavaScript 動態加載 -->
@@ -453,9 +454,9 @@
                     let stars = '';
                     for (let i = 0; i < 5; i++) {
                         if (i < testimonial.rating) {
-                            stars += '<i class="fas fa-star" style="color: #F5B17B;"></i>';
+                            stars += '<i class="fas fa-star" style="color: #F5B17B;" /* keep-inline js-generated */></i>';
                         } else {
-                            stars += '<i class="far fa-star" style="color: #F5B17B;"></i>';
+                            stars += '<i class="far fa-star" style="color: #F5B17B;" /* keep-inline js-generated */></i>';
                         }
                     }
                     
@@ -464,11 +465,11 @@
                             <div class="testimonial-avatar">
                                 <i class="${testimonial.icon}"></i>
                             </div>
-                            <div style="font-weight: 600; margin: 10px 0 5px; font-size: 16px;">${testimonial.name}</div>
-                            <div style="font-size: 14px; color: var(--text-secondary);">${testimonial.age}歲，${testimonial.job}</div>
+                            <div style="font-weight: 600; margin: 10px 0 5px; font-size: 16px;" /* keep-inline js-generated */>${testimonial.name}</div>
+                            <div style="font-size: 14px; color: var(--text-secondary);" /* keep-inline js-generated */>${testimonial.age}歲，${testimonial.job}</div>
                         </div>
-                        <p style="color: var(--text-secondary); margin: 0 0 15px; font-size: 14px; line-height: 1.6; text-align: center;">${testimonial.text}</p>
-                        <div style="text-align: center;">${stars}</div>
+                        <p style="color: var(--text-secondary); margin: 0 0 15px; font-size: 14px; line-height: 1.6; text-align: center;" /* keep-inline js-generated */>${testimonial.text}</p>
+                        <div style="text-align: center;" /* keep-inline js-generated */>${stars}</div>
                     `;
                     
                     testimonialsContainer.appendChild(testimonialCard);
@@ -497,188 +498,7 @@
         });
     </script>
 
-    <style>
-    /* 產品特色區塊 */
-    .feature-section {
-        padding: 20px;
-        margin-bottom: 20px;
-        background-color: rgba(168, 213, 186, 0.1);
-        border-radius: 12px;
-    }
 
-    .feature-section h2 {
-        font-size: 20px;
-        margin-bottom: 20px;
-        text-align: center;
-        color: var(--primary);
-    }
-
-    .feature-container {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        max-width: 100%;
-    }
-
-    .feature-item {
-        background-color: white;
-        padding: 16px;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        display: flex;
-        align-items: center;
-    }
-
-    .feature-icon {
-        background-color: rgba(168, 213, 186, 0.2);
-        width: 40px;
-        height: 40px;
-        min-width: 40px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 16px;
-        color: var(--primary);
-    }
-
-    .feature-content {
-        flex: 1;
-    }
-
-    .feature-content h3 {
-        margin: 0 0 4px;
-        font-size: 16px;
-        color: var(--primary);
-    }
-
-    .feature-content p {
-        margin: 0;
-        color: var(--text-secondary);
-        font-size: 14px;
-    }
-
-    /* 響應式調整 */
-    @media (min-width: 768px) {
-        .feature-section {
-            padding: 30px;
-        }
-        
-        .feature-section h2 {
-            font-size: 24px;
-            margin-bottom: 24px;
-        }
-        
-        .feature-container {
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .feature-item {
-            flex-direction: column;
-            text-align: center;
-            width: calc(33.33% - 16px);
-            max-width: 280px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            margin-bottom: 0;
-        }
-        
-        .feature-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        }
-        
-        .feature-icon {
-            margin: 0 auto 16px;
-            width: 56px;
-            height: 56px;
-            min-width: 56px;
-            font-size: 1.4em;
-        }
-    }
-
-    @media (max-width: 767px) {
-        .feature-container {
-            margin: 0 auto;
-        }
-    }
-
-    .testimonials-container {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 16px;
-        margin-bottom: 20px;
-    }
-
-    .testimonial-card {
-        background-color: white;
-        border-radius: 12px;
-        padding: 24px 16px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        height: 100%;
-    }
-
-    .testimonial-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-    }
-
-    .testimonial-header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 16px;
-        width: 100%;
-    }
-
-    .testimonial-avatar {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        margin: 0 auto 12px;
-        background-color: #4d6d4e; /* 深綠色 */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 20px;
-    }
-
-    @media (min-width: 768px) {
-        .testimonials-container {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-        
-        .testimonial-card {
-            padding: 24px 20px;
-        }
-    }
-    
-    @media (min-width: 992px) {
-        .testimonials-container {
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-        
-        .testimonial-card {
-            padding: 24px;
-        }
-    }
-    
-    @media (max-width: 500px) {
-        .testimonial-card p {
-            font-size: 13px;
-            line-height: 1.5;
-        }
-    }
-    </style>
     
     <!-- 添加對話框漸入動畫的JavaScript -->
     <script>
