@@ -19,6 +19,12 @@
     background: transparent;
     border: none;
     padding: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.product-card img:hover {
+    transform: scale(1.05);
 }
 
 .product-info {
@@ -114,10 +120,10 @@
 }
 
 .btn-outline {
-    background: transparent;
-    border: 2px solid var(--primary);
-    color: var(--primary);
-    padding: 8px 16px;
+    background: var(--accent);
+    border: none;
+    color: white;
+    padding: 12px 20px;
     border-radius: var(--radius-md);
     font-weight: 600;
     cursor: pointer;
@@ -126,11 +132,13 @@
     display: inline-block;
     text-align: center;
     font-size: 14px;
+    box-shadow: 0 2px 4px rgba(255, 192, 75, 0.2);
 }
 
 .btn-outline:hover {
-    background: var(--primary);
-    color: white;
+    background: #ffb52e;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(255, 192, 75, 0.3);
 }
 
 /* 產品詳情彈窗中的購買區域 */
@@ -159,8 +167,10 @@ body {
 
 /* 確保主要內容不被遮擋 */
 .results-container {
-    padding-bottom: 20px;
-    margin-bottom: 0;
+    padding: 0 16px 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 100%;
 }
 
 /* 產品按鈕對齊樣式 */

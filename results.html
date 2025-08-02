@@ -141,6 +141,21 @@
     <!-- 載入主要邏輯檔案 -->
     <script src="js/main.js"></script>
 
+    <!-- 添加商品圖片點擊功能 -->
+    <script>
+        // 為動態生成的商品圖片添加點擊事件
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('.product-card img')) {
+                // 找到最近的購買按鈕並觸發點擊
+                const card = e.target.closest('.product-card');
+                const purchaseBtn = card.querySelector('.btn-outline');
+                if (purchaseBtn) {
+                    purchaseBtn.click();
+                }
+            }
+        });
+    </script>
+
     <!-- 簡化的初始化邏輯，主要由 main.js 處理 -->
     <script>
         console.log('✅ results.html 頁面資源載入完成');
