@@ -37,12 +37,18 @@
 .product-card {
     display: flex;
     flex-direction: row;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     background-color: white;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-sm);
     overflow: hidden;
     width: 100%;
-    min-height: 200px;
+    min-height: 240px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    box-shadow: var(--shadow-md);
 }
 
 .product-card img {
@@ -62,74 +68,82 @@
 }
 
 .product-info {
-    padding: 24px;
+    padding: 32px;
     display: flex;
     flex-direction: column;
     flex: 1;
     min-width: 0;
+    gap: 16px;
 }
 
 .product-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 12px;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 0;
 }
 
 .product-title-section {
-    flex: 3;
-    padding-right: 10px;
+    flex: 1;
+    min-width: 0;
 }
 
 .product-price-section {
-    flex: 1;
+    flex-shrink: 0;
     text-align: right;
-    min-width: 80px;
+    min-width: 100px;
 }
 
 .product-title {
     margin: 0;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
     line-height: 1.4;
     color: var(--text-primary);
 }
 
 .product-brand {
-    margin: 4px 0 0;
-    font-size: 14px;
+    margin: 0;
+    font-size: 15px;
     color: var(--text-secondary);
+    font-weight: 500;
 }
 
 .product-price {
     color: var(--primary);
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
-    margin: 0 0 4px;
+    margin: 0;
+    line-height: 1;
 }
 
 .product-rating {
     color: #FFB800;
-    font-size: 14px;
+    font-size: 16px;
     display: flex;
     justify-content: flex-end;
+    gap: 2px;
+    margin-top: 4px;
 }
 
 .product-description {
-    margin: 12px 0;
-    font-size: 14px;
-    line-height: 1.5;
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
     color: var(--text-secondary);
 }
 
 .product-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 16px;
+    gap: 8px;
+    margin: 0;
 }
 
 .product-action {
     margin-top: auto;
+    padding-top: 16px;
 }
 
 /* 聯盟行銷購買按鈕優化樣式 */
