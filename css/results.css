@@ -2,7 +2,7 @@
 
 /* 頁面佈局 */
 .results-container {
-    padding: 24px 0;
+    padding: 24px 16px;
     margin: 0 auto;
     max-width: 1200px;
     width: 100%;
@@ -171,7 +171,7 @@
 }
 
 .btn-outline {
-    background: var(--accent);
+    background: #FFC04B;
     border: none;
     color: white;
     padding: 12px 24px;
@@ -188,6 +188,7 @@
     box-shadow: 0 2px 4px rgba(255, 192, 75, 0.2);
     width: 100%;
     gap: 8px;
+    height: 48px;
 }
 
 .btn-outline i {
@@ -198,6 +199,11 @@
     background: #ffb52e;
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(255, 192, 75, 0.3);
+}
+
+.btn-outline:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(255, 192, 75, 0.2);
 }
 
 /* 產品詳情彈窗中的購買區域 */
