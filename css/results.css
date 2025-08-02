@@ -6,9 +6,6 @@
     margin: 0 auto;
     max-width: 1200px;
     width: 100%;
-    min-height: 100vh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
 }
 
 .product-section {
