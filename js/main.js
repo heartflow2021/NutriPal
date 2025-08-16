@@ -644,6 +644,112 @@ function hideLoadingState() {
     }
 }
 
+/**
+ * 🔄 更新載入訊息
+ * @param {string} message 要顯示的訊息
+ */
+function updateLoadingMessage(message) {
+    const loadingIndicators = document.querySelectorAll('.loading-indicator p');
+    loadingIndicators.forEach(indicator => {
+        if (indicator) {
+            indicator.textContent = message;
+        }
+    });
+}
+
+/**
+ * 🔄 帶重試機制的產品資料載入函數
+ * @param {number} maxRetries 最大重試次數
+ * @param {number} retryDelay 重試間隔時間（毫秒）
+ * @returns {Promise<Array>} 產品數據陣列
+ */
+async function loadProductsWithRetry(maxRetries = 3, retryDelay = 2000) {
+    const possiblePaths = [
+        'data/products/products.json',
+        './data/products/products.json',
+        '/data/products/products.json'
+    ];
+    
+    for (const path of possiblePaths) {
+        console.log(`🔍 嘗試從路徑載入: ${path}`);
+        
+        for (let attempt = 1; attempt <= maxRetries; attempt++) {
+            try {
+                console.log(`⏳ 第 ${attempt} 次嘗試載入 ${path}...`);
+                
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 15000); // 15秒超時
+                
+                const response = await fetch(path, {
+                    cache: 'no-store',
+                    headers: { 
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache'
+                    },
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data && data.products && Array.isArray(data.products)) {
+                        console.log(`✅ 成功從 ${path} 載入 ${data.products.length} 個產品`);
+                        
+                        // 檢查第一個產品是否有聯盟連結
+                        if (data.products[0] && data.products[0].affiliate_link) {
+                            console.log('✅ 確認產品包含聯盟連結:', data.products[0].affiliate_link.substring(0, 50) + '...');
+                        }
+                        
+                        return data.products;
+                    } else {
+                        console.warn(`⚠️ ${path} 資料格式不正確`);
+                    }
+                } else {
+                    console.warn(`⚠️ 載入 ${path} 失敗，狀態碼: ${response.status} (${response.statusText})`);
+                    
+                    // 如果是 525 錯誤（SSL 握手失敗），記錄詳細信息並更新用戶界面
+                    if (response.status === 525) {
+                        console.error('🚨 檢測到 525 錯誤 (SSL握手失敗)，這通常是暫時性問題');
+                        updateLoadingMessage(`連接問題 (${response.status})，正在重試...`);
+                    } else {
+                        updateLoadingMessage(`載入失敗 (${response.status})，正在重試...`);
+                    }
+                }
+                
+            } catch (error) {
+                console.error(`❌ 載入 ${path} 時出錯 (第 ${attempt} 次嘗試):`, error.message);
+                
+                // 如果是網路錯誤，提供更多信息並更新用戶界面
+                if (error.name === 'AbortError') {
+                    console.error('⏰ 請求超時 (15秒)');
+                    updateLoadingMessage('請求超時，正在重試...');
+                } else if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    console.error('🌐 網路連接問題');
+                    updateLoadingMessage('網路連接問題，正在重試...');
+                } else {
+                    updateLoadingMessage('載入錯誤，正在重試...');
+                }
+            }
+            
+            // 如果不是最後一次嘗試，等待後重試
+            if (attempt < maxRetries) {
+                const waitTime = Math.round(retryDelay/1000);
+                console.log(`⏳ ${waitTime}秒後重試...`);
+                updateLoadingMessage(`${waitTime}秒後重試...`);
+                await new Promise(resolve => setTimeout(resolve, retryDelay));
+                retryDelay *= 1.5; // 指數退避
+                updateLoadingMessage('正在重新載入...');
+            }
+        }
+    }
+    
+    // 所有路徑和重試都失敗了
+    console.error('❌ 所有載入嘗試都失敗，將使用備用產品資料');
+    updateLoadingMessage('載入失敗，使用備用資料...');
+    return [];
+}
+
 // 結果頁面處理
 if (window.location.pathname.includes('results.html')) {
     document.addEventListener('DOMContentLoaded', async function() {
@@ -655,33 +761,13 @@ if (window.location.pathname.includes('results.html')) {
                 await loadRecommendationEngine();
             }
             
-            // ✅ 直接從 products.json 載入產品資料
+            // ✅ 使用重試機制載入 products.json 產品資料
             console.log('🔄 從 products.json 載入產品資料...');
-            let allProducts = [];
             
-            try {
-                const response = await fetch('data/products/products.json', {
-                    cache: 'no-store'  // 不使用快取
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data && data.products && Array.isArray(data.products)) {
-                        allProducts = data.products;
-                        console.log(`✅ 成功載入 ${allProducts.length} 個產品，包含聯盟連結`);
-                
-                        // 檢查第一個產品是否有聯盟連結
-                        if (allProducts[0] && allProducts[0].affiliate_link) {
-                            console.log('✅ 確認產品包含聯盟連結:', allProducts[0].affiliate_link.substring(0, 50) + '...');
-                        }
-                    } else {
-                        console.warn('⚠️ products.json 資料格式不正確');
-                    }
-                } else {
-                    console.warn('⚠️ 無法載入 products.json，狀態碼:', response.status);
-                }
-            } catch (fetchError) {
-                console.error('❌ 載入 products.json 時出錯:', fetchError);
-            }
+            // 顯示載入狀態給用戶
+            updateLoadingMessage('正在載入產品資料...');
+            
+            let allProducts = await loadProductsWithRetry();
             
             // 如果無法載入產品資料，使用推薦引擎的備用資料
             if (allProducts.length === 0 && window.NutriPalRecommender) {
@@ -1062,20 +1148,9 @@ async function displayRelatedProducts() {
         // 清空容器
         productsContainer.innerHTML = '';
         
-        // 從 products.json 載入所有產品
-        let allProducts = [];
-        try {
-            const response = await fetch('data/products/products.json');
-            if (response.ok) {
-                const data = await response.json();
-                if (data && data.products && Array.isArray(data.products)) {
-                    allProducts = data.products;
-                    console.log(`✅ 延伸資訊載入 ${allProducts.length} 個產品`);
-                }
-            }
-        } catch (fetchError) {
-            console.error('❌ 載入延伸產品資料時出錯:', fetchError);
-        }
+        // 使用重試機制載入所有產品
+        console.log('🔄 載入延伸產品資料...');
+        let allProducts = await loadProductsWithRetry(2, 1500); // 較少重試次數，適合延伸產品
         
         // 如果無法載入產品資料，使用備用資料
         if (allProducts.length === 0) {
@@ -1340,19 +1415,9 @@ async function showProductDetail(productId) {
         
         let allProducts = [];
         
-        // 1. 首先從 products.json 載入完整產品數據
-        try {
-            const response = await fetch('data/products/products.json');
-            if (response.ok) {
-                const data = await response.json();
-                if (data && data.products && Array.isArray(data.products)) {
-                    allProducts = data.products;
-                    console.log(`✅ 從 products.json 載入 ${allProducts.length} 個產品用於詳情顯示`);
-                }
-            }
-        } catch (fetchError) {
-            console.warn('❌ 載入 products.json 失敗:', fetchError);
-        }
+        // 1. 使用重試機制從 products.json 載入完整產品數據
+        console.log('🔄 載入產品詳情數據...');
+        allProducts = await loadProductsWithRetry(2, 1000); // 快速重試用於產品詳情
         
         // 2. 如果無法從 products.json 載入，嘗試從 sessionStorage 獲取
         if (allProducts.length === 0) {
