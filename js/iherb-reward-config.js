@@ -132,14 +132,14 @@ function convertToRewardLink(originalLink, promoCode = null, trackingTag = null,
  */
 function getBestPromoCodeForProduct(product) {
     if (!product) return IHERB_REWARD_CONFIG.affiliate.defaultPromoCode;
-    
+
     const config = getCurrentConfig();
     
     // 根據產品特性選擇最佳優惠碼
     if (product.tags && product.tags.some(tag => tag.includes('兒童') || tag.includes('嬰幼兒'))) {
         return config.promoCodes.kids_special || config.defaultPromoCode;
     }
-    
+
     // 新客戶優惠 - 可以根據用戶狀態判斷
     if (isNewCustomer()) {
         return config.promoCodes.new_customer || config.defaultPromoCode;
@@ -190,11 +190,11 @@ function createPurchaseButton(product, buttonText = '立即購買', buttonClass 
     
     return `<div class="purchase-button-container">
                 <a href="${affiliateLink}" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
+               target="_blank" 
+               rel="noopener noreferrer"
                    class="${buttonClass} product-purchase-btn" 
-                   onclick="handlePurchaseClick('${product.id || 'unknown'}', '${(product.name || '').replace(/'/g, '\\\'')}')"
-                   style="display: inline-block; text-decoration: none; text-align: center;">
+               onclick="handlePurchaseClick('${product.id || 'unknown'}', '${(product.name || '').replace(/'/g, '\\\'')}')"
+               style="display: inline-block; text-decoration: none; text-align: center;">
                    <i class="fas fa-shopping-cart"></i> ${buttonText}
                 </a>
                 ${promoInfo}
