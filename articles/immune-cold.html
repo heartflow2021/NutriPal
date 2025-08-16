@@ -168,25 +168,27 @@
         <section class="related-articles">
             <h2>相關文章推薦</h2>
             
-            <!-- 相關文章卡片 2 -->
-            <div class="article-card" onclick="alert('這篇文章的詳情頁即將上線，敬請期待！')">
-                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=60" 
-                     alt="飲食與免疫力" 
-                     class="article-card-image">
+            <!-- 相關文章卡片：免疫平衡 -->
+            <div class="article-card" onclick="window.location.href='immune-balance.html'">
+                <img src="../images/articles/immune-balance.png" 
+                     alt="提升免疫不是吃多就好，而是吃對" 
+                     class="article-card-image"
+                     onerror="handleImageError(this, 'immune')">
                 <div class="article-card-content">
-                    <h3 class="article-card-title">如何透過飲食提升免疫力：營養師指南</h3>
+                    <h3 class="article-card-title">提升免疫不是吃多就好，而是吃對</h3>
                     <div class="article-card-meta">免疫系統 · 閱讀量：1,782</div>
                 </div>
             </div>
             
-            <!-- 相關文章卡片 3 -->
-            <div class="article-card" onclick="alert('這篇文章的詳情頁即將上線，敬請期待！')">
-                <img src="https://images.unsplash.com/photo-1616279969756-33c411055184?q=80&w=60" 
-                     alt="腸道與免疫力" 
-                     class="article-card-image">
+            <!-- 相關文章卡片：季節性過敏 -->
+            <div class="article-card" onclick="window.location.href='seasonal-allergy-support.html'">
+                <img src="../images/articles/seasonal-allergy-support.png" 
+                     alt="換季過敏不斷？試試這些免疫支持小習慣" 
+                     class="article-card-image"
+                     onerror="handleImageError(this, 'immune')">
                 <div class="article-card-content">
-                    <h3 class="article-card-title">腸道與免疫：你不可忽視的健康連結</h3>
-                    <div class="article-card-meta">腸胃健康 · 閱讀量：1,568</div>
+                    <h3 class="article-card-title">換季過敏不斷？試試這些免疫支持小習慣</h3>
+                    <div class="article-card-meta">免疫系統 · 閱讀量：1,568</div>
                 </div>
             </div>
         </section>
@@ -266,7 +268,160 @@
             alert('文章正在建設中，敬請期待！');
         }
     </script>
-    <!-- 添加 main.js 引用 -->
-    <script src="../js/main.js"></script>
+    <!-- 🛡️ 頁面穩定性監控和錯誤處理 -->
+    <script>
+        // 全局錯誤處理
+        window.addEventListener('error', function(e) {
+            console.error('⚠️ 頁面錯誤:', e.error);
+            handlePageError(e.error);
+        });
+        
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('⚠️ 未處理的 Promise 錯誤:', e.reason);
+            handlePageError(e.reason);
+        });
+        
+        // 🖼️ 智能圖片錯誤處理函數
+        function handleImageError(img, category) {
+            console.warn('⚠️ 圖片載入失敗:', img.src);
+            
+            // 根據分類提供不同的備用圖片
+            const fallbackImages = {
+                'sleep': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRTNGMkZEIiByeD0iOCIvPgo8Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSIxNiIgZmlsbD0iIzMzNzNEQyIvPgo8cGF0aCBkPSJNMzIgNDBIMzZWNDRIMzJWNDBaTTQ0IDQwSDQ4VjQ0SDQ0VjQwWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTM0IDUwSDQ2IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8dGV4dCB4PSI0MCIgeT0iNzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2Njc0ODEiIGZvbnQtc2l6ZT0iMTAiPuedoeecoCwKPC90ZXh0Pgo8L3N2Zz4=',
+                'heart': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRkVGMkYyIiByeD0iOCIvPgo8cGF0aCBkPSJNNDAgNTZMMzIgNDhDMjguNjg2MyA0NC42ODYzIDI4LjY4NjMgMzkuMzEzNyAzMiAzNkMzNS4zMTM3IDMyLjY4NjMgNDAuNjg2MyAzMi42ODYzIDQ0IDM2TDQ4IDQwQzUxLjMxMzcgNDMuMzEzNyA1MS4zMTM3IDQ4LjY4NjMgNDggNTJMNDAgNTZaIiBmaWxsPSIjRUY0NDQ0Ii8+Cjx0ZXh0IHg9IjQwIiB5PSI3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzY2NzQ4MSIgZm9udC1zaXplPSIxMCI+5b+D6KGA6IaK5YWLPC90ZXh0Pgo8L3N2Zz4=',
+                'immune': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRjBGREY0IiByeD0iOCIvPgo8cGF0aCBkPSJNNDAgMjhDNDggMjggNTQgMzQgNTQgNDJDNTQgNTAgNDggNTYgNDAgNTZDMzIgNTYgMjYgNTAgMjYgNDJDMjYgMzQgMzIgMjggNDAgMjhaIiBmaWxsPSIjMTBCOTgxIi8+CjxwYXRoIGQ9Ik0zNiA0Mkw0MCA0Nkw0NCAzOCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHRleHQgeD0iNDAiIHk9IjcwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNjY3NDgxIiBmb250LXNpemU9IjEwIj7lhY3nlqvns7vntbE8L3RleHQ+Cjwvc3ZnPg==',
+                'brain': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRkJGN0ZGIiByeD0iOCIvPgo8Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSIyMCIgZmlsbD0iIzk4NTVGRiIvPgo8cGF0aCBkPSJNMzIgMzZIMzZWNDBIMzJWMzZaTTQ0IDM2SDQ4VjQwSDQ0VjM2WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTM0IDQ4SDQ2IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8dGV4dCB4PSI0MCIgeT0iNzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2Njc0ODEiIGZvbnQtc2l6ZT0iMTAiPuWkp+iFs+W+heeUsOa0uwwKPC90ZXh0Pgo8L3N2Zz4=',
+                'default': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik00MCA0MEM0Ni42Mjc0IDQwIDUyIDM0LjYyNzQgNTIgMjhDNTIgMjEuMzcyNiA0Ni42Mjc0IDE2IDQwIDE2QzMzLjM3MjYgMTYgMjggMjEuMzcyNiAyOCAyOEMyOCAzNC42Mjc0IDMzLjM3MjYgNDAgNDAgNDBaIiBmaWxsPSIjQ0NDQ0NDIi8+CjxwYXRoIGQ9Ik0xNiA2NEwzMiA0OEw0OCA2NEg2NEw0OCA0OEw2NCAzMkg0OEwzMiA0OEwxNiAzMlYzMkwxNiA2NFoiIGZpbGw9IiNDQ0NDQ0MiLz4KPHRleHQgeD0iNDAiIHk9IjcwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNjY3NDgxIiBmb250LXNpemU9IjEwIj5OdXRyaVBhbDwvdGV4dD4KPC9zdmc+'
+            };
+            
+            // 嘗試重試載入 2 次
+            let retryCount = 0;
+            const maxRetries = 2;
+            
+            function attemptReload() {
+                retryCount++;
+                console.log(`🔄 重試載入圖片 (第 ${retryCount} 次):`, img.src);
+                
+                const newImg = new Image();
+                newImg.onload = function() {
+                    img.src = this.src;
+                    console.log('✅ 圖片重新載入成功:', this.src);
+                };
+                
+                newImg.onerror = function() {
+                    if (retryCount < maxRetries) {
+                        console.log(`❌ 第 ${retryCount} 次重試失敗，${2000 * retryCount}ms 後再次重試...`);
+                        setTimeout(attemptReload, 2000 * retryCount);
+                    } else {
+                        console.log('❌ 所有重試失敗，使用備用圖片');
+                        img.src = fallbackImages[category] || fallbackImages.default;
+                        img.onerror = null; // 防止無限循環
+                    }
+                };
+                
+                newImg.src = img.src;
+            }
+            
+            // 開始重試
+            attemptReload();
+        }
+        
+        // 🚨 頁面錯誤處理
+        function handlePageError(error) {
+            if (error && (error.message.includes('525') || error.message.includes('SSL'))) {
+                showConnectionIssueNotice();
+            }
+        }
+        
+        // 💡 顯示連接問題提示
+        function showConnectionIssueNotice() {
+            if (document.getElementById('connection-notice')) return;
+            
+            const notice = document.createElement('div');
+            notice.id = 'connection-notice';
+            notice.style.cssText = `
+                position: fixed;
+                top: 60px;
+                left: 16px;
+                right: 16px;
+                background: #FFF3CD;
+                border: 1px solid #FFEAA7;
+                border-radius: 8px;
+                padding: 12px;
+                z-index: 1000;
+                font-size: 14px;
+                color: #856404;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            `;
+            
+            notice.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center;">
+                        <i class="fas fa-exclamation-triangle" style="margin-right: 8px; color: #F39C12;"></i>
+                        <span>網路連接不穩定，正在重新載入資源...</span>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button onclick="location.reload()" style="background: none; border: none; color: #856404; cursor: pointer; font-size: 12px;" title="重新載入頁面">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background: none; border: none; color: #856404; cursor: pointer;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(notice);
+            
+            setTimeout(() => {
+                if (notice.parentNode) notice.remove();
+            }, 10000);
+        }
+        
+        // 📍 頁面載入完成後檢查資源
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📖 文章頁面載入完成');
+            
+            // 設置圖片錯誤處理
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                if (!img.complete || img.naturalWidth === 0) {
+                    img.addEventListener('error', function() {
+                        console.warn('⚠️ 圖片載入失敗:', this.src);
+                        // 如果沒有 onerror 屬性，使用通用處理
+                        if (!this.onerror || this.onerror.toString().includes('handleImageError')) return;
+                        handleImageError(this, 'default');
+                    });
+                }
+            });
+            
+            // 檢查關鍵資源載入狀態
+            setTimeout(() => {
+                try {
+                    const fontAwesome = window.getComputedStyle(document.querySelector('.fas')).fontFamily.includes('Font Awesome');
+                    const googleFonts = window.getComputedStyle(document.body).fontFamily.includes('Nunito');
+                    
+                    if (!fontAwesome || !googleFonts) {
+                        console.warn('⚠️ 部分資源載入失敗，顯示提示');
+                        showConnectionIssueNotice();
+                    }
+                } catch (e) {
+                    console.warn('⚠️ 資源檢查失敗，顯示提示');
+                    showConnectionIssueNotice();
+                }
+            }, 2000);
+        });
+    </script>
+    
+    <!-- 安全載入 main.js -->
+    <script>
+        // 安全載入 main.js
+        const script = document.createElement('script');
+        script.src = '../js/main.js';
+        script.onerror = function() {
+            console.warn('⚠️ main.js 載入失敗，使用備用功能');
+        };
+        document.head.appendChild(script);
+    </script>
 </body>
 </html> 
