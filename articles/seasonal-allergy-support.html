@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../icon_pal.ico">
     <title>換季過敏不斷？試試這些免疫支持小習慣 | NutriPal 營養好朋友</title>
     <meta name="description" content="了解如何通過日常生活與營養支持來緩解換季過敏症狀，讓免疫系統重新找回平衡，不再被鼻水和噴嚏打亂生活步調。">
     <meta name="keywords" content="季節性過敏,過敏免疫,免疫系統,過敏緩解,紫錐花,蜂膠,維生素B群,換季保健,NutriPal">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/article.css">
-    <link rel="stylesheet" href="../css/article.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 </head>
 <body>
     <!-- 頂部簡化免責聲明 -->
@@ -318,7 +321,140 @@
         });
     </script>
     
-    <!-- 添加 main.js 引用 -->
-    <script src="../js/main.js"></script>
+    <!-- 🛡️ 頁面穩定性監控和錯誤處理 -->
+    <script>
+        // 全局錯誤處理
+        window.addEventListener('error', function(e) {
+            console.error('⚠️ 頁面錯誤:', e.error);
+            handlePageError(e.error);
+        });
+        
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('⚠️ 未處理的 Promise 錯誤:', e.reason);
+            handlePageError(e.reason);
+        });
+        
+        // 🔄 圖片載入重試機制
+        function retryImageLoad(img, maxRetries = 2) {
+            let attempts = 0;
+            
+            function attemptLoad() {
+                attempts++;
+                console.log(`🔄 重試載入圖片 (第 ${attempts} 次):`, img.src);
+                
+                const newImg = new Image();
+                newImg.onload = function() {
+                    img.src = this.src;
+                    console.log('✅ 圖片載入成功:', this.src);
+                };
+                newImg.onerror = function() {
+                    if (attempts < maxRetries) {
+                        setTimeout(attemptLoad, 2000 * attempts);
+                    } else {
+                        console.error('❌ 圖片載入失敗，使用備用圖片');
+                        img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDYwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjVGNUY1Ii8+Cjx0ZXh0IHg9IjMwMCIgeT0iMTUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOTk5IiBmb250LXNpemU9IjE4Ij5OdXRyaVBhbCDmloflnJY8L3RleHQ+Cjwvc3ZnPg==';
+                    }
+                };
+                newImg.src = img.src;
+            }
+            
+            attemptLoad();
+        }
+        
+        // 🚨 頁面錯誤處理
+        function handlePageError(error) {
+            if (error && (error.message.includes('525') || error.message.includes('SSL'))) {
+                showConnectionIssueNotice();
+            }
+        }
+        
+        // 💡 顯示連接問題提示
+        function showConnectionIssueNotice() {
+            if (document.getElementById('connection-notice')) return;
+            
+            const notice = document.createElement('div');
+            notice.id = 'connection-notice';
+            notice.style.cssText = `
+                position: fixed;
+                top: 60px;
+                left: 16px;
+                right: 16px;
+                background: #FFF3CD;
+                border: 1px solid #FFEAA7;
+                border-radius: 8px;
+                padding: 12px;
+                z-index: 1000;
+                font-size: 14px;
+                color: #856404;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            `;
+            
+            notice.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center;">
+                        <i class="fas fa-exclamation-triangle" style="margin-right: 8px; color: #F39C12;"></i>
+                        <span>網路連接不穩定，正在重新載入資源...</span>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button onclick="location.reload()" style="background: none; border: none; color: #856404; cursor: pointer; font-size: 12px;" title="重新載入頁面">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background: none; border: none; color: #856404; cursor: pointer;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(notice);
+            
+            setTimeout(() => {
+                if (notice.parentNode) notice.remove();
+            }, 10000);
+        }
+        
+        // 📍 頁面載入完成後檢查資源
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📖 文章頁面載入完成');
+            
+            // 設置圖片錯誤處理
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                if (!img.complete || img.naturalWidth === 0) {
+                    img.addEventListener('error', function() {
+                        console.warn('⚠️ 圖片載入失敗:', this.src);
+                        retryImageLoad(this);
+                    });
+                }
+            });
+            
+            // 檢查關鍵資源載入狀態
+            setTimeout(() => {
+                try {
+                    const fontAwesome = window.getComputedStyle(document.querySelector('.fas')).fontFamily.includes('Font Awesome');
+                    const googleFonts = window.getComputedStyle(document.body).fontFamily.includes('Nunito');
+                    
+                    if (!fontAwesome || !googleFonts) {
+                        console.warn('⚠️ 部分資源載入失敗，顯示提示');
+                        showConnectionIssueNotice();
+                    }
+                } catch (e) {
+                    console.warn('⚠️ 資源檢查失敗，顯示提示');
+                    showConnectionIssueNotice();
+                }
+            }, 2000);
+        });
+    </script>
+    
+    <!-- 安全載入 main.js -->
+    <script>
+        // 安全載入 main.js
+        const script = document.createElement('script');
+        script.src = '../js/main.js';
+        script.onerror = function() {
+            console.warn('⚠️ main.js 載入失敗，使用備用功能');
+        };
+        document.head.appendChild(script);
+    </script>
 </body>
 </html>
