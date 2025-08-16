@@ -153,10 +153,11 @@
         <section class="related-articles">
             <h2>相關文章推薦</h2>
             
-             <div class="article-card" onclick="window.location.href='../articles/brain-focus-article.html'">
-                <img src="../images/articles/專注力大腦營養.png" 
-                     alt="專注力與大腦營養" 
-                     class="article-card-image">
+             <div class="article-card" onclick="window.location.href='brain-focus.html'">
+                <img src="../images/articles/brain-focus.png" 
+                     alt="找回消失的專注力：大腦能量與營養補給指南" 
+                     class="article-card-image"
+                     onerror="handleImageError(this, 'brain')">
                 <div class="article-card-content">
                     <h3 class="article-card-title">找回消失的專注力：大腦能量與營養補給指南</h3>
                     <div class="article-card-meta">大腦健康 · 閱讀量：1,500+</div>
@@ -221,7 +222,80 @@
             }
         });
     </script>
-    <!-- 添加 main.js 引用 -->
-    <script src="../js/main.js"></script>
+    <!-- 🛡️ 頁面穩定性監控和錯誤處理 -->
+    <script>
+        // 🖼️ 智能圖片錯誤處理函數
+        function handleImageError(img, category) {
+            console.warn('⚠️ 圖片載入失敗:', img.src);
+            
+            // 根據分類提供不同的備用圖片
+            const fallbackImages = {
+                'sleep': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRTNGMkZEIiByeD0iOCIvPgo8Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSIxNiIgZmlsbD0iIzMzNzNEQyIvPgo8cGF0aCBkPSJNMzIgNDBIMzZWNDRIMzJWNDBaTTQ0IDQwSDQ4VjQ0SDQ0VjQwWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTM0IDUwSDQ2IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8dGV4dCB4PSI0MCIgeT0iNzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2Njc0ODEiIGZvbnQtc2l6ZT0iMTAiPuedoeecoCwKPC90ZXh0Pgo8L3N2Zz4=',
+                'heart': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRkVGMkYyIiByeD0iOCIvPgo8cGF0aCBkPSJNNDAgNTZMMzIgNDhDMjguNjg2MyA0NC42ODYzIDI4LjY4NjMgMzkuMzEzNyAzMiAzNkMzNS4zMTM3IDMyLjY4NjMgNDAuNjg2MyAzMi42ODYzIDQ0IDM2TDQ4IDQwQzUxLjMxMzcgNDMuMzEzNyA1MS4zMTM3IDQ4LjY4NjMgNDggNTJMNDAgNTZaIiBmaWxsPSIjRUY0NDQ0Ii8+Cjx0ZXh0IHg9IjQwIiB5PSI3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzY2NzQ4MSIgZm9udC1zaXplPSIxMCI+5b+D6KGA6IaK5YWLPC90ZXh0Pgo8L3N2Zz4=',
+                'immune': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRjBGREY0IiByeD0iOCIvPgo8cGF0aCBkPSJNNDAgMjhDNDggMjggNTQgMzQgNTQgNDJDNTQgNTAgNDggNTYgNDAgNTZDMzIgNTYgMjYgNTAgMjYgNDJDMjYgMzQgMzIgMjggNDAgMjhaIiBmaWxsPSIjMTBCOTgxIi8+CjxwYXRoIGQ9Ik0zNiA0Mkw0MCA0Nkw0NCAzOCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHRleHQgeD0iNDAiIHk9IjcwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNjY3NDgxIiBmb250LXNpemU9IjEwIj7lhY3nlqvns7vntbE8L3RleHQ+Cjwvc3ZnPg==',
+                'brain': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRkJGN0ZGIiByeD0iOCIvPgo8Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSIyMCIgZmlsbD0iIzk4NTVGRiIvPgo8cGF0aCBkPSJNMzIgMzZIMzZWNDBIMzJWMzZaTTQ0IDM2SDQ4VjQwSDQ0VjM2WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTM0IDQ4SDQ2IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8dGV4dCB4PSI0MCIgeT0iNzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2Njc0ODEiIGZvbnQtc2l6ZT0iMTAiPuWkp+iFs+W+heeUsOa0uwwKPC90ZXh0Pgo8L3N2Zz4=',
+                'default': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik00MCA0MEM0Ni42Mjc0IDQwIDUyIDM0LjYyNzQgNTIgMjhDNTIgMjEuMzcyNiA0Ni42Mjc0IDE2IDQwIDE2QzMzLjM3MjYgMTYgMjggMjEuMzcyNiAyOCAyOEMyOCAzNC42Mjc0IDMzLjM3MjYgNDAgNDAgNDBaIiBmaWxsPSIjQ0NDQ0NDIi8+CjxwYXRoIGQ9Ik0xNiA2NEwzMiA0OEw0OCA2NEg2NEw0OCA0OEw2NCAzMkg0OEwzMiA0OEwxNiAzMlYzMkwxNiA2NFoiIGZpbGw9IiNDQ0NDQ0MiLz4KPHRleHQgeD0iNDAiIHk9IjcwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNjY3NDgxIiBmb250LXNpemU9IjEwIj5OdXRyaVBhbDwvdGV4dD4KPC9zdmc+'
+            };
+            
+            // 嘗試重試載入 2 次
+            let retryCount = 0;
+            const maxRetries = 2;
+            
+            function attemptReload() {
+                retryCount++;
+                console.log(`🔄 重試載入圖片 (第 ${retryCount} 次):`, img.src);
+                
+                const newImg = new Image();
+                newImg.onload = function() {
+                    img.src = this.src;
+                    console.log('✅ 圖片重新載入成功:', this.src);
+                };
+                
+                newImg.onerror = function() {
+                    if (retryCount < maxRetries) {
+                        console.log(`❌ 第 ${retryCount} 次重試失敗，${2000 * retryCount}ms 後再次重試...`);
+                        setTimeout(attemptReload, 2000 * retryCount);
+                    } else {
+                        console.log('❌ 所有重試失敗，使用備用圖片');
+                        img.src = fallbackImages[category] || fallbackImages.default;
+                        img.onerror = null; // 防止無限循環
+                    }
+                };
+                
+                newImg.src = img.src;
+            }
+            
+            // 開始重試
+            attemptReload();
+        }
+        
+        // 📍 頁面載入完成後檢查資源
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📖 文章頁面載入完成 - cardiovascular-office-risk');
+            
+            // 設置圖片錯誤處理
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                if (!img.complete || img.naturalWidth === 0) {
+                    img.addEventListener('error', function() {
+                        console.warn('⚠️ 圖片載入失敗:', this.src);
+                        // 如果沒有 onerror 屬性，使用通用處理
+                        if (!this.onerror || this.onerror.toString().includes('handleImageError')) return;
+                        handleImageError(this, 'default');
+                    });
+                }
+            });
+        });
+    </script>
+    
+    <!-- 安全載入 main.js -->
+    <script>
+        const script = document.createElement('script');
+        script.src = '../js/main.js';
+        script.onerror = function() {
+            console.warn('⚠️ main.js 載入失敗，使用備用功能');
+        };
+        document.head.appendChild(script);
+    </script>
 </body>
 </html> 
