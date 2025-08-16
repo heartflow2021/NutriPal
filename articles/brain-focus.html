@@ -171,36 +171,39 @@
         <section class="related-articles">
             <h2>相關文章推薦</h2>
             
-            <!-- 相關文章卡片 1 -->
-            <div class="article-card">
-                <img src="https://images.unsplash.com/photo-1597589827317-4c6d6e0a90bd?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=MnwxfDB8MXxyYW5kb218MHx8b21lZ2F8fHx8fHwxNjgzMTY0NDYw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=60" 
-                     alt="Omega-3與大腦健康" 
-                     class="article-card-image">
+            <!-- 相關文章卡片：心血管健康 -->
+            <div class="article-card" onclick="window.location.href='cardiovascular-office-risk.html'">
+                <img src="../images/articles/cardiovascular-office-risk.png" 
+                     alt="上班族的隱形殺手：你忽略的心血管風險" 
+                     class="article-card-image"
+                     onerror="handleImageError(this, 'heart')">
                 <div class="article-card-content">
-                    <h3 class="article-card-title">Omega-3與大腦發展：一生受用的好油脂</h3>
-                    <div class="article-card-meta">大腦與認知 · 閱讀量：1,755</div>
+                    <h3 class="article-card-title">上班族的隱形殺手：你忽略的心血管風險</h3>
+                    <div class="article-card-meta">心臟健康 · 閱讀量：1,755</div>
                 </div>
             </div>
             
-            <!-- 相關文章卡片 2 -->
-            <div class="article-card">
-                <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=MnwxfDB8MXxyYW5kb218MHx8bnV0cml0aW9ufHx8fHx8MTY4MzE2NDUyMA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=60" 
-                     alt="營養與記憶力" 
-                     class="article-card-image">
+            <!-- 相關文章卡片：黃金睡眠 -->
+            <div class="article-card" onclick="window.location.href='golden-sleep-nutrients.html'">
+                <img src="../images/articles/golden-sleep-nutrients.png" 
+                     alt="打造黃金睡眠力：3種營養素幫助你放鬆入眠" 
+                     class="article-card-image"
+                     onerror="handleImageError(this, 'sleep')">
                 <div class="article-card-content">
-                    <h3 class="article-card-title">吃出好記憶：五大記憶力增強食物</h3>
-                    <div class="article-card-meta">大腦與認知 · 閱讀量：1,623</div>
+                    <h3 class="article-card-title">打造黃金睡眠力：3種營養素幫助你放鬆入眠</h3>
+                    <div class="article-card-meta">睡眠健康 · 閱讀量：1,623</div>
                 </div>
             </div>
             
-            <!-- 相關文章卡片 3 -->
-            <div class="article-card">
-                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=MnwxfDB8MXxyYW5kb218MHx8c3RyZXNzfHx8fHx8MTY4MzE2NDU4Nw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=60" 
-                     alt="紓壓與專注力" 
-                     class="article-card-image">
+            <!-- 相關文章卡片：睡眠與壓力 -->
+            <div class="article-card" onclick="window.location.href='stress-sleep.html'">
+                <img src="../images/articles/stress-sleep.png" 
+                     alt="晚睡的人更容易累積壓力？認識睡眠與壓力的關係" 
+                     class="article-card-image"
+                     onerror="handleImageError(this, 'sleep')">
                 <div class="article-card-content">
-                    <h3 class="article-card-title">紓壓也能提升專注力：壓力與認知的關係</h3>
-                    <div class="article-card-meta">大腦與認知 · 閱讀量：1,412</div>
+                    <h3 class="article-card-title">晚睡的人更容易累積壓力？認識睡眠與壓力的關係</h3>
+                    <div class="article-card-meta">睡眠健康 · 閱讀量：1,412</div>
                 </div>
             </div>
         </section>
@@ -293,7 +296,80 @@
         });
     </script>
     
-    <!-- 添加 main.js 引用 -->
-    <script src="../js/main.js"></script>
+    <!-- 🛡️ 頁面穩定性監控和錯誤處理 -->
+    <script>
+        // 🖼️ 智能圖片錯誤處理函數
+        function handleImageError(img, category) {
+            console.warn('⚠️ 圖片載入失敗:', img.src);
+            
+            // 根據分類提供不同的備用圖片
+            const fallbackImages = {
+                'sleep': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRTNGMkZEIiByeD0iOCIvPgo8Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSIxNiIgZmlsbD0iIzMzNzNEQyIvPgo8cGF0aCBkPSJNMzIgNDBIMzZWNDRIMzJWNDBaTTQ0IDQwSDQ4VjQ0SDQ0VjQwWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTM0IDUwSDQ2IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8dGV4dCB4PSI0MCIgeT0iNzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2Njc0ODEiIGZvbnQtc2l6ZT0iMTAiPuedoeecoCwKPC90ZXh0Pgo8L3N2Zz4=',
+                'heart': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRkVGMkYyIiByeD0iOCIvPgo8cGF0aCBkPSJNNDAgNTZMMzIgNDhDMjguNjg2MyA0NC42ODYzIDI4LjY4NjMgMzkuMzEzNyAzMiAzNkMzNS4zMTM3IDMyLjY4NjMgNDAuNjg2MyAzMi42ODYzIDQ0IDM2TDQ4IDQwQzUxLjMxMzcgNDMuMzEzNyA1MS4zMTM3IDQ4LjY4NjMgNDggNTJMNDAgNTZaIiBmaWxsPSIjRUY0NDQ0Ii8+Cjx0ZXh0IHg9IjQwIiB5PSI3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzY2NzQ4MSIgZm9udC1zaXplPSIxMCI+5b+D6KGA6IaK5YWLPC90ZXh0Pgo8L3N2Zz4=',
+                'immune': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRjBGREY0IiByeD0iOCIvPgo8cGF0aCBkPSJNNDAgMjhDNDggMjggNTQgMzQgNTQgNDJDNTQgNTAgNDggNTYgNDAgNTZDMzIgNTYgMjYgNTAgMjYgNDJDMjYgMzQgMzIgMjggNDAgMjhaIiBmaWxsPSIjMTBCOTgxIi8+CjxwYXRoIGQ9Ik0zNiA0Mkw0MCA0Nkw0NCAzOCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHRleHQgeD0iNDAiIHk9IjcwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNjY3NDgxIiBmb250LXNpemU9IjEwIj7lhY3nlqvns7vntbE8L3RleHQ+Cjwvc3ZnPg==',
+                'brain': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRkJGN0ZGIiByeD0iOCIvPgo8Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSIyMCIgZmlsbD0iIzk4NTVGRiIvPgo8cGF0aCBkPSJNMzIgMzZIMzZWNDBIMzJWMzZaTTQ0IDM2SDQ4VjQwSDQ0VjM2WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTM0IDQ4SDQ2IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8dGV4dCB4PSI0MCIgeT0iNzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2Njc0ODEiIGZvbnQtc2l6ZT0iMTAiPuWkp+iFs+W+heeUsOa0uwwKPC90ZXh0Pgo8L3N2Zz4=',
+                'default': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik00MCA0MEM0Ni42Mjc0IDQwIDUyIDM0LjYyNzQgNTIgMjhDNTIgMjEuMzcyNiA0Ni42Mjc0IDE2IDQwIDE2QzMzLjM3MjYgMTYgMjggMjEuMzcyNiAyOCAyOEMyOCAzNC42Mjc0IDMzLjM3MjYgNDAgNDAgNDBaIiBmaWxsPSIjQ0NDQ0NDIi8+CjxwYXRoIGQ9Ik0xNiA2NEwzMiA0OEw0OCA2NEg2NEw0OCA0OEw2NCAzMkg0OEwzMiA0OEwxNiAzMlYzMkwxNiA2NFoiIGZpbGw9IiNDQ0NDQ0MiLz4KPHRleHQgeD0iNDAiIHk9IjcwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNjY3NDgxIiBmb250LXNpemU9IjEwIj5OdXRyaVBhbDwvdGV4dD4KPC9zdmc+'
+            };
+            
+            // 嘗試重試載入 2 次
+            let retryCount = 0;
+            const maxRetries = 2;
+            
+            function attemptReload() {
+                retryCount++;
+                console.log(`🔄 重試載入圖片 (第 ${retryCount} 次):`, img.src);
+                
+                const newImg = new Image();
+                newImg.onload = function() {
+                    img.src = this.src;
+                    console.log('✅ 圖片重新載入成功:', this.src);
+                };
+                
+                newImg.onerror = function() {
+                    if (retryCount < maxRetries) {
+                        console.log(`❌ 第 ${retryCount} 次重試失敗，${2000 * retryCount}ms 後再次重試...`);
+                        setTimeout(attemptReload, 2000 * retryCount);
+                    } else {
+                        console.log('❌ 所有重試失敗，使用備用圖片');
+                        img.src = fallbackImages[category] || fallbackImages.default;
+                        img.onerror = null; // 防止無限循環
+                    }
+                };
+                
+                newImg.src = img.src;
+            }
+            
+            // 開始重試
+            attemptReload();
+        }
+        
+        // 📍 頁面載入完成後檢查資源
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📖 文章頁面載入完成 - brain-focus');
+            
+            // 設置圖片錯誤處理
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                if (!img.complete || img.naturalWidth === 0) {
+                    img.addEventListener('error', function() {
+                        console.warn('⚠️ 圖片載入失敗:', this.src);
+                        // 如果沒有 onerror 屬性，使用通用處理
+                        if (!this.onerror || this.onerror.toString().includes('handleImageError')) return;
+                        handleImageError(this, 'default');
+                    });
+                }
+            });
+        });
+    </script>
+    
+    <!-- 安全載入 main.js -->
+    <script>
+        const script = document.createElement('script');
+        script.src = '../js/main.js';
+        script.onerror = function() {
+            console.warn('⚠️ main.js 載入失敗，使用備用功能');
+        };
+        document.head.appendChild(script);
+    </script>
 </body>
 </html> 
