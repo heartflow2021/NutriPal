@@ -400,6 +400,142 @@
         budget: 0
     };
 
+    // 🎯 智能健康需求參數處理函數
+    function handlePreselectedHealthNeed() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const preselectedHealth = urlParams.get('health');
+        
+        if (preselectedHealth) {
+            console.log('🔍 檢測到預選健康需求:', preselectedHealth);
+            
+            // 尋找匹配的按鈕並自動選擇
+            const matchingButton = findMatchingHealthButton(preselectedHealth);
+            if (matchingButton) {
+                console.log('✅ 找到匹配按鈕，準備自動選擇');
+                
+                // 顯示小帕的確認對話
+                showPreselectionConfirmation(preselectedHealth);
+                
+                // 延遲自動觸發選擇流程，讓用戶看到確認
+                setTimeout(() => {
+                    matchingButton.click();
+                    
+                    // 平滑滾動到生活型態選項
+                    setTimeout(() => {
+                        const lifestyleOptions = document.getElementById('lifestyle-options');
+                        if (lifestyleOptions && lifestyleOptions.style.display !== 'none') {
+                            lifestyleOptions.scrollIntoView({ 
+                                behavior: 'smooth', 
+                                block: 'center' 
+                            });
+                        }
+                    }, 800);
+                }, 1500);
+            } else {
+                console.warn('⚠️ 無法找到匹配的健康需求按鈕:', preselectedHealth);
+            }
+        }
+    }
+
+    // 🔄 智能匹配健康需求按鈕
+    function findMatchingHealthButton(healthNeed) {
+        console.log('🔍 嘗試匹配健康需求:', healthNeed);
+        
+        // 建立健康需求對應關係表，處理命名不一致問題
+        const healthMapping = {
+            // 完全匹配的選項
+            '睡眠相關知識': '睡眠相關知識',
+            '免疫系統知識': '免疫系統知識', 
+            '大腦與認知知識': '大腦與認知知識',
+            '骨骼與關節知識': '骨骼與關節知識',
+            '心血管系統知識': '心血管系統知識',
+            '消化系統知識': '消化系統知識',
+            '女性健康知識': '女性健康知識',
+            '肝臟保健知識': '肝臟保健知識',
+            
+            // 處理命名不一致的對應關係
+            '眼睛保健知識': '視力保健知識',
+            '視力保健知識': '視力保健知識',
+            '皮膚保養知識': '其他',
+            '肌肉營養知識': '其他', 
+            '能量與活力知識': '其他',
+            '男性健康知識': '其他',
+            '抗氧化營養知識': '其他',
+            '基礎營養知識': '其他',
+            '過敏相關知識': '其他',
+            
+            // 模糊匹配規則
+            '睡眠': '睡眠相關知識',
+            '免疫': '免疫系統知識',
+            '大腦': '大腦與認知知識',
+            '認知': '大腦與認知知識',
+            '記憶': '大腦與認知知識',
+            '骨骼': '骨骼與關節知識',
+            '關節': '骨骼與關節知識',
+            '心血管': '心血管系統知識',
+            '心臟': '心血管系統知識',
+            '消化': '消化系統知識',
+            '腸胃': '消化系統知識',
+            '眼睛': '視力保健知識',
+            '視力': '視力保健知識',
+            '女性': '女性健康知識',
+            '肝臟': '肝臟保健知識'
+        };
+        
+        // 首先嘗試精確匹配
+        let mappedValue = healthMapping[healthNeed];
+        
+        // 如果沒有精確匹配，嘗試模糊匹配
+        if (!mappedValue) {
+            for (const [key, value] of Object.entries(healthMapping)) {
+                if (healthNeed.includes(key) || key.includes(healthNeed)) {
+                    mappedValue = value;
+                    console.log('🎯 模糊匹配成功:', healthNeed, '->', mappedValue);
+                    break;
+                }
+            }
+        }
+        
+        // 如果還是沒有匹配，使用原值
+        if (!mappedValue) {
+            mappedValue = healthNeed;
+            console.log('⚠️ 使用原值嘗試匹配:', mappedValue);
+        }
+        
+        const button = document.querySelector(`button[data-type="health-need"][data-value="${mappedValue}"]`);
+        console.log('🔍 查找按鈕結果:', mappedValue, button ? '找到' : '未找到');
+        
+        return button;
+    }
+
+    // 💬 顯示預選確認對話
+    function showPreselectionConfirmation(healthNeed) {
+        // 在第一個對話框後插入確認對話
+        const firstChatMessage = document.querySelector('.chat-message');
+        if (firstChatMessage) {
+            const confirmationHTML = `
+                <div class="chat-message chat-message-animated" id="preselection-confirmation" style="opacity: 0;">
+                    <div class="avatar avatar-transparent">
+                        <img src="images/mascot/palpal-avatar.png" alt="小帕" class="avatar-image">
+                    </div>
+                    <div class="chat-bubble">
+                        <p class="text-no-margin">我看到你對「<strong>${healthNeed}</strong>」特別感興趣！讓我直接為你準備相關的資訊整理～</p>
+                    </div>
+                </div>
+            `;
+            
+            firstChatMessage.insertAdjacentHTML('afterend', confirmationHTML);
+            
+            // 添加漸入動畫
+            setTimeout(() => {
+                const confirmationElement = document.getElementById('preselection-confirmation');
+                if (confirmationElement) {
+                    confirmationElement.style.opacity = '1';
+                }
+            }, 500);
+        }
+    }
+
     // 直接通過預算按鈕跳轉的函數
     function saveSelectionAndRedirect(budget, event) {
         // 阻止默認行為，我們將在保存數據後手動跳轉
@@ -473,6 +609,9 @@
 
     document.addEventListener('DOMContentLoaded', function() {
         console.log('頁面加載完成，初始化自定義事件處理');
+        
+        // 🚀 智能參數處理：處理從 index.html 傳來的健康需求參數
+        handlePreselectedHealthNeed();
         
         // 確保提交按鈕初始狀態為隱藏
         const submitContainer = document.getElementById('submit-container');
