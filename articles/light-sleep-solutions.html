@@ -8,9 +8,14 @@
     <meta name="keywords" content="淺眠,睡眠中斷,鎂,色胺酸,B群,睡眠品質,睡眠週期,入睡困難,營養素,NutriPal">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/article.css">
-    <link rel="stylesheet" href="../css/article.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="../icon_pal.ico" type="image/x-icon">
+    
+    <!-- 優化外部資源載入 -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"></noscript>
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 </head>
 <body>
     <!-- 頂部簡化免責聲明 -->
@@ -56,7 +61,7 @@
                 <img src="../images/articles/light-sleep-solutions.png" 
                      alt="淺眠易醒解決方案" 
                      class="article-image"
-                     onerror="this.src='https://images.unsplash.com/photo-1585424520010-dbf5e1677a69?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&ixid=MnwxfDB8MXxyYW5kb218MHx8c2xlZXB8fHx8fHwxNjgzMTY0NDU5&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=600'; this.onerror='';">
+                     onerror="handleImageError(this, 'sleep')">
             </header>
             
             <div class="article-content">
@@ -170,9 +175,10 @@
             
             <!-- 相關文章卡片 1 -->
             <div class="article-card">
-                <img src="https://images.unsplash.com/photo-1585424520010-dbf5e1677a69?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=MnwxfDB8MXxyYW5kb218MHx8c2xlZXB8fHx8fHwxNjgzMTY0NDYw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=60" 
-                     alt="睡眠營養素" 
-                     class="article-card-image">
+                <img src="../images/articles/golden-sleep-nutrients.png" 
+                     alt="打造黃金睡眠力" 
+                     class="article-card-image"
+                     onerror="handleImageError(this, 'sleep')">
                 <div class="article-card-content">
                     <h3 class="article-card-title">打造黃金睡眠力：3種營養素幫助你放鬆入眠</h3>
                     <div class="article-card-meta">睡眠知識 · 閱讀量：2,356</div>
@@ -181,9 +187,10 @@
             
             <!-- 相關文章卡片 2 -->
             <div class="article-card">
-                <img src="https://images.unsplash.com/photo-1534353473418-4cfa6c56fd38?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=MnwxfDB8MXxyYW5kb218MHx8c3RyZXNzfHx8fHx8MTYzMjE2NDUyMQ&ixlib=rb-4.0.3&q=80" 
-                     alt="睡眠與壓力" 
-                     class="article-card-image">
+                <img src="../images/articles/stress-sleep.png" 
+                     alt="睡眠與壓力關係" 
+                     class="article-card-image"
+                     onerror="handleImageError(this, 'sleep')">
                 <div class="article-card-content">
                     <h3 class="article-card-title">晚睡的人更容易累積壓力？認識睡眠與壓力的關係</h3>
                     <div class="article-card-meta">睡眠知識 · 閱讀量：1,895</div>
@@ -192,11 +199,12 @@
             
             <!-- 相關文章卡片 3 -->
             <div class="article-card">
-                <img src="https://images.unsplash.com/photo-1594007654729-407eedc4fe24?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=60&ixid=MnwxfDB8MXxyYW5kb218MHx8bWFnbmVzaXVtfHx8fHx8MTY4MzE2NDU4Nw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=60" 
-                     alt="鎂與睡眠" 
-                     class="article-card-image">
+                <img src="../images/articles/shallow-sleep-solution.png" 
+                     alt="淺眠解決方案" 
+                     class="article-card-image"
+                     onerror="handleImageError(this, 'sleep')">
                 <div class="article-card-content">
-                    <h3 class="article-card-title">鎂與睡眠品質：營養素知識解析</h3>
+                    <h3 class="article-card-title">解決淺眠困擾：營養素知識解析</h3>
                     <div class="article-card-meta">睡眠知識 · 閱讀量：1,328</div>
                 </div>
             </div>
@@ -260,12 +268,72 @@
             }
         }
         
+        // 🖼️ 智能圖片錯誤處理函數
+        function handleImageError(img, category) {
+            console.warn('⚠️ 圖片載入失敗:', img.src);
+            
+            // 根據分類提供不同的備用圖片
+            const fallbackImages = {
+                'sleep': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRTNGMkZEIiByeD0iOCIvPgo8Y2lyY2xlIGN4PSI0MCIgY3k9IjQwIiByPSIxNiIgZmlsbD0iIzMzNzNEQyIvPgo8cGF0aCBkPSJNMzIgNDBIMzZWNDRIMzJWNDBaTTQ0IDQwSDQ4VjQ0SDQ0VjQwWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTM0IDUwSDQ2IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8dGV4dCB4PSI0MCIgeT0iNzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM2Njc0ODEiIGZvbnQtc2l6ZT0iMTAiPuedoeecoCwKPC90ZXh0Pgo8L3N2Zz4=',
+                'default': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik00MCA0MEM0Ni42Mjc0IDQwIDUyIDM0LjYyNzQgNTIgMjhDNTIgMjEuMzcyNiA0Ni42Mjc0IDE2IDQwIDE2QzMzLjM3MjYgMTYgMjggMjEuMzcyNiAyOCAyOEMyOCAzNC42Mjc0IDMzLjM3MjYgNDAgNDAgNDBaIiBmaWxsPSIjQ0NDQ0NDIi8+CjxwYXRoIGQ9Ik0xNiA2NEwzMiA0OEw0OCA2NEg2NEw0OCA0OEw2NCAzMkg0OEwzMiA0OEwxNiAzMlYzMkwxNiA2NFoiIGZpbGw9IiNDQ0NDQ0MiLz4KPHRleHQgeD0iNDAiIHk9IjcwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNjY3NDgxIiBmb250LXNpemU9IjEwIj5OdXRyaVBhbDwvdGV4dD4KPC9zdmc+'
+            };
+            
+            // 嘗試重試載入 2 次
+            let retryCount = 0;
+            const maxRetries = 2;
+            
+            function attemptReload() {
+                retryCount++;
+                console.log(`🔄 重試載入圖片 (第 ${retryCount} 次):`, img.src);
+                
+                const newImg = new Image();
+                newImg.onload = function() {
+                    img.src = this.src;
+                    console.log('✅ 圖片重新載入成功:', this.src);
+                };
+                
+                newImg.onerror = function() {
+                    if (retryCount < maxRetries) {
+                        console.log(`❌ 第 ${retryCount} 次重試失敗，${2000 * retryCount}ms 後再次重試...`);
+                        setTimeout(attemptReload, 2000 * retryCount);
+                    } else {
+                        console.log('❌ 所有重試失敗，使用備用圖片');
+                        img.src = fallbackImages[category] || fallbackImages.default;
+                        img.onerror = null; // 防止無限循環
+                    }
+                };
+                
+                newImg.src = img.src;
+            }
+            
+            // 開始重試
+            attemptReload();
+        }
+
+        // 🚨 全域錯誤處理
+        window.addEventListener('error', function(event) {
+            console.error('🚨 頁面錯誤:', event.error);
+        });
+        
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('🚨 未處理的 Promise 拒絕:', event.reason);
+        });
+
         // 頁面載入時執行
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('文章詳情頁面已載入');
+            console.log('📖 淺眠文章頁面載入完成 - light-sleep-solutions');
             
-            // 已移除對話框動畫代碼
-            }
+            // 設置圖片錯誤處理
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                if (!img.complete || img.naturalWidth === 0) {
+                    img.addEventListener('error', function() {
+                        console.warn('⚠️ 圖片載入失敗:', this.src);
+                        if (!this.onerror || this.onerror.toString().includes('handleImageError')) return;
+                        handleImageError(this, 'sleep');
+                    });
+                }
+            });
             
             // 解析URL參數
             const urlParams = new URLSearchParams(window.location.search);
@@ -276,18 +344,20 @@
             const articleCards = document.querySelectorAll('.article-card');
             articleCards.forEach((card, index) => {
                 card.addEventListener('click', function() {
-                    // 這裡可以根據索引或其他邏輯來決定目標文章
+                    // 更新為實際存在的文章
                     const targetArticles = [
                         'golden-sleep-nutrients', 
                         'stress-sleep', 
-                        'magnesium-sleep'
+                        'shallow-sleep-solution'
                     ];
                     
                     if (index < targetArticles.length) {
                         if (targetArticles[index] === 'golden-sleep-nutrients') {
-                            window.location.href = '../articles/golden-sleep-nutrients.html';
+                            window.location.href = 'golden-sleep-nutrients.html';
                         } else if (targetArticles[index] === 'stress-sleep') {
                             window.location.href = 'stress-sleep.html';
+                        } else if (targetArticles[index] === 'shallow-sleep-solution') {
+                            window.location.href = 'shallow-sleep-solution.html';
                         } else {
                             alert('這篇文章的詳情頁即將上線，敬請期待！');
                         }
@@ -298,7 +368,15 @@
             });
         });
     </script>
-    <!-- 添加 main.js 引用 -->
-    <script src="../js/main.js"></script>
+    
+    <!-- 安全載入 main.js -->
+    <script>
+        const script = document.createElement('script');
+        script.src = '../js/main.js';
+        script.onerror = function() {
+            console.warn('⚠️ main.js 載入失敗，使用備用功能');
+        };
+        document.head.appendChild(script);
+    </script>
 </body>
 </html> 
