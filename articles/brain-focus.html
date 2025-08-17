@@ -343,6 +343,57 @@
             attemptReload();
         }
         
+        // 🚨 525 SSL 錯誤專用處理
+        function handle525Error() {
+            console.error('🔥 檢測到 525 SSL 錯誤');
+            
+            // 顯示用戶友好的錯誤提示
+            const errorNotice = document.createElement('div');
+            errorNotice.id = 'ssl-error-notice';
+            errorNotice.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+                color: white;
+                padding: 12px 16px;
+                z-index: 9999;
+                font-size: 14px;
+                text-align: center;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            `;
+            
+            errorNotice.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: center; gap: 12px;">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>網站正在進行 SSL 連接優化，請稍後重試</span>
+                    <button onclick="location.reload()" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">
+                        重新載入
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(errorNotice);
+            
+            // 5 秒後自動重新載入
+            setTimeout(() => {
+                location.reload();
+            }, 5000);
+        }
+        
+        // 監聽 525 錯誤
+        window.addEventListener('error', function(event) {
+            if (event.message && event.message.includes('525')) {
+                handle525Error();
+            }
+        });
+        
+        // 檢查當前頁面是否為 525 錯誤頁面
+        if (document.title.includes('525') || document.body.textContent.includes('SSL handshake failed')) {
+            handle525Error();
+        }
+        
         // 📍 頁面載入完成後檢查資源
         document.addEventListener('DOMContentLoaded', function() {
             console.log('📖 文章頁面載入完成 - brain-focus');
