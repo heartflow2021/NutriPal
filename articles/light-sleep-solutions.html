@@ -60,8 +60,7 @@
                 </div>
                 <img src="../images/articles/light-sleep-solutions.png" 
                      alt="淺眠易醒解決方案" 
-                     class="article-image"
-                     onerror="handleImageError(this, 'sleep')">
+                     class="article-image">
             </header>
             
             <div class="article-content">
@@ -177,8 +176,7 @@
             <div class="article-card">
                 <img src="../images/articles/golden-sleep-nutrients.png" 
                      alt="打造黃金睡眠力" 
-                     class="article-card-image"
-                     onerror="handleImageError(this, 'sleep')">
+                     class="article-card-image">
                 <div class="article-card-content">
                     <h3 class="article-card-title">打造黃金睡眠力：3種營養素幫助你放鬆入眠</h3>
                     <div class="article-card-meta">睡眠知識 · 閱讀量：2,356</div>
@@ -189,8 +187,7 @@
             <div class="article-card">
                 <img src="../images/articles/stress-sleep.png" 
                      alt="睡眠與壓力關係" 
-                     class="article-card-image"
-                     onerror="handleImageError(this, 'sleep')">
+                     class="article-card-image">
                 <div class="article-card-content">
                     <h3 class="article-card-title">晚睡的人更容易累積壓力？認識睡眠與壓力的關係</h3>
                     <div class="article-card-meta">睡眠知識 · 閱讀量：1,895</div>
@@ -201,8 +198,7 @@
             <div class="article-card">
                 <img src="../images/articles/shallow-sleep-solution.png" 
                      alt="淺眠解決方案" 
-                     class="article-card-image"
-                     onerror="handleImageError(this, 'sleep')">
+                     class="article-card-image">
                 <div class="article-card-content">
                     <h3 class="article-card-title">解決淺眠困擾：營養素知識解析</h3>
                     <div class="article-card-meta">睡眠知識 · 閱讀量：1,328</div>
@@ -252,23 +248,7 @@
     </footer>
     
     <script>
-        // 文章分享功能
-        function shareArticle() {
-            // 檢查是否支援 Web Share API
-            if (navigator.share) {
-                navigator.share({
-                    title: '淺眠易醒怎麼辦？從作息與營養找到根源 | NutriPal',
-                    text: '探索淺眠與中斷性睡眠的原因，以及通過作息調整、營養補充等方法改善睡眠品質，幫助你找回真正的休息感。',
-                    url: window.location.href,
-                })
-                .catch(console.error);
-            } else {
-                // 不支援則顯示簡單提示
-                alert('您可以複製網址分享給朋友：' + window.location.href);
-            }
-        }
-        
-        // 🖼️ 智能圖片錯誤處理函數
+        // 🖼️ 智能圖片錯誤處理函數 - 全域可用
         function handleImageError(img, category) {
             console.warn('⚠️ 圖片載入失敗:', img.src);
             
@@ -310,6 +290,22 @@
             attemptReload();
         }
 
+        // 文章分享功能
+        function shareArticle() {
+            // 檢查是否支援 Web Share API
+            if (navigator.share) {
+                navigator.share({
+                    title: '淺眠易醒怎麼辦？從作息與營養找到根源 | NutriPal',
+                    text: '探索淺眠與中斷性睡眠的原因，以及通過作息調整、營養補充等方法改善睡眠品質，幫助你找回真正的休息感。',
+                    url: window.location.href,
+                })
+                .catch(console.error);
+            } else {
+                // 不支援則顯示簡單提示
+                alert('您可以複製網址分享給朋友：' + window.location.href);
+            }
+        }
+        
         // 🚨 全域錯誤處理
         window.addEventListener('error', function(event) {
             console.error('🚨 頁面錯誤:', event.error);
@@ -326,12 +322,22 @@
             // 設置圖片錯誤處理
             const images = document.querySelectorAll('img');
             images.forEach(img => {
-                if (!img.complete || img.naturalWidth === 0) {
-                    img.addEventListener('error', function() {
-                        console.warn('⚠️ 圖片載入失敗:', this.src);
-                        if (!this.onerror || this.onerror.toString().includes('handleImageError')) return;
-                        handleImageError(this, 'sleep');
-                    });
+                // 為每個圖片添加錯誤處理
+                img.addEventListener('error', function() {
+                    console.warn('⚠️ 圖片載入失敗:', this.src);
+                    // 避免重複處理
+                    if (this.dataset.errorHandled) return;
+                    this.dataset.errorHandled = 'true';
+                    handleImageError(this, 'sleep');
+                });
+                
+                // 檢查已載入的圖片是否有問題
+                if (img.complete && img.naturalWidth === 0) {
+                    console.warn('⚠️ 圖片載入失敗 (已載入但無效):', img.src);
+                    if (!img.dataset.errorHandled) {
+                        img.dataset.errorHandled = 'true';
+                        handleImageError(img, 'sleep');
+                    }
                 }
             });
             
