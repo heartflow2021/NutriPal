@@ -280,14 +280,15 @@
             articleCards.forEach((card, index) => {
                 card.addEventListener('click', function() {
                     // 這裡可以根據索引或其他邏輯來決定目標文章
+                    // 改為跳轉到實際存在的文章頁面
                     const targetArticles = [
-                        'omega3-brain', 
-                        'memory-foods', 
-                        'stress-focus'
+                        'stress-sleep.html',      // 壓力與睡眠文章 
+                        'golden-sleep-nutrients.html',  // 睡眠營養文章
+                        'light-sleep-solutions.html'    // 淺眠解決方案文章
                     ];
                     
                     if (index < targetArticles.length) {
-                        window.location.href = '../articles/article-detail.html?id=' + targetArticles[index];
+                        window.location.href = targetArticles[index];
                     } else {
                         alert('這篇文章的詳情頁即將上線，敬請期待！');
                     }

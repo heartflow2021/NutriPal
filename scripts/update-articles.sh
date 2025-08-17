@@ -6,7 +6,7 @@ echo "開始處理文章頁面樣式優化..."
 # 遍歷文章目錄下的所有HTML文件
 for file in articles/*.html; do
   # 忽略已處理的文件和模板文件
-  if [[ "$file" == "articles/cardiovascular-office-risk.html" || "$file" == "articles/article-template.html" ]]; then
+  if [[ "$file" == "articles/cardiovascular-office-risk.html" || "$file" == "templates/article-template.html" ]]; then
     echo "跳過已處理文件: $file"
     continue
   fi

@@ -8,7 +8,7 @@ echo "🚀 開始修復文章頁面 525 錯誤問題..."
 # 遍歷所有文章 HTML 文件
 for file in articles/*.html; do
   # 跳過模板文件
-  if [[ "$file" == "articles/article-template.html" || "$file" == "articles/article-detail.html" ]]; then
+  if [[ "$file" == "templates/article-template.html" || "$file" == "templates/melatonin-article.html" ]]; then
     echo "⏭️  跳過模板文件: $file"
     continue
   fi

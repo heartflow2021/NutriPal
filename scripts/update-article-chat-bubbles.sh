@@ -6,7 +6,7 @@ echo "開始清理所有文章中的小帕提醒對話框內聯樣式..."
 # 遍歷文章目錄下的所有HTML文件
 for file in articles/*.html; do
   # 跳過模板文件
-  if [[ "$file" == "articles/article-template.html" ]]; then
+  if [[ "$file" == "templates/article-template.html" ]]; then
     echo "跳過模板文件: $file"
     continue
   fi
